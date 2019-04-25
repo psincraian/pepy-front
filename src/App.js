@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './api/config';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import Project from './container/Project';
+import { defaultTheme } from './shared/theme';
+import Index from './container/Index';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const store = ConfigureStore();
+
+class App extends Component {
+  render() {
+    const ProjectContainer = ({ match }) => {
+      return <Project projectId={match.params.projectId} />;
+    };
+
+    return (
+      <Provider store={store}>
+        <Router>
+          <MuiThemeProvider theme={defaultTheme}>
+            <Switch>
+              <Route exact path="/" component={Index} />
+              <Route path="/project/:projectId" component={ProjectContainer} />
+            </Switch>
+          </MuiThemeProvider>
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 export default App;
