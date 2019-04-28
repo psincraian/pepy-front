@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { fetchProject } from '../api/project';
-import { Grid, withStyles, Typography } from '@material-ui/core';
+import { Grid, withStyles, Typography, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { FETCHING_STATUS } from '../api/constants';
 import DownloadsComponent from '../components/DownloadsComponent';
@@ -51,7 +51,7 @@ class Project extends Component {
         const { classes } = this.props;
 
         if (this.props.project.status !== FETCHING_STATUS.fetched) {
-            return <>Fetching</>;
+            return <><CircularProgress /></>;
         }
 
         return (
