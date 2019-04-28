@@ -1,4 +1,9 @@
 [[redirects]]
+  from = "/badge/*"
+  to = "https://pepy.tech/badge/:splat"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
