@@ -6,4 +6,4 @@ export const FETCHING_STATUS = {
     error: 3,
 };
 
-export const BASE_URL = 'https://pepy.tech/api/';
+export const BASE_URL = 'https://api.pepy.tech/api/';
