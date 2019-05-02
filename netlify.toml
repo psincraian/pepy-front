@@ -4,6 +4,11 @@
   status = 200
 
 [[redirects]]
+  from = "/count/*"
+  to = "https://www.pepy.tech/project/:splat"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
