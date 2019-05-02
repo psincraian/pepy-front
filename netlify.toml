@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/badge/*"
-  to = "https://pepy.tech/badge/:splat"
+  to = "https://api.pepy.tech/badge/:splat"
   status = 200
 
 [[redirects]]
