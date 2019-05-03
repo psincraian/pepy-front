@@ -4,7 +4,7 @@ import CodeBlock from './CodeBlock';
 
 function BadgesComponent(props) {
   return (
-    <Card>
+    <Card data-cy="badges">
       <CardHeader title="Badges" />
       <CardContent>
         <Grid container spacing={8} alignItems="center">

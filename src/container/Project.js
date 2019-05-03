@@ -89,10 +89,10 @@ class Project extends Component {
             />
           </Grid>
           <Grid item xs={12}>
-            <BadgesComponent project={this.props.project.id} />
+            <BadgesComponent project={this.props.project.id}/>
           </Grid>
           <Grid item xs={12}>
-            <DownloadsComponent downloads={this.props.project.downloads} />
+            <DownloadsComponent downloads={this.props.project.downloads}/>
           </Grid>
         </Grid>
       </>

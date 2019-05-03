@@ -29,7 +29,7 @@ class DownloadsComponent extends Component {
     );
     const buttonText = this.state.showMore ? 'Show fewer' : 'Show more';
     return (
-      <Card>
+      <Card data-cy="downloads">
         <CardHeader title="Last downloads" />
         <CardContent>
           <Grid container justify="center">

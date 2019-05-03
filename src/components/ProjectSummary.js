@@ -4,7 +4,7 @@ import { Card, CardContent, Grid, CardHeader } from '@material-ui/core';
 function ProjectSummary(props) {
   const pypiLink = 'https://pypi.org/project/' + props.name;
   return (
-    <Card>
+    <Card data-cy="summary">
       <CardHeader title="Summary" />
       <CardContent>
         <Grid container spacing={8}>

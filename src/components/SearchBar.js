@@ -65,11 +65,13 @@ class SearchBar extends Component {
             className={classes.input}
             placeholder="Search a Python project"
             value={this.props.value}
+            data-cy="search-input"
           />
           <IconButton
             className={classes.iconButton}
             aria-label="Search"
             onClick={this.handleRequestSearch}
+            data-cy="search-button"
           >
             <SearchIcon />
           </IconButton>
