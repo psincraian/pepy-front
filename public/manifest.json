@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "PePy",
+  "name": "PePy - Python packages download stats",
   "icons": [
     {
       "src": "favicon.ico",
