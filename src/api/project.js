@@ -5,66 +5,63 @@ const SHOW_PROJECT = 'SHOW_PROJECT';
 const LOAD_PROJECT = 'LOAD_PROJECT';
 
 // Actions
-export const fetchProject = (projectId) => dispatch => {
-    var url =
-        BASE_URL +
-        'projects/' +
-        projectId;
+export const fetchProject = projectId => dispatch => {
+  var url = BASE_URL + 'projects/' + projectId;
 
-    dispatch(loadProject());
-    return fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(
-            response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    var error = new Error(
-                        'Error ' + response.status + ': ' + response.statusText
-                    );
-                    error.response = response;
-                    throw error;
-                }
-            },
-            error => {
-                var errorMessage = new Error(error.errorMessage);
-                throw errorMessage;
-            }
-        )
-        .then(response => response.json())
-        .then(response => dispatch(showProject(response)))
-        .catch(error => {
-            if (error.response !== undefined && error.response.status === 404) {
-                dispatch(error404());
-            }
-        });
+  dispatch(loadProject());
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(
+      response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            'Error ' + response.status + ': ' + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        var errorMessage = new Error(error.errorMessage);
+        throw errorMessage;
+      }
+    )
+    .then(response => response.json())
+    .then(response => dispatch(showProject(response)))
+    .catch(error => {
+      if (error.response !== undefined && error.response.status === 404) {
+        dispatch(error404());
+      }
+    });
 };
 
 export const showProject = data => ({
-    type: SHOW_PROJECT,
-    payload: data,
+  type: SHOW_PROJECT,
+  payload: data,
 });
 
 export const loadProject = () => ({
-    type: LOAD_PROJECT,
-})
+  type: LOAD_PROJECT,
+});
 
 export const Project = (
-    state = {
-        status: FETCHING_STATUS.noData,
-    },
-    action
+  state = {
+    status: FETCHING_STATUS.noData,
+  },
+  action
 ) => {
-    switch (action.type) {
-        case SHOW_PROJECT:
-            return { ...state, ...action.payload, status: FETCHING_STATUS.fetched };
-        case LOAD_PROJECT:
-            return { status: FETCHING_STATUS.fetching } 
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SHOW_PROJECT:
+      return { ...state, ...action.payload, status: FETCHING_STATUS.fetched };
+    case LOAD_PROJECT:
+      return { status: FETCHING_STATUS.fetching };
+    default:
+      return state;
+  }
 };

@@ -25,7 +25,7 @@ const styles = theme => ({
     margin: 4,
   },
   findLocationContainer: {
-    padding: "100px",
+    padding: '100px',
   },
 });
 
@@ -33,7 +33,7 @@ class SearchBar extends Component {
   state = {
     locationOpen: false,
     query: '',
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -49,9 +49,9 @@ class SearchBar extends Component {
     this.props.onSearch(this.state.query);
   };
 
-  handleOnChange = (e) => {
-      this.setState({query: e.target.value});
-  }
+  handleOnChange = e => {
+    this.setState({ query: e.target.value });
+  };
 
   render() {
     const { classes } = this.props;

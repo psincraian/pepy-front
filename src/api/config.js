@@ -4,11 +4,11 @@ import { Project } from './project';
 import { Errors } from './errors';
 
 export const ConfigureStore = () => {
-    return createStore(
-        combineReducers({
-            project: Project,
-            errors: Errors,
-        }),
-        applyMiddleware(thunk)
-    );
-}
+  return createStore(
+    combineReducers({
+      project: Project,
+      errors: Errors,
+    }),
+    applyMiddleware(thunk)
+  );
+};
