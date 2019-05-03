@@ -2,6 +2,7 @@ import { error404 } from './errors';
 import { BASE_URL, FETCHING_STATUS } from './constants';
 
 const SHOW_PROJECT = 'SHOW_PROJECT';
+const LOAD_PROJECT = 'LOAD_PROJECT';
 
 // Actions
 export const fetchProject = (projectId) => dispatch => {
@@ -10,6 +11,7 @@ export const fetchProject = (projectId) => dispatch => {
         'projects/' +
         projectId;
 
+    dispatch(loadProject());
     return fetch(url, {
         method: 'GET',
         headers: {
@@ -47,6 +49,10 @@ export const showProject = data => ({
     payload: data,
 });
 
+export const loadProject = () => ({
+    type: LOAD_PROJECT,
+})
+
 export const Project = (
     state = {
         status: FETCHING_STATUS.noData,
@@ -56,6 +62,8 @@ export const Project = (
     switch (action.type) {
         case SHOW_PROJECT:
             return { ...state, ...action.payload, status: FETCHING_STATUS.fetched };
+        case LOAD_PROJECT:
+            return { status: FETCHING_STATUS.fetching } 
         default:
             return state;
     }

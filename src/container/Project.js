@@ -51,7 +51,16 @@ class Project extends Component {
         const { classes } = this.props;
 
         if (this.props.project.status !== FETCHING_STATUS.fetched) {
-            return <><CircularProgress /></>;
+            return (
+                <>
+                <SearchAppBar />
+                <Grid container className={classes.layout} justify="center">
+                    <Grid item>
+                        <CircularProgress />
+                    </Grid>
+                </Grid>
+                </>
+            );
         }
 
         return (
