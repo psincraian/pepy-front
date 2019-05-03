@@ -34,7 +34,7 @@ class Index extends Component {
                     <Grid item xs={12}>
                         <Typography align="center" component="h2" variant="h2">PePy</Typography>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} sm={8}>
                         <SearchBar onSearch={this.handleSearch} />
                     </Grid>
                 </Grid>
