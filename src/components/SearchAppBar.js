@@ -7,6 +7,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter, Link } from 'react-router-dom';
+import GithubIcon from './GithubIcon';
 
 const styles = theme => ({
   root: {
@@ -66,6 +67,9 @@ const styles = theme => ({
     textDecoration: 'none',
     color: 'inherit',
   },
+  githubIcon: {
+    marginLeft: theme.spacing.unit * 2,
+  },
 });
 
 class SearchAppBar extends Component {
@@ -119,6 +123,9 @@ class SearchAppBar extends Component {
                 }}
                 onKeyDown={this.handleKeyPress}
               />
+            </div>
+            <div className={classes.githubIcon}>
+              <a href="https://github.com/psincraian/pepy"><GithubIcon color="white" /></a>
             </div>
           </Toolbar>
         </AppBar>
