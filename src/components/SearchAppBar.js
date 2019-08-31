@@ -17,6 +17,8 @@ const styles = theme => ({
     flexGrow: 1,
   },
   title: {
+    textDecoration: 'none',
+    color: 'inherit',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -29,15 +31,15 @@ const styles = theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
+      marginLeft: theme.spacing(),
       width: 'auto',
     },
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -50,10 +52,10 @@ const styles = theme => ({
     width: '100%',
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingTop: theme.spacing(),
+    paddingRight: theme.spacing(),
+    paddingBottom: theme.spacing(),
+    paddingLeft: theme.spacing(10),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -63,12 +65,8 @@ const styles = theme => ({
       },
     },
   },
-  title: {
-    textDecoration: 'none',
-    color: 'inherit',
-  },
   githubIcon: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
 });
 
