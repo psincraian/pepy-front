@@ -18,19 +18,19 @@ function ProjectSummary(props) {
             Total downloads
           </Grid>
           <Grid item xs={6}>
-            {props.totalDownloads}
+            {props.totalDownloads.toLocaleString()}
           </Grid>
           <Grid item xs={6}>
             Total downloads - 30 days
           </Grid>
           <Grid item xs={6}>
-            {props.totalDownloads30Days}
+            {props.totalDownloads30Days.toLocaleString()}
           </Grid>
           <Grid item xs={6}>
             Total downloads - 7 days
           </Grid>
           <Grid item xs={6}>
-            {props.totalDownloads7Days}
+            {props.totalDownloads7Days.toLocaleString()}
           </Grid>
         </Grid>
       </CardContent>

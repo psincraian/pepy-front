@@ -48,7 +48,7 @@ class DownloadsComponent extends Component {
                         {date}
                       </TableCell>
                       <TableCell align="right">
-                        {this.props.downloads[date]}
+                        {this.props.downloads[date].toLocaleString()}
                       </TableCell>
                     </TableRow>
                   ))}
