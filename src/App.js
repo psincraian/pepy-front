@@ -9,6 +9,7 @@ import Index from './container/Index';
 import ReactGA from 'react-ga';
 import { createBrowserHistory } from 'history';
 import * as Sentry from '@sentry/browser';
+import About from './container/About';
 
 const store = ConfigureStore();
 
@@ -39,6 +40,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Index} />
               <Route path="/project/:projectId" component={ProjectContainer} />
+              <Route path="/about" component={About} />
             </Switch>
           </MuiThemeProvider>
         </Router>

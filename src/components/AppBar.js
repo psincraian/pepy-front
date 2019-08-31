@@ -14,6 +14,11 @@ const styles = theme => ({
   title: {
     textDecoration: 'none',
     color: 'inherit',
+    flexGrow: 1
+  },
+  section: {
+    textDecoration: 'none',
+    color: 'inherit',
   },
 });
 
@@ -33,6 +38,15 @@ class AppBar extends Component {
                 noWrap
               >
                 PePy
+              </Typography>
+            </Link>
+            <Link to="/about" className={classes.section}>
+              <Typography
+                variant="h6"
+                color="inherit"
+                noWrap
+              >
+                About
               </Typography>
             </Link>
           </Toolbar>
