@@ -7,7 +7,7 @@ function BadgesComponent(props) {
     <Card data-cy="badges">
       <CardHeader title="Badges" />
       <CardContent>
-        <Grid container spacing={8} alignItems="center">
+        <Grid container spacing={1} alignItems="center">
           <Grid item xs={6}>
             <img
               alt="Total downloads for the project"

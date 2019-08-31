@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import { Tooltip } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -34,10 +33,6 @@ class SearchBar extends Component {
     locationOpen: false,
     query: '',
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   handleKeyPress = e => {
     if (e.charCode === 13 || e.key === 'Enter') {

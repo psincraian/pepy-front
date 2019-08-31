@@ -16,11 +16,11 @@ import SearchAppBar from '../components/SearchAppBar';
 const styles = theme => ({
   layout: {
     width: 'auto',
-    paddingBottom: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
+    paddingBottom: theme.spacing(2),
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -70,7 +70,7 @@ class Project extends Component {
     return (
       <>
         <SearchAppBar />
-        <Grid container className={classes.layout} spacing={8}>
+        <Grid container className={classes.layout} spacing={2}>
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
               {this.props.project.id}
