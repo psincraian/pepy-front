@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import AppBar from '../components/AppBar';
 import SearchBar from '../components/SearchBar';
+import {Helmet} from "react-helmet";
 
 const styles = theme => ({
   layout: {
@@ -28,13 +29,15 @@ class Index extends Component {
 
     return (
       <>
+        <Helmet>
+          <title>PePy - Python Package Download Stats</title>
+          <meta
+            name="description"
+            content="PePy is a website to view the download stats of python packages by day, week or month. You can also see some badges that can be inserted in your README.md to show your awesome project."
+          />
+        </Helmet>
         <AppBar />
-        <Grid
-          container
-          className={classes.layout}
-          justify="center"
-          spacing={4}
-        >
+        <Grid container className={classes.layout} justify="center" spacing={4}>
           <Grid item xs={12}>
             <Typography align="center" component="h2" variant="h2">
               PePy

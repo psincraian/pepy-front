@@ -123,7 +123,9 @@ class SearchAppBar extends Component {
               />
             </div>
             <div className={classes.githubIcon}>
-              <a href="https://github.com/psincraian/pepy"><GithubIcon color="white" /></a>
+              <a href="https://github.com/psincraian/pepy">
+                <GithubIcon color="white" />
+              </a>
             </div>
           </Toolbar>
         </AppBar>

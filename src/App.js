@@ -14,7 +14,9 @@ const store = ConfigureStore();
 
 if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('UA-115993635-1');
-  Sentry.init({dsn: "https://a43da4d2db724dd1b7dd57346c47a880@sentry.io/1501896"});
+  Sentry.init({
+    dsn: 'https://a43da4d2db724dd1b7dd57346c47a880@sentry.io/1501896',
+  });
 }
 
 const browserHistory = createBrowserHistory();
