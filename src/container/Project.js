@@ -12,6 +12,7 @@ import DownloadsComponent from '../components/DownloadsComponent';
 import ProjectSummary from '../components/ProjectSummary';
 import BadgesComponent from '../components/BadgesComponent';
 import SearchAppBar from '../components/SearchAppBar';
+import { Helmet } from 'react-helmet';
 
 const styles = theme => ({
   layout: {
@@ -69,6 +70,19 @@ class Project extends Component {
 
     return (
       <>
+        <Helmet>
+          <title>PePy - {this.props.project.id} Download Stats</title>
+          <meta
+            name="description"
+            content={
+              'Check the download stats of ' +
+              this.props.project.id +
+              ' library. It has a total of ' +
+              this.props.project.total_downloads +
+              ' downloads.'
+            }
+          />
+        </Helmet>
         <SearchAppBar />
         <Grid container className={classes.layout} spacing={2}>
           <Grid item xs={12}>

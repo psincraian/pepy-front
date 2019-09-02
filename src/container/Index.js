@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import AppBar from '../components/AppBar';
 import SearchBar from '../components/SearchBar';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet';
 
 const styles = theme => ({
   layout: {
