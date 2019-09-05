@@ -8,11 +8,11 @@ import {
 const styles = theme => ({
   layout: {
     width: 'auto',
-    paddingBottom: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
+    paddingBottom: theme.spacing(2),
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -29,19 +29,19 @@ class About extends Component {
         <SearchAppBar />
         <div className={classes.layout}>
           <Typography variant="h6">Where the downloads come from?</Typography>
-          <Typography paragraph="true">
+          <Typography paragraph={true}>
             The data is retrieved from the official BigQuery repository: https://packaging.python.org/guides/analyzing-pypi-package-downloads/
           </Typography>
           <Typography variant="h6">When the data is updated?</Typography>
-          <Typography paragraph="true">
+          <Typography paragraph={true}>
             There is a cron that runs every day at 5 pm UTC that retrieves all the new downloads from the previous day.
           </Typography>
           <Typography variant="h6">Who is the creator of PePy.tech?</Typography>
-          <Typography paragraph="true">
+          <Typography paragraph={true}>
             Petru Rares Sincraian <Link href="https://twitter.com/psincraian">(@psincraian)</Link> started the project.
           </Typography>
           <Typography variant="h6">Can I participate to improve the website?</Typography>
-          <Typography paragraph="true">
+          <Typography paragraph={true}>
             Of course, all the code is open source and you can contribute reporting issues or coding :-)
           </Typography>
         </div>

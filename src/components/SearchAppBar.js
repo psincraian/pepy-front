@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,10 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import InfoIcon from '@material-ui/icons/Info';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
@@ -82,44 +80,19 @@ const useStyles = makeStyles(theme => ({
 
 function SearchAppBar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  function handleProfileMenuOpen(event) {
-    setAnchorEl(event.currentTarget);
-  }
 
   function handleMobileMenuClose() {
     setMobileMoreAnchorEl(null);
-  }
-
-  function handleMenuClose() {
-    setAnchorEl(null);
-    handleMobileMenuClose();
   }
 
   function handleMobileMenuOpen(event) {
     setMobileMoreAnchorEl(event.currentTarget);
   }
 
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
+  const AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -132,32 +105,17 @@ function SearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
+      <MenuItem component="a" href="https://github.com/psincraian/pepy">
+        <IconButton aria-label="Source Code" color="inherit">
+          <GithubIcon />
         </IconButton>
-        <p>Messages</p>
+        <p>Github</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
+      <MenuItem component={AdapterLink} href="/about">
+        <IconButton aria-label="FAQ" color="inherit" component={AdapterLink} to="/about">
+          <InfoIcon />
         </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+        <p>FAQ</p>
       </MenuItem>
     </Menu>
   );
@@ -166,16 +124,8 @@ function SearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            PePy
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -192,25 +142,11 @@ function SearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
+            <IconButton aria-label="Source code" color="inherit" component="a" href="https://github.com/psincraian/pepy">
+                <GithubIcon color="white" />
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
+            <IconButton aria-label="FAQ" color="inherit" component={AdapterLink} to="/about">
+              <InfoIcon />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -227,7 +163,6 @@ function SearchAppBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </div>
   );
 }
