@@ -27,7 +27,6 @@ class About extends Component {
         return (
         <>
             <SearchAppBar />
-            <Grid container className={classes.layout} justify="center">
             <Typography variant="h2">Where the downloads come from?</Typography>
             <Typography>
                 The data is retrieved from the official BigQuery repository: https://packaging.python.org/guides/analyzing-pypi-package-downloads/
@@ -36,7 +35,6 @@ class About extends Component {
             <Typography>
                 There is a cron that runs every day at 5 pm UTC that retrieves all the new downloads from the previous day.
             </Typography>
-            </Grid>
         </>
         );
     }
