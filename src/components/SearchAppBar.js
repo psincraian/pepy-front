@@ -8,10 +8,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import { withRouter, Link } from 'react-router-dom';
 import GithubIcon from './GithubIcon';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
@@ -78,9 +76,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SearchAppBar() {
+function SearchAppBar(props) {
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [searchValue, setSearchValue] = React.useState('');
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -91,6 +90,20 @@ function SearchAppBar() {
   function handleMobileMenuOpen(event) {
     setMobileMoreAnchorEl(event.currentTarget);
   }
+
+  function handleSearchValueChange(event) {
+    setSearchValue(event.target.value);
+  };
+
+  function handleSearchAction() {
+    props.history.push('/project/' + searchValue);
+  };
+
+  function handleKeyPress(event) {
+    if (event.keyCode === 13) {
+      handleSearchAction();
+    }
+  };
 
   const AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
 
@@ -111,8 +124,8 @@ function SearchAppBar() {
         </IconButton>
         <p>Github</p>
       </MenuItem>
-      <MenuItem component={AdapterLink} href="/about">
-        <IconButton aria-label="FAQ" color="inherit" component={AdapterLink} to="/about">
+      <MenuItem component={AdapterLink} to="/about">
+        <IconButton aria-label="FAQ" color="inherit">
           <InfoIcon />
         </IconButton>
         <p>FAQ</p>
@@ -124,7 +137,7 @@ function SearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" component={AdapterLink} to="/" noWrap>
             PePy
           </Typography>
           <div className={classes.search}>
@@ -133,6 +146,9 @@ function SearchAppBar() {
             </div>
             <InputBase
               placeholder="Search…"
+              value={searchValue}
+              onChange={handleSearchValueChange}
+              onKeyDown={handleKeyPress}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
