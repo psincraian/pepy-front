@@ -1,10 +1,6 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
-import {
-  Link,
-  withStyles,
-  Typography,
-} from '@material-ui/core';
+import { Link, withStyles, Typography } from '@material-ui/core';
 const styles = theme => ({
   layout: {
     width: 'auto',
@@ -30,25 +26,31 @@ class About extends Component {
         <div className={classes.layout}>
           <Typography variant="h6">Where the downloads come from?</Typography>
           <Typography paragraph={true}>
-            The data is retrieved from the official BigQuery repository: https://packaging.python.org/guides/analyzing-pypi-package-downloads/
+            The data is retrieved from the official BigQuery repository:
+            https://packaging.python.org/guides/analyzing-pypi-package-downloads/
           </Typography>
           <Typography variant="h6">When the data is updated?</Typography>
           <Typography paragraph={true}>
-            There is a cron that runs every day at 5 pm UTC that retrieves all the new downloads from the previous day.
+            There is a cron that runs every day at 5 pm UTC that retrieves all
+            the new downloads from the previous day.
           </Typography>
           <Typography variant="h6">Who is the creator of PePy.tech?</Typography>
           <Typography paragraph={true}>
-            Petru Rares Sincraian <Link href="https://twitter.com/psincraian">(@psincraian)</Link> started the project.
+            Petru Rares Sincraian{' '}
+            <Link href="https://twitter.com/psincraian">(@psincraian)</Link>{' '}
+            started the project.
           </Typography>
-          <Typography variant="h6">Can I participate to improve the website?</Typography>
+          <Typography variant="h6">
+            Can I participate to improve the website?
+          </Typography>
           <Typography paragraph={true}>
-            Of course, all the code is open source and you can contribute reporting issues or coding :-)
+            Of course, all the code is open source and you can contribute
+            reporting issues or coding :-)
           </Typography>
         </div>
       </>
     );
   }
 }
-
 
 export default withStyles(styles)(About);

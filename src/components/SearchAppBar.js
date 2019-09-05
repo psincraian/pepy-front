@@ -93,19 +93,21 @@ function SearchAppBar(props) {
 
   function handleSearchValueChange(event) {
     setSearchValue(event.target.value);
-  };
+  }
 
   function handleSearchAction() {
     props.history.push('/project/' + searchValue);
-  };
+  }
 
   function handleKeyPress(event) {
     if (event.keyCode === 13) {
       handleSearchAction();
     }
-  };
+  }
 
-  const AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
+  const AdapterLink = React.forwardRef((props, ref) => (
+    <Link innerRef={ref} {...props} />
+  ));
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -137,7 +139,13 @@ function SearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" component={AdapterLink} to="/" noWrap>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            component={AdapterLink}
+            to="/"
+            noWrap
+          >
             PePy
           </Typography>
           <div className={classes.search}>
@@ -158,10 +166,20 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="Source code" color="inherit" component="a" href="https://github.com/psincraian/pepy">
-                <GithubIcon color="white" />
+            <IconButton
+              aria-label="Source code"
+              color="inherit"
+              component="a"
+              href="https://github.com/psincraian/pepy"
+            >
+              <GithubIcon color="white" />
             </IconButton>
-            <IconButton aria-label="FAQ" color="inherit" component={AdapterLink} to="/about">
+            <IconButton
+              aria-label="FAQ"
+              color="inherit"
+              component={AdapterLink}
+              to="/about"
+            >
               <InfoIcon />
             </IconButton>
           </div>
