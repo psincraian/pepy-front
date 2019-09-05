@@ -41,7 +41,7 @@ class AppBar extends Component {
               </Typography>
             </Link>
             <Link to="/about" className={classes.section}>
-              <Typography variant="h6" color="inherit" noWrap>
+              <Typography variant="h7" color="inherit" noWrap>
                 About
               </Typography>
             </Link>

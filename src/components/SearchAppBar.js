@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     textDecoration: 'none',
+    marginRight: theme.spacing(2),
     color: 'inherit',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
