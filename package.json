@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.4.0",
-    "@material-ui/icons": "^4.2.1",
+    "@material-ui/icons": "^4.4.1",
     "@sentry/browser": "^5.6.3",
     "cypress": "^3.4.1",
     "prettier": "^1.18.2",
