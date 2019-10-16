@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.4.3",
-    "@sentry/browser": "^5.6.3",
+    "@sentry/browser": "^5.7.1",
     "cypress": "^3.4.1",
     "prettier": "^1.18.2",
     "react": "^16.10.2",
