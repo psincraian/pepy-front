@@ -3,8 +3,14 @@ import { withStyles, Grid, Typography } from '@material-ui/core';
 import AppBar from '../components/AppBar';
 import SearchBar from '../components/SearchBar';
 import { Helmet } from 'react-helmet';
+import Footer from '../components/Footer';
 
 const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
   layout: {
     width: 'auto',
     paddingBottom: theme.spacing(2),
@@ -28,7 +34,7 @@ class Index extends Component {
     const { classes } = this.props;
 
     return (
-      <>
+      <div className={classes.root}>
         <Helmet>
           <title>PePy - Python Package Download Stats</title>
           <meta
@@ -47,7 +53,8 @@ class Index extends Component {
             <SearchBar onSearch={this.handleSearch} />
           </Grid>
         </Grid>
-      </>
+        <Footer />
+      </div>
     );
   }
 }

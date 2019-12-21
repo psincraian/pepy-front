@@ -5,15 +5,17 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { withRouter, Link } from 'react-router-dom';
-import GithubIcon from './GithubIcon';
+import { withRouter, Link as RouterLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import InfoIcon from '@material-ui/icons/Info';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex'
+  },
   grow: {
     flexGrow: 1,
   },
@@ -65,12 +67,16 @@ const useStyles = makeStyles(theme => ({
   },
   sectionDesktop: {
     display: 'none',
+    textDecoration: 'none',
+    color: 'inherit',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
   },
   sectionMobile: {
     display: 'flex',
+    textDecoration: 'none',
+    color: 'inherit',
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
@@ -107,7 +113,7 @@ function SearchAppBar(props) {
   }
 
   const AdapterLink = React.forwardRef((props, ref) => (
-    <Link innerRef={ref} {...props} />
+    <RouterLink innerRef={ref} {...props} />
   ));
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -121,23 +127,14 @@ function SearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem component="a" href="https://github.com/psincraian/pepy">
-        <IconButton aria-label="Source Code" color="inherit">
-          <GithubIcon />
-        </IconButton>
-        <p>Github</p>
-      </MenuItem>
-      <MenuItem component={AdapterLink} to="/about">
-        <IconButton aria-label="FAQ" color="inherit">
-          <InfoIcon />
-        </IconButton>
-        <p>FAQ</p>
+      <MenuItem component="a" href="https://blog.pepy.tech?utm_source=pepy">
+        <p>Blog</p>
       </MenuItem>
     </Menu>
   );
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography
@@ -167,22 +164,14 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton
-              aria-label="Source code"
+            <Link
+              aria-label="Blog"
               color="inherit"
               component="a"
-              href="https://github.com/psincraian/pepy"
+              href="https://blog.pepy.tech?utm_source=pepy"
             >
-              <GithubIcon color="white" />
-            </IconButton>
-            <IconButton
-              aria-label="FAQ"
-              color="inherit"
-              component={AdapterLink}
-              to="/about"
-            >
-              <InfoIcon />
-            </IconButton>
+              Blog
+              </Link>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

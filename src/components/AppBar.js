@@ -4,15 +4,9 @@ import {
   Toolbar,
   Typography,
   withStyles,
+  Link,
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
-import GithubIcon from './GithubIcon';
-import IconButton from '@material-ui/core/IconButton';
-import { withRouter, Link } from 'react-router-dom';
-
-const AdapterLink = React.forwardRef((props, ref) => (
-  <Link innerRef={ref} {...props} />
-));
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -48,22 +42,14 @@ class AppBar extends Component {
               </Typography>
             </Link>
             <div className={classes.section}>
-              <IconButton
-                aria-label="Source code"
+              <Link
+                aria-label="Blog"
                 color="inherit"
                 component="a"
-                href="https://github.com/psincraian/pepy"
+                href="https://blog.pepy.tech?utm_source=pepy"
               >
-                <GithubIcon color="white" />
-              </IconButton>
-              <IconButton
-                aria-label="FAQ"
-                color="inherit"
-                component={AdapterLink}
-                to="/about"
-              >
-                <InfoIcon />
-              </IconButton>
+                Blog
+              </Link>
             </div>
           </Toolbar>
         </BaseAppBar>
