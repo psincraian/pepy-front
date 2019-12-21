@@ -13,6 +13,7 @@ import ProjectSummary from '../components/ProjectSummary';
 import BadgesComponent from '../components/BadgesComponent';
 import SearchAppBar from '../components/SearchAppBar';
 import { Helmet } from 'react-helmet';
+import Footer from '../components/Footer';
 
 const styles = theme => ({
   layout: {
@@ -109,6 +110,7 @@ class Project extends Component {
             <DownloadsComponent downloads={this.props.project.downloads} />
           </Grid>
         </Grid>
+        <Footer />
       </>
     );
   }

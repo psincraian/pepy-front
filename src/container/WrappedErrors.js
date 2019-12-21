@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeErrors } from '../api/errors';
 import Page404 from '../components/Page404';
-import SearchAppBar from '../components/SearchAppBar';
 import { Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { withRouter } from 'react-router-dom';

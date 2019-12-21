@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
 import { Link, withStyles, Typography } from '@material-ui/core';
+import Footer from '../components/Footer';
 const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
   layout: {
     width: 'auto',
+    flexGrow: 2,
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
@@ -21,7 +28,7 @@ class About extends Component {
     const { classes } = this.props;
 
     return (
-      <>
+      <div className={classes.root}>
         <SearchAppBar />
         <div className={classes.layout}>
           <Typography variant="h6">Where the downloads come from?</Typography>
@@ -48,7 +55,8 @@ class About extends Component {
             reporting issues or coding :-)
           </Typography>
         </div>
-      </>
+        <Footer />
+      </div>
     );
   }
 }
