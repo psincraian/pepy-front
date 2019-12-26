@@ -14,6 +14,7 @@ import BadgesComponent from '../components/BadgesComponent';
 import SearchAppBar from '../components/SearchAppBar';
 import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
+import CarbonAds from '../components/CarbonAds';
 
 const styles = theme => ({
   layout: {
@@ -91,7 +92,7 @@ class Project extends Component {
               {this.props.project.id}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={8}>
             <ProjectSummary
               totalDownloads={this.props.project.total_downloads}
               totalDownloads30Days={Object.values(
@@ -102,6 +103,9 @@ class Project extends Component {
                 .reduce((carry, x) => carry + x)}
               name={this.props.project.id}
             />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <CarbonAds />
           </Grid>
           <Grid item xs={12}>
             <BadgesComponent project={this.props.project.id} />
