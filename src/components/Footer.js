@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Container,
-  Typography,
-  withStyles,
-  Link,
-} from '@material-ui/core';
+import { Container, Typography, withStyles, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Emoji from './Emoji';
 
@@ -28,9 +23,13 @@ class Footer extends Component {
             component="a"
             href="https://github.com/psincraian/pepy"
           >
-            We <Emoji symbol="❤️" label="heart"/>open source
+            We <Emoji symbol="❤️" label="heart" />
+            open source
           </Link>
-          <Typography display="inline" color="textSecondary"> - </Typography>
+          <Typography display="inline" color="textSecondary">
+            {' '}
+            -{' '}
+          </Typography>
           <Link color="textSecondary" component={RouterLink} to="/about">
             FAQ
           </Link>
