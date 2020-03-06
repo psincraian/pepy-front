@@ -5,12 +5,14 @@ import {
   withStyles,
   Typography,
   CircularProgress,
+  Link,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { FETCHING_STATUS } from '../api/constants';
 import DownloadsComponent from '../components/DownloadsComponent';
 import ProjectSummary from '../components/ProjectSummary';
 import BadgesComponent from '../components/BadgesComponent';
+import Notification from '../components/Notification';
 import SearchAppBar from '../components/SearchAppBar';
 import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
@@ -70,6 +72,32 @@ class Project extends Component {
       );
     }
 
+    var lastDate = new Date('2020-03-08').setHours(0, 0, 0, 0);
+    var today = new Date().setHours(0, 0, 0, 0);
+    var notification = null;
+    if (today < lastDate) {
+      notification = (
+        <Grid item xs={12}>
+          <Notification
+            severity="info"
+            message={
+              <Typography>
+                Vote for the next feature{' '}
+                <Link
+                  aria-label="link to vote"
+                  color="textSecondary"
+                  component="a"
+                  href="https://twitter.com/psincraian/status/1236016760425414657"
+                >
+                  here!
+                </Link>
+              </Typography>
+            }
+          />
+        </Grid>
+      );
+    }
+
     return (
       <>
         <Helmet>
@@ -87,6 +115,7 @@ class Project extends Component {
         </Helmet>
         <SearchAppBar />
         <Grid container className={classes.layout} spacing={2}>
+          {notification}
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
               {this.props.project.id}

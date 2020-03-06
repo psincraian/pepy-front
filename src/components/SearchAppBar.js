@@ -14,7 +14,7 @@ import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
   grow: {
     flexGrow: 1,
@@ -171,7 +171,7 @@ function SearchAppBar(props) {
               href="https://blog.pepy.tech?utm_source=pepy"
             >
               Blog
-              </Link>
+            </Link>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
