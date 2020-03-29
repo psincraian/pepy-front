@@ -17,6 +17,7 @@ import SearchAppBar from '../components/SearchAppBar';
 import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
+import Emoji from '../components/Emoji';
 
 const styles = theme => ({
   layout: {
@@ -72,7 +73,7 @@ class Project extends Component {
       );
     }
 
-    var lastDate = new Date('2020-03-08').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2020-04-01').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -82,12 +83,12 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                Vote for the next feature{' '}
+                <Emoji symbol="🎂"/> pepy.tech is 2 years old. Find some stats{' '}
                 <Link
-                  aria-label="link to vote"
+                  aria-label="Info of these 2 years"
                   color="textSecondary"
                   component="a"
-                  href="https://twitter.com/psincraian/status/1236016760425414657"
+                  href="https://twitter.com/psincraian/status/1244343901319761927?s=20"
                 >
                   here!
                 </Link>
