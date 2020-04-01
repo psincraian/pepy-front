@@ -39,7 +39,7 @@ class Index extends Component {
           <title>PePy - Python Package Download Stats</title>
           <meta
             name="description"
-            content="PePy is a website to view the download stats of python packages by day, week or month. You can also see some badges that can be inserted in your README.md to show your awesome project."
+            content="Use PePy to view all download stats of all python packages hosted in PyPI. Get you downloads badge to show how popular your project is."
           />
         </Helmet>
         <AppBar />
