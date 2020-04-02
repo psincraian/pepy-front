@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { FETCHING_STATUS } from '../api/constants';
-import DownloadsComponent from '../components/DownloadsComponent';
 import ProjectSummary from '../components/ProjectSummary';
 import BadgesComponent from '../components/BadgesComponent';
 import Notification from '../components/Notification';
@@ -18,6 +17,7 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import Emoji from '../components/Emoji';
+import DownloadsChart from '../components/DownloadsChart';
 
 const styles = theme => ({
   layout: {
@@ -141,7 +141,7 @@ class Project extends Component {
             <BadgesComponent project={this.props.project.id} />
           </Grid>
           <Grid item xs={12}>
-            <DownloadsComponent downloads={this.props.project.downloads} />
+            <DownloadsChart data={this.props.project} />
           </Grid>
         </Grid>
         <Footer />
