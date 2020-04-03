@@ -1,95 +1,140 @@
 import React, { Component } from 'react';
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from 'recharts';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { TextField } from '@material-ui/core';
+import {
+  TextField,
+  Card,
+  CardHeader,
+  CardContent,
+  withStyles,
+} from '@material-ui/core';
+
+const styles = (theme) => ({
+  chart: {
+    marginTop: theme.spacing(2),
+  },
+});
 
 class DownloadsChart extends Component {
+  constructor(props) {
+    super(props);
 
-    state = {
-        selectedVersions: ["2.20.1", "2.20.0", "2.19.1"],
+    this.state = {
+      selectedVersions: this.defaultSelectedVersions(),
     };
+  }
 
-    constructor(props) {
-        super(props);
+  retrieveDownloads(downloads, selectedVersions) {
+    var data = [];
+    Object.keys(downloads).forEach((date) => {
+      var row = { name: date };
+      selectedVersions.forEach((version) => {
+        if (version in downloads[date]) {
+          row[version] = downloads[date][version];
+        } else {
+          row[version] = 0;
+        }
+      });
+      data.push(row);
+    });
+    return data;
+  }
 
-        this.state = {
-            selectedVersions: this.defaultSelectedVersions(),
-        };
-    }
+  updateSelectedVersions = (event, value, reason) => {
+    this.setState({ selectedVersions: value });
+  };
 
-    retrieveDownloads(downloads, selectedVersions) {
-        var data = []
-        Object.keys(downloads).forEach(date => {
-            var row = { "name": date }
-            selectedVersions.forEach(version => {
-                if (version in downloads[date]) {
-                    row[version] = downloads[date][version];
-                }
-            });
-            data.push(row);
-        });
-        return data;
-    }
+  defaultSelectedVersions() {
+    const versionsSize = this.props.data.versions.length;
+    return this.props.data.versions.slice(versionsSize - 5, versionsSize);
+  }
 
-    updateSelectedVersions = (event, value, reason) => {
-        this.setState({selectedVersions: value})
-    }
+  render() {
+    const { classes } = this.props;
+    const data = this.retrieveDownloads(
+      this.props.data.downloads,
+      this.state.selectedVersions
+    );
+    var colors = [
+      '#003f5c',
+      '#2f4b7c',
+      '#665191',
+      '#a05195',
+      '#d45087',
+      '#f95d6a',
+      '#ff7c43',
+      '#ffa600',
+    ];
 
-    defaultSelectedVersions() {
-        const versionsSize = this.props.data.versions.length;
-        return this.props.data.versions.slice(versionsSize - 5, versionsSize);
-    }
+    const lines = this.state.selectedVersions.map((version) => {
+      return (
+        <Line
+          key={version}
+          type="monotone"
+          dataKey={version}
+          stroke={colors.pop()}
+          activeDot={{ r: 8 }}
+        />
+      );
+    });
 
-    render() {
-        const data = this.retrieveDownloads(this.props.data.downloads, this.state.selectedVersions);
-        var colors = [
-            "#a8e6cf",
-            "#639a67",
-            "#4d4c7d",
-            "#00bdaa"
-        ]
+    return (
+      <Card data-cy="downloads">
+        <CardHeader title="Downloads" />
+        <CardContent>
+          <Autocomplete
+            multiple
+            options={this.props.data.versions}
+            getOptionLabel={(option) => option}
+            defaultValue={this.state.selectedVersions}
+            filterSelectedOptions
+            onChange={this.updateSelectedVersions}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Select versions"
+                placeholder="Versions"
+              />
+            )}
+          />
+          <ResponsiveContainer
+            className={classes.chart}
+            width="100%"
+            aspect={2}
+            minHeight={150}
+          >
+            <LineChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis
+                tickFormatter={(tick) => {
+                  return tick.toLocaleString();
+                }}
+              />
+              <Tooltip
+                formatter={(downloads) => {
+                  return downloads.toLocaleString();
+                }}
+              />
+              <Legend />
 
-        const lines = this.state.selectedVersions.map(version => {
-            return <Line key={version} type="monotone" dataKey={version} stroke={colors.pop()} activeDot={{ r: 8 }} />
-        })
-
-        return (
-            <>
-                <Autocomplete
-                    multiple
-                    id="tags-outlined"
-                    options={this.props.data.versions}
-                    getOptionLabel={(option) => option}
-                    defaultValue={this.state.selectedVersions}
-                    filterSelectedOptions
-                    onChange={this.updateSelectedVersions}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            variant="outlined"
-                            label="Select versions"
-                            placeholder="Versions"
-                        />
-                    )}
-                />
-                <ResponsiveContainer width="100%" aspect={2} minHeight={300}>
-                    <LineChart
-                        data={data}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-
-                        {lines}
-                    </LineChart>
-                </ResponsiveContainer>
-            </>
-        );
-    }
+              {lines}
+            </LineChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
+    );
+  }
 }
 
-export default DownloadsChart;
+export default withStyles(styles)(DownloadsChart);

@@ -42,7 +42,7 @@ class DownloadsComponent extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {downloads.map(date => (
+                  {downloads.map((date) => (
                     <TableRow key={date}>
                       <TableCell component="th" scope="row">
                         {date}

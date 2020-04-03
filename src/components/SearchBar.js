@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     padding: '2px 4px',
     display: 'flex',
@@ -34,7 +34,7 @@ class SearchBar extends Component {
     query: '',
   };
 
-  handleKeyPress = e => {
+  handleKeyPress = (e) => {
     if (e.charCode === 13 || e.key === 'Enter') {
       this.handleRequestSearch();
     }
@@ -44,7 +44,7 @@ class SearchBar extends Component {
     this.props.onSearch(this.state.query);
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ query: e.target.value });
   };
 

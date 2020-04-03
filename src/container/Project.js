@@ -19,7 +19,7 @@ import CarbonAds from '../components/CarbonAds';
 import Emoji from '../components/Emoji';
 import DownloadsChart from '../components/DownloadsChart';
 
-const styles = theme => ({
+const styles = (theme) => ({
   layout: {
     width: 'auto',
     paddingBottom: theme.spacing(2),
@@ -34,14 +34,14 @@ const styles = theme => ({
   },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     project: state.project,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchProject: projectId => {
+const mapDispatchToProps = (dispatch) => ({
+  fetchProject: (projectId) => {
     dispatch(fetchProject(projectId));
   },
 });
@@ -55,6 +55,17 @@ class Project extends Component {
     if (prevProps.projectId !== this.props.projectId) {
       this.props.fetchProject(this.props.projectId);
     }
+  }
+
+  sumLastDownloads(downloads) {
+    return downloads.reduce(
+      (carry, versions) =>
+        carry +
+        Object.values(versions).reduce(
+          (carry, versionDownloads) => carry + versionDownloads
+        ),
+      0
+    );
   }
 
   render() {
@@ -83,7 +94,7 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🎂"/> pepy.tech is 2 years old. Find some stats{' '}
+                <Emoji symbol="🎂" /> pepy.tech is 2 years old. Find some stats{' '}
                 <Link
                   aria-label="Info of these 2 years"
                   color="textSecondary"
@@ -125,12 +136,14 @@ class Project extends Component {
           <Grid item xs={12} md={8}>
             <ProjectSummary
               totalDownloads={this.props.project.total_downloads}
-              totalDownloads30Days={Object.values(
-                this.props.project.downloads
-              ).reduce((carry, x) => carry + x)}
-              totalDownloads7Days={Object.values(this.props.project.downloads)
-                .slice(0, 7)
-                .reduce((carry, x) => carry + x)}
+              totalDownloads30Days={this.sumLastDownloads(
+                Object.values(this.props.project.downloads)
+              )}
+              totalDownloads7Days={this.sumLastDownloads(
+                Object.values(this.props.project.downloads)
+                  .reverse()
+                  .slice(0, 7)
+              )}
               name={this.props.project.id}
             />
           </Grid>

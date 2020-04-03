@@ -8,7 +8,7 @@ import {
   withStyles,
 } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = (theme) => ({
   titleItem: {
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(),

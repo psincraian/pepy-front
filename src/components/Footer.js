@@ -3,7 +3,7 @@ import { Container, Typography, withStyles, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Emoji from './Emoji';
 
-const styles = theme => ({
+const styles = (theme) => ({
   footer: {
     padding: theme.spacing(2, 2),
     marginTop: 'auto',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
 import { Link, withStyles, Typography } from '@material-ui/core';
 import Footer from '../components/Footer';
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',

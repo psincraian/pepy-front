@@ -5,7 +5,7 @@ import SearchBar from '../components/SearchBar';
 import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 
 class Index extends Component {
-  handleSearch = query => {
+  handleSearch = (query) => {
     this.props.history.push('/project/' + query);
   };
 

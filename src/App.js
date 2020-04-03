@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const browserHistory = createBrowserHistory();
-browserHistory.listen(location => {
+browserHistory.listen((location) => {
   ReactGA.pageview(location.pathname + location.search);
 });
 
