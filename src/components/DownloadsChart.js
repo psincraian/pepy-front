@@ -34,7 +34,29 @@ function formatDownloads(downloads) {
 }
 
 class DownloadsChart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: window.innerWidth,
+    };
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
+
   render() {
+    const { width } = this.state;
+    const isMobile = width <= 600;
+
     const { classes } = this.props;
 
     var colors = [
@@ -64,13 +86,13 @@ class DownloadsChart extends Component {
       <ResponsiveContainer
         className={classes.chart}
         width="100%"
-        aspect={2}
-        minHeight={150}
+        aspect={isMobile ? 1: 2}
       >
         <LineChart data={this.props.data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis
+            width={40}
             tickFormatter={(tick) => {
               return formatDownloads(tick);
             }}
