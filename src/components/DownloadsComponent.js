@@ -79,7 +79,6 @@ class DownloadsComponent extends Component {
                   {...params}
                   variant="outlined"
                   label="Select versions"
-                  placeholder="Versions"
                 />
               )}
             />

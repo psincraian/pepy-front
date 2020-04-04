@@ -17,6 +17,22 @@ const styles = (theme) => ({
   },
 });
 
+function formatDownloads(downloads) {
+  var precision = 1;
+  if (downloads%10 === 0) {
+    precision = 0;
+  }
+  if (downloads < 1000) {
+    return downloads;
+  } else if (downloads < 1000000) {
+    return (downloads/1000).toFixed(precision) + 'K'
+  } else if (downloads < 1000000000) {
+    return (downloads/1000000).toFixed(precision) + 'M'
+  }
+
+  return (downloads/1000000000).toFixed(precision) + 'G'
+}
+
 class DownloadsChart extends Component {
   render() {
     const { classes } = this.props;
@@ -56,12 +72,12 @@ class DownloadsChart extends Component {
           <XAxis dataKey="name" />
           <YAxis
             tickFormatter={(tick) => {
-              return tick.toLocaleString();
+              return formatDownloads(tick);
             }}
           />
           <Tooltip
             formatter={(downloads) => {
-              return downloads.toLocaleString();
+              return formatDownloads(downloads);
             }}
           />
           <Legend />
