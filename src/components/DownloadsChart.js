@@ -19,18 +19,18 @@ const styles = (theme) => ({
 
 function formatDownloads(downloads) {
   var precision = 1;
-  if (downloads%10 === 0) {
+  if (downloads % 10 === 0) {
     precision = 0;
   }
   if (downloads < 1000) {
     return downloads;
   } else if (downloads < 1000000) {
-    return (downloads/1000).toFixed(precision) + 'K'
+    return (downloads / 1000).toFixed(precision) + 'K';
   } else if (downloads < 1000000000) {
-    return (downloads/1000000).toFixed(precision) + 'M'
+    return (downloads / 1000000).toFixed(precision) + 'M';
   }
 
-  return (downloads/1000000000).toFixed(precision) + 'G'
+  return (downloads / 1000000000).toFixed(precision) + 'G';
 }
 
 class DownloadsChart extends Component {
@@ -86,7 +86,7 @@ class DownloadsChart extends Component {
       <ResponsiveContainer
         className={classes.chart}
         width="100%"
-        aspect={isMobile ? 1: 2}
+        aspect={isMobile ? 1 : 2}
       >
         <LineChart data={this.props.data}>
           <CartesianGrid strokeDasharray="3 3" />
