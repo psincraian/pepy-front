@@ -73,7 +73,7 @@ class Project extends Component {
       );
     }
 
-    var lastDate = new Date('2020-04-01').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2020-04-10').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -83,12 +83,12 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🎂"/> pepy.tech is 2 years old. Find some stats{' '}
+                If you find pepy.tech useful, <Emoji symbol="⛑️"/> support it with a donation{' '}
                 <Link
-                  aria-label="Info of these 2 years"
+                  aria-label="Patreon link"
                   color="textSecondary"
                   component="a"
-                  href="https://twitter.com/psincraian/status/1244343901319761927?s=20"
+                  href="https://www.patreon.com/pepy"
                 >
                   here!
                 </Link>
