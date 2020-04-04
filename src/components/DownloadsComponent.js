@@ -1,68 +1,103 @@
 import React, { Component } from 'react';
 import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Button,
-  Grid,
   Card,
   CardHeader,
   CardContent,
+  TextField,
+  withStyles,
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import DownloadsChart from './DownloadsChart';
+import DownloadsTable from './DownloadsTable';
+
+const styles = (theme) => ({
+  downloadsTable: {
+    marginTop: theme.spacing(4),
+  },
+});
 
 class DownloadsComponent extends Component {
-  state = {
-    showMore: false,
-  };
+  constructor(props) {
+    super(props);
 
-  handleShowMoreClicked = () => {
-    this.setState({ showMore: !this.state.showMore });
+    this.state = {
+      selectedVersions: this.defaultSelectedVersions(),
+    };
+  }
+
+  defaultSelectedVersions() {
+    const versionsSize = this.props.data.versions.length;
+    return this.props.data.versions.slice(versionsSize - 3, versionsSize);
+  }
+
+  retrieveDownloads(downloads, selectedVersions) {
+    var data = [];
+    Object.keys(downloads).forEach((date) => {
+      var row = { date: date };
+      row['total'] = Object.values(downloads[date]).reduce(
+        (carry, x) => carry + x
+      );
+      row['sum'] = 0;
+      selectedVersions.forEach((version) => {
+        if (version in downloads[date]) {
+          row[version] = downloads[date][version];
+          row['sum'] += downloads[date][version];
+        } else {
+          row[version] = 0;
+        }
+      });
+      data.push(row);
+    });
+    return data;
+  }
+
+  updateSelectedVersions = (event, value, reason) => {
+    this.setState({ selectedVersions: value });
   };
 
   render() {
-    const numberOfElementsToShow = this.state.showMore ? 30 : 7;
-    const downloads = Object.keys(this.props.downloads).slice(
-      0,
-      numberOfElementsToShow
+    const { classes } = this.props;
+    const downloads = this.retrieveDownloads(
+      this.props.data.downloads,
+      this.state.selectedVersions
     );
-    const buttonText = this.state.showMore ? 'Show fewer' : 'Show more';
+
     return (
       <Card data-cy="downloads">
-        <CardHeader title="Last downloads" />
+        <CardHeader title="Downloads" />
         <CardContent>
-          <Grid container justify="center">
-            <Grid item xs={12}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell align="right">Downloads</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {downloads.map((date) => (
-                    <TableRow key={date}>
-                      <TableCell component="th" scope="row">
-                        {date}
-                      </TableCell>
-                      <TableCell align="right">
-                        {this.props.downloads[date].toLocaleString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Grid>
-            <Grid item>
-              <Button onClick={this.handleShowMoreClicked}>{buttonText}</Button>
-            </Grid>
-          </Grid>
+          <>
+            <Autocomplete
+              multiple
+              options={this.props.data.versions}
+              getOptionLabel={(option) => option}
+              filterSelectedOptions
+              onChange={this.updateSelectedVersions}
+              value={this.state.selectedVersions}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Select versions"
+                  placeholder="Versions"
+                />
+              )}
+            />
+            <DownloadsChart
+              data={downloads}
+              selectedVersions={this.state.selectedVersions}
+            />
+            <div className={classes.downloadsTable}>
+              <DownloadsTable
+                data={downloads}
+                selectedVersions={this.state.selectedVersions}
+              />
+            </div>
+          </>
         </CardContent>
       </Card>
     );
   }
 }
 
-export default DownloadsComponent;
+export default withStyles(styles)(DownloadsComponent);

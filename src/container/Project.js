@@ -17,7 +17,7 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import Emoji from '../components/Emoji';
-import DownloadsChart from '../components/DownloadsChart';
+import DownloadsComponent from '../components/DownloadsComponent';
 
 const styles = (theme) => ({
   layout: {
@@ -154,7 +154,7 @@ class Project extends Component {
             <BadgesComponent project={this.props.project.id} />
           </Grid>
           <Grid item xs={12}>
-            <DownloadsChart data={this.props.project} />
+            <DownloadsComponent data={this.props.project} />
           </Grid>
         </Grid>
         <Footer />
