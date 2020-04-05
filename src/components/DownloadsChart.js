@@ -77,6 +77,7 @@ class DownloadsChart extends Component {
           type="monotone"
           dataKey={version}
           stroke={colors.pop()}
+          strokeWidth={2}
           activeDot={{ r: 8 }}
         />
       );
