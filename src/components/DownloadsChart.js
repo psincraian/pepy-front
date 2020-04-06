@@ -82,7 +82,7 @@ class DownloadsChart extends Component {
       >
         <LineChart data={this.props.data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="date" />
           <YAxis
             width={40}
             tickFormatter={(tick) => {
