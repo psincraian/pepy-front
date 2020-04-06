@@ -23,15 +23,24 @@ class Footer extends Component {
             component="a"
             href="https://github.com/psincraian/pepy"
           >
-            We <Emoji symbol="❤️" label="heart" />
-            open source
+            We <Emoji symbol="❤️" label="heart" /> open source
           </Link>
           <Typography display="inline" color="textSecondary">
-            {' '}
-            -{' '}
+            {' '}-{' '}
           </Typography>
           <Link color="textSecondary" component={RouterLink} to="/about">
             FAQ
+          </Link>
+          <Typography display="inline" color="textSecondary">
+            {' '}-{' '}
+          </Typography>
+          <Link
+            aria-label="Follow us"
+            color="textSecondary"
+            component="a"
+            href="https://twitter.com/psincraian"
+          >
+            Made by @psincraian
           </Link>
         </Container>
       </footer>
