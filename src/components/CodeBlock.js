@@ -13,19 +13,29 @@ class CodeBlock extends Component {
     message: '',
   };
 
+  constructor(props) {
+    super(props);
+
+    const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.state = {
+      snackbarOpen: false,
+      message: '',
+      id: randomId,
+    };
+  }
+
   showMessage = message => {
     this.setState({ snackbarOpen: true, message: message });
   };
 
   handleClickCopyContent = () => {
-    navigator.clipboard.writeText(this.props.content).then(
-      () => {
-        this.showMessage('Text copied');
-      },
-      () => {
-        this.showMessage('Failed to copy');
-      }
-    );
+    var copyText = document.getElementById(this.state.id);
+    copyText.disabled = false;
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    document.execCommand("copy");
+    copyText.disabled = true;
+    this.showMessage("Text copied")
   };
 
   handleCloseSnackbar = () => {
@@ -36,6 +46,7 @@ class CodeBlock extends Component {
     return (
       <>
         <OutlinedInput
+          id={this.state.id}
           disabled
           margin="dense"
           labelWidth={0}
