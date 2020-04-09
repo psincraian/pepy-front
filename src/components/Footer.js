@@ -3,7 +3,7 @@ import { Container, Typography, withStyles, Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Emoji from './Emoji';
 
-const styles = theme => ({
+const styles = (theme) => ({
   footer: {
     padding: theme.spacing(2, 2),
     marginTop: 'auto',
@@ -26,13 +26,15 @@ class Footer extends Component {
             We <Emoji symbol="❤️" label="heart" /> open source
           </Link>
           <Typography display="inline" color="textSecondary">
-            {' '}-{' '}
+            {' '}
+            -{' '}
           </Typography>
           <Link color="textSecondary" component={RouterLink} to="/about">
             FAQ
           </Link>
           <Typography display="inline" color="textSecondary">
-            {' '}-{' '}
+            {' '}
+            -{' '}
           </Typography>
           <Link
             aria-label="Follow us"

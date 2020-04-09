@@ -24,7 +24,7 @@ class CodeBlock extends Component {
     };
   }
 
-  showMessage = message => {
+  showMessage = (message) => {
     this.setState({ snackbarOpen: true, message: message });
   };
 

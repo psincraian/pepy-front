@@ -5,7 +5,7 @@ const SHOW_PROJECT = 'SHOW_PROJECT';
 const LOAD_PROJECT = 'LOAD_PROJECT';
 
 // Actions
-export const fetchProject = projectId => dispatch => {
+export const fetchProject = (projectId) => (dispatch) => {
   var url = BASE_URL + 'projects/' + projectId;
 
   dispatch(loadProject());
@@ -16,7 +16,7 @@ export const fetchProject = projectId => dispatch => {
     },
   })
     .then(
-      response => {
+      (response) => {
         if (response.ok) {
           return response;
         } else {
@@ -27,21 +27,21 @@ export const fetchProject = projectId => dispatch => {
           throw error;
         }
       },
-      error => {
+      (error) => {
         var errorMessage = new Error(error.errorMessage);
         throw errorMessage;
       }
     )
-    .then(response => response.json())
-    .then(response => dispatch(showProject(response)))
-    .catch(error => {
+    .then((response) => response.json())
+    .then((response) => dispatch(showProject(response)))
+    .catch((error) => {
       if (error.response !== undefined && error.response.status === 404) {
         dispatch(error404());
       }
     });
 };
 
-export const showProject = data => ({
+export const showProject = (data) => ({
   type: SHOW_PROJECT,
   payload: data,
 });

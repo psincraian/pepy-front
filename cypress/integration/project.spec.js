@@ -8,13 +8,7 @@ context('Actions', () => {
 
     it('Show downloads', () => {
       cy.visit('http://localhost:3000/project/requests')
-      cy.get("[data-cy=downloads]").get("tr").should('have.length', 8)
-    })
-
-    it('Show last 30 days downloads', () => {
-      cy.visit('http://localhost:3000/project/requests')
-      cy.get("[data-cy=downloads] button").click();
-      cy.get("[data-cy=downloads]").get("tr").should('have.length', 31)
+      cy.get("[data-cy=downloads]").get("tr").should('have.length', 32)
     })
 
     it ('Show error when project not found', () => {

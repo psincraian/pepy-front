@@ -6,7 +6,7 @@ import { Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { withRouter } from 'react-router-dom';
 
-const styles = theme => ({
+const styles = (theme) => ({
   layout: {
     width: 'auto',
     paddingBottom: theme.spacing(2),
@@ -21,13 +21,13 @@ const styles = theme => ({
   },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     errors: state.errors,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   removeErrors: () => {
     dispatch(removeErrors());
   },

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
   },

@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { FETCHING_STATUS } from '../api/constants';
-import DownloadsComponent from '../components/DownloadsComponent';
 import ProjectSummary from '../components/ProjectSummary';
 import BadgesComponent from '../components/BadgesComponent';
 import Notification from '../components/Notification';
@@ -18,8 +17,9 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import Emoji from '../components/Emoji';
+import DownloadsComponent from '../components/DownloadsComponent';
 
-const styles = theme => ({
+const styles = (theme) => ({
   layout: {
     width: 'auto',
     paddingBottom: theme.spacing(2),
@@ -34,14 +34,14 @@ const styles = theme => ({
   },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     project: state.project,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchProject: projectId => {
+const mapDispatchToProps = (dispatch) => ({
+  fetchProject: (projectId) => {
     dispatch(fetchProject(projectId));
   },
 });
@@ -55,6 +55,17 @@ class Project extends Component {
     if (prevProps.projectId !== this.props.projectId) {
       this.props.fetchProject(this.props.projectId);
     }
+  }
+
+  sumLastDownloads(downloads) {
+    return downloads.reduce(
+      (carry, versions) =>
+        carry +
+        Object.values(versions).reduce(
+          (carry, versionDownloads) => carry + versionDownloads
+        ),
+      0
+    );
   }
 
   render() {
@@ -83,7 +94,8 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                If you find pepy.tech useful, <Emoji symbol="⛑️"/> support it with a donation{' '}
+                If you find pepy.tech useful, <Emoji symbol="⛑️" /> support it
+                with a donation{' '}
                 <Link
                   aria-label="Patreon link"
                   color="textSecondary"
@@ -125,12 +137,14 @@ class Project extends Component {
           <Grid item xs={12} md={8}>
             <ProjectSummary
               totalDownloads={this.props.project.total_downloads}
-              totalDownloads30Days={Object.values(
-                this.props.project.downloads
-              ).reduce((carry, x) => carry + x)}
-              totalDownloads7Days={Object.values(this.props.project.downloads)
-                .slice(0, 7)
-                .reduce((carry, x) => carry + x)}
+              totalDownloads30Days={this.sumLastDownloads(
+                Object.values(this.props.project.downloads)
+              )}
+              totalDownloads7Days={this.sumLastDownloads(
+                Object.values(this.props.project.downloads)
+                  .reverse()
+                  .slice(0, 7)
+              )}
               name={this.props.project.id}
             />
           </Grid>
@@ -141,7 +155,7 @@ class Project extends Component {
             <BadgesComponent project={this.props.project.id} />
           </Grid>
           <Grid item xs={12}>
-            <DownloadsComponent downloads={this.props.project.downloads} />
+            <DownloadsComponent data={this.props.project} />
           </Grid>
         </Grid>
         <Footer />
