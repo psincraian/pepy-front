@@ -59,7 +59,7 @@ class DownloadsChart extends Component {
 
     const { classes } = this.props;
 
-    var colors =  ["#ffa600", "#50d467", "#54b0f2", "#f95d6a", "#2f4b7c"];
+    var colors = ['#ffa600', '#50d467', '#54b0f2', '#f95d6a', '#2f4b7c'];
 
     const lines = this.props.selectedVersions.map((version) => {
       return (

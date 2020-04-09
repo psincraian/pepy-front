@@ -94,7 +94,8 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                If you find pepy.tech useful, <Emoji symbol="⛑️"/> support it with a donation{' '}
+                If you find pepy.tech useful, <Emoji symbol="⛑️" /> support it
+                with a donation{' '}
                 <Link
                   aria-label="Patreon link"
                   color="textSecondary"
