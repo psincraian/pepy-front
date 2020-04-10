@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Typography, withStyles, Link } from '@material-ui/core';
+import { Link, withStyles } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import Emoji from './Emoji';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
 const styles = (theme) => ({
   footer: {
@@ -17,33 +19,43 @@ class Footer extends Component {
     return (
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          <Link
-            aria-label="Source code"
-            color="textSecondary"
-            component="a"
-            href="https://github.com/psincraian/pepy"
-          >
-            We <Emoji symbol="❤️" label="heart" /> open source
-          </Link>
-          <Typography display="inline" color="textSecondary">
-            {' '}
-            -{' '}
-          </Typography>
-          <Link color="textSecondary" component={RouterLink} to="/about">
-            FAQ
-          </Link>
-          <Typography display="inline" color="textSecondary">
-            {' '}
-            -{' '}
-          </Typography>
-          <Link
-            aria-label="Follow us"
-            color="textSecondary"
-            component="a"
-            href="https://twitter.com/psincraian"
-          >
-            Made by @psincraian
-          </Link>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4} align="center">
+              <Link
+                aria-label="Source code"
+                color="textSecondary"
+                component="a"
+                href="https://github.com/psincraian/pepy"
+              >
+                We <Emoji symbol="❤️" label="heart" /> open source
+              </Link>
+            </Grid>
+            <Grid item xs={12} sm={3} align="center">
+              <Link
+                aria-label="Follow us"
+                color="textSecondary"
+                component="a"
+                href="https://twitter.com/psincraian"
+              >
+                <Emoji symbol="👤" label="person" /> Follow us
+              </Link>
+            </Grid>
+            <Grid item xs={12} sm={3} align="center">
+              <Link
+                aria-label="Support us"
+                color="textSecondary"
+                component="a"
+                href="https://www.patreon.com/pepy"
+              >
+                <Emoji symbol="➕" label="plus" /> Support us
+              </Link>
+            </Grid>
+            <Grid item xs={12} sm={2} align="center">
+              <Link color="textSecondary" component={RouterLink} to="/about">
+                <Emoji symbol="❔" label="question" /> FAQ
+              </Link>
+            </Grid>
+          </Grid>
         </Container>
       </footer>
     );

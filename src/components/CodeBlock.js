@@ -16,7 +16,9 @@ class CodeBlock extends Component {
   constructor(props) {
     super(props);
 
-    const randomId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const randomId =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
     this.state = {
       snackbarOpen: false,
       message: '',
@@ -33,9 +35,9 @@ class CodeBlock extends Component {
     copyText.disabled = false;
     copyText.select();
     copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-    document.execCommand("copy");
+    document.execCommand('copy');
     copyText.disabled = true;
-    this.showMessage("Text copied")
+    this.showMessage('Text copied');
   };
 
   handleCloseSnackbar = () => {
