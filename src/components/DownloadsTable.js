@@ -34,7 +34,7 @@ class DownloadsTable extends Component {
     const downloads = data.reverse();
     return (
       <TableContainer className={classes.container}>
-        <Table stickyHeader>
+        <Table id="downloads-table" stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell style={{ minWidth: 100 }}>Date</TableCell>

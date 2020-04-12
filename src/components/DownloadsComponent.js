@@ -9,6 +9,7 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import DownloadsChart from './DownloadsChart';
 import DownloadsTable from './DownloadsTable';
+import minimatch from 'minimatch';
 
 const styles = (theme) => ({
   downloadsTable: {
@@ -38,17 +39,47 @@ class DownloadsComponent extends Component {
         (carry, x) => carry + x
       );
       row['sum'] = 0;
-      selectedVersions.forEach((version) => {
-        if (version in downloads[date]) {
-          row[version] = downloads[date][version];
-          row['sum'] += downloads[date][version];
+      selectedVersions.forEach((selectedVersion) => {
+        if (this.shouldAddVersion(selectedVersion, downloads[date])) {
+          const versionDownloads = this.retrieveVersionDownloads(selectedVersion, downloads[date]);
+          row[selectedVersion] = versionDownloads;
+          row['sum'] += versionDownloads;
         } else {
-          row[version] = 0;
+          row[selectedVersion] = 0;
         }
       });
       data.push(row);
     });
     return data;
+  }
+
+  shouldAddVersion(selectedVersion, downloads) {
+    if (!(selectedVersion.includes("*"))) {
+      return selectedVersion in downloads;
+    }
+
+    const versions = Object.keys(downloads);
+    for (const version of versions) {
+      if (minimatch(version, selectedVersion)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  retrieveVersionDownloads(selectedVersion, download) {
+    if (!(selectedVersion.includes("*"))) {
+      return download[selectedVersion];
+    }
+
+    let total = 0;
+    for (const [version, value] of Object.entries(download)) {
+      if (minimatch(version, selectedVersion)) {
+        total += value;
+      }
+    }
+    return total;
   }
 
   updateSelectedVersions = (event, value, reason) => {
@@ -61,6 +92,7 @@ class DownloadsComponent extends Component {
       this.props.data.downloads,
       this.state.selectedVersions
     );
+    console.log(downloads);
 
     return (
       <Card data-cy="downloads">
@@ -72,6 +104,7 @@ class DownloadsComponent extends Component {
               options={this.props.data.versions}
               getOptionLabel={(option) => option}
               filterSelectedOptions
+              freeSolo
               onChange={this.updateSelectedVersions}
               value={this.state.selectedVersions}
               renderInput={(params) => (
