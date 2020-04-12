@@ -18,6 +18,7 @@ import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import Emoji from '../components/Emoji';
 import DownloadsComponent from '../components/DownloadsComponent';
+import RecentVersions from "../components/RecentVersions";
 
 const styles = (theme) => ({
   layout: {
@@ -156,6 +157,9 @@ class Project extends Component {
           </Grid>
           <Grid item xs={12}>
             <DownloadsComponent data={this.props.project} />
+          </Grid>
+          <Grid item xs={12}>
+            <RecentVersions data={this.props.project} />
           </Grid>
         </Grid>
         <Footer />
