@@ -1,20 +1,36 @@
-import React, { Component } from 'react';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  TextField,
-  withStyles,
-} from '@material-ui/core';
+import React, {Component} from 'react';
+import {Card, CardContent, CardHeader,} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import DownloadsChart from './DownloadsChart';
-import DownloadsTable from './DownloadsTable';
+import Chip from "@material-ui/core/Chip";
+import DownloadsChart from "./DownloadsChart";
+import DownloadsTable from "./DownloadsTable";
+import TextField from "@material-ui/core/TextField";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 const styles = (theme) => ({
   downloadsTable: {
     marginTop: theme.spacing(4),
   },
 });
+
+function formatDownloads(downloads) {
+
+  var precision = 1;
+  if (downloads % 10 === 0) {
+    precision = 0;
+  }
+  if (downloads < 1000) {
+    return downloads;
+  } else if (downloads < 1000000) {
+    return (downloads / 1000).toFixed(precision) + 'K';
+  } else if (downloads < 1000000000) {
+    return (downloads / 1000000).toFixed(precision) + 'M';
+  }
+
+  return (downloads / 1000000000).toFixed(precision) + 'G';
+}
 
 class DownloadsComponent extends Component {
   constructor(props) {
@@ -33,7 +49,7 @@ class DownloadsComponent extends Component {
   retrieveDownloads(downloads, selectedVersions) {
     var data = [];
     Object.keys(downloads).forEach((date) => {
-      var row = { date: date };
+      var row = {date: date};
       row['total'] = Object.values(downloads[date]).reduce(
         (carry, x) => carry + x
       );
@@ -52,11 +68,21 @@ class DownloadsComponent extends Component {
   }
 
   updateSelectedVersions = (event, value, reason) => {
-    this.setState({ selectedVersions: value });
+    this.setState({selectedVersions: value});
   };
 
+  retrieveVersionDownloads(version) {
+    let total = 0;
+    for (const d of Object.keys(this.props.data.downloads)) {
+      if (version in this.props.data.downloads[d]) {
+        total += this.props.data.downloads[d][version];
+      }
+    }
+    return total;
+  }
+
   render() {
-    const { classes } = this.props;
+    const {classes} = this.props;
     const downloads = this.retrieveDownloads(
       this.props.data.downloads,
       this.state.selectedVersions
@@ -64,13 +90,22 @@ class DownloadsComponent extends Component {
 
     return (
       <Card data-cy="downloads">
-        <CardHeader title="Downloads" />
+        <CardHeader title="Downloads"/>
         <CardContent>
           <>
             <Autocomplete
               multiple
               options={this.props.data.versions}
-              getOptionLabel={(option) => option}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip label={option} {...getTagProps({index})}/>
+                ))
+              }
+              renderOption={(option, {selected}) => (
+                <>
+                  <Box width={16} height={16} borderRadius={2} marginRight={2} bgcolor={this.retrieveColor(this.retrieveVersionDownloads(option))}/><Typography>{option + " - " + formatDownloads(this.retrieveVersionDownloads(option)) + "/month"}</Typography>
+                </>
+              )}
               filterSelectedOptions
               onChange={this.updateSelectedVersions}
               value={this.state.selectedVersions}
@@ -96,6 +131,22 @@ class DownloadsComponent extends Component {
         </CardContent>
       </Card>
     );
+  }
+
+  retrieveColor(downloads) {
+    console.log(downloads)
+    // '#ffa600', '#50d467', '#54b0f2', '#f95d6a', '#2f4b7c']
+    let color = '#FFF';
+    if (downloads < 1000) {
+      color = '#FFF';
+    } else if (downloads < 1000000) {
+      color = '#f95d6a';
+    } else if (downloads < 1000000000) {
+      color = '#2f4b7c';
+    }
+    console.log(color);
+
+    return color;
   }
 }
 
