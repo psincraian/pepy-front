@@ -95,7 +95,7 @@ class DownloadsComponent extends Component {
           <>
             <Autocomplete
               multiple
-              options={this.props.data.versions}
+              options={this.props.data.versions.slice().reverse()}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                   <Chip label={option} {...getTagProps({index})}/>
@@ -134,8 +134,6 @@ class DownloadsComponent extends Component {
   }
 
   retrieveColor(downloads) {
-    console.log(downloads)
-    // '#ffa600', '#50d467', '#54b0f2', '#f95d6a', '#2f4b7c']
     let color = '#FFF';
     if (downloads < 1000) {
       color = '#FFF';
@@ -144,7 +142,6 @@ class DownloadsComponent extends Component {
     } else if (downloads < 1000000000) {
       color = '#2f4b7c';
     }
-    console.log(color);
 
     return color;
   }
