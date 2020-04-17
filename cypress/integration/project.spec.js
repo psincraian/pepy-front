@@ -8,7 +8,7 @@ context('Actions', () => {
 
     it('Show downloads', () => {
       cy.visit('http://localhost:3000/project/requests')
-      cy.get("[data-cy=downloads]").get("table > tr").should('have.length', 32)
+      cy.get("[data-cy=downloads]").get("table tr").should('have.length', 32)
     })
 
     it ('Show error when project not found', () => {
