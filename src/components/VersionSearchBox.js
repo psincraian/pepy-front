@@ -1,0 +1,165 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import {useTheme} from '@material-ui/core/styles';
+import {VariableSizeList} from 'react-window';
+import {Typography} from '@material-ui/core';
+import Chip from "@material-ui/core/Chip";
+import Box from "@material-ui/core/Box";
+import withStyles from "@material-ui/core/styles/withStyles";
+import {formatDownloads} from "../shared/helpers";
+
+const LISTBOX_PADDING = 8; // px
+const styles = (theme) => ({
+});
+
+function renderRow(props) {
+  const {data, index, style} = props;
+  return React.cloneElement(data[index], {
+    style: {
+      ...style,
+      top: style.top + LISTBOX_PADDING,
+    },
+  });
+}
+
+const OuterElementContext = React.createContext({});
+
+const OuterElementType = React.forwardRef((props, ref) => {
+  const outerProps = React.useContext(OuterElementContext);
+  return <div ref={ref} {...props} {...outerProps} />;
+});
+
+// Adapter for react-window
+const ListboxComponent = React.forwardRef(function ListboxComponent(props, ref) {
+  const {children, ...other} = props;
+  const itemData = React.Children.toArray(children);
+  const theme = useTheme();
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'), {noSsr: true});
+  const itemCount = itemData.length;
+  const itemSize = smUp ? 36 : 48;
+
+  const getChildSize = (child) => {
+    if (React.isValidElement(child) && child.type === ListSubheader) {
+      return 48;
+    }
+
+    return itemSize;
+  };
+
+  const getHeight = () => {
+    if (itemCount > 8) {
+      return 8 * itemSize;
+    }
+    return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
+  };
+
+  return (
+    <div ref={ref}>
+      <OuterElementContext.Provider value={other}>
+        <VariableSizeList
+          itemData={itemData}
+          height={getHeight() + 2 * LISTBOX_PADDING}
+          width="100%"
+          key={itemCount}
+          outerElementType={OuterElementType}
+          innerElementType="ul"
+          itemSize={(index) => getChildSize(itemData[index])}
+          overscanCount={5}
+          itemCount={itemCount}
+        >
+          {renderRow}
+        </VariableSizeList>
+      </OuterElementContext.Provider>
+    </div>
+  );
+});
+
+ListboxComponent.propTypes = {
+  children: PropTypes.node,
+};
+
+const renderGroup = (params) => [
+  <ListSubheader key={params.key} component="div">
+    {params.key}
+  </ListSubheader>,
+  params.children,
+];
+
+function retrieveVersionDownloads(version, downloads) {
+  let total = 0;
+  for (const d of Object.keys(downloads)) {
+    if (version in downloads[d]) {
+      total += downloads[d][version];
+    }
+  }
+  return total;
+}
+
+function retrieveColor(downloads) {
+  let color = '#FFF';
+  if (downloads < 1000) {
+    color = '#FFF';
+  } else if (downloads < 1000000) {
+    color = '#f95d6a';
+  } else if (downloads < 1000000000) {
+    color = '#2f4b7c';
+  }
+
+  return color;
+}
+
+class VersionSearchBox extends React.Component {
+  render() {
+    const {classes} = this.props;
+
+    return (
+      <Autocomplete
+        id="version-search-box"
+        multiple
+        filterSelectedOptions
+        classes={classes}
+        ListboxComponent={ListboxComponent}
+        renderGroup={renderGroup}
+        options={this.props.versions}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label="Select versions"
+          />
+        )}
+        renderOption={(option, {selected}) => (
+          <>
+            <Box
+              width={16}
+              height={16}
+              borderRadius={2}
+              marginRight={2}
+              bgcolor={retrieveColor(
+                retrieveVersionDownloads(option, this.props.downloads)
+              )}
+            />
+            <Typography>{option}</Typography>
+            <Box mx={1}><Typography color="textSecondary">-</Typography></Box>
+            <Typography color="textSecondary">
+              {formatDownloads(retrieveVersionDownloads(option, this.props.downloads), 0) + '/month'}
+            </Typography>
+          </>
+        )}
+        renderTags={(value, getTagProps) =>
+          value.map((option, index) => (
+            <Chip label={option} {...getTagProps({index})} />
+          ))
+        }
+        onChange={this.props.onChange}
+        value={this.props.selectedVersions}
+      />
+    );
+  }
+}
+
+export default withStyles(styles)(VersionSearchBox);
