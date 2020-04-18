@@ -101,7 +101,7 @@ class DownloadsComponent extends Component {
     this.setState({ selectedVersions: value });
   };
 
-  retrieveVersionDownloads(version) {
+  retrieveMonthlyVersionDownloads(version) {
     let total = 0;
     for (const d of Object.keys(this.props.data.downloads)) {
       if (version in this.props.data.downloads[d]) {
@@ -139,13 +139,13 @@ class DownloadsComponent extends Component {
                     borderRadius={2}
                     marginRight={2}
                     bgcolor={this.retrieveColor(
-                      this.retrieveVersionDownloads(option)
+                      this.retrieveMonthlyVersionDownloads(option)
                     )}
                   />
                   <Typography>{option}</Typography>
                   <Box mx={1}><Typography color="textSecondary">-</Typography></Box>
                   <Typography color="textSecondary">
-                    {formatDownloads(this.retrieveVersionDownloads(option)) + '/month'}
+                    {formatDownloads(this.retrieveMonthlyVersionDownloads(option)) + '/month'}
                   </Typography>
                 </>
               )}
