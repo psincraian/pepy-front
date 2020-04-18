@@ -17,6 +17,7 @@ class DownloadsComponent extends Component {
 
     this.state = {
       selectedVersions: this.defaultSelectedVersions(),
+      versions: this.props.data.versions.slice().reverse()
     };
   }
 
@@ -62,7 +63,7 @@ class DownloadsComponent extends Component {
         <CardHeader title="Downloads"/>
         <CardContent>
           <>
-            <VersionSearchBox versions={this.props.data.versions.reverse()} onChange={this.updateSelectedVersions}
+            <VersionSearchBox versions={this.state.versions} onChange={this.updateSelectedVersions}
                               selectedVersions={this.state.selectedVersions} downloads={this.props.data.downloads}/>
             <DownloadsChart
               data={downloads}
