@@ -17,20 +17,26 @@ const styles = (theme) => ({
   },
 });
 
-function formatDownloads(downloads) {
-  var precision = 1;
-  if (downloads % 10 === 0) {
-    precision = 0;
-  }
+function formatDownloads(downloads, maxPrecision = 2) {
+  let letter = null;
   if (downloads < 1000) {
-    return downloads;
+    letter = '';
   } else if (downloads < 1000000) {
-    return (downloads / 1000).toFixed(precision) + 'K';
+    downloads = downloads / 1000;
+    letter = 'k';
   } else if (downloads < 1000000000) {
-    return (downloads / 1000000).toFixed(precision) + 'M';
+    downloads = downloads / 1000000;
+    letter = 'M';
+  } else {
+    downloads = downloads / 1000000000;
+    letter = 'G';
   }
 
-  return (downloads / 1000000000).toFixed(precision) + 'G';
+  if (downloads % 10 === 0 || Number.isInteger(downloads)) {
+    return downloads.toFixed(0) + letter;
+  }
+
+  return downloads.toFixed(maxPrecision) + letter;
 }
 
 class DownloadsChart extends Component {
@@ -86,7 +92,7 @@ class DownloadsChart extends Component {
           <YAxis
             width={40}
             tickFormatter={(tick) => {
-              return formatDownloads(tick);
+              return formatDownloads(tick, 1);
             }}
           />
           <Tooltip
