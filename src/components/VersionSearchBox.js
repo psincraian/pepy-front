@@ -11,6 +11,8 @@ import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {formatDownloads} from "../shared/helpers";
+import {createFilterOptions} from "@material-ui/lab";
+import {InfoOutlined} from "@material-ui/icons";
 
 const LISTBOX_PADDING = 8; // px
 const styles = (theme) => ({
@@ -111,11 +113,16 @@ function retrieveColor(downloads) {
   return color;
 }
 
+const filter = createFilterOptions();
+
+
 class VersionSearchBox extends React.Component {
   render() {
     const {classes} = this.props;
 
     return (
+      <>
+      <InfoOutlined />
       <Autocomplete
         id="version-search-box"
         freeSolo
@@ -132,33 +139,52 @@ class VersionSearchBox extends React.Component {
             label="Select versions"
           />
         )}
-        renderOption={(option, {selected}) => (
-          <>
-            <Box
-              width={16}
-              height={16}
-              borderRadius={2}
-              marginRight={2}
-              bgcolor={retrieveColor(
-                retrieveVersionDownloads(option, this.props.downloads)
-              )}
-            />
-            <Typography>{option}</Typography>
-            <Box mx={1}><Typography color="textSecondary">-</Typography></Box>
-            <Typography color="textSecondary">
-              {formatDownloads(retrieveVersionDownloads(option, this.props.downloads), 0) + '/month'}
-            </Typography>
-          </>
-        )}
+        renderOption={(option, {selected}) => this.renderOption(option)}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
-            <Chip label={option} {...getTagProps({index})} />
+            <Chip label={option.title ? option.title : option} {...getTagProps({index})} />
           ))
         }
         onChange={this.props.onChange}
         value={this.props.selectedVersions}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params);
+
+          if (params.value !== '') {
+            filtered.push({
+              value: params.inputValue,
+              title: `Add "${params.inputValue}"`,
+            });
+          }
+
+          return filtered;
+        }}
       />
+      </>
     );
+  }
+
+  renderOption(option) {
+    if (option.title) {
+      return <Typography>Search for {option.value}</Typography>
+    }
+
+    return <>
+      <Box
+        width={16}
+        height={16}
+        borderRadius={2}
+        marginRight={2}
+        bgcolor={retrieveColor(
+          retrieveVersionDownloads(option.value ? option.value : option, this.props.downloads)
+        )}
+      />
+      <Typography>{option.title ? option.title : option}</Typography>
+      <Box mx={1}><Typography color="textSecondary">-</Typography></Box>
+      <Typography color="textSecondary">
+        {formatDownloads(retrieveVersionDownloads(option.value ? option.value : option, this.props.downloads), 0) + '/month'}
+      </Typography>
+    </>;
   }
 }
 
