@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.46",
     "@sentry/browser": "^5.15.5",
-    "cypress": "^4.4.0",
+    "cypress": "^4.4.1",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
