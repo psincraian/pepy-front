@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {Card, CardContent, CardHeader} from '@material-ui/core';
+import React, { Component } from 'react';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 import DownloadsChart from './DownloadsChart';
 import DownloadsTable from './DownloadsTable';
 import withStyles from '@material-ui/core/styles/withStyles';
-import VersionSearchBox from "./VersionSearchBox";
+import VersionSearchBox from './VersionSearchBox';
 import minimatch from 'minimatch';
 
 const styles = (theme) => ({
@@ -18,7 +18,7 @@ class DownloadsComponent extends Component {
 
     this.state = {
       selectedVersions: this.defaultSelectedVersions(),
-      versions: this.props.data.versions.slice().reverse()
+      versions: this.props.data.versions.slice().reverse(),
     };
   }
 
@@ -30,14 +30,17 @@ class DownloadsComponent extends Component {
   retrieveDownloads(downloads, selectedVersions) {
     var data = [];
     Object.keys(downloads).forEach((date) => {
-      var row = {date: date};
+      var row = { date: date };
       row['total'] = Object.values(downloads[date]).reduce(
         (carry, x) => carry + x
       );
       row['sum'] = 0;
       selectedVersions.forEach((selectedVersion) => {
         if (this.shouldAddVersion(selectedVersion, downloads[date])) {
-          const versionDownloads = this.retrieveVersionDownloads(selectedVersion, downloads[date]);
+          const versionDownloads = this.retrieveVersionDownloads(
+            selectedVersion,
+            downloads[date]
+          );
           row[selectedVersion] = versionDownloads;
           row['sum'] += versionDownloads;
         } else {
@@ -50,7 +53,7 @@ class DownloadsComponent extends Component {
   }
 
   shouldAddVersion(selectedVersion, downloads) {
-    if (!(selectedVersion.includes("*"))) {
+    if (!selectedVersion.includes('*')) {
       return selectedVersion in downloads;
     }
 
@@ -65,7 +68,7 @@ class DownloadsComponent extends Component {
   }
 
   retrieveVersionDownloads(selectedVersion, download) {
-    if (!(selectedVersion.includes("*"))) {
+    if (!selectedVersion.includes('*')) {
       return download[selectedVersion];
     }
 
@@ -79,11 +82,11 @@ class DownloadsComponent extends Component {
   }
 
   updateSelectedVersions = (event, value) => {
-    this.setState({selectedVersions: value});
+    this.setState({ selectedVersions: value });
   };
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     const downloads = this.retrieveDownloads(
       this.props.data.downloads,
       this.state.selectedVersions
@@ -91,11 +94,15 @@ class DownloadsComponent extends Component {
 
     return (
       <Card data-cy="downloads">
-        <CardHeader title="Downloads"/>
+        <CardHeader title="Downloads" />
         <CardContent>
           <>
-            <VersionSearchBox versions={this.state.versions} onChange={this.updateSelectedVersions}
-                              selectedVersions={this.state.selectedVersions} downloads={this.props.data.downloads}/>
+            <VersionSearchBox
+              versions={this.state.versions}
+              onChange={this.updateSelectedVersions}
+              selectedVersions={this.state.selectedVersions}
+              downloads={this.props.data.downloads}
+            />
             <DownloadsChart
               data={downloads}
               selectedVersions={this.state.selectedVersions}

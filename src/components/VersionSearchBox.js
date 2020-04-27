@@ -4,22 +4,20 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import {useTheme} from '@material-ui/core/styles';
-import {VariableSizeList} from 'react-window';
-import {Typography} from '@material-ui/core';
-import Chip from "@material-ui/core/Chip";
-import Box from "@material-ui/core/Box";
-import withStyles from "@material-ui/core/styles/withStyles";
-import {formatDownloads} from "../shared/helpers";
-import {createFilterOptions} from "@material-ui/lab";
-import {InfoOutlined} from "@material-ui/icons";
+import { useTheme } from '@material-ui/core/styles';
+import { VariableSizeList } from 'react-window';
+import { Typography } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+import Box from '@material-ui/core/Box';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { formatDownloads } from '../shared/helpers';
+import { createFilterOptions } from '@material-ui/lab';
 
 const LISTBOX_PADDING = 8; // px
-const styles = (theme) => ({
-});
+const styles = (theme) => ({});
 
 function renderRow(props) {
-  const {data, index, style} = props;
+  const { data, index, style } = props;
   return React.cloneElement(data[index], {
     style: {
       ...style,
@@ -36,11 +34,14 @@ const OuterElementType = React.forwardRef((props, ref) => {
 });
 
 // Adapter for react-window
-const ListboxComponent = React.forwardRef(function ListboxComponent(props, ref) {
-  const {children, ...other} = props;
+const ListboxComponent = React.forwardRef(function ListboxComponent(
+  props,
+  ref
+) {
+  const { children, ...other } = props;
   const itemData = React.Children.toArray(children);
   const theme = useTheme();
-  const smUp = useMediaQuery(theme.breakpoints.up('sm'), {noSsr: true});
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
   const itemCount = itemData.length;
   const itemSize = smUp ? 36 : 48;
 
@@ -115,76 +116,86 @@ function retrieveColor(downloads) {
 
 const filter = createFilterOptions();
 
-
 class VersionSearchBox extends React.Component {
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
       <>
-      <InfoOutlined />
-      <Autocomplete
-        id="version-search-box"
-        freeSolo
-        multiple
-        filterSelectedOptions
-        classes={classes}
-        ListboxComponent={ListboxComponent}
-        renderGroup={renderGroup}
-        options={this.props.versions}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="Select versions"
-          />
-        )}
-        renderOption={(option, {selected}) => this.renderOption(option)}
-        renderTags={(value, getTagProps) =>
-          value.map((option, index) => (
-            <Chip label={option.title ? option.title : option} {...getTagProps({index})} />
-          ))
-        }
-        onChange={this.props.onChange}
-        value={this.props.selectedVersions}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
-
-          if (params.value !== '') {
-            filtered.push({
-              value: params.inputValue,
-              title: `Add "${params.inputValue}"`,
-            });
+        <Autocomplete
+          id="version-search-box"
+          freeSolo
+          multiple
+          filterSelectedOptions
+          classes={classes}
+          ListboxComponent={ListboxComponent}
+          renderGroup={renderGroup}
+          options={this.props.versions}
+          renderInput={(params) => (
+            <TextField {...params} variant="outlined" label="Select versions" />
+          )}
+          renderOption={(option, { selected }) => this.renderOption(option)}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                label={option.title ? option.title : option}
+                {...getTagProps({ index })}
+              />
+            ))
           }
+          onChange={this.props.onChange}
+          value={this.props.selectedVersions}
+          filterOptions={(options, params) => {
+            const filtered = filter(options, params);
 
-          return filtered;
-        }}
-      />
+            if (params.value !== '') {
+              filtered.push({
+                value: params.inputValue,
+                title: `Add "${params.inputValue}"`,
+              });
+            }
+
+            return filtered;
+          }}
+        />
       </>
     );
   }
 
   renderOption(option) {
     if (option.title) {
-      return <Typography>Search for {option.value}</Typography>
+      return <Typography>Search for {option.value}</Typography>;
     }
 
-    return <>
-      <Box
-        width={16}
-        height={16}
-        borderRadius={2}
-        marginRight={2}
-        bgcolor={retrieveColor(
-          retrieveVersionDownloads(option.value ? option.value : option, this.props.downloads)
-        )}
-      />
-      <Typography>{option.title ? option.title : option}</Typography>
-      <Box mx={1}><Typography color="textSecondary">-</Typography></Box>
-      <Typography color="textSecondary">
-        {formatDownloads(retrieveVersionDownloads(option.value ? option.value : option, this.props.downloads), 0) + '/month'}
-      </Typography>
-    </>;
+    return (
+      <>
+        <Box
+          width={16}
+          height={16}
+          borderRadius={2}
+          marginRight={2}
+          bgcolor={retrieveColor(
+            retrieveVersionDownloads(
+              option.value ? option.value : option,
+              this.props.downloads
+            )
+          )}
+        />
+        <Typography>{option.title ? option.title : option}</Typography>
+        <Box mx={1}>
+          <Typography color="textSecondary">-</Typography>
+        </Box>
+        <Typography color="textSecondary">
+          {formatDownloads(
+            retrieveVersionDownloads(
+              option.value ? option.value : option,
+              this.props.downloads
+            ),
+            0
+          ) + '/month'}
+        </Typography>
+      </>
+    );
   }
 }
 

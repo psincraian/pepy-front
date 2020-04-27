@@ -1,4 +1,3 @@
-
 export function formatDownloads(downloads, maxPrecision = 2) {
   let letter = null;
   if (downloads < 1000) {
