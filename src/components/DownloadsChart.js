@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { withStyles } from '@material-ui/core';
-import {formatDownloads} from "../shared/helpers";
+import { formatDownloads } from '../shared/helpers';
 
 const styles = (theme) => ({
   chart: {

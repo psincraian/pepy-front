@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import {Card, CardContent, CardHeader} from '@material-ui/core';
+import React, { Component } from 'react';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 import DownloadsChart from './DownloadsChart';
 import DownloadsTable from './DownloadsTable';
 import withStyles from '@material-ui/core/styles/withStyles';
-import VersionSearchBox from "./VersionSearchBox";
+import VersionSearchBox from './VersionSearchBox';
+import minimatch from 'minimatch';
 
 const styles = (theme) => ({
   downloadsTable: {
@@ -17,7 +18,7 @@ class DownloadsComponent extends Component {
 
     this.state = {
       selectedVersions: this.defaultSelectedVersions(),
-      versions: this.props.data.versions.slice().reverse()
+      versions: this.props.data.versions.slice().reverse(),
     };
   }
 
@@ -29,17 +30,21 @@ class DownloadsComponent extends Component {
   retrieveDownloads(downloads, selectedVersions) {
     var data = [];
     Object.keys(downloads).forEach((date) => {
-      var row = {date: date};
+      var row = { date: date };
       row['total'] = Object.values(downloads[date]).reduce(
         (carry, x) => carry + x
       );
       row['sum'] = 0;
-      selectedVersions.forEach((version) => {
-        if (version in downloads[date]) {
-          row[version] = downloads[date][version];
-          row['sum'] += downloads[date][version];
+      selectedVersions.forEach((selectedVersion) => {
+        if (this.shouldAddVersion(selectedVersion, downloads[date])) {
+          const versionDownloads = this.retrieveVersionDownloads(
+            selectedVersion,
+            downloads[date]
+          );
+          row[selectedVersion] = versionDownloads;
+          row['sum'] += versionDownloads;
         } else {
-          row[version] = 0;
+          row[selectedVersion] = 0;
         }
       });
       data.push(row);
@@ -47,12 +52,41 @@ class DownloadsComponent extends Component {
     return data;
   }
 
-  updateSelectedVersions = (event, value, reason) => {
-    this.setState({selectedVersions: value});
+  shouldAddVersion(selectedVersion, downloads) {
+    if (!selectedVersion.includes('*')) {
+      return selectedVersion in downloads;
+    }
+
+    const versions = Object.keys(downloads);
+    for (const version of versions) {
+      if (minimatch(version, selectedVersion)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  retrieveVersionDownloads(selectedVersion, download) {
+    if (!selectedVersion.includes('*')) {
+      return download[selectedVersion];
+    }
+
+    let total = 0;
+    for (const [version, value] of Object.entries(download)) {
+      if (minimatch(version, selectedVersion)) {
+        total += value;
+      }
+    }
+    return total;
+  }
+
+  updateSelectedVersions = (event, value) => {
+    this.setState({ selectedVersions: value });
   };
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
     const downloads = this.retrieveDownloads(
       this.props.data.downloads,
       this.state.selectedVersions
@@ -60,11 +94,15 @@ class DownloadsComponent extends Component {
 
     return (
       <Card data-cy="downloads">
-        <CardHeader title="Downloads"/>
+        <CardHeader title="Downloads" />
         <CardContent>
           <>
-            <VersionSearchBox versions={this.state.versions} onChange={this.updateSelectedVersions}
-                              selectedVersions={this.state.selectedVersions} downloads={this.props.data.downloads}/>
+            <VersionSearchBox
+              versions={this.state.versions}
+              onChange={this.updateSelectedVersions}
+              selectedVersions={this.state.selectedVersions}
+              downloads={this.props.data.downloads}
+            />
             <DownloadsChart
               data={downloads}
               selectedVersions={this.state.selectedVersions}
