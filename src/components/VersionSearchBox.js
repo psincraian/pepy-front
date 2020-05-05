@@ -143,7 +143,10 @@ class VersionSearchBox extends React.Component {
               />
             ))
           }
-          onChange={this.props.onChange}
+          onChange={(event, value) => {
+            const newValues = value.map(x => typeof x === 'string' ? x : x.value);
+            this.props.onChange(newValues);
+          }}
           value={this.props.selectedVersions}
           filterOptions={(options, params) => {
             const filtered = filter(options, params);

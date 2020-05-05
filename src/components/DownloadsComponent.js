@@ -81,7 +81,7 @@ class DownloadsComponent extends Component {
     return total;
   }
 
-  updateSelectedVersions = (event, value) => {
+  updateSelectedVersions = (value) => {
     this.setState({ selectedVersions: value });
   };
 
