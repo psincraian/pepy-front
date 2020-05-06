@@ -16,7 +16,6 @@ import SearchAppBar from '../components/SearchAppBar';
 import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
-import Emoji from '../components/Emoji';
 import DownloadsComponent from '../components/DownloadsComponent';
 
 const styles = (theme) => ({
@@ -84,7 +83,7 @@ class Project extends Component {
       );
     }
 
-    var lastDate = new Date('2020-04-10').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2020-05-11').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -94,13 +93,12 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                If you find pepy.tech useful, <Emoji symbol="⛑️" /> support it
-                with a donation{' '}
+                Now the glob pattern is available. More info {' '}
                 <Link
-                  aria-label="Patreon link"
+                  aria-label="glob pattern available"
                   color="textSecondary"
                   component="a"
-                  href="https://www.patreon.com/pepy"
+                  href="https://www.patreon.com/posts/glob-pattern-now-36777813"
                 >
                   here!
                 </Link>
