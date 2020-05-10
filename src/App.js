@@ -10,7 +10,6 @@ import ReactGA from 'react-ga';
 import { createBrowserHistory } from 'history';
 import * as Sentry from '@sentry/browser';
 import About from './container/About';
-import WrappedErrors from './container/WrappedErrors';
 
 const store = ConfigureStore();
 
@@ -40,16 +39,11 @@ class App extends Component {
       <Provider store={store}>
         <Router history={browserHistory}>
           <MuiThemeProvider theme={defaultTheme}>
-            <WrappedErrors>
-              <Switch>
-                <Route exact path="/" component={Index} />
-                <Route
-                  path="/project/:projectId"
-                  component={ProjectContainer}
-                />
-                <Route path="/about" component={About} />
-              </Switch>
-            </WrappedErrors>
+            <Switch>
+              <Route exact path="/" component={Index} />
+              <Route path="/project/:projectId" component={ProjectContainer} />
+              <Route path="/about" component={About} />
+            </Switch>
           </MuiThemeProvider>
         </Router>
       </Provider>

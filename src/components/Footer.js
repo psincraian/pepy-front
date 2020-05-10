@@ -20,7 +20,7 @@ class Footer extends Component {
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} align="center">
+            <Grid item xs={6} sm={4} align="center">
               <Link
                 aria-label="Source code"
                 color="textSecondary"
@@ -30,7 +30,7 @@ class Footer extends Component {
                 We <Emoji symbol="❤️" label="heart" /> open source
               </Link>
             </Grid>
-            <Grid item xs={12} sm={3} align="center">
+            <Grid item xs={6} sm={3} align="center">
               <Link
                 aria-label="Follow us"
                 color="textSecondary"
@@ -40,7 +40,7 @@ class Footer extends Component {
                 <Emoji symbol="👤" label="person" /> Follow us
               </Link>
             </Grid>
-            <Grid item xs={12} sm={3} align="center">
+            <Grid item xs={6} sm={3} align="center">
               <Link
                 aria-label="Support us"
                 color="textSecondary"
@@ -50,7 +50,7 @@ class Footer extends Component {
                 <Emoji symbol="➕" label="plus" /> Support us
               </Link>
             </Grid>
-            <Grid item xs={12} sm={2} align="center">
+            <Grid item xs={6} sm={2} align="center">
               <Link color="textSecondary" component={RouterLink} to="/about">
                 <Emoji symbol="❔" label="question" /> FAQ
               </Link>
