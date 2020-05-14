@@ -13,6 +13,6 @@ context('Actions', () => {
 
     it ('Show error when project not found', () => {
       cy.visit('http://localhost:3000/project/asoidj29383rjf4uncpw9cumem')
-      cy.contains('Not found')
+      cy.contains('404')
     })
 })
