@@ -3,10 +3,11 @@ import { BASE_URL, FETCHING_STATUS } from './constants';
 const SHOW_PROJECT = 'SHOW_PROJECT';
 const LOAD_PROJECT = 'LOAD_PROJECT';
 const ERROR_404 = 'ERROR_404';
+const ERROR_5XX = 'ERROR_5XX';
 
 // Actions
 export const fetchProject = (projectId) => (dispatch) => {
-  var url = BASE_URL + 'projects/' + projectId;
+  var url = BASE_URL + '/api/v2/projects/' + projectId;
 
   dispatch(loadProject());
   return fetch(url, {
@@ -37,6 +38,8 @@ export const fetchProject = (projectId) => (dispatch) => {
     .catch((error) => {
       if (error.response !== undefined && error.response.status === 404) {
         dispatch(error404(projectId));
+      } else if (error.response !== undefined && error.response.status >= 500) {
+        dispatch(error5XX(projectId, error.response.status));
       }
     });
 };
@@ -55,6 +58,12 @@ export const error404 = (projectId) => ({
   projectId: projectId,
 });
 
+export const error5XX = (projectId, error) => ({
+  type: ERROR_5XX,
+  error: error,
+  projectId: projectId,
+});
+
 export const Project = (
   state = {
     status: FETCHING_STATUS.noData,
@@ -70,6 +79,12 @@ export const Project = (
       return {
         status: FETCHING_STATUS.fetched,
         error: 404,
+        projectId: action.projectId,
+      };
+    case ERROR_5XX:
+      return {
+        status: FETCHING_STATUS.fetched,
+        error: action.error,
         projectId: action.projectId,
       };
     default:

@@ -18,6 +18,7 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import DownloadsComponent from '../components/DownloadsComponent';
+import Emoji from '../components/Emoji';
 
 const styles = (theme) => ({
   layout: {
@@ -91,43 +92,9 @@ class Project extends Component {
     }
 
     if (this.props.project.error === 404) {
-      return (
-        <div className={classes.page}>
-          <SearchAppBar />
-          <Grid
-            container
-            spacing={2}
-            className={classes.layout}
-            justify="center"
-          >
-            <Grid item xs={12}>
-              <Typography variant="h2">Error 404</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">
-                Project <i>{this.props.project.projectId}</i> was not found.
-                These can be the reasons:
-                <ul>
-                  <li>You made a typo and the project doesn't exist.</li>
-                  <li>
-                    If the project exists in PyPI, probably, it's a new project.
-                    The downloads are updated once a day, check our{' '}
-                    <Link component={RouterLink} to="/about">
-                      FAQ
-                    </Link>{' '}
-                    about when the downloads are updated.
-                  </li>
-                </ul>
-                If not of the above is the case please open an issue in our{' '}
-                <a href="https://github.com/psincraian/pepy">GitHub</a>.
-              </Typography>
-            </Grid>
-          </Grid>
-          <div className={classes.footer}>
-            <Footer />
-          </div>
-        </div>
-      );
+      return this.render404Page(classes);
+    } else if (this.props.project.error >= 500) {
+      return this.render5XXPage(classes);
     }
 
     var lastDate = new Date('2020-05-11').setHours(0, 0, 0, 0);
@@ -205,6 +172,62 @@ class Project extends Component {
         </Grid>
         <Footer />
       </>
+    );
+  }
+
+  render404Page(classes) {
+    return (
+      <div className={classes.page}>
+        <SearchAppBar />
+        <Grid container spacing={2} className={classes.layout} justify="center">
+          <Grid item xs={12}>
+            <Typography variant="h2">Error 404</Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1">
+              Project <i>{this.props.project.projectId}</i> was not found. These
+              can be the reasons:
+              <ul>
+                <li>You made a typo and the project doesn't exist.</li>
+                <li>
+                  If the project exists in PyPI, probably, it's a new project.
+                  The downloads are updated once a day, check our{' '}
+                  <Link component={RouterLink} to="/about">
+                    FAQ
+                  </Link>{' '}
+                  about when the downloads are updated.
+                </li>
+              </ul>
+              If not of the above is the case please open an issue in our{' '}
+              <a href="https://github.com/psincraian/pepy">GitHub</a>.
+            </Typography>
+          </Grid>
+        </Grid>
+        <div className={classes.footer}>
+          <Footer />
+        </div>
+      </div>
+    );
+  }
+
+  render5XXPage(classes) {
+    return (
+      <div className={classes.page}>
+        <SearchAppBar />
+        <Grid container spacing={2} className={classes.layout}>
+          <Grid item xs={12}>
+            <Typography variant="h2">Internal server error</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="subtitle1">
+              Please try again later <Emoji symbol="⏳" />
+            </Typography>
+          </Grid>
+        </Grid>
+        <div className={classes.footer}>
+          <Footer />
+        </div>
+      </div>
     );
   }
 }
