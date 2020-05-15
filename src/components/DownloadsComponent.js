@@ -5,6 +5,7 @@ import DownloadsTable from './DownloadsTable';
 import withStyles from '@material-ui/core/styles/withStyles';
 import VersionSearchBox from './VersionSearchBox';
 import minimatch from 'minimatch';
+import { withRouter } from 'react-router-dom';
 
 const styles = (theme) => ({
   downloadsTable: {
@@ -20,6 +21,15 @@ class DownloadsComponent extends Component {
       selectedVersions: this.defaultSelectedVersions(),
       versions: this.props.data.versions.slice().reverse(),
     };
+  }
+
+  componentDidMount() {
+    const parsedUrl = new URL(window.location.href);
+    if (parsedUrl.searchParams.has('versions')) {
+      const selectedVersions = parsedUrl.searchParams.getAll('versions');
+      this.setState({ selectedVersions: selectedVersions });
+      return;
+    }
   }
 
   defaultSelectedVersions() {
@@ -83,6 +93,18 @@ class DownloadsComponent extends Component {
 
   updateSelectedVersions = (value) => {
     this.setState({ selectedVersions: value });
+    if (value.length > 0) {
+      let currentUrlParams = new URLSearchParams(window.location.search);
+      currentUrlParams.set('versions', value[0]);
+      value
+        .slice(1, value.length)
+        .forEach((x) => currentUrlParams.append('versions', x));
+      this.props.history.push(
+        window.location.pathname + '?' + currentUrlParams.toString()
+      );
+    } else {
+      this.props.history.push(window.location.pathname);
+    }
   };
 
   render() {
@@ -120,4 +142,4 @@ class DownloadsComponent extends Component {
   }
 }
 
-export default withStyles(styles)(DownloadsComponent);
+export default withRouter(withStyles(styles)(DownloadsComponent));
