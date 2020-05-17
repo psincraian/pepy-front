@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
-import { Link, withStyles, Typography } from '@material-ui/core';
+import { withStyles, Typography } from '@material-ui/core';
 import Footer from '../components/Footer';
 import Emoji from '../components/Emoji';
 const styles = (theme) => ({

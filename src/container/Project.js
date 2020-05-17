@@ -55,7 +55,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Project extends Component {
   componentDidMount() {
-    this.props.fetchProject(this.props.projectId);
+    if (this.props.projectId !== undefined) {
+      this.props.fetchProject(this.props.projectId);
+    }
   }
 
   componentDidUpdate(prevProps) {
