@@ -59,6 +59,12 @@ class DownloadsChart extends Component {
       );
     });
 
+    let data = this.props.data;
+    data.forEach(element => {
+      const date = new Date(element.date);
+      element['day'] = date.toLocaleDateString("en-US",   { weekday: 'short',  day: 'numeric' });
+    });
+
     return (
       <ResponsiveContainer
         className={classes.chart}
@@ -67,7 +73,7 @@ class DownloadsChart extends Component {
       >
         <LineChart data={this.props.data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
+          <XAxis dataKey="date" tickFormatter={(e) => new Date(e).toLocaleDateString("en-US",   { weekday: 'short',  day: 'numeric' })} />
           <YAxis
             width={40}
             tickFormatter={(tick) => {
@@ -75,6 +81,7 @@ class DownloadsChart extends Component {
             }}
           />
           <Tooltip
+            labelFormatter={(e) => new Date(e).toLocaleDateString("en-US",   { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
             formatter={(downloads) => {
               return formatDownloads(downloads);
             }}
