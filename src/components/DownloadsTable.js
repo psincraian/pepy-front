@@ -13,6 +13,9 @@ const styles = (theme) => ({
   container: {
     maxHeight: 440,
   },
+  weekendRow: {
+    backgroundColor: '#fafafa'
+  }
 });
 
 class DownloadsTable extends Component {
@@ -48,8 +51,8 @@ class DownloadsTable extends Component {
           <TableBody>
             {downloads.map((row) => {
               return (
-                <TableRow key={row['date']}>
-                  <TableCell scope="row">{row['date']}</TableCell>
+                <TableRow className={new Date(row['date']).getDay() % 6 == 0 ? classes.weekendRow : ''} key={row['date']}>
+                  <TableCell scope="row">{new Date(row['date']).toLocaleDateString("en-US",   { weekday: 'short', month: 'short', day: 'numeric' })}</TableCell>
                   {this.props.selectedVersions.map((version) => (
                     <TableCell key={version}>
                       {row[version].toLocaleString()}
