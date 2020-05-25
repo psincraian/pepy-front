@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.14",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.53",
+    "@material-ui/lab": "^4.0.0-alpha.54",
     "@sentry/browser": "^5.15.5",
     "cypress": "^4.6.0",
     "minimatch": "^3.0.4",
