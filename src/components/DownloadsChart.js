@@ -75,6 +75,14 @@ class DownloadsChart extends Component {
             }}
           />
           <Tooltip
+            labelFormatter={(e) =>
+              new Date(e).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              })
+            }
             formatter={(downloads) => {
               return formatDownloads(downloads);
             }}

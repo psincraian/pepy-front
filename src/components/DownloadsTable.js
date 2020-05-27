@@ -13,6 +13,9 @@ const styles = (theme) => ({
   container: {
     maxHeight: 440,
   },
+  weekendRow: {
+    backgroundColor: '#fafafa',
+  },
 });
 
 class DownloadsTable extends Component {
@@ -48,7 +51,14 @@ class DownloadsTable extends Component {
           <TableBody>
             {downloads.map((row) => {
               return (
-                <TableRow key={row['date']}>
+                <TableRow
+                  className={
+                    new Date(row['date']).getDay() % 6 == 0
+                      ? classes.weekendRow
+                      : ''
+                  }
+                  key={row['date']}
+                >
                   <TableCell scope="row">{row['date']}</TableCell>
                   {this.props.selectedVersions.map((version) => (
                     <TableCell key={version}>
