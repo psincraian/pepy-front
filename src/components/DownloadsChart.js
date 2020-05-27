@@ -59,12 +59,6 @@ class DownloadsChart extends Component {
       );
     });
 
-    let data = this.props.data;
-    data.forEach(element => {
-      const date = new Date(element.date);
-      element['day'] = date.toLocaleDateString("en-US",   { weekday: 'short',  day: 'numeric' });
-    });
-
     return (
       <ResponsiveContainer
         className={classes.chart}
@@ -81,7 +75,14 @@ class DownloadsChart extends Component {
             }}
           />
           <Tooltip
-            labelFormatter={(e) => new Date(e).toLocaleDateString("en-US",   { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
+            labelFormatter={(e) =>
+              new Date(e).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              })
+            }
             formatter={(downloads) => {
               return formatDownloads(downloads);
             }}
