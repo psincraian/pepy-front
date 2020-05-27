@@ -36,10 +36,10 @@ class Index extends Component {
     return (
       <div className={classes.root}>
         <Helmet>
-          <title>PePy - Python Package Download Stats</title>
+          <title>PePy - PyPI Download Stats</title>
           <meta
             name="description"
-            content="Use PePy to view all download stats of all python packages hosted in PyPI. Get you downloads badge to show how popular your project is."
+            content="Use PePy to view PyPI download stats, also you can generate your python download stats badge here."
           />
         </Helmet>
         <AppBar />
