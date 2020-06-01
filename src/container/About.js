@@ -38,7 +38,7 @@ class About extends Component {
           </Typography>
           <Typography variant="h6">When the data is updated?</Typography>
           <Typography paragraph={true}>
-            There is a cron that runs every day at 5 pm UTC that retrieves all
+            There is a cron that runs every day at 1 am UTC that retrieves all
             the new downloads from the previous day.
           </Typography>
           <Typography variant="h6">Who is the creator of PePy.tech?</Typography>
