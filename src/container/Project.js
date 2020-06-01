@@ -99,7 +99,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2020-05-11').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2020-06-05').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -109,14 +109,14 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                Now the glob pattern is available. More info{' '}
+                🗓️ Month review: check what's new, some stats of this site, and the next feature {' '}
                 <Link
-                  aria-label="glob pattern available"
+                  aria-label="month review"
                   color="textSecondary"
                   component="a"
-                  href="https://www.patreon.com/posts/glob-pattern-now-36777813"
+                  href="https://www.buymeacoffee.com/p/70222"
                 >
-                  here!
+                  in this blog post!
                 </Link>
               </Typography>
             }
