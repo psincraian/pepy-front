@@ -99,7 +99,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2020-06-05').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2020-06-28').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -109,14 +109,15 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                🗓️ Month review: check what's new, some stats of this site, and the next feature {' '}
+                <Emoji symbol="🗞️"/> Monthly report available for supporters, more info  {' '}
                 <Link
                   aria-label="month review"
                   color="textSecondary"
                   component="a"
-                  href="https://www.buymeacoffee.com/p/70222"
+                  target="_blank"
+                  href="https://www.buymeacoffee.com/p/76409"
                 >
-                  in this blog post!
+                  here!
                 </Link>
               </Typography>
             }
