@@ -53,7 +53,7 @@ class DownloadsTable extends Component {
               return (
                 <TableRow
                   className={
-                    new Date(row['date']).getDay() % 6 == 0
+                    new Date(row['date']).getDay() % 6 === 0
                       ? classes.weekendRow
                       : ''
                   }
