@@ -109,7 +109,8 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🗞️"/> Monthly report available for supporters, more info  {' '}
+                <Emoji symbol="🗞️" /> Monthly report available for supporters,
+                more info{' '}
                 <Link
                   aria-label="month review"
                   color="textSecondary"

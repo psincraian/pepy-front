@@ -25,6 +25,7 @@ class Footer extends Component {
                 aria-label="Source code"
                 color="textSecondary"
                 component="a"
+                target="_blank"
                 href="https://github.com/psincraian/pepy"
               >
                 We <Emoji symbol="❤️" label="heart" /> open source
@@ -35,6 +36,7 @@ class Footer extends Component {
                 aria-label="Follow us"
                 color="textSecondary"
                 component="a"
+                target="_blank"
                 href="https://twitter.com/psincraian"
               >
                 <Emoji symbol="👤" label="person" /> Follow us
@@ -45,7 +47,8 @@ class Footer extends Component {
                 aria-label="Support us"
                 color="textSecondary"
                 component="a"
-                href="https://www.patreon.com/pepy"
+                target="_blank"
+                href="https://www.buymeacoffee.com/pepy"
               >
                 <Emoji symbol="➕" label="plus" /> Support us
               </Link>

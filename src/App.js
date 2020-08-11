@@ -11,6 +11,7 @@ import { createBrowserHistory } from 'history';
 import * as Sentry from '@sentry/browser';
 import About from './container/About';
 import NotFound from './container/NotFound';
+import Newsletter from './container/Newsletter';
 
 const store = ConfigureStore();
 
@@ -44,6 +45,7 @@ class App extends Component {
               <Route exact path="/" component={Index} />
               <Route path="/project/:projectId" component={ProjectContainer} />
               <Route path="/about" component={About} />
+              <Route path="/newsletter" component={Newsletter} />
               <Route path="*" component={NotFound} />
             </Switch>
           </MuiThemeProvider>

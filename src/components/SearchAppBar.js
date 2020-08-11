@@ -81,6 +81,15 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  sectionFirst: {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
+  section: {
+    color: 'inherit',
+    textDecoration: 'none',
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 function SearchAppBar(props) {
@@ -137,15 +146,11 @@ function SearchAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.title}
-            variant="h6"
-            component={AdapterLink}
-            to="/"
-            noWrap
-          >
-            PePy
-          </Typography>
+          <Link component={AdapterLink} to="/" className={classes.sectionFirst}>
+            <Typography className={classes.title} variant="h6" noWrap>
+              PePy
+            </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -165,8 +170,15 @@ function SearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Link
+              to="/newsletter"
+              component={RouterLink}
+              className={classes.sectionFirst}
+            >
+              Newsletter
+            </Link>
+            <Link
               aria-label="Blog"
-              color="inherit"
+              className={classes.section}
               component="a"
               href="https://blog.pepy.tech?utm_source=pepy"
             >
