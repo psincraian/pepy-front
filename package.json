@@ -17,7 +17,7 @@
     "react-helmet": "^6.0.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.3",
     "react-window": "^1.8.5",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
