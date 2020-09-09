@@ -109,7 +109,7 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🗳" /> Which should be the next feature?{' '}Vote{' '} 
+                <Emoji symbol="🗳" /> Which should be the next feature? Vote{' '}
                 <Link
                   aria-label="product review"
                   color="textSecondary"
