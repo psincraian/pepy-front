@@ -15,6 +15,19 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import { cyan } from '@material-ui/core/colors';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// fixing https://discuss.newrelic.com/t/exception-in-nrwrapper/72759/7
+Cypress.on('uncaught:exception', (err) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    console.error("Error: "  + err.message);
+    if (err.message &&
+       err.message.contains('Cannot set property \'status\' of undefined')) {
+      return false;
+    }
+    return true;
+});

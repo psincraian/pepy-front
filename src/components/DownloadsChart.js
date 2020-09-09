@@ -26,12 +26,17 @@ class DownloadsChart extends Component {
     };
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
+  componentDidMount() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.handleWindowSizeChange)
+    }
+    this.handleWindowSizeChange()
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.handleWindowSizeChange);
+    }
   }
 
   handleWindowSizeChange = () => {
