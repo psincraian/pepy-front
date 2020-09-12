@@ -154,6 +154,8 @@ class Project extends Component {
               totalDownloads={this.props.project.total_downloads}
               totalDownloads30Days={this.sumLastDownloads(
                 Object.values(this.props.project.downloads)
+                .reverse()
+                .slice(0, 30)
               )}
               totalDownloads7Days={this.sumLastDownloads(
                 Object.values(this.props.project.downloads)
