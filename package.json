@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@sentry/browser": "^5.22.3",
-    "cypress": "^5.1.0",
+    "cypress": "^5.3.0",
     "minimatch": "^3.0.4",
     "prettier": "^2.1.1",
     "react": "^16.13.1",
