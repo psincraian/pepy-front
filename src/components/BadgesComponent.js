@@ -4,12 +4,11 @@ import {
   CardContent,
   Grid,
   CardHeader,
-  Typography,
   Button,
   Link,
 } from '@material-ui/core';
 import CodeBlock from './CodeBlock';
-import { withRouter, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 function BadgesComponent(props) {
   return (
