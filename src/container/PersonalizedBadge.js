@@ -50,6 +50,7 @@ const styles = (theme) => ({
 class PersonalizedBadge extends Component {
   state = {
     period: 'month',
+    units: 'international_system',
     leftColor: 'black',
     rightColor: 'orange',
     leftText: 'Downloads',
@@ -66,6 +67,8 @@ class PersonalizedBadge extends Component {
       this.props.project +
       '?period=' +
       this.state.period +
+      '&units=' +
+      this.state.units +
       '&left_color=' +
       this.state.leftColor +
       '&right_color=' +
@@ -133,6 +136,35 @@ class PersonalizedBadge extends Component {
                       value="total"
                       control={<Radio />}
                       label="Total"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography variant="body1">Units</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl className={classes.formControl}>
+                  <RadioGroup
+                    aria-label="units"
+                    name="units"
+                    value={this.state.units}
+                    onChange={this.handleChange}
+                  >
+                    <FormControlLabel
+                      value="international_system"
+                      control={<Radio />}
+                      label="System metric (default)"
+                    />
+                    <FormControlLabel
+                      value="abbreviation"
+                      control={<Radio />}
+                      label="Abbreviation"
+                    />
+                    <FormControlLabel
+                      value="none"
+                      control={<Radio />}
+                      label="None"
                     />
                   </RadioGroup>
                 </FormControl>
