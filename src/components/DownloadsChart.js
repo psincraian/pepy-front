@@ -28,9 +28,9 @@ class DownloadsChart extends Component {
 
   componentDidMount() {
     if (typeof window !== 'undefined') {
-      window.addEventListener('resize', this.handleWindowSizeChange)
+      window.addEventListener('resize', this.handleWindowSizeChange);
     }
-    this.handleWindowSizeChange()
+    this.handleWindowSizeChange();
   }
 
   componentWillUnmount() {
