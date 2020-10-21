@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
+import CodeBlock from '../components/CodeBlock';
 import {
   withStyles,
   Typography,
@@ -13,7 +14,6 @@ import {
   Radio,
 } from '@material-ui/core';
 import Footer from '../components/Footer';
-import CodeBlock from '../components/CodeBlock';
 const styles = (theme) => ({
   layout: {
     width: 'auto',
@@ -41,8 +41,34 @@ const styles = (theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  resultTitle: {
+  formControlLeft: {
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: '35%',
+      minWidth: 120,
+    },
+    [theme.breakpoints.only('xs')]: {
+      width: '100%',
+    },
+  },
+  formControlRight: {
+    [theme.breakpoints.up('sm')]: {
+      marginRight: '35%',
+      minWidth: 120,
+    },
+    [theme.breakpoints.only('xs')]: {
+      width: '100%',
+    },
+  },
+  imageCodeTitle: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
+  },
+  imageTitle: {
     marginTop: theme.spacing(2),
+  },
+  imageCode: {
+    marginTop: theme.spacing(2),
+    width: '100%',
   },
 });
 
@@ -77,6 +103,10 @@ class PersonalizedBadge extends Component {
     );
   }
 
+  buildProjectUrl() {
+    return 'https://pepy.tech/project/' + this.props.project;
+  }
+
   getColors() {
     return [
       'black',
@@ -96,7 +126,11 @@ class PersonalizedBadge extends Component {
     const { classes } = this.props;
 
     const colorsOptions = this.getColors().map((color) => {
-      return <MenuItem value={color}>{color}</MenuItem>;
+      return (
+        <MenuItem key={color} value={color}>
+          {color}
+        </MenuItem>
+      );
     });
 
     return (
@@ -110,7 +144,7 @@ class PersonalizedBadge extends Component {
           </Grid>
           <Grid item xs={12} md={8} className={classes.formLayout}>
             <Grid container spacing={1} alignItems="center" justify="center">
-              <Grid item xs={6}>
+              <Grid item>
                 <Typography variant="body1">Period</Typography>
               </Grid>
               <Grid item xs={6}>
@@ -120,6 +154,7 @@ class PersonalizedBadge extends Component {
                     name="period"
                     value={this.state.period}
                     onChange={this.handleChange}
+                    row
                   >
                     <FormControlLabel
                       value="week"
@@ -140,39 +175,7 @@ class PersonalizedBadge extends Component {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">Units</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl className={classes.formControl}>
-                  <RadioGroup
-                    aria-label="units"
-                    name="units"
-                    value={this.state.units}
-                    onChange={this.handleChange}
-                  >
-                    <FormControlLabel
-                      value="international_system"
-                      control={<Radio />}
-                      label="System metric (default)"
-                    />
-                    <FormControlLabel
-                      value="abbreviation"
-                      control={<Radio />}
-                      label="Abbreviation"
-                    />
-                    <FormControlLabel
-                      value="none"
-                      control={<Radio />}
-                      label="None"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1">Left color</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.formControlLeft}>
                   <Select
                     name="leftColor"
                     id="left-color"
@@ -183,11 +186,8 @@ class PersonalizedBadge extends Component {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1">Right color</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl className={classes.formControl}>
+              <Grid item xs={6} align="right">
+                <FormControl className={classes.formControlRight}>
                   <Select
                     name="rightColor"
                     id="right-color"
@@ -198,11 +198,15 @@ class PersonalizedBadge extends Component {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6}>
-                <Typography variant="body1">Left text</Typography>
+              <Grid item xs={12} align="center">
+                <img
+                  width="66%"
+                  alt="Personalized badge"
+                  src={this.buildUrl()}
+                />
               </Grid>
               <Grid item xs={6}>
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.formControlLeft}>
                   <Input
                     name="leftText"
                     id="leftText"
@@ -211,24 +215,64 @@ class PersonalizedBadge extends Component {
                   />
                 </FormControl>
               </Grid>
-              <Grid item xs={12} className={classes.resultTitle}>
-                <Typography variant="h4">Result</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <img alt="Personalized badge" src={this.buildUrl()} />
-              </Grid>
-              <Grid item xs={6}>
-                <CodeBlock
-                  content={
-                    '[![Downloads](' +
-                    this.buildUrl() +
-                    ')](https://pepy.tech/project/' +
-                    this.props.project +
-                    ')'
-                  }
-                />
+              <Grid item xs={6} align="right">
+                <FormControl className={classes.formControlRight}>
+                  <Select
+                    aria-label="units"
+                    name="units"
+                    value={this.state.units}
+                    onChange={this.handleChange}
+                  >
+                    <MenuItem value="international_system">
+                      System metric (default)
+                    </MenuItem>
+                    <MenuItem value="abbreviation">Abbreviation</MenuItem>
+                    <MenuItem value="none">None</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs={12} className={classes.imageCodeTitle}>
+            <Typography variant="h3">Insert your image</Typography>
+          </Grid>
+          <Grid item xs={6} className={classes.imageTitle} align="center">
+            <Typography variant="body1">Markdown</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <CodeBlock
+              className={classes.imageCode}
+              content={
+                '[![Downloads](' +
+                this.buildUrl() +
+                ')](' +
+                this.buildProjectUrl() +
+                ')'
+              }
+            />
+          </Grid>
+          <Grid item xs={6} className={classes.imageTitle} align="center">
+            <Typography variant="body1">RST</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <CodeBlock
+              className={classes.imageCode}
+              content={
+                '.. image:: ' +
+                this.buildUrl() +
+                '\n :target:' +
+                this.buildProjectUrl()
+              }
+            />
+          </Grid>
+          <Grid item xs={6} className={classes.imageTitle} align="center">
+            <Typography variant="body1">Image url</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <CodeBlock
+              className={classes.imageCode}
+              content={this.buildUrl()}
+            />
           </Grid>
         </Grid>
         <div className={classes.footer}>

@@ -50,9 +50,12 @@ class CodeBlock extends Component {
         <OutlinedInput
           id={this.state.id}
           disabled
+          multiline
+          rows={this.props.rows ?? 1}
           margin="dense"
           labelWidth={0}
           value={this.props.content}
+          className={this.props.className}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
