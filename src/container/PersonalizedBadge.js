@@ -234,7 +234,7 @@ class PersonalizedBadge extends Component {
             </Grid>
           </Grid>
           <Grid item xs={12} className={classes.imageCodeTitle}>
-            <Typography variant="h3">Insert your image</Typography>
+            <Typography variant="h3">Result</Typography>
           </Grid>
           <Grid item xs={6} className={classes.imageTitle} align="center">
             <Typography variant="body1">Markdown</Typography>
