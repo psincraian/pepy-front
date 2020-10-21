@@ -260,7 +260,7 @@ class PersonalizedBadge extends Component {
               content={
                 '.. image:: ' +
                 this.buildUrl() +
-                '\n :target:' +
+                '\n :target: ' +
                 this.buildProjectUrl()
               }
             />
