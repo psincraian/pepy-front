@@ -1,6 +1,14 @@
 import React from 'react';
-import { Card, CardContent, Grid, CardHeader } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Grid,
+  CardHeader,
+  Button,
+  Link,
+} from '@material-ui/core';
 import CodeBlock from './CodeBlock';
+import { Link as RouterLink } from 'react-router-dom';
 
 function BadgesComponent(props) {
   return (
@@ -58,6 +66,16 @@ function BadgesComponent(props) {
                 '/week)'
               }
             />
+          </Grid>
+          <Grid item xs={12}>
+            <Link
+              component={RouterLink}
+              to={'/project/' + props.project + '/personalized-badge'}
+            >
+              <Button variant="contained" color="primary">
+                Personalized badge
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </CardContent>

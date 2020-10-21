@@ -11,6 +11,7 @@ import { createBrowserHistory } from 'history';
 import About from './container/About';
 import NotFound from './container/NotFound';
 import Newsletter from './container/Newsletter';
+import PersonalizedBadge from './container/PersonalizedBadge';
 
 const store = ConfigureStore();
 
@@ -33,15 +34,28 @@ class App extends Component {
       return <Project projectId={match.params.projectId} />;
     };
 
+    const PersonalizedBadgeContainer = ({ match }) => {
+      return <PersonalizedBadge project={match.params.projectId} />;
+    };
+
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
           <MuiThemeProvider theme={defaultTheme}>
             <Switch>
               <Route exact path="/" component={Index} />
-              <Route path="/project/:projectId" component={ProjectContainer} />
-              <Route path="/about" component={About} />
-              <Route path="/newsletter" component={Newsletter} />
+              <Route
+                exact
+                path="/project/:projectId"
+                component={ProjectContainer}
+              />
+              <Route
+                exact
+                path="/project/:projectId/personalized-badge"
+                component={PersonalizedBadgeContainer}
+              />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/newsletter" component={Newsletter} />
               <Route path="*" component={NotFound} />
             </Switch>
           </MuiThemeProvider>
