@@ -46,7 +46,7 @@ function BadgesComponent(props) {
                 props.project +
                 '/month)](https://pepy.tech/project/' +
                 props.project +
-                '/month)'
+                ')'
               }
             />
           </Grid>
@@ -63,7 +63,7 @@ function BadgesComponent(props) {
                 props.project +
                 '/week)](https://pepy.tech/project/' +
                 props.project +
-                '/week)'
+                ')'
               }
             />
           </Grid>
