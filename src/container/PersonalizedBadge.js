@@ -99,7 +99,7 @@ class PersonalizedBadge extends Component {
       '&right_color=' +
       this.state.rightColor +
       '&left_text=' +
-      this.state.leftText
+      encodeURI(this.state.leftText)
     );
   }
 
