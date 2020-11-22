@@ -99,7 +99,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2020-08-22').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2020-11-27').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -109,13 +109,13 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🗳" /> Which should be the next feature? Vote{' '}
+                <Emoji symbol="👩🏼‍💻" /> Find remote jobs as a Python developer{' '}
                 <Link
-                  aria-label="product review"
+                  aria-label="remote jobs"
                   color="textSecondary"
                   component="a"
                   target="_blank"
-                  href="https://prs3.typeform.com/to/VkcWv6mW"
+                  href="https://remotematch.app"
                 >
                   here!
                 </Link>
