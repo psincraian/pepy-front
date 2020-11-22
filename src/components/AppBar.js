@@ -46,13 +46,6 @@ class AppBar extends Component {
                 PePy
               </Typography>
             </Link>
-            <Link
-              component={RouterLink}
-              to="/newsletter"
-              className={classes.sectionFirst}
-            >
-              Newsletter
-            </Link>
             <div className={classes.section}>
               <Link
                 aria-label="Blog"

@@ -170,13 +170,6 @@ function SearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Link
-              to="/newsletter"
-              component={RouterLink}
-              className={classes.sectionFirst}
-            >
-              Newsletter
-            </Link>
-            <Link
               aria-label="Blog"
               className={classes.section}
               component="a"
