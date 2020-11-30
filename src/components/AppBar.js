@@ -47,14 +47,9 @@ class AppBar extends Component {
               </Typography>
             </Link>
             <div className={classes.section}>
-              <Link
-                aria-label="Blog"
-                color="inherit"
-                component="a"
-                href="https://blog.pepy.tech?utm_source=pepy"
-              >
-                Blog
-              </Link>
+              <a href="https://www.buymeacoffee.com/pepy">
+                <img alt="support us" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=pepy&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" />
+              </a>
             </div>
           </Toolbar>
         </BaseAppBar>
