@@ -136,8 +136,8 @@ function SearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem component="a" href="https://blog.pepy.tech?utm_source=pepy">
-        <p>Blog</p>
+      <MenuItem component="a" href="http://remotematch.app">
+        <p href="http://remotematch.app">Remote jobs</p>
       </MenuItem>
     </Menu>
   );
@@ -169,9 +169,14 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-              <a href="https://www.buymeacoffee.com/pepy">
-                <img alt="support us" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=pepy&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" />
-              </a>
+            <Link
+              aria-label="Remote jobs"
+              className={classes.section}
+              component="a"
+              href="http://remotematch.app"
+            >
+              Remote jobs
+            </Link>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
