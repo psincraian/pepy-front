@@ -51,8 +51,11 @@ class About extends Component {
             Can I participate to improve the website?
           </Typography>
           <Typography paragraph={true}>
-            Of course, all the code is open source and you can contribute
-            reporting issues or coding :-)
+            Of course, both the{' '}
+            <Link href="https://github.com/psincraian/pepy">backend</Link>{' '}
+            and{' '}
+            <Link href="https://github.com/psincraian/pepy-front">frontend</Link>{' '}
+            are open source and you can contribute reporting issues or coding :-)
           </Typography>
         </div>
         <Footer />
