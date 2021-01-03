@@ -48,7 +48,7 @@ class Footer extends Component {
                 color="textSecondary"
                 component="a"
                 target="_blank"
-                href="https://www.buymeacoffee.com/pepy"
+                href="https://www.patreon.com/pepy"
               >
                 <Emoji symbol="➕" label="plus" /> Support us
               </Link>
