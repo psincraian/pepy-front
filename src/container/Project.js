@@ -99,7 +99,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2020-11-27').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2021-01-15').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -109,13 +109,13 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="👩🏼‍💻" /> Find remote jobs as a Python developer{' '}
+                <Emoji symbol="🌟" /> We open sponsor program. More info{' '}
                 <Link
                   aria-label="remote jobs"
                   color="textSecondary"
                   component="a"
                   target="_blank"
-                  href="https://remotematch.app"
+                  href="https://petru.dev/pepy/2021/01/07/pepy-opens-sponsors.html"
                 >
                   here!
                 </Link>
