@@ -6,7 +6,7 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
-    "cypress": "^6.3.0",
+    "cypress": "^6.7.0",
     "minimatch": "^3.0.4",
     "prettier": "^2.2.1",
     "react": "^16.13.1",
