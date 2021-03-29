@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_requests:
+  pull_request:
     branches:
       - master
 
@@ -13,12 +13,16 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - uses: actions/checkout@v2
+    - name: Use Node.js 15.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
+    - name: Install
+      run: npm ci
     - name: Start environment
       run: npm start &
     - name: Run tests
       run: npm test
     - name: Cypress
-      run: $(npm bin)/cypress run --record
+      run: $(npm bin)/cypress run
