@@ -25,4 +25,4 @@ jobs:
     - name: Run tests
       run: npm test
     - name: Cypress
-      run: $(npm bin)/cypress run --record
+      run: $(npm bin)/cypress run
