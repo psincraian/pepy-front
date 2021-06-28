@@ -8,7 +8,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "cypress": "^6.8.0",
     "minimatch": "^3.0.4",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.2",
     "react": "^16.14.0",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^16.13.1",
