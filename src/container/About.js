@@ -52,10 +52,12 @@ class About extends Component {
           </Typography>
           <Typography paragraph={true}>
             Of course, both the{' '}
-            <Link href="https://github.com/psincraian/pepy">backend</Link>{' '}
-            and{' '}
-            <Link href="https://github.com/psincraian/pepy-front">frontend</Link>{' '}
-            are open source and you can contribute reporting issues or coding :-)
+            <Link href="https://github.com/psincraian/pepy">backend</Link> and{' '}
+            <Link href="https://github.com/psincraian/pepy-front">
+              frontend
+            </Link>{' '}
+            are open source and you can contribute reporting issues or coding
+            :-)
           </Typography>
         </div>
         <Footer />
