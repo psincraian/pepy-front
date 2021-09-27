@@ -6,7 +6,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import Project from './container/Project';
 import { defaultTheme } from './shared/theme';
 import Index from './container/Index';
-import ReactGA from 'react-ga';
 import { createBrowserHistory } from 'history';
 import About from './container/About';
 import NotFound from './container/NotFound';
@@ -15,20 +14,9 @@ import PersonalizedBadge from './container/PersonalizedBadge';
 
 const store = ConfigureStore();
 
-if (process.env.NODE_ENV === 'production') {
-  ReactGA.initialize('UA-115993635-1');
-}
-
 const browserHistory = createBrowserHistory();
-browserHistory.listen((location) => {
-  ReactGA.pageview(location.pathname + location.search);
-});
 
 class App extends Component {
-  componentDidMount() {
-    ReactGA.pageview(window.location.pathname);
-  }
-
   render() {
     const ProjectContainer = ({ match }) => {
       return <Project projectId={match.params.projectId} />;
