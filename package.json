@@ -19,7 +19,7 @@
     "react-window": "^1.8.6",
     "recharts": "^2.1.4",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
