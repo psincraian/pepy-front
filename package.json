@@ -7,7 +7,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "cypress": "^9.2.0",
-    "minimatch": "^3.0.4",
+    "minimatch": "^3.0.5",
     "prettier": "^2.5.1",
     "react": "^16.14.0",
     "react-app-polyfill": "^3.0.0",
