@@ -19,6 +19,7 @@ import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import DownloadsComponent from '../components/DownloadsComponent';
 import Emoji from '../components/Emoji';
+import GitHubButton from 'react-github-btn';
 
 const styles = (theme) => ({
   layout: {
@@ -99,7 +100,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2021-01-15').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2022-04-07').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -109,16 +110,15 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🌟" /> We open sponsor program. More info{' '}
-                <Link
-                  aria-label="remote jobs"
-                  color="textSecondary"
-                  component="a"
-                  target="_blank"
-                  href="https://petru.dev/pepy/2021/01/07/pepy-opens-sponsors.html"
+                Help us reach 500 stars on GitHub{' '}
+                <GitHubButton
+                  href="https://github.com/psincraian/pepy"
+                  data-icon="octicon-star"
+                  data-show-count="true"
+                  aria-label="Star psincraian/pepy on GitHub"
                 >
-                  here!
-                </Link>
+                  Star
+                </GitHubButton>
               </Typography>
             }
           />
