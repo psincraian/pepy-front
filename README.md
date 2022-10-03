@@ -28,5 +28,10 @@ npm install
 npm start
 ```
 
+## Sponsors
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=7bf782110d6c&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
+
 ## 🚩 License
 The code is available under the [MIT license](LICENSE.md).
