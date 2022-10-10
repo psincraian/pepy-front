@@ -7,7 +7,6 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from '@material-ui/core';
@@ -136,9 +135,6 @@ function SearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem component="a" href="http://remotematch.app">
-        <p href="http://remotematch.app">Remote jobs</p>
-      </MenuItem>
     </Menu>
   );
 
@@ -169,14 +165,7 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link
-              aria-label="Remote jobs"
-              className={classes.section}
-              component="a"
-              href="http://remotematch.app"
-            >
-              Remote jobs
-            </Link>
+          
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

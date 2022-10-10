@@ -47,14 +47,6 @@ class AppBar extends Component {
               </Typography>
             </Link>
             <div className={classes.section}>
-              <Link
-                aria-label="Remote jobs"
-                className={classes.section}
-                component="a"
-                href="http://remotematch.app"
-              >
-                Remote jobs
-              </Link>{' '}
             </div>
           </Toolbar>
         </BaseAppBar>
