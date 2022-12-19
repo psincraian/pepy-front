@@ -47,7 +47,7 @@ class Newsletter extends Component {
     return (
       <>
         <SearchAppBar />
-        <Grid container justify="center" className={classes.layout}>
+        <Grid container justifyContent="center" className={classes.layout}>
           <Grid item xs={12}>
             <Typography variant="h2">
               Our <u>PRO</u> Newsletter

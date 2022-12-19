@@ -85,7 +85,7 @@ class Project extends Component {
       return (
         <div className={classes.page}>
           <SearchAppBar />
-          <Grid container className={classes.layout} justify="center">
+          <Grid container className={classes.layout} justifyContent="center">
             <Grid item>
               <CircularProgress />
             </Grid>
@@ -184,7 +184,7 @@ class Project extends Component {
     return (
       <div className={classes.page}>
         <SearchAppBar />
-        <Grid container spacing={2} className={classes.layout} justify="center">
+        <Grid container spacing={2} className={classes.layout} justifyContent="center">
           <Grid item xs={12}>
             <Typography variant="h2">Error 404</Typography>
           </Grid>
