@@ -134,8 +134,7 @@ function SearchAppBar(props) {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
-    >
-    </Menu>
+    ></Menu>
   );
 
   return (
@@ -164,9 +163,7 @@ function SearchAppBar(props) {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-          
-          </div>
+          <div className={classes.sectionDesktop}></div>
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

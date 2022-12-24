@@ -143,7 +143,12 @@ class PersonalizedBadge extends Component {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8} className={classes.formLayout}>
-            <Grid container spacing={1} alignItems="center" justifyContent="center">
+            <Grid
+              container
+              spacing={1}
+              alignItems="center"
+              justifyContent="center"
+            >
               <Grid item>
                 <Typography variant="body1">Period</Typography>
               </Grid>

@@ -34,22 +34,36 @@ class Index extends Component {
     const { classes } = this.props;
 
     var analytics = null;
-    if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-      analytics = <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "111f0448a8e642be96fa63fb3370ba21"}'></script>
+    if (
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1'
+    ) {
+      analytics = (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "111f0448a8e642be96fa63fb3370ba21"}'
+        ></script>
+      );
     }
 
     return (
       <div className={classes.root}>
         <Helmet>
           <title>PePy - PyPI Download Stats</title>
-          { analytics }
+          {analytics}
           <meta
             name="description"
             content="Use PePy to view PyPI download stats, also you can generate your python download stats badge here."
           />
         </Helmet>
         <AppBar />
-        <Grid container className={classes.layout} justifyContent="center" spacing={4}>
+        <Grid
+          container
+          className={classes.layout}
+          justifyContent="center"
+          spacing={4}
+        >
           <Grid item xs={12}>
             <Typography align="center" component="h2" variant="h2">
               PePy

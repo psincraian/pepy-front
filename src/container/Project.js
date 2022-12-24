@@ -18,8 +18,8 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import DownloadsComponent from '../components/DownloadsComponent';
-import Emoji from '../components/Emoji';
 import GitHubButton from 'react-github-btn';
+import ServerError from '../components/ServerError';
 
 const styles = (theme) => ({
   layout: {
@@ -184,7 +184,12 @@ class Project extends Component {
     return (
       <div className={classes.page}>
         <SearchAppBar />
-        <Grid container spacing={2} className={classes.layout} justifyContent="center">
+        <Grid
+          container
+          spacing={2}
+          className={classes.layout}
+          justifyContent="center"
+        >
           <Grid item xs={12}>
             <Typography variant="h2">Error 404</Typography>
           </Grid>
@@ -219,16 +224,7 @@ class Project extends Component {
     return (
       <div className={classes.page}>
         <SearchAppBar />
-        <Grid container spacing={2} className={classes.layout}>
-          <Grid item xs={12}>
-            <Typography variant="h2">Internal server error</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1">
-              Please try again later <Emoji symbol="⏳" />
-            </Typography>
-          </Grid>
-        </Grid>
+        <ServerError />
         <div className={classes.footer}>
           <Footer />
         </div>
