@@ -94,4 +94,35 @@ describe('<DownloadsComponent />', () => {
       '2.*',
     ]);
   });
+
+  it('takes the display style weekly from url', () => {
+    const data = {
+      versions: ['0.1'],
+      downloads: {
+        '2020-01-01': { 0.1: 5 },
+        '2020-01-04': { 0.1: 5 },
+        '2020-02-01': { 0.1: 10, 0.2: 5 },
+        '2020-02-02': { 0.1: 5, 0.2: 5 },
+      },
+    };
+    delete global.window.location;
+    global.window.location = new URL(
+      'http://localhost:3000/project/climoji?display=monthly&versions=0.1&versions=0.2'
+    );
+    const wrapper = mount(
+      <Router>
+        <DownloadsComponent data={data} />
+      </Router>
+    );
+
+    expect(wrapper.find('DownloadsTable')).toHaveLength(1);
+    const expectedData = [
+      { date: '2020-01-01', 0.1: 10, 0.2: 0, sum: 10, total: 10 },
+      { date: '2020-02-01', 0.1: 15, 0.2: 10, sum: 25, total: 25 },
+    ];
+    expect(wrapper.find('DownloadsTable').props().data).toEqual(expectedData);
+    expect(wrapper.find('DownloadsComponent').state().displayStyle).toEqual(
+      'monthly'
+    );
+  });
 });

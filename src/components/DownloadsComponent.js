@@ -6,6 +6,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import VersionSearchBox from './VersionSearchBox';
 import minimatch from 'minimatch';
 import { withRouter } from 'react-router-dom';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+
+import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+dayjs.extend(weekOfYear);
 
 const styles = (theme) => ({
   downloadsTable: {
@@ -20,6 +25,8 @@ class DownloadsComponent extends Component {
     this.state = {
       selectedVersions: this.defaultSelectedVersions(),
       versions: this.props.data.versions.slice().reverse(),
+      displayStyle: 'daily',
+      width: window.innerWidth,
     };
   }
 
@@ -28,7 +35,10 @@ class DownloadsComponent extends Component {
     if (parsedUrl.searchParams.has('versions')) {
       const selectedVersions = parsedUrl.searchParams.getAll('versions');
       this.setState({ selectedVersions: selectedVersions });
-      return;
+    }
+    if (parsedUrl.searchParams.has('display')) {
+      const displayStyle = parsedUrl.searchParams.get('display');
+      this.setState({ displayStyle: displayStyle });
     }
   }
 
@@ -37,7 +47,7 @@ class DownloadsComponent extends Component {
     return this.props.data.versions.slice(versionsSize - 3, versionsSize);
   }
 
-  retrieveDownloads(downloads, selectedVersions) {
+  retrieveDownloads(downloads, selectedVersions, displayStyle) {
     var data = [];
     Object.keys(downloads).forEach((date) => {
       var row = { date: date };
@@ -59,6 +69,42 @@ class DownloadsComponent extends Component {
       });
       data.push(row);
     });
+
+    if (displayStyle !== 'daily') {
+      let getDateIndex = (date) => date;
+      let formatDate = (date) => date;
+
+      if (displayStyle === 'weekly') {
+        getDateIndex = (date) => date.week();
+        formatDate = (date) => {
+          return date.week() + ' - ' + date.year();
+        };
+      } else if (displayStyle === 'monthly') {
+        formatDate = (date) => date.format('YYYY-MM');
+        getDateIndex = (date) => date.month();
+      }
+      const reducedData = data.reduce((weeks, currentDay) => {
+        const date = dayjs(currentDay.date);
+        const weekOfYear = getDateIndex(date);
+        if (!weeks[weekOfYear]) {
+          weeks[weekOfYear] = {
+            date: currentDay.date, // formatDate(date),//
+            total: 0,
+            sum: 0,
+          };
+          selectedVersions.forEach((selectedVersion) => {
+            weeks[weekOfYear][selectedVersion] = 0;
+          });
+        }
+        weeks[weekOfYear].total += currentDay.total;
+        weeks[weekOfYear].sum += currentDay.sum;
+        selectedVersions.forEach((selectedVersion) => {
+          weeks[weekOfYear][selectedVersion] += currentDay[selectedVersion];
+        });
+        return weeks;
+      }, {});
+      data = Object.values(reducedData);
+    }
     return data;
   }
 
@@ -103,20 +149,56 @@ class DownloadsComponent extends Component {
         window.location.pathname + '?' + currentUrlParams.toString()
       );
     } else {
-      this.props.history.push(window.location.pathname);
+      let currentUrlParams = new URLSearchParams(window.location.search);
+      currentUrlParams.delete('versions');
+      this.props.history.push(
+        window.location.pathname + '?' + currentUrlParams.toString()
+      );
     }
   };
 
+  handleDisplayStyleChange = (event, newDisplayStyle) => {
+    this.setState({ displayStyle: newDisplayStyle });
+    let currentUrlParams = new URLSearchParams(window.location.search);
+    currentUrlParams.set('display', newDisplayStyle);
+    this.props.history.push(
+      window.location.pathname + '?' + currentUrlParams.toString()
+    );
+  };
+
   render() {
+    const { width } = this.state;
+    const isMobile = width <= 600;
+
     const { classes } = this.props;
+
     const downloads = this.retrieveDownloads(
       this.props.data.downloads,
-      this.state.selectedVersions
+      this.state.selectedVersions,
+      this.state.displayStyle
+    );
+
+    const displayStyleToggle = (
+      <ToggleButtonGroup
+        color="primary"
+        size="small"
+        exclusive
+        value={this.state.displayStyle}
+        onChange={this.handleDisplayStyleChange}
+        aria-label="outlined primary button group"
+      >
+        <ToggleButton value="daily">Daily</ToggleButton>
+        <ToggleButton value="weekly">Weekly</ToggleButton>
+        <ToggleButton value="monthly">Monthly</ToggleButton>
+      </ToggleButtonGroup>
     );
 
     return (
       <Card data-cy="downloads">
-        <CardHeader title="Downloads" />
+        <CardHeader
+          title="Downloads"
+          action={isMobile ? null : displayStyleToggle}
+        ></CardHeader>
         <CardContent>
           <>
             <VersionSearchBox
@@ -125,6 +207,18 @@ class DownloadsComponent extends Component {
               selectedVersions={this.state.selectedVersions}
               downloads={this.props.data.downloads}
             />
+            {isMobile ? (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '10px',
+                }}
+              >
+                {displayStyleToggle}
+              </div>
+            ) : null}
+
             <DownloadsChart
               data={downloads}
               selectedVersions={this.state.selectedVersions}
