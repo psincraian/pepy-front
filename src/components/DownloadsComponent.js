@@ -72,23 +72,19 @@ class DownloadsComponent extends Component {
 
     if (displayStyle !== 'daily') {
       let getDateIndex = (date) => date;
-      let formatDate = (date) => date;
 
       if (displayStyle === 'weekly') {
         getDateIndex = (date) => date.week();
-        formatDate = (date) => {
-          return date.week() + ' - ' + date.year();
-        };
       } else if (displayStyle === 'monthly') {
-        formatDate = (date) => date.format('YYYY-MM');
         getDateIndex = (date) => date.month();
       }
+
       const reducedData = data.reduce((weeks, currentDay) => {
         const date = dayjs(currentDay.date);
         const weekOfYear = getDateIndex(date);
         if (!weeks[weekOfYear]) {
           weeks[weekOfYear] = {
-            date: currentDay.date, // formatDate(date),//
+            date: currentDay.date,
             total: 0,
             sum: 0,
           };
