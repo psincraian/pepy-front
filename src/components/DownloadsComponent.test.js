@@ -95,14 +95,14 @@ describe('<DownloadsComponent />', () => {
     ]);
   });
 
-  it('takes the display style weekly from url', () => {
+  it('takes the display style monthly from url', () => {
     const data = {
-      versions: ['0.1'],
+      versions: ['0.1', '0.2', '0.3'],
       downloads: {
         '2020-01-01': { 0.1: 5 },
         '2020-01-04': { 0.1: 5 },
         '2020-02-01': { 0.1: 10, 0.2: 5 },
-        '2020-02-02': { 0.1: 5, 0.2: 5 },
+        '2020-02-02': { 0.1: 5, 0.2: 5, 0.3: 5 },
       },
     };
     delete global.window.location;
@@ -118,11 +118,43 @@ describe('<DownloadsComponent />', () => {
     expect(wrapper.find('DownloadsTable')).toHaveLength(1);
     const expectedData = [
       { date: '2020-01-01', 0.1: 10, 0.2: 0, sum: 10, total: 10 },
-      { date: '2020-02-01', 0.1: 15, 0.2: 10, sum: 25, total: 25 },
+      { date: '2020-02-01', 0.1: 15, 0.2: 10, sum: 25, total: 30 },
     ];
     expect(wrapper.find('DownloadsTable').props().data).toEqual(expectedData);
     expect(wrapper.find('DownloadsComponent').state().displayStyle).toEqual(
       'monthly'
+    );
+  });
+  it('takes the display style weekly from url', () => {
+    const data = {
+      versions: ['0.1', '0.2', '0.3'],
+      downloads: {
+        '2023-01-01': { 0.1: 5 },
+        '2023-01-04': { 0.1: 5 },
+        '2023-01-10': { 0.1: 10, 0.2: 5 },
+        '2023-02-01': { 0.1: 10, 0.2: 5, 0.3: 5 },
+      },
+    };
+    delete global.window.location;
+    global.window.location = new URL(
+      'http://localhost:3000/project/climoji?display=weekly&versions=0.1&versions=0.2'
+    );
+    const wrapper = mount(
+      <Router>
+        <DownloadsComponent data={data} />
+      </Router>
+    );
+
+    expect(wrapper.find('DownloadsTable')).toHaveLength(1);
+    const expectedData = [
+      { date: '2023-01-01', 0.1: 10, 0.2: 0, sum: 10, total: 10 },
+      { date: '2023-01-10', 0.1: 10, 0.2: 5, sum: 15, total: 15 },
+      { date: '2023-02-01', 0.1: 10, 0.2: 5, sum: 15, total: 20 },
+    ];
+    console.log(wrapper.find('DownloadsTable').props().data);
+    expect(wrapper.find('DownloadsTable').props().data).toEqual(expectedData);
+    expect(wrapper.find('DownloadsComponent').state().displayStyle).toEqual(
+      'weekly'
     );
   });
 });
