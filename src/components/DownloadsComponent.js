@@ -158,6 +158,10 @@ class DownloadsComponent extends Component {
   };
 
   handleDisplayStyleChange = (event, newDisplayStyle) => {
+    // Don't allow deselection
+    if(!newDisplayStyle) {
+      return;
+    }
     this.setState({ displayStyle: newDisplayStyle });
     let currentUrlParams = new URLSearchParams(window.location.search);
     currentUrlParams.set('display', newDisplayStyle);
