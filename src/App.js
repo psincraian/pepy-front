@@ -11,6 +11,7 @@ import About from './container/About';
 import NotFound from './container/NotFound';
 import Newsletter from './container/Newsletter';
 import PersonalizedBadge from './container/PersonalizedBadge';
+import { Helmet } from 'react-helmet';
 
 const store = ConfigureStore();
 
@@ -26,10 +27,27 @@ class App extends Component {
       return <PersonalizedBadge project={match.params.projectId} />;
     };
 
+    var analytics = null;
+
+    if (
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1'
+    ) {
+      analytics = (
+        <script
+          type="text/javascript"
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "111f0448a8e642be96fa63fb3370ba21"}'
+        ></script>
+      );
+    }
+
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
           <MuiThemeProvider theme={defaultTheme}>
+            <Helmet>{analytics}</Helmet>
             <Switch>
               <Route exact path="/" component={Index} />
               <Route

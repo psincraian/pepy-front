@@ -155,7 +155,7 @@ class DownloadsComponent extends Component {
 
   handleDisplayStyleChange = (event, newDisplayStyle) => {
     // Don't allow deselection
-    if(!newDisplayStyle) {
+    if (!newDisplayStyle) {
       return;
     }
     this.setState({ displayStyle: newDisplayStyle });

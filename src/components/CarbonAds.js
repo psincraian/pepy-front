@@ -40,7 +40,11 @@ class CarbonAds extends Component {
     return (
       <>
         <div id="carbonadselem"></div>
-        <div class="horizontal" data-ea-publisher="pepytech" data-ea-type="image"></div>
+        <div
+          class="horizontal"
+          data-ea-publisher="pepytech"
+          data-ea-type="image"
+        ></div>
       </>
     );
   }
