@@ -38,8 +38,8 @@ export const fetchProject = (projectId) => (dispatch) => {
     .catch((error) => {
       if (error.response !== undefined && error.response.status === 404) {
         dispatch(error404(projectId));
-      } else if (error.response !== undefined && error.response.status >= 500) {
-        dispatch(error5XX(projectId, error.response.status));
+      } else {
+        dispatch(error5XX(projectId));
       }
     });
 };
@@ -58,9 +58,8 @@ export const error404 = (projectId) => ({
   projectId: projectId,
 });
 
-export const error5XX = (projectId, error) => ({
+export const error5XX = (projectId) => ({
   type: ERROR_5XX,
-  error: error,
   projectId: projectId,
 });
 
@@ -84,8 +83,8 @@ export const Project = (
     case ERROR_5XX:
       return {
         status: FETCHING_STATUS.fetched,
-        error: action.error,
         projectId: action.projectId,
+        error: 500,
       };
     default:
       return state;

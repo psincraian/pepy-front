@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginLeft: theme.spacing(2),
     width: '100%',
@@ -134,8 +134,7 @@ function SearchAppBar(props) {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
-    >
-    </Menu>
+    ></Menu>
   );
 
   return (
@@ -164,9 +163,7 @@ function SearchAppBar(props) {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-          
-          </div>
+          <div className={classes.sectionDesktop}></div>
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

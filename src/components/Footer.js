@@ -16,8 +16,8 @@ const styles = (theme) => ({
   img: {
     maxWidth: '40%',
     [theme.breakpoints.down('md')]: {
-      maxWidth: '50%'
-    }
+      maxWidth: '50%',
+    },
   },
 });
 
@@ -29,15 +29,25 @@ class Footer extends Component {
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} align="center" className={classes.imgContainer}>
-            <Link
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              align="center"
+              className={classes.imgContainer}
+            >
+              <Link
                 aria-label="Source code"
                 color="textSecondary"
                 component="a"
                 target="_blank"
                 href="https://www.digitalocean.com/?refcode=7bf782110d6c&utm_campaign=Referral_Invite&utm_medium=opensource&utm_source=pepy"
               >
-                <img className={classes.img} src="/images/do-logo.png" alt="Digital Ocean sponsored by logo"/>
+                <img
+                  className={classes.img}
+                  src="/images/do-logo.png"
+                  alt="Digital Ocean sponsored by logo"
+                />
               </Link>
             </Grid>
             <Grid item xs={6} sm={4} align="center">

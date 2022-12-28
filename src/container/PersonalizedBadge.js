@@ -136,14 +136,19 @@ class PersonalizedBadge extends Component {
     return (
       <>
         <SearchAppBar />
-        <Grid container justify="center" className={classes.layout}>
+        <Grid container justifyContent="center" className={classes.layout}>
           <Grid item xs={12}>
             <Typography variant="h2">
               Personalized badge for {this.props.project}
             </Typography>
           </Grid>
           <Grid item xs={12} md={8} className={classes.formLayout}>
-            <Grid container spacing={1} alignItems="center" justify="center">
+            <Grid
+              container
+              spacing={1}
+              alignItems="center"
+              justifyContent="center"
+            >
               <Grid item>
                 <Typography variant="body1">Period</Typography>
               </Grid>

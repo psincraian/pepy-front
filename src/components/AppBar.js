@@ -46,8 +46,7 @@ class AppBar extends Component {
                 PePy
               </Typography>
             </Link>
-            <div className={classes.section}>
-            </div>
+            <div className={classes.section}></div>
           </Toolbar>
         </BaseAppBar>
       </div>
