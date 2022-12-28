@@ -10,6 +10,7 @@ import {
 import CodeBlock from './CodeBlock';
 import { Link as RouterLink } from 'react-router-dom';
 
+const PEPY_BADGES_URL = 'https://static.pepy.tech/badge/';
 function BadgesComponent(props) {
   return (
     <Card data-cy="badges">
@@ -19,13 +20,14 @@ function BadgesComponent(props) {
           <Grid item xs={6}>
             <img
               alt="Total downloads for the project"
-              src={'https://pepy.tech/badge/' + props.project}
+              src={PEPY_BADGES_URL + props.project}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                '[![Downloads](https://pepy.tech/badge/' +
+                '[![Downloads](' +
+                PEPY_BADGES_URL +
                 props.project +
                 ')](https://pepy.tech/project/' +
                 props.project +
@@ -36,13 +38,14 @@ function BadgesComponent(props) {
           <Grid item xs={6}>
             <img
               alt="Last 30 days downloads for the project"
-              src={'https://pepy.tech/badge/' + props.project + '/month'}
+              src={PEPY_BADGES_URL + props.project + '/month'}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                '[![Downloads](https://pepy.tech/badge/' +
+                '[![Downloads](' +
+                PEPY_BADGES_URL +
                 props.project +
                 '/month)](https://pepy.tech/project/' +
                 props.project +
@@ -53,13 +56,14 @@ function BadgesComponent(props) {
           <Grid item xs={6}>
             <img
               alt="Last 7 days downloads for the project"
-              src={'https://pepy.tech/badge/' + props.project + '/week'}
+              src={PEPY_BADGES_URL + props.project + '/week'}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                '[![Downloads](https://pepy.tech/badge/' +
+                '[![Downloads](' +
+                PEPY_BADGES_URL +
                 props.project +
                 '/week)](https://pepy.tech/project/' +
                 props.project +
