@@ -43,8 +43,29 @@ class DownloadsComponent extends Component {
   }
 
   defaultSelectedVersions() {
-    const versionsSize = this.props.data.versions.length;
-    return this.props.data.versions.slice(versionsSize - 3, versionsSize);
+    const versions = this.props.data.versions;
+    var selectedVersions = [];
+    var i = versions.length - 1;
+    while (i >= 0 && selectedVersions.length < 3) {
+      if (this.isStableVersion(versions[i])) {
+        selectedVersions.push(versions[i]);
+      }
+
+      --i;
+    }
+
+    const lastVersion = selectedVersions[0];
+    if (lastVersion.indexOf('.') !== -1) {
+      const major = lastVersion.substring(0, lastVersion.indexOf('.'));
+      selectedVersions.push(major + '.*');
+    }
+
+    return selectedVersions;
+  }
+
+  isStableVersion(version) {
+    var regex = new RegExp(/^\d+(\.\d+)*$/);
+    return regex.test(version);
   }
 
   retrieveDownloads(downloads, selectedVersions, displayStyle) {
