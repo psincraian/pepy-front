@@ -95,9 +95,9 @@ class DownloadsComponent extends Component {
       let getDateIndex = (date) => date;
 
       if (displayStyle === 'weekly') {
-        getDateIndex = (date) => date.week();
+        getDateIndex = (date) => date.month() + "-" + date.week();
       } else if (displayStyle === 'monthly') {
-        getDateIndex = (date) => date.month();
+        getDateIndex = (date) => date.year() + "-" + date.month();
       }
 
       const reducedData = data.reduce((weeks, currentDay) => {
