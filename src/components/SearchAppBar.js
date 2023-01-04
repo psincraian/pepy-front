@@ -7,9 +7,6 @@ import { alpha } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(),
-      width: 'auto',
+      width: '100%',
     },
   },
   searchIcon: {
@@ -81,6 +78,13 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  toolbarContent: {
+    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
+      width: 900,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
   sectionFirst: {
     color: 'inherit',
     textDecoration: 'none',
@@ -94,18 +98,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchAppBar(props) {
   const classes = useStyles();
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [searchValue, setSearchValue] = React.useState('');
-
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  function handleMobileMenuClose() {
-    setMobileMoreAnchorEl(null);
-  }
-
-  function handleMobileMenuOpen(event) {
-    setMobileMoreAnchorEl(event.currentTarget);
-  }
 
   function handleSearchValueChange(event) {
     setSearchValue(event.target.value);
@@ -125,23 +118,10 @@ function SearchAppBar(props) {
     <RouterLink innerRef={ref} {...props} />
   ));
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    ></Menu>
-  );
-
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.toolbarContent}>
           <Link component={AdapterLink} to="/" className={classes.sectionFirst}>
             <Typography className={classes.title} variant="h6" noWrap>
               PePy
@@ -165,21 +145,8 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}></div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-              size="large"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
     </div>
   );
 }

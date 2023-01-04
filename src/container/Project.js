@@ -28,6 +28,11 @@ const styles = (theme) => ({
       marginLeft: 'auto',
       marginRight: 'auto',
     },
+    [theme.breakpoints.up('xl')]: {
+      width: '80%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
   footer: {
     position: 'fixed',
@@ -137,14 +142,19 @@ class Project extends Component {
           />
         </Helmet>
         <SearchAppBar />
-        <Grid container className={classes.layout} spacing={2}>
+        <Grid
+          container
+          justifyContent="center"
+          className={classes.layout}
+          spacing={2}
+        >
           {notification}
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
               {this.props.project.id}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={7} xl={4} order={{ xs: 1, xl: 1 }}>
             <ProjectSummary
               totalDownloads={this.props.project.total_downloads}
               totalDownloads30Days={this.sumLastDownloads(
@@ -160,13 +170,13 @@ class Project extends Component {
               name={this.props.project.id}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item md={5} xl="auto" order={{ xs: 2, xl: 3 }}>
             <CarbonAds />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} xl={4} order={{ xs: 3, xl: 2 }}>
             <BadgesComponent project={this.props.project.id} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} order={{ xs: 4, xl: 4 }}>
             <DownloadsComponent data={this.props.project} />
           </Grid>
         </Grid>
