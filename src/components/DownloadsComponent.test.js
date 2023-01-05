@@ -2,8 +2,25 @@
 import React from 'react';
 import DownloadsComponent from './DownloadsComponent';
 import { mount } from 'enzyme';
-import DownloadsTable from './DownloadsTable';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import { defaultTheme } from '../shared/theme';
+
+const { ResizeObserver } = window;
+
+beforeEach(() => {
+  delete window.ResizeObserver;
+  window.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+  }));
+});
+
+afterEach(() => {
+  window.ResizeObserver = ResizeObserver;
+  jest.restoreAllMocks();
+});
 
 describe('<DownloadsComponent />', () => {
   it('renders component with the last 3 versions and wildcard', () => {
@@ -17,7 +34,11 @@ describe('<DownloadsComponent />', () => {
     };
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
     expect(wrapper.find('DownloadsTable')).toHaveLength(1);
@@ -70,7 +91,11 @@ describe('<DownloadsComponent />', () => {
     };
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
     expect(wrapper.find('DownloadsTable')).toHaveLength(1);
@@ -123,7 +148,11 @@ describe('<DownloadsComponent />', () => {
     };
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
     expect(wrapper.find('DownloadsTable')).toHaveLength(1);
@@ -151,7 +180,11 @@ describe('<DownloadsComponent />', () => {
     };
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
     wrapper.find('DownloadsComponent').setState({ selectedVersions: ['0.*'] });
@@ -183,7 +216,11 @@ describe('<DownloadsComponent />', () => {
     );
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
 
@@ -217,7 +254,11 @@ describe('<DownloadsComponent />', () => {
     );
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
 
@@ -246,7 +287,11 @@ describe('<DownloadsComponent />', () => {
     );
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
 
@@ -277,7 +322,11 @@ describe('<DownloadsComponent />', () => {
     );
     const wrapper = mount(
       <Router>
-        <DownloadsComponent data={data} />
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
       </Router>
     );
 

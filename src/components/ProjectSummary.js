@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  Card,
-  CardContent,
-  Grid,
-  CardHeader,
-  Box,
-  withStyles,
-} from '@material-ui/core';
+import { Card, CardContent, Grid, CardHeader, Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   titleItem: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(),
     },
   },

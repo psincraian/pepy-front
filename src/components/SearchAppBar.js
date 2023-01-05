@@ -1,15 +1,16 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import { alpha } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import SearchIcon from '@mui/icons-material/Search';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link } from '@material-ui/core';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -171,6 +172,7 @@ function SearchAppBar(props) {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="inherit"
+              size="large"
             >
               <MoreIcon />
             </IconButton>

@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import { useTheme } from '@material-ui/core/styles';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ListSubheader from '@mui/material/ListSubheader';
+import { useTheme } from '@mui/material/styles';
 import { VariableSizeList } from 'react-window';
-import { Typography } from '@material-ui/core';
-import Chip from '@material-ui/core/Chip';
-import Box from '@material-ui/core/Box';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { Typography } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
+import { withStyles } from '@mui/styles';
 import { formatDownloads } from '../shared/helpers';
-import { createFilterOptions } from '@material-ui/lab';
+import { createFilterOptions } from '@mui/material/Autocomplete';
 
 const LISTBOX_PADDING = 8; // px
 const styles = (theme) => ({});
@@ -134,7 +134,9 @@ class VersionSearchBox extends React.Component {
           renderInput={(params) => (
             <TextField {...params} variant="outlined" label="Select versions" />
           )}
-          renderOption={(option, { selected }) => this.renderOption(option)}
+          renderOption={(props, option, { selected }) =>
+            this.renderOption(props, option)
+          }
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
               <Chip
@@ -153,13 +155,6 @@ class VersionSearchBox extends React.Component {
           filterOptions={(options, params) => {
             const filtered = filter(options, params);
 
-            if (params.value !== '') {
-              filtered.push({
-                value: params.inputValue,
-                title: `Add "${params.inputValue}"`,
-              });
-            }
-
             return filtered;
           }}
         />
@@ -167,17 +162,13 @@ class VersionSearchBox extends React.Component {
     );
   }
 
-  renderOption(option) {
-    if (option.title) {
-      return <Typography>Search for {option.value}</Typography>;
-    }
-
+  renderOption(props, option) {
     return (
-      <>
+      <li {...props}>
         <Box
           width={16}
           height={16}
-          borderRadius={2}
+          borderRadius="2px"
           marginRight={2}
           bgcolor={retrieveColor(
             retrieveVersionDownloads(
@@ -199,7 +190,7 @@ class VersionSearchBox extends React.Component {
             0
           ) + '/month'}
         </Typography>
-      </>
+      </li>
     );
   }
 }

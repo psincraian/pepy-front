@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
-import { Link, withStyles, Typography, Grid, Button } from '@material-ui/core';
+import { Link, Typography, Grid, Button } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import Footer from '../components/Footer';
 import Emoji from '../components/Emoji';
 const styles = (theme) => ({
@@ -12,7 +13,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',

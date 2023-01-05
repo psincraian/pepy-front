@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { ConfigureStore } from './api/config';
 import { Router, Switch, Route } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import Project from './container/Project';
 import { defaultTheme } from './shared/theme';
 import Index from './container/Index';
@@ -46,25 +46,27 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router history={browserHistory}>
-          <MuiThemeProvider theme={defaultTheme}>
-            <Helmet>{analytics}</Helmet>
-            <Switch>
-              <Route exact path="/" component={Index} />
-              <Route
-                exact
-                path="/project/:projectId"
-                component={ProjectContainer}
-              />
-              <Route
-                exact
-                path="/project/:projectId/personalized-badge"
-                component={PersonalizedBadgeContainer}
-              />
-              <Route exact path="/about" component={About} />
-              <Route exact path="/newsletter" component={Newsletter} />
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </MuiThemeProvider>
+          <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={defaultTheme}>
+              <Helmet>{analytics}</Helmet>
+              <Switch>
+                <Route exact path="/" component={Index} />
+                <Route
+                  exact
+                  path="/project/:projectId"
+                  component={ProjectContainer}
+                />
+                <Route
+                  exact
+                  path="/project/:projectId/personalized-badge"
+                  component={PersonalizedBadgeContainer}
+                />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/newsletter" component={Newsletter} />
+                <Route path="*" component={NotFound} />
+              </Switch>
+            </ThemeProvider>
+          </StyledEngineProvider>
         </Router>
       </Provider>
     );

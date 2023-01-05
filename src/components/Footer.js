@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Link, withStyles } from '@material-ui/core';
+import { Link } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import Emoji from './Emoji';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 const styles = (theme) => ({
   footer: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 2, 2, 2),
     marginTop: 'auto',
   },
   imgContainer: {
@@ -15,7 +16,7 @@ const styles = (theme) => ({
   },
   img: {
     maxWidth: '40%',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       maxWidth: '50%',
     },
   },

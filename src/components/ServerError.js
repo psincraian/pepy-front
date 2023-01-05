@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles, Typography, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   layout: {
