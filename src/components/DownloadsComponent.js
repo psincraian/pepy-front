@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardContent, CardHeader } from '@mui/material';
 import DownloadsChart from './DownloadsChart';
 import DownloadsTable from './DownloadsTable';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles } from '@mui/styles';
 import VersionSearchBox from './VersionSearchBox';
 import minimatch from 'minimatch';
 import { withRouter } from 'react-router-dom';
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import dayjs from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
@@ -95,9 +95,9 @@ class DownloadsComponent extends Component {
       let getDateIndex = (date) => date;
 
       if (displayStyle === 'weekly') {
-        getDateIndex = (date) => date.month() + "-" + date.week();
+        getDateIndex = (date) => date.month() + '-' + date.week();
       } else if (displayStyle === 'monthly') {
-        getDateIndex = (date) => date.year() + "-" + date.month();
+        getDateIndex = (date) => date.year() + '-' + date.month();
       }
 
       const reducedData = data.reduce((weeks, currentDay) => {

@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { withStyles } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
 import { formatDownloads } from '../shared/helpers';
 
 const styles = (theme) => ({

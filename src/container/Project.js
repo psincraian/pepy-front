@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { fetchProject } from '../api/project';
 import { Link as RouterLink } from 'react-router-dom';
-import {
-  Grid,
-  withStyles,
-  Typography,
-  CircularProgress,
-  Link,
-} from '@material-ui/core';
+import { Grid, Typography, CircularProgress, Link } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import { connect } from 'react-redux';
 import { FETCHING_STATUS } from '../api/constants';
 import ProjectSummary from '../components/ProjectSummary';
@@ -28,7 +23,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',

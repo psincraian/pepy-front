@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
+import { withStyles } from '@mui/styles';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
 
 const styles = (theme) => ({
   root: {
@@ -67,6 +67,7 @@ class SearchBar extends Component {
             aria-label="Search"
             onClick={this.handleRequestSearch}
             data-cy="search-button"
+            size="large"
           >
             <SearchIcon />
           </IconButton>

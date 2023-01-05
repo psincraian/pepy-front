@@ -15,7 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import { cyan } from '@material-ui/core/colors';
+import { cyan } from '@mui/material/colors';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

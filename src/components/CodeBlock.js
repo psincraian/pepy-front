@@ -4,8 +4,8 @@ import {
   InputAdornment,
   IconButton,
   Snackbar,
-} from '@material-ui/core';
-import FileCopy from '@material-ui/icons/FileCopyOutlined';
+} from '@mui/material';
+import FileCopy from '@mui/icons-material/FileCopyOutlined';
 
 class CodeBlock extends Component {
   state = {
@@ -53,7 +53,6 @@ class CodeBlock extends Component {
           multiline
           rows={this.props.rows ?? 1}
           margin="dense"
-          labelWidth={0}
           value={this.props.content}
           className={this.props.className}
           endAdornment={
@@ -61,6 +60,7 @@ class CodeBlock extends Component {
               <IconButton
                 aria-label="Copy content"
                 onClick={this.handleClickCopyContent}
+                size="large"
               >
                 <FileCopy />
               </IconButton>

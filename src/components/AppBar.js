@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import {
-  AppBar as BaseAppBar,
-  Toolbar,
-  Typography,
-  withStyles,
-  Link,
-} from '@material-ui/core';
+import { AppBar as BaseAppBar, Toolbar, Typography, Link } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
 
 const styles = (theme) => ({

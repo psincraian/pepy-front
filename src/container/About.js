@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
-import { Link, withStyles, Typography } from '@material-ui/core';
+import { Link, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import Footer from '../components/Footer';
 const styles = (theme) => ({
   root: {
@@ -15,7 +16,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import AppBar from '../components/AppBar';
 import SearchBar from '../components/SearchBar';
 import { Helmet } from 'react-helmet';
@@ -17,7 +18,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -54,7 +55,7 @@ class Index extends Component {
               PePy
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item className={classes.searchBar} xs={12} sm={8}>
             <SearchBar onSearch={this.handleSearch} />
           </Grid>
         </Grid>

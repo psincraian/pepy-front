@@ -6,7 +6,7 @@ import {
   CardHeader,
   Button,
   Link,
-} from '@material-ui/core';
+} from '@mui/material';
 import CodeBlock from './CodeBlock';
 import { Link as RouterLink } from 'react-router-dom';
 

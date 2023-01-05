@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
 import CodeBlock from '../components/CodeBlock';
 import {
-  withStyles,
   Typography,
   Grid,
   FormControl,
@@ -12,7 +11,8 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from '@material-ui/core';
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 import Footer from '../components/Footer';
 const styles = (theme) => ({
   layout: {
@@ -23,7 +23,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -138,7 +138,7 @@ class PersonalizedBadge extends Component {
         <SearchAppBar />
         <Grid container justifyContent="center" className={classes.layout}>
           <Grid item xs={12}>
-            <Typography variant="h2">
+            <Typography variant="h3">
               Personalized badge for {this.props.project}
             </Typography>
           </Grid>
@@ -153,7 +153,7 @@ class PersonalizedBadge extends Component {
                 <Typography variant="body1">Period</Typography>
               </Grid>
               <Grid item xs={6}>
-                <FormControl className={classes.formControl}>
+                <FormControl variant="standard" className={classes.formControl}>
                   <RadioGroup
                     aria-label="period"
                     name="period"
@@ -180,7 +180,10 @@ class PersonalizedBadge extends Component {
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
-                <FormControl className={classes.formControlLeft}>
+                <FormControl
+                  variant="standard"
+                  className={classes.formControlLeft}
+                >
                   <Select
                     name="leftColor"
                     id="left-color"
@@ -192,7 +195,10 @@ class PersonalizedBadge extends Component {
                 </FormControl>
               </Grid>
               <Grid item xs={6} align="right">
-                <FormControl className={classes.formControlRight}>
+                <FormControl
+                  variant="standard"
+                  className={classes.formControlRight}
+                >
                   <Select
                     name="rightColor"
                     id="right-color"
@@ -211,7 +217,10 @@ class PersonalizedBadge extends Component {
                 />
               </Grid>
               <Grid item xs={6}>
-                <FormControl className={classes.formControlLeft}>
+                <FormControl
+                  variant="standard"
+                  className={classes.formControlLeft}
+                >
                   <Input
                     name="leftText"
                     id="leftText"
@@ -221,7 +230,10 @@ class PersonalizedBadge extends Component {
                 </FormControl>
               </Grid>
               <Grid item xs={6} align="right">
-                <FormControl className={classes.formControlRight}>
+                <FormControl
+                  variant="standard"
+                  className={classes.formControlRight}
+                >
                   <Select
                     aria-label="units"
                     name="units"
@@ -239,7 +251,7 @@ class PersonalizedBadge extends Component {
             </Grid>
           </Grid>
           <Grid item xs={12} className={classes.imageCodeTitle}>
-            <Typography variant="h3">Result</Typography>
+            <Typography variant="h4">Result</Typography>
           </Grid>
           <Grid item xs={6} className={classes.imageTitle} align="center">
             <Typography variant="body1">Markdown</Typography>

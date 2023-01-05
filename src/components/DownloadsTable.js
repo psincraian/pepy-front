@@ -6,8 +6,8 @@ import {
   TableCell,
   TableBody,
   TableContainer,
-  withStyles,
-} from '@material-ui/core';
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   container: {

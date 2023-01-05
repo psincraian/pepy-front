@@ -3,16 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@material-ui/icons": "^4.11.3",
-    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/lab": "^5.0.0-alpha.114",
+    "@mui/material": "^5.11.3",
+    "@mui/styles": "^5.11.2",
     "cypress": "^9.5.2",
     "dayjs": "^1.11.7",
     "minimatch": "^5.1.2",
     "prettier": "^2.7.1",
-    "react": "^16.14.0",
+    "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.2",
     "react-github-btn": "^1.4.0",
     "react-helmet": "^6.1.0",
     "react-redux": "^8.0.5",
@@ -46,7 +49,7 @@
     ]
   },
   "devDependencies": {
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6"
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
+    "enzyme": "^3.11.0"
   }
 }
