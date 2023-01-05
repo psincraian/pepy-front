@@ -4,7 +4,6 @@
   />
 </p>
 <p align="center">
-<a href="https://app.netlify.com/sites/pepy/deploys"><img src="https://api.netlify.com/api/v1/badges/c9737bb5-aab4-44dc-ba46-db9b55f9354c/deploy-status" /></a>
 </p>
 <h2 align="center"><code>PePy</code></h2>
 
