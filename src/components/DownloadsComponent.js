@@ -54,6 +54,10 @@ class DownloadsComponent extends Component {
       --i;
     }
 
+    if (selectedVersions.length === 0) {
+      return this.props.data.versions.slice(-3).reverse();
+    }
+
     const lastVersion = selectedVersions[0];
     if (lastVersion.indexOf('.') !== -1) {
       const major = lastVersion.substring(0, lastVersion.indexOf('.'));

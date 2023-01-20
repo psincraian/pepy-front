@@ -80,6 +80,44 @@ describe('<DownloadsComponent />', () => {
     ]);
   });
 
+  it('renders component with the last non stable versions', () => {
+    const data = {
+      versions: ['1.0a'],
+      downloads: {
+        '2020-01-01': { '1.0a': 10 },
+        '2020-01-02': { '1.0a': 5 },
+      },
+    };
+    const wrapper = mount(
+      <Router>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={defaultTheme}>
+            <DownloadsComponent data={data} />
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </Router>
+    );
+    expect(wrapper.find('DownloadsTable')).toHaveLength(1);
+    const expectedData = [
+      {
+        date: '2020-01-01',
+        '1.0a': 10,
+        sum: 10,
+        total: 10,
+      },
+      {
+        date: '2020-01-02',
+        '1.0a': 5,
+        sum: 5,
+        total: 5,
+      },
+    ];
+    expect(wrapper.find('DownloadsTable').props().data).toEqual(expectedData);
+    expect(wrapper.find('DownloadsTable').props().selectedVersions).toEqual([
+      '1.0a',
+    ]);
+  });
+
   it('renders component with the last 3 versions ignoring non production ones', () => {
     const data = {
       versions: ['1.0', '2.0', '3.0', '3.0dev1', '3.0da1', '3.0rc1', '4.0a1'],
