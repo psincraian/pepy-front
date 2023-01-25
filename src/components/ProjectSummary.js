@@ -1,5 +1,12 @@
 import React from 'react';
-import { Card, CardContent, Grid, CardHeader, Box, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Grid,
+  CardHeader,
+  Box,
+  Typography,
+} from '@mui/material';
 import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
@@ -23,7 +30,9 @@ function ProjectSummary(props) {
             <Box fontWeight="fontWeightMedium">PyPI link</Box>
           </Grid>
           <Grid item xs={12} marginBottom={1}>
-            <a href={pypiLink}><Typography noWrap>{pypiLink}</Typography></a>
+            <a href={pypiLink}>
+              <Typography noWrap>{pypiLink}</Typography>
+            </a>
           </Grid>
           <Grid item xs={12} className={classes.titleItem}>
             <Box fontWeight="fontWeightMedium">Total downloads</Box>

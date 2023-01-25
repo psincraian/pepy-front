@@ -170,7 +170,7 @@ class Project extends Component {
               name={this.props.project.id}
             />
           </Grid>
-          <Grid item md={5} xl="auto" order={{ xs: 2, xl: 3 }}>
+          <Grid item md={5} xl={4} order={{ xs: 2, xl: 3 }}>
             <CarbonAds />
           </Grid>
           <Grid item xs={12} xl={4} order={{ xs: 3, xl: 2 }}>

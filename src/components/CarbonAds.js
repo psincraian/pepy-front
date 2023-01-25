@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { withStyles } from '@mui/styles';
+
+const styles = (theme) => ({
+  adsContainer: {
+    maxWidth: '360px',
+  },
+});
 
 class CarbonAds extends Component {
   renderCarbonAds() {
@@ -37,17 +44,19 @@ class CarbonAds extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <>
+      <div className={classes.adsContainer}>
         <div id="carbonadselem"></div>
         <div
           className="horizontal"
           data-ea-publisher="pepytech"
           data-ea-type="image"
         ></div>
-      </>
+      </div>
     );
   }
 }
 
-export default CarbonAds;
+export default withStyles(styles)(CarbonAds);
