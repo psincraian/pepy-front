@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   LineChart,
   Line,
@@ -8,9 +8,9 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { withStyles } from '@mui/styles';
-import { formatDownloads } from '../shared/helpers';
+} from "recharts";
+import { withStyles } from "@mui/styles";
+import { formatDownloads } from "../shared/helpers";
 
 const styles = (theme) => ({
   chart: {
@@ -27,15 +27,15 @@ class DownloadsChart extends Component {
   }
 
   componentDidMount() {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', this.handleWindowSizeChange);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", this.handleWindowSizeChange);
     }
     this.handleWindowSizeChange();
   }
 
   componentWillUnmount() {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.handleWindowSizeChange);
+    if (typeof window !== "undefined") {
+      window.removeEventListener("resize", this.handleWindowSizeChange);
     }
   }
 
@@ -49,7 +49,7 @@ class DownloadsChart extends Component {
 
     const { classes } = this.props;
 
-    var colors = ['#ffa600', '#50d467', '#54b0f2', '#f95d6a', '#2f4b7c'];
+    var colors = ["#ffa600", "#50d467", "#54b0f2", "#f95d6a", "#2f4b7c"];
 
     const lines = this.props.selectedVersions.map((version) => {
       return (
@@ -81,11 +81,11 @@ class DownloadsChart extends Component {
           />
           <Tooltip
             labelFormatter={(e) =>
-              new Date(e).toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
+              new Date(e).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
               })
             }
             formatter={(downloads) => {
