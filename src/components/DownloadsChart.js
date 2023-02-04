@@ -80,14 +80,22 @@ class DownloadsChart extends Component {
             }}
           />
           <Tooltip
-            labelFormatter={(e) =>
-              new Date(e).toLocaleDateString("en-US", {
+            labelFormatter={(e) => {
+              const d = e.split("-");
+              let dateObj = new Date();
+              dateObj.setFullYear(parseInt(d[0]));
+              dateObj.setMonth(parseInt(d[1]) - 1);
+              dateObj.setDate(parseInt(d[2]));
+              dateObj.setHours(0);
+              dateObj.setMinutes(0);
+              dateObj.setSeconds(0);
+              return dateObj.toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
                 month: "short",
                 day: "numeric",
-              })
-            }
+              });
+            }}
             formatter={(downloads) => {
               return formatDownloads(downloads);
             }}
