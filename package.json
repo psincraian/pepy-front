@@ -11,7 +11,7 @@
     "@mui/styles": "^5.11.2",
     "cypress": "^9.5.2",
     "dayjs": "^1.11.7",
-    "minimatch": "^5.1.2",
+    "minimatch": "^7.1.0",
     "prettier": "^2.8.1",
     "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",
