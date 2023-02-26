@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import SearchAppBar from '../components/SearchAppBar';
-import { Link, Typography, Grid, Button, FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import {
+  Link,
+  Typography,
+  Grid,
+  Button,
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText,
+} from '@mui/material';
 import { withStyles } from '@mui/styles';
 import Footer from '../components/Footer';
 import Emoji from '../components/Emoji';
@@ -50,13 +59,13 @@ const styles = (theme) => ({
   },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     subscribe: state.subscribe,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   sendSubscribe: (email, project) => {
     dispatch(subscribe(email, project));
   },
@@ -73,13 +82,13 @@ class Newsletter extends Component {
     };
   }
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     this.props.sendSubscribe(this.state.email, this.state.project);
   };
 
@@ -91,29 +100,65 @@ class Newsletter extends Component {
         <SearchAppBar />
         <Grid container justifyContent="center" className={classes.layout}>
           <Grid item xs={12}>
-            <Typography variant="h2">
-              Monthly report
-            </Typography>
+            <Typography variant="h2">Monthly report</Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              Get a useful downloads report directly to your inbox.<Emoji symbol="📊" /> This is the first iteration and we will listen to your feedback
-              more carefully.
+              Get a useful downloads report directly to your inbox.
+              <Emoji symbol="📊" /> This is the first iteration and we will
+              listen to your feedback more carefully.
             </Typography>
           </Grid>
-          <Grid item align="center" id="subscribe_action" className={classes.subscribeSection} xs={12}>
+          <Grid
+            item
+            align="center"
+            id="subscribe_action"
+            className={classes.subscribeSection}
+            xs={12}
+          >
             <form>
               <FormControl>
-                <InputLabel required htmlFor="email">Email address</InputLabel>
-                <Input id="email" aria-describedby="email-helper" onChange={this.handleChange('email')} value={this.state.email} />
-                <FormHelperText id="email-helper">We'll never share your email.</FormHelperText>
+                <InputLabel required htmlFor="email">
+                  Email address
+                </InputLabel>
+                <Input
+                  id="email"
+                  aria-describedby="email-helper"
+                  onChange={this.handleChange('email')}
+                  value={this.state.email}
+                />
+                <FormHelperText id="email-helper">
+                  We'll never share your email.
+                </FormHelperText>
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="project">Project</InputLabel>
-                <Input required id="project" aria-describedby="project-helper" onChange={this.handleChange('project')} value={this.state.project} />
-                <FormHelperText id="project-helper">The project you are interested in</FormHelperText>
+                <Input
+                  required
+                  id="project"
+                  aria-describedby="project-helper"
+                  onChange={this.handleChange('project')}
+                  value={this.state.project}
+                />
+                <FormHelperText id="project-helper">
+                  The project you are interested in
+                </FormHelperText>
               </FormControl>
-              <LoadingButton onClick={(e) => this.handleSubmit(e)} endIcon={this.props.subscribe.status === FETCHING_STATUS.fetched ? <DoneIcon/> : null} loading={this.props.subscribe.status === FETCHING_STATUS.fetching} type="submit" variant="contained" size="medium" color="primary">
+              <LoadingButton
+                onClick={(e) => this.handleSubmit(e)}
+                endIcon={
+                  this.props.subscribe.status === FETCHING_STATUS.fetched ? (
+                    <DoneIcon />
+                  ) : null
+                }
+                loading={
+                  this.props.subscribe.status === FETCHING_STATUS.fetching
+                }
+                type="submit"
+                variant="contained"
+                size="medium"
+                color="primary"
+              >
                 Subscribe
               </LoadingButton>
             </form>
@@ -138,7 +183,13 @@ class Newsletter extends Component {
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container alignItems="center" className={classes.section}>
-              <Grid item className={classes.imgContainer} xs={12} sm={6} order={{ xs: 2, sm: 1 }}>
+              <Grid
+                item
+                className={classes.imgContainer}
+                xs={12}
+                sm={6}
+                order={{ xs: 2, sm: 1 }}
+              >
                 <img
                   className={classes.img}
                   alt="Example of advanced stats"
@@ -173,11 +224,13 @@ class Newsletter extends Component {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item align="center" className={classes.subscribeSection} xs={12}>
-            <Link
-              color="textSecondary"
-              href="#subscribe_action"
-            >
+          <Grid
+            item
+            align="center"
+            className={classes.subscribeSection}
+            xs={12}
+          >
+            <Link color="textSecondary" href="#subscribe_action">
               <Button variant="contained" size="large" color="primary">
                 Subscribe now
               </Button>
