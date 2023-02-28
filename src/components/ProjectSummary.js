@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardContent,
@@ -6,21 +6,25 @@ import {
   CardHeader,
   Box,
   Typography,
-} from '@mui/material';
-import { withStyles } from '@mui/styles';
+} from "@mui/material";
+import { withStyles } from "@mui/styles";
 
 const styles = (theme) => ({
   titleItem: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(),
     },
   },
 });
 
-function ProjectSummary(props) {
-  const { classes } = props;
-
-  const pypiLink = 'https://pypi.org/project/' + props.name;
+const ProjectSummary = ({
+  classes,
+  name,
+  totalDownloads,
+  totalDownloads30Days,
+  totalDownloads7Days,
+}) => {
+  const pypiLink = "https://pypi.org/project/" + name;
   return (
     <Card data-cy="summary">
       <CardHeader title="Summary" />
@@ -38,24 +42,24 @@ function ProjectSummary(props) {
             <Box fontWeight="fontWeightMedium">Total downloads</Box>
           </Grid>
           <Grid item xs={12} marginBottom={1}>
-            {props.totalDownloads.toLocaleString()}
+            {totalDownloads.toLocaleString()}
           </Grid>
           <Grid item xs={12} className={classes.titleItem}>
             <Box fontWeight="fontWeightMedium">Total downloads - 30 days</Box>
           </Grid>
           <Grid item xs={12} marginBottom={1}>
-            {props.totalDownloads30Days.toLocaleString()}
+            {totalDownloads30Days.toLocaleString()}
           </Grid>
           <Grid item xs={12} className={classes.titleItem}>
             <Box fontWeight="fontWeightMedium">Total downloads - 7 days</Box>
           </Grid>
           <Grid item xs={12}>
-            {props.totalDownloads7Days.toLocaleString()}
+            {totalDownloads7Days.toLocaleString()}
           </Grid>
         </Grid>
       </CardContent>
     </Card>
   );
-}
+};
 
 export default withStyles(styles)(ProjectSummary);

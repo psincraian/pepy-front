@@ -1,88 +1,76 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 import {
   OutlinedInput,
   InputAdornment,
   IconButton,
   Snackbar,
-} from '@mui/material';
-import FileCopy from '@mui/icons-material/FileCopyOutlined';
+} from "@mui/material";
+import FileCopy from "@mui/icons-material/FileCopyOutlined";
 
-class CodeBlock extends Component {
-  state = {
-    snackbarOpen: false,
-    message: '',
+const CodeBlock = (props) => {
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const id =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+
+  const showMessage = (message) => {
+    setSnackbarOpen(true);
+    setMessage(message);
   };
 
-  constructor(props) {
-    super(props);
-
-    const randomId =
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
-    this.state = {
-      snackbarOpen: false,
-      message: '',
-      id: randomId,
-    };
-  }
-
-  showMessage = (message) => {
-    this.setState({ snackbarOpen: true, message: message });
-  };
-
-  handleClickCopyContent = () => {
-    var copyText = document.getElementById(this.state.id);
+  const handleClickCopyContent = () => {
+    var copyText = document.getElementById(id);
     copyText.disabled = false;
     copyText.select();
     copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-    document.execCommand('copy');
+    document.execCommand("copy");
     copyText.disabled = true;
-    this.showMessage('Text copied');
+    showMessage("Text copied");
   };
 
-  handleCloseSnackbar = () => {
-    this.setState({ snackbarOpen: false });
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
-  render() {
-    return (
-      <>
-        <OutlinedInput
-          id={this.state.id}
-          disabled
-          multiline
-          rows={this.props.rows ?? 1}
-          margin="dense"
-          value={this.props.content}
-          className={this.props.className}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="Copy content"
-                onClick={this.handleClickCopyContent}
-                size="large"
-              >
-                <FileCopy />
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={this.state.snackbarOpen}
-          autoHideDuration={4000}
-          onClose={this.handleCloseSnackbar}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.state.message}</span>}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <OutlinedInput
+        id={id}
+        disabled
+        multiline
+        rows={props.rows ?? 1}
+        margin="dense"
+        value={props.content}
+        className={props.className}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="Copy content"
+              onClick={handleClickCopyContent}
+              size="large"
+            >
+              <FileCopy />
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        open={snackbarOpen}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        ContentProps={{
+          "aria-describedby": "message-id",
+        }}
+        message={<span id="message-id">{message}</span>}
+      />
+    </>
+  );
+};
 
 export default CodeBlock;

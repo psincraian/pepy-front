@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardContent,
@@ -6,12 +6,13 @@ import {
   CardHeader,
   Button,
   Link,
-} from '@mui/material';
-import CodeBlock from './CodeBlock';
-import { Link as RouterLink } from 'react-router-dom';
+} from "@mui/material";
+import CodeBlock from "./CodeBlock";
+import { Link as RouterLink } from "react-router-dom";
 
-const PEPY_BADGES_URL = 'https://static.pepy.tech/badge/';
-function BadgesComponent(props) {
+const PEPY_BADGES_URL = "https://static.pepy.tech/badge/";
+
+const BadgesComponent = (props) => {
   return (
     <Card data-cy="badges">
       <CardHeader title="Badges" />
@@ -26,55 +27,55 @@ function BadgesComponent(props) {
           <Grid item xs={6}>
             <CodeBlock
               content={
-                '[![Downloads](' +
+                "[![Downloads](" +
                 PEPY_BADGES_URL +
                 props.project +
-                ')](https://pepy.tech/project/' +
+                ")](https://pepy.tech/project/" +
                 props.project +
-                ')'
+                ")"
               }
             />
           </Grid>
           <Grid item xs={6}>
             <img
               alt="Last 30 days downloads for the project"
-              src={PEPY_BADGES_URL + props.project + '/month'}
+              src={PEPY_BADGES_URL + props.project + "/month"}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                '[![Downloads](' +
+                "[![Downloads](" +
                 PEPY_BADGES_URL +
                 props.project +
-                '/month)](https://pepy.tech/project/' +
+                "/month)](https://pepy.tech/project/" +
                 props.project +
-                ')'
+                ")"
               }
             />
           </Grid>
           <Grid item xs={6}>
             <img
               alt="Last 7 days downloads for the project"
-              src={PEPY_BADGES_URL + props.project + '/week'}
+              src={PEPY_BADGES_URL + props.project + "/week"}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                '[![Downloads](' +
+                "[![Downloads](" +
                 PEPY_BADGES_URL +
                 props.project +
-                '/week)](https://pepy.tech/project/' +
+                "/week)](https://pepy.tech/project/" +
                 props.project +
-                ')'
+                ")"
               }
             />
           </Grid>
           <Grid item xs={12}>
             <Link
               component={RouterLink}
-              to={'/project/' + props.project + '/personalized-badge'}
+              to={"/project/" + props.project + "/personalized-badge"}
             >
               <Button variant="contained" color="primary">
                 Personalized badge
@@ -85,6 +86,6 @@ function BadgesComponent(props) {
       </CardContent>
     </Card>
   );
-}
+};
 
 export default BadgesComponent;

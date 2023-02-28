@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import ListSubheader from '@mui/material/ListSubheader';
-import { useTheme } from '@mui/material/styles';
-import { VariableSizeList } from 'react-window';
-import { Typography } from '@mui/material';
-import Chip from '@mui/material/Chip';
-import Box from '@mui/material/Box';
-import { withStyles } from '@mui/styles';
-import { formatDownloads } from '../shared/helpers';
-import { createFilterOptions } from '@mui/material/Autocomplete';
+import React from "react";
+import PropTypes from "prop-types";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import ListSubheader from "@mui/material/ListSubheader";
+import { useTheme } from "@mui/material/styles";
+import { VariableSizeList } from "react-window";
+import { Typography } from "@mui/material";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
+import { withStyles } from "@mui/styles";
+import { formatDownloads } from "../shared/helpers";
+import { createFilterOptions } from "@mui/material/Autocomplete";
 
 const LISTBOX_PADDING = 8; // px
 const styles = (theme) => ({});
@@ -41,7 +41,7 @@ const ListboxComponent = React.forwardRef(function ListboxComponent(
   const { children, ...other } = props;
   const itemData = React.Children.toArray(children);
   const theme = useTheme();
-  const smUp = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
+  const smUp = useMediaQuery(theme.breakpoints.up("sm"), { noSsr: true });
   const itemCount = itemData.length;
   const itemSize = smUp ? 36 : 48;
 
@@ -102,13 +102,13 @@ function retrieveVersionDownloads(version, downloads) {
 }
 
 function retrieveColor(downloads) {
-  let color = '#FFF';
+  let color = "#FFF";
   if (downloads < 1000) {
-    color = '#FFF';
+    color = "#FFF";
   } else if (downloads < 1000000) {
-    color = '#f95d6a';
+    color = "#f95d6a";
   } else if (downloads < 1000000000) {
-    color = '#2f4b7c';
+    color = "#2f4b7c";
   }
 
   return color;
@@ -116,53 +116,9 @@ function retrieveColor(downloads) {
 
 const filter = createFilterOptions();
 
-class VersionSearchBox extends React.Component {
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <>
-        <Autocomplete
-          id="version-search-box"
-          freeSolo
-          multiple
-          filterSelectedOptions
-          classes={classes}
-          ListboxComponent={ListboxComponent}
-          renderGroup={renderGroup}
-          options={this.props.versions}
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" label="Select versions" />
-          )}
-          renderOption={(props, option, { selected }) =>
-            this.renderOption(props, option)
-          }
-          renderTags={(value, getTagProps) =>
-            value.map((option, index) => (
-              <Chip
-                label={option.title ? option.title : option}
-                {...getTagProps({ index })}
-              />
-            ))
-          }
-          onChange={(event, value) => {
-            const newValues = value.map((x) =>
-              typeof x === 'string' ? x : x.value
-            );
-            this.props.onChange(newValues);
-          }}
-          value={this.props.selectedVersions}
-          filterOptions={(options, params) => {
-            const filtered = filter(options, params);
-
-            return filtered;
-          }}
-        />
-      </>
-    );
-  }
-
-  renderOption(props, option) {
+const VersionSearchBox = (props) => {
+  const { classes } = props;
+  const renderOption = (props, option) => {
     return (
       <li {...props}>
         <Box
@@ -173,7 +129,7 @@ class VersionSearchBox extends React.Component {
           bgcolor={retrieveColor(
             retrieveVersionDownloads(
               option.value ? option.value : option,
-              this.props.downloads
+              props.downloads
             )
           )}
         />
@@ -185,14 +141,54 @@ class VersionSearchBox extends React.Component {
           {formatDownloads(
             retrieveVersionDownloads(
               option.value ? option.value : option,
-              this.props.downloads
+              props.downloads
             ),
             0
-          ) + '/month'}
+          ) + "/month"}
         </Typography>
       </li>
     );
-  }
-}
+  };
+  return (
+    <>
+      <Autocomplete
+        id="version-search-box"
+        freeSolo
+        multiple
+        filterSelectedOptions
+        classes={classes}
+        ListboxComponent={ListboxComponent}
+        renderGroup={renderGroup}
+        options={props.versions}
+        renderInput={(params) => (
+          <TextField {...params} variant="outlined" label="Select versions" />
+        )}
+        renderOption={(props, option, { selected }) =>
+          renderOption(props, option)
+        }
+        renderTags={(value, getTagProps) =>
+          value.map((option, index) => (
+            <Chip
+              label={option.title ? option.title : option}
+              {...getTagProps({ index })}
+            />
+          ))
+        }
+        onChange={(event, value) => {
+          const newValues = value.map((x) =>
+            typeof x === "string" ? x : x.value
+          );
+          props.onChange(newValues);
+        }}
+        value={props.selectedVersions}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params);
+
+          return filtered;
+        }}
+      />
+    </>
+  );
+};
 
 export default withStyles(styles)(VersionSearchBox);

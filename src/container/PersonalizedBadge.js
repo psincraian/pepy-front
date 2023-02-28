@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import SearchAppBar from '../components/SearchAppBar';
-import CodeBlock from '../components/CodeBlock';
+import React, { useState } from "react";
+import SearchAppBar from "../components/SearchAppBar";
+import CodeBlock from "../components/CodeBlock";
 import {
   Typography,
   Grid,
@@ -11,28 +11,28 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from '@mui/material';
-import { withStyles } from '@mui/styles';
-import Footer from '../components/Footer';
+} from "@mui/material";
+import { withStyles } from "@mui/styles";
+import Footer from "../components/Footer";
 const styles = (theme) => ({
   layout: {
-    width: 'auto',
+    width: "auto",
     flexGrow: 2,
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto',
+      marginLeft: "auto",
+      marginRight: "auto",
     },
   },
   footer: {
     left: 0,
     bottom: 0,
-    width: '100%',
+    width: "100%",
   },
   formLayout: {
     marginTop: theme.spacing(4),
@@ -42,21 +42,21 @@ const styles = (theme) => ({
     minWidth: 120,
   },
   formControlLeft: {
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: '35%',
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "35%",
       minWidth: 120,
     },
-    [theme.breakpoints.only('xs')]: {
-      width: '100%',
+    [theme.breakpoints.only("xs")]: {
+      width: "100%",
     },
   },
   formControlRight: {
-    [theme.breakpoints.up('sm')]: {
-      marginRight: '35%',
+    [theme.breakpoints.up("sm")]: {
+      marginRight: "35%",
       minWidth: 120,
     },
-    [theme.breakpoints.only('xs')]: {
-      width: '100%',
+    [theme.breakpoints.only("xs")]: {
+      width: "100%",
     },
   },
   imageCodeTitle: {
@@ -68,236 +68,220 @@ const styles = (theme) => ({
   },
   imageCode: {
     marginTop: theme.spacing(2),
-    width: '100%',
+    width: "100%",
   },
 });
 
-class PersonalizedBadge extends Component {
-  state = {
-    period: 'month',
-    units: 'international_system',
-    leftColor: 'black',
-    rightColor: 'orange',
-    leftText: 'Downloads',
-  };
+const PersonalizedBadge = (props) => {
+  const [badgeState, setBadgeState] = useState({
+    period: "month",
+    units: "international_system",
+    leftColor: "black",
+    rightColor: "orange",
+    leftText: "Downloads",
+  });
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const target = event.target.name;
-    this.setState({ [target]: event.target.value });
+    setBadgeState({ [target]: event.target.value });
   };
 
-  buildUrl() {
+  const buildUrl = () => {
     return (
-      'https://static.pepy.tech/personalized-badge/' +
-      this.props.project +
-      '?period=' +
-      this.state.period +
-      '&units=' +
-      this.state.units +
-      '&left_color=' +
-      this.state.leftColor +
-      '&right_color=' +
-      this.state.rightColor +
-      '&left_text=' +
-      encodeURI(this.state.leftText)
+      "https://static.pepy.tech/personalized-badge/" +
+      props.project +
+      "?period=" +
+      badgeState.period +
+      "&units=" +
+      badgeState.units +
+      "&left_color=" +
+      badgeState.leftColor +
+      "&right_color=" +
+      badgeState.rightColor +
+      "&left_text=" +
+      encodeURI(badgeState.leftText)
     );
-  }
+  };
 
-  buildProjectUrl() {
-    return 'https://pepy.tech/project/' + this.props.project;
-  }
+  const buildProjectUrl = () => {
+    return "https://pepy.tech/project/" + props.project;
+  };
 
-  getColors() {
+  const getColors = () => {
     return [
-      'black',
-      'brightgreen',
-      'green',
-      'yellow',
-      'yellowgreen',
-      'orange',
-      'red',
-      'blue',
-      'grey',
-      'lightgrey',
+      "black",
+      "brightgreen",
+      "green",
+      "yellow",
+      "yellowgreen",
+      "orange",
+      "red",
+      "blue",
+      "grey",
+      "lightgrey",
     ];
-  }
+  };
 
-  render() {
-    const { classes } = this.props;
+  const { classes } = props;
 
-    const colorsOptions = this.getColors().map((color) => {
-      return (
-        <MenuItem key={color} value={color}>
-          {color}
-        </MenuItem>
-      );
-    });
-
+  const colorsOptions = getColors().map((color) => {
     return (
-      <>
-        <SearchAppBar />
-        <Grid container justifyContent="center" className={classes.layout}>
-          <Grid item xs={12}>
-            <Typography variant="h3">
-              Personalized badge for {this.props.project}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={8} className={classes.formLayout}>
-            <Grid
-              container
-              spacing={1}
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Grid item>
-                <Typography variant="body1">Period</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl variant="standard" className={classes.formControl}>
-                  <RadioGroup
-                    aria-label="period"
-                    name="period"
-                    value={this.state.period}
-                    onChange={this.handleChange}
-                    row
-                  >
-                    <FormControlLabel
-                      value="week"
-                      control={<Radio />}
-                      label="Week"
-                    />
-                    <FormControlLabel
-                      value="month"
-                      control={<Radio />}
-                      label="Month"
-                    />
-                    <FormControlLabel
-                      value="total"
-                      control={<Radio />}
-                      label="Total"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl
-                  variant="standard"
-                  className={classes.formControlLeft}
+      <MenuItem key={color} value={color}>
+        {color}
+      </MenuItem>
+    );
+  });
+
+  return (
+    <>
+      <SearchAppBar />
+      <Grid container justifyContent="center" className={classes.layout}>
+        <Grid item xs={12}>
+          <Typography variant="h3">
+            Personalized badge for {props.project}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={8} className={classes.formLayout}>
+          <Grid
+            container
+            spacing={1}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid item>
+              <Typography variant="body1">Period</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl variant="standard" className={classes.formControl}>
+                <RadioGroup
+                  aria-label="period"
+                  name="period"
+                  value={badgeState.period}
+                  onChange={handleChange}
+                  row
                 >
-                  <Select
-                    name="leftColor"
-                    id="left-color"
-                    value={this.state.leftColor}
-                    onChange={this.handleChange}
-                  >
-                    {colorsOptions}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={6} align="right">
-                <FormControl
-                  variant="standard"
-                  className={classes.formControlRight}
-                >
-                  <Select
-                    name="rightColor"
-                    id="right-color"
-                    value={this.state.rightColor}
-                    onChange={this.handleChange}
-                  >
-                    {colorsOptions}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-                <img
-                  width="66%"
-                  alt="Personalized badge"
-                  src={this.buildUrl()}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormControl
-                  variant="standard"
-                  className={classes.formControlLeft}
-                >
-                  <Input
-                    name="leftText"
-                    id="leftText"
-                    value={this.state.leftText}
-                    onChange={this.handleChange}
+                  <FormControlLabel
+                    value="week"
+                    control={<Radio />}
+                    label="Week"
                   />
-                </FormControl>
-              </Grid>
-              <Grid item xs={6} align="right">
-                <FormControl
-                  variant="standard"
-                  className={classes.formControlRight}
+                  <FormControlLabel
+                    value="month"
+                    control={<Radio />}
+                    label="Month"
+                  />
+                  <FormControlLabel
+                    value="total"
+                    control={<Radio />}
+                    label="Total"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl
+                variant="standard"
+                className={classes.formControlLeft}
+              >
+                <Select
+                  name="leftColor"
+                  id="left-color"
+                  value={badgeState.leftColor}
+                  onChange={handleChange}
                 >
-                  <Select
-                    aria-label="units"
-                    name="units"
-                    value={this.state.units}
-                    onChange={this.handleChange}
-                  >
-                    <MenuItem value="international_system">
-                      System metric (default)
-                    </MenuItem>
-                    <MenuItem value="abbreviation">Abbreviation</MenuItem>
-                    <MenuItem value="none">None</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
+                  {colorsOptions}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} align="right">
+              <FormControl
+                variant="standard"
+                className={classes.formControlRight}
+              >
+                <Select
+                  name="rightColor"
+                  id="right-color"
+                  value={badgeState.rightColor}
+                  onChange={handleChange}
+                >
+                  {colorsOptions}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} align="center">
+              <img width="66%" alt="Personalized badge" src={buildUrl()} />
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl
+                variant="standard"
+                className={classes.formControlLeft}
+              >
+                <Input
+                  name="leftText"
+                  id="leftText"
+                  value={badgeState.leftText}
+                  onChange={handleChange}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} align="right">
+              <FormControl
+                variant="standard"
+                className={classes.formControlRight}
+              >
+                <Select
+                  aria-label="units"
+                  name="units"
+                  value={badgeState.units}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="international_system">
+                    System metric (default)
+                  </MenuItem>
+                  <MenuItem value="abbreviation">Abbreviation</MenuItem>
+                  <MenuItem value="none">None</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.imageCodeTitle}>
-            <Typography variant="h4">Result</Typography>
-          </Grid>
-          <Grid item xs={6} className={classes.imageTitle} align="center">
-            <Typography variant="body1">Markdown</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <CodeBlock
-              className={classes.imageCode}
-              content={
-                '[![Downloads](' +
-                this.buildUrl() +
-                ')](' +
-                this.buildProjectUrl() +
-                ')'
-              }
-            />
-          </Grid>
-          <Grid item xs={6} className={classes.imageTitle} align="center">
-            <Typography variant="body1">RST</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <CodeBlock
-              className={classes.imageCode}
-              content={
-                '.. image:: ' +
-                this.buildUrl() +
-                '\n :target: ' +
-                this.buildProjectUrl()
-              }
-            />
-          </Grid>
-          <Grid item xs={6} className={classes.imageTitle} align="center">
-            <Typography variant="body1">Image url</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <CodeBlock
-              className={classes.imageCode}
-              content={this.buildUrl()}
-            />
-          </Grid>
         </Grid>
-        <div className={classes.footer}>
-          <Footer />
-        </div>
-      </>
-    );
-  }
-}
+        <Grid item xs={12} className={classes.imageCodeTitle}>
+          <Typography variant="h4">Result</Typography>
+        </Grid>
+        <Grid item xs={6} className={classes.imageTitle} align="center">
+          <Typography variant="body1">Markdown</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <CodeBlock
+            className={classes.imageCode}
+            content={
+              "[![Downloads](" + buildUrl() + ")](" + buildProjectUrl() + ")"
+            }
+          />
+        </Grid>
+        <Grid item xs={6} className={classes.imageTitle} align="center">
+          <Typography variant="body1">RST</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <CodeBlock
+            className={classes.imageCode}
+            content={
+              ".. image:: " + buildUrl() + "\n :target: " + buildProjectUrl()
+            }
+          />
+        </Grid>
+        <Grid item xs={6} className={classes.imageTitle} align="center">
+          <Typography variant="body1">Image url</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <CodeBlock className={classes.imageCode} content={buildUrl()} />
+        </Grid>
+      </Grid>
+      <div className={classes.footer}>
+        <Footer />
+      </div>
+    </>
+  );
+};
 
 export default withStyles(styles)(PersonalizedBadge);

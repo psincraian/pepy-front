@@ -1,17 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';
-import Alert from '@mui/lab/Alert';
+import React from "react";
+import { makeStyles } from "@mui/styles";
+import Alert from "@mui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
   },
 }));
 
-export default function Notification(props) {
+const Notification = (props) => {
   const classes = useStyles();
 
   return (
@@ -19,4 +19,6 @@ export default function Notification(props) {
       <Alert severity={props.severity}>{props.message}</Alert>
     </div>
   );
-}
+};
+
+export default Notification;
