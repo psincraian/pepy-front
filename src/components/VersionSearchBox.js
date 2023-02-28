@@ -168,9 +168,7 @@ const VersionSearchBox = ({
         renderInput={(params) => (
           <TextField {...params} variant="outlined" label="Select versions" />
         )}
-        renderOption={(props, option, { selected }) =>
-          renderOption(props, option)
-        }
+        renderOption={renderOption}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (
             <Chip
@@ -186,11 +184,7 @@ const VersionSearchBox = ({
           onChange(newValues);
         }}
         value={selectedVersions}
-        filterOptions={(options, params) => {
-          const filtered = filter(options, params);
-
-          return filtered;
-        }}
+        filterOptions={(options, params) => filter(options, params)}
       />
     </>
   );
