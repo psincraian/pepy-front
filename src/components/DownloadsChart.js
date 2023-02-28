@@ -18,7 +18,7 @@ const styles = (theme) => ({
   },
 });
 
-const DownloadsChart = (props) => {
+const DownloadsChart = ({ classes, selectedVersions, data }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const handleWindowSizeChange = () => {
     setWidth(window.innerWidth);
@@ -35,11 +35,9 @@ const DownloadsChart = (props) => {
 
   const isMobile = width <= 600;
 
-  const { classes } = props;
-
   var colors = ["#ffa600", "#50d467", "#54b0f2", "#f95d6a", "#2f4b7c"];
 
-  const lines = props.selectedVersions.map((version) => {
+  const lines = selectedVersions.map((version) => {
     return (
       <Line
         key={version}
@@ -58,7 +56,7 @@ const DownloadsChart = (props) => {
       width="100%"
       aspect={isMobile ? 1 : 2}
     >
-      <LineChart data={props.data}>
+      <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis width={40} tickFormatter={(tick) => formatDownloads(tick, 1)} />

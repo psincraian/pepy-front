@@ -18,13 +18,13 @@ const styles = (theme) => ({
   },
 });
 
-const DownloadsComponent = (props) => {
+const DownloadsComponent = ({ data, history, classes }) => {
   const isStableVersion = (version) => {
     var regex = new RegExp(/^\d+(\.\d+)*$/);
     return regex.test(version);
   };
   const defaultSelectedVersions = () => {
-    const versions = props.data.versions;
+    const versions = data.versions;
     var selectedVersions = [];
     var i = versions.length - 1;
     while (i >= 0 && selectedVersions.length < 3) {
@@ -36,7 +36,7 @@ const DownloadsComponent = (props) => {
     }
 
     if (selectedVersions.length === 0) {
-      return props.data.versions.slice(-3).reverse();
+      return data.versions.slice(-3).reverse();
     }
 
     const lastVersion = selectedVersions[0];
@@ -52,7 +52,7 @@ const DownloadsComponent = (props) => {
     defaultSelectedVersions()
   );
 
-  const versions = props.data.versions.slice().reverse();
+  const versions = data.versions.slice().reverse();
   const [displayStyle, setDisplayStyle] = useState("daily");
   const width = window.innerWidth;
 
@@ -162,13 +162,13 @@ const DownloadsComponent = (props) => {
       value
         .slice(1, value.length)
         .forEach((x) => currentUrlParams.append("versions", x));
-      props.history.push(
+      history.push(
         window.location.pathname + "?" + currentUrlParams.toString()
       );
     } else {
       let currentUrlParams = new URLSearchParams(window.location.search);
       currentUrlParams.delete("versions");
-      props.history.push(
+      history.push(
         window.location.pathname + "?" + currentUrlParams.toString()
       );
     }
@@ -182,16 +182,13 @@ const DownloadsComponent = (props) => {
     setDisplayStyle(newDisplayStyle);
     let currentUrlParams = new URLSearchParams(window.location.search);
     currentUrlParams.set("display", newDisplayStyle);
-    props.history.push(
-      window.location.pathname + "?" + currentUrlParams.toString()
-    );
+    history.push(window.location.pathname + "?" + currentUrlParams.toString());
   };
+
   const isMobile = width <= 600;
 
-  const { classes } = props;
-
   const downloads = retrieveDownloads(
-    props.data.downloads,
+    data.downloads,
     selectedVersions,
     displayStyle
   );
@@ -223,7 +220,7 @@ const DownloadsComponent = (props) => {
             versions={versions}
             onChange={updateSelectedVersions}
             selectedVersions={selectedVersions}
-            downloads={props.data.downloads}
+            downloads={data.downloads}
           />
           {isMobile ? (
             <div

@@ -7,7 +7,7 @@ const styles = (theme) => ({
   },
 });
 
-const CarbonAds = (props) => {
+const CarbonAds = ({ classes }) => {
   const renderCarbonAds = () => {
     const script = document.createElement("script");
     var carbonAdsParent = document.getElementById("carbonadselem");
@@ -42,8 +42,6 @@ const CarbonAds = (props) => {
       renderEthicalAds();
     }
   }, []);
-
-  const { classes } = props;
 
   return (
     <div className={classes.adsContainer}>

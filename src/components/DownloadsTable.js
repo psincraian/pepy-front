@@ -18,17 +18,15 @@ const styles = (theme) => ({
   },
 });
 
-const DownloadsTable = (props) => {
-  const { classes } = props;
-  const data = [...props.data];
-  const downloads = data.reverse();
+const DownloadsTable = ({ classes, data, selectedVersions }) => {
+  const downloads = [...data].reverse();
   return (
     <TableContainer className={classes.container}>
       <Table id="downloads-table" stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell style={{ minWidth: 100 }}>Date</TableCell>
-            {props.selectedVersions.map((version) => (
+            {selectedVersions.map((version) => (
               <TableCell key={version}>{version}</TableCell>
             ))}
             <TableCell align="right">Sum</TableCell>
@@ -47,7 +45,7 @@ const DownloadsTable = (props) => {
                 key={row["date"]}
               >
                 <TableCell scope="row">{row["date"]}</TableCell>
-                {props.selectedVersions.map((version) => (
+                {selectedVersions.map((version) => (
                   <TableCell key={version}>
                     {row[version].toLocaleString()}
                   </TableCell>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, forwardRef } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -94,16 +94,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchAppBar = (props) => {
+const SearchAppBar = ({ history }) => {
   const classes = useStyles();
-  const [searchValue, setSearchValue] = React.useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   function handleSearchValueChange(event) {
     setSearchValue(event.target.value);
   }
 
   function handleSearchAction() {
-    props.history.push("/project/" + searchValue);
+    history.push("/project/" + searchValue);
   }
 
   function handleKeyPress(event) {
@@ -112,7 +112,7 @@ const SearchAppBar = (props) => {
     }
   }
 
-  const AdapterLink = React.forwardRef((props, ref) => (
+  const AdapterLink = forwardRef((props, ref) => (
     <RouterLink innerRef={ref} {...props} />
   ));
 

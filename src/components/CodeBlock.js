@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import FileCopy from "@mui/icons-material/FileCopyOutlined";
 
-const CodeBlock = (props) => {
+const CodeBlock = ({ rows, content, className }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -40,10 +40,10 @@ const CodeBlock = (props) => {
         id={id}
         disabled
         multiline
-        rows={props.rows ?? 1}
+        rows={rows ?? 1}
         margin="dense"
-        value={props.content}
-        className={props.className}
+        value={content}
+        className={className}
         endAdornment={
           <InputAdornment position="end">
             <IconButton

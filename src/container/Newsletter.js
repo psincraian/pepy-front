@@ -41,8 +41,7 @@ const styles = (theme) => ({
   },
 });
 
-const Newsletter = (props) => {
-  const { classes } = props;
+const Newsletter = ({ classes }) => {
   return (
     <>
       <SearchAppBar />

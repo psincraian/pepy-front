@@ -54,9 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Project = (props) => {
-  const { classes, projectId, fetchProject } = props;
-
+const Project = ({ classes, projectId, fetchProject, project }) => {
   useEffect(() => {
     if (projectId) fetchProject(projectId);
   }, [projectId, fetchProject]);
@@ -72,7 +70,7 @@ const Project = (props) => {
     );
   };
 
-  if (props.project.status !== FETCHING_STATUS.fetched) {
+  if (project.status !== FETCHING_STATUS.fetched) {
     return (
       <div className={classes.page}>
         <SearchAppBar />
@@ -84,10 +82,61 @@ const Project = (props) => {
       </div>
     );
   }
+  const render404Page = (classes) => {
+    return (
+      <div className={classes.page}>
+        <SearchAppBar />
+        <Grid
+          container
+          spacing={2}
+          className={classes.layout}
+          justifyContent="center"
+        >
+          <Grid item xs={12}>
+            <Typography variant="h2">Error 404</Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1">
+              Project <i>{project.projectId}</i> was not found. These can be the
+              reasons:
+              <ul>
+                <li>You made a typo and the project doesn't exist.</li>
+                <li>
+                  If the project exists in PyPI, probably, it's a new project.
+                  The downloads are updated once a day, check our{" "}
+                  <Link component={RouterLink} to="/about">
+                    FAQ
+                  </Link>{" "}
+                  about when the downloads are updated.
+                </li>
+              </ul>
+              If not of the above is the case please open an issue in our{" "}
+              <a href="https://github.com/psincraian/pepy">GitHub</a>.
+            </Typography>
+          </Grid>
+        </Grid>
+        <div className={classes.footer}>
+          <Footer />
+        </div>
+      </div>
+    );
+  };
 
-  if (props.project.error === 404) {
+  const render5XXPage = (classes) => {
+    return (
+      <div className={classes.page}>
+        <SearchAppBar />
+        <ServerError />
+        <div className={classes.footer}>
+          <Footer />
+        </div>
+      </div>
+    );
+  };
+
+  if (project.error === 404) {
     return render404Page(classes);
-  } else if (props.project.error >= 500) {
+  } else if (project.error >= 500) {
     return render5XXPage(classes);
   }
 
@@ -120,14 +169,14 @@ const Project = (props) => {
   return (
     <>
       <Helmet>
-        <title>PePy - {props.project.id} Download Stats</title>
+        <title>PePy - {project.id} Download Stats</title>
         <meta
           name="description"
           content={
             "Check the download stats of " +
-            props.project.id +
+            project.id +
             " library. It has a total of " +
-            props.project.total_downloads +
+            project.total_downloads +
             " downloads."
           }
         />
@@ -142,85 +191,33 @@ const Project = (props) => {
         {notification}
         <Grid item xs={12}>
           <Typography component="h1" variant="h2">
-            {props.project.id}
+            {project.id}
           </Typography>
         </Grid>
         <Grid item xs={12} md={7} xl={4} order={{ xs: 1, xl: 1 }}>
           <ProjectSummary
-            totalDownloads={props.project.total_downloads}
+            totalDownloads={project.total_downloads}
             totalDownloads30Days={sumLastDownloads(
-              Object.values(props.project.downloads).reverse().slice(0, 30)
+              Object.values(project.downloads).reverse().slice(0, 30)
             )}
             totalDownloads7Days={sumLastDownloads(
-              Object.values(props.project.downloads).reverse().slice(0, 7)
+              Object.values(project.downloads).reverse().slice(0, 7)
             )}
-            name={props.project.id}
+            name={project.id}
           />
         </Grid>
         <Grid item md={5} xl={4} order={{ xs: 2, xl: 3 }}>
           <CarbonAds />
         </Grid>
         <Grid item xs={12} xl={4} order={{ xs: 3, xl: 2 }}>
-          <BadgesComponent project={props.project.id} />
+          <BadgesComponent project={project.id} />
         </Grid>
         <Grid item xs={12} order={{ xs: 4, xl: 4 }}>
-          <DownloadsComponent data={props.project} />
+          <DownloadsComponent data={project} />
         </Grid>
       </Grid>
       <Footer />
     </>
-  );
-};
-
-const render404Page = (classes) => {
-  return (
-    <div className={classes.page}>
-      <SearchAppBar />
-      <Grid
-        container
-        spacing={2}
-        className={classes.layout}
-        justifyContent="center"
-      >
-        <Grid item xs={12}>
-          <Typography variant="h2">Error 404</Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1">
-            Project <i>{this.props.project.projectId}</i> was not found. These
-            can be the reasons:
-            <ul>
-              <li>You made a typo and the project doesn't exist.</li>
-              <li>
-                If the project exists in PyPI, probably, it's a new project. The
-                downloads are updated once a day, check our{" "}
-                <Link component={RouterLink} to="/about">
-                  FAQ
-                </Link>{" "}
-                about when the downloads are updated.
-              </li>
-            </ul>
-            If not of the above is the case please open an issue in our{" "}
-            <a href="https://github.com/psincraian/pepy">GitHub</a>.
-          </Typography>
-        </Grid>
-      </Grid>
-      <div className={classes.footer}>
-        <Footer />
-      </div>
-    </div>
-  );
-};
-
-const render5XXPage = (classes) => {
-  return (
-    <div className={classes.page}>
-      <SearchAppBar />
-      <ServerError />
-      <div className={classes.footer}>
-        <Footer />
-      </div>
-    </div>
   );
 };
 

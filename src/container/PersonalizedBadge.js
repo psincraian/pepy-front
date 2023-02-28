@@ -72,7 +72,7 @@ const styles = (theme) => ({
   },
 });
 
-const PersonalizedBadge = (props) => {
+const PersonalizedBadge = ({ classes, project }) => {
   const [badgeState, setBadgeState] = useState({
     period: "month",
     units: "international_system",
@@ -89,7 +89,7 @@ const PersonalizedBadge = (props) => {
   const buildUrl = () => {
     return (
       "https://static.pepy.tech/personalized-badge/" +
-      props.project +
+      project +
       "?period=" +
       badgeState.period +
       "&units=" +
@@ -104,7 +104,7 @@ const PersonalizedBadge = (props) => {
   };
 
   const buildProjectUrl = () => {
-    return "https://pepy.tech/project/" + props.project;
+    return "https://pepy.tech/project/" + project;
   };
 
   const getColors = () => {
@@ -122,8 +122,6 @@ const PersonalizedBadge = (props) => {
     ];
   };
 
-  const { classes } = props;
-
   const colorsOptions = getColors().map((color) => {
     return (
       <MenuItem key={color} value={color}>
@@ -137,9 +135,7 @@ const PersonalizedBadge = (props) => {
       <SearchAppBar />
       <Grid container justifyContent="center" className={classes.layout}>
         <Grid item xs={12}>
-          <Typography variant="h3">
-            Personalized badge for {props.project}
-          </Typography>
+          <Typography variant="h3">Personalized badge for {project}</Typography>
         </Grid>
         <Grid item xs={12} md={8} className={classes.formLayout}>
           <Grid

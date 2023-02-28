@@ -23,9 +23,7 @@ const styles = (theme) => ({
   },
 });
 
-const AppBar = (props) => {
-  const { classes } = props;
-
+const AppBar = ({ classes }) => {
   return (
     <div className={classes.root}>
       <BaseAppBar position="static">

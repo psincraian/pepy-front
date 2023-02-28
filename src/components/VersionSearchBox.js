@@ -116,8 +116,12 @@ function retrieveColor(downloads) {
 
 const filter = createFilterOptions();
 
-const VersionSearchBox = (props) => {
-  const { classes } = props;
+const VersionSearchBox = ({
+  classes,
+  versions,
+  onChange,
+  selectedVersions,
+}) => {
   const renderOption = (props, option) => {
     return (
       <li {...props}>
@@ -159,7 +163,7 @@ const VersionSearchBox = (props) => {
         classes={classes}
         ListboxComponent={ListboxComponent}
         renderGroup={renderGroup}
-        options={props.versions}
+        options={versions}
         renderInput={(params) => (
           <TextField {...params} variant="outlined" label="Select versions" />
         )}
@@ -178,9 +182,9 @@ const VersionSearchBox = (props) => {
           const newValues = value.map((x) =>
             typeof x === "string" ? x : x.value
           );
-          props.onChange(newValues);
+          onChange(newValues);
         }}
-        value={props.selectedVersions}
+        value={selectedVersions}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
 

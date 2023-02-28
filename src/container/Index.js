@@ -26,12 +26,10 @@ const styles = (theme) => ({
   },
 });
 
-const Index = (props) => {
+const Index = ({ history, classes }) => {
   const handleSearch = (query) => {
-    props.history.push("/project/" + query);
+    history.push("/project/" + query);
   };
-
-  const { classes } = props;
 
   return (
     <div className={classes.root}>

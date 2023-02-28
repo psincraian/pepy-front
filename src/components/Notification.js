@@ -11,12 +11,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Notification = (props) => {
+const Notification = ({ severity, message }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Alert severity={props.severity}>{props.message}</Alert>
+      <Alert severity={severity}>{message}</Alert>
     </div>
   );
 };

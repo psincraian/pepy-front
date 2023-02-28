@@ -22,9 +22,7 @@ const styles = (theme) => ({
   },
 });
 
-const Footer = (props) => {
-  const { classes } = props;
-
+const Footer = ({ classes }) => {
   return (
     <footer className={classes.footer}>
       <Container maxWidth="sm">
