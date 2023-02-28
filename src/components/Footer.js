@@ -1,23 +1,23 @@
-import React from "react";
-import { Link } from "@mui/material";
-import { withStyles } from "@mui/styles";
-import { Link as RouterLink } from "react-router-dom";
-import Emoji from "./Emoji";
-import Grid from "@mui/material/Grid";
-import Container from "@mui/material/Container";
+import React from 'react';
+import { Link } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import { Link as RouterLink } from 'react-router-dom';
+import Emoji from './Emoji';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 const styles = (theme) => ({
   footer: {
     padding: theme.spacing(0, 2, 2, 2),
-    marginTop: "auto",
+    marginTop: 'auto',
   },
   imgContainer: {
     margin: theme.spacing(3, 0),
   },
   img: {
-    maxWidth: "40%",
-    [theme.breakpoints.down("lg")]: {
-      maxWidth: "50%",
+    maxWidth: '40%',
+    [theme.breakpoints.down('lg')]: {
+      maxWidth: '50%',
     },
   },
 });

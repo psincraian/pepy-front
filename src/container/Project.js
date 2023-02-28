@@ -1,44 +1,44 @@
-import React, { useEffect } from "react";
-import { fetchProject } from "../api/project";
-import { Link as RouterLink } from "react-router-dom";
-import { Grid, Typography, CircularProgress, Link } from "@mui/material";
-import { withStyles } from "@mui/styles";
-import { connect } from "react-redux";
-import { FETCHING_STATUS } from "../api/constants";
-import ProjectSummary from "../components/ProjectSummary";
-import BadgesComponent from "../components/BadgesComponent";
-import Notification from "../components/Notification";
-import SearchAppBar from "../components/SearchAppBar";
-import { Helmet } from "react-helmet";
-import Footer from "../components/Footer";
-import CarbonAds from "../components/CarbonAds";
-import DownloadsComponent from "../components/DownloadsComponent";
-import GitHubButton from "react-github-btn";
-import ServerError from "../components/ServerError";
+import React, { useEffect } from 'react';
+import { fetchProject } from '../api/project';
+import { Link as RouterLink } from 'react-router-dom';
+import { Grid, Typography, CircularProgress, Link } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import { connect } from 'react-redux';
+import { FETCHING_STATUS } from '../api/constants';
+import ProjectSummary from '../components/ProjectSummary';
+import BadgesComponent from '../components/BadgesComponent';
+import Notification from '../components/Notification';
+import SearchAppBar from '../components/SearchAppBar';
+import { Helmet } from 'react-helmet';
+import Footer from '../components/Footer';
+import CarbonAds from '../components/CarbonAds';
+import DownloadsComponent from '../components/DownloadsComponent';
+import GitHubButton from 'react-github-btn';
+import ServerError from '../components/ServerError';
 
 const styles = (theme) => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
-    [theme.breakpoints.up("xl")]: {
-      width: "80%",
-      marginLeft: "auto",
-      marginRight: "auto",
+    [theme.breakpoints.up('xl')]: {
+      width: '80%',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   footer: {
-    position: "fixed",
+    position: 'fixed',
     left: 0,
     bottom: 0,
-    width: "100%",
+    width: '100%',
   },
 });
 
@@ -103,14 +103,14 @@ const Project = ({ classes, projectId, fetchProject, project }) => {
                 <li>You made a typo and the project doesn't exist.</li>
                 <li>
                   If the project exists in PyPI, probably, it's a new project.
-                  The downloads are updated once a day, check our{" "}
+                  The downloads are updated once a day, check our{' '}
                   <Link component={RouterLink} to="/about">
                     FAQ
-                  </Link>{" "}
+                  </Link>{' '}
                   about when the downloads are updated.
                 </li>
               </ul>
-              If not of the above is the case please open an issue in our{" "}
+              If not of the above is the case please open an issue in our{' '}
               <a href="https://github.com/psincraian/pepy">GitHub</a>.
             </Typography>
           </Grid>
@@ -140,7 +140,7 @@ const Project = ({ classes, projectId, fetchProject, project }) => {
     return render5XXPage(classes);
   }
 
-  var lastDate = new Date("2022-04-07").setHours(0, 0, 0, 0);
+  var lastDate = new Date('2022-04-07').setHours(0, 0, 0, 0);
   var today = new Date().setHours(0, 0, 0, 0);
   var notification = null;
   if (today < lastDate) {
@@ -150,7 +150,7 @@ const Project = ({ classes, projectId, fetchProject, project }) => {
           severity="info"
           message={
             <Typography>
-              Help us reach 500 stars on GitHub{" "}
+              Help us reach 500 stars on GitHub{' '}
               <GitHubButton
                 href="https://github.com/psincraian/pepy"
                 data-icon="octicon-star"
@@ -173,11 +173,11 @@ const Project = ({ classes, projectId, fetchProject, project }) => {
         <meta
           name="description"
           content={
-            "Check the download stats of " +
+            'Check the download stats of ' +
             project.id +
-            " library. It has a total of " +
+            ' library. It has a total of ' +
             project.total_downloads +
-            " downloads."
+            ' downloads.'
           }
         />
       </Helmet>

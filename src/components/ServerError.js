@@ -1,10 +1,10 @@
-import React from "react";
-import { Typography, Grid } from "@mui/material";
-import { withStyles } from "@mui/styles";
+import React from 'react';
+import { Typography, Grid } from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     flexGrow: 2,
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
@@ -12,13 +12,13 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     [theme.breakpoints.up(900 + theme.spacing(3 * 2))]: {
       width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   img: {
-    maxWidth: "80%",
-    height: "auto",
+    maxWidth: '80%',
+    height: 'auto',
   },
   listItem: {
     padding: theme.spacing(1),
@@ -43,12 +43,12 @@ const ServerError = ({ classes }) => {
           We had an internal error. If the error persists:
           <ol>
             <li className={classes.listItem}>
-              Contact me on Twitter{" "}
+              Contact me on Twitter{' '}
               <a href="https://twitter.com/psincraian">@psincraian</a> (the
               fatest way to get it fixed)
             </li>
             <li className={classes.listItem}>
-              Or raise an issue on{" "}
+              Or raise an issue on{' '}
               <a href="https://github.com/psincraian/pepy">GitHub</a>
             </li>
           </ol>

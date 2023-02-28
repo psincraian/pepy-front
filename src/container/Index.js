@@ -1,34 +1,34 @@
-import React from "react";
-import { Grid, Typography } from "@mui/material";
-import { withStyles } from "@mui/styles";
-import AppBar from "../components/AppBar";
-import SearchBar from "../components/SearchBar";
-import { Helmet } from "react-helmet";
-import Footer from "../components/Footer";
+import React from 'react';
+import { Grid, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import AppBar from '../components/AppBar';
+import SearchBar from '../components/SearchBar';
+import { Helmet } from 'react-helmet';
+import Footer from '../components/Footer';
 
 const styles = (theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
   },
   layout: {
-    width: "auto",
+    width: 'auto',
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
 });
 
 const Index = ({ history, classes }) => {
   const handleSearch = (query) => {
-    history.push("/project/" + query);
+    history.push('/project/' + query);
   };
 
   return (

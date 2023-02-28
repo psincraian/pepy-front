@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   OutlinedInput,
   InputAdornment,
   IconButton,
   Snackbar,
-} from "@mui/material";
-import FileCopy from "@mui/icons-material/FileCopyOutlined";
+} from '@mui/material';
+import FileCopy from '@mui/icons-material/FileCopyOutlined';
 
 const CodeBlock = ({ rows, content, className }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const id =
     Math.random().toString(36).substring(2, 15) +
@@ -25,9 +25,9 @@ const CodeBlock = ({ rows, content, className }) => {
     copyText.disabled = false;
     copyText.select();
     copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-    document.execCommand("copy");
+    document.execCommand('copy');
     copyText.disabled = true;
-    showMessage("Text copied");
+    showMessage('Text copied');
   };
 
   const handleCloseSnackbar = () => {
@@ -58,14 +58,14 @@ const CodeBlock = ({ rows, content, className }) => {
       />
       <Snackbar
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
         open={snackbarOpen}
         autoHideDuration={4000}
         onClose={handleCloseSnackbar}
         ContentProps={{
-          "aria-describedby": "message-id",
+          'aria-describedby': 'message-id',
         }}
         message={<span id="message-id">{message}</span>}
       />

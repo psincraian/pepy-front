@@ -1,41 +1,41 @@
-import React from "react";
-import SearchAppBar from "../components/SearchAppBar";
-import { Link, Typography, Grid, Button } from "@mui/material";
-import { withStyles } from "@mui/styles";
-import Footer from "../components/Footer";
-import Emoji from "../components/Emoji";
+import React from 'react';
+import SearchAppBar from '../components/SearchAppBar';
+import { Link, Typography, Grid, Button } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import Footer from '../components/Footer';
+import Emoji from '../components/Emoji';
 const styles = (theme) => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     flexGrow: 2,
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   imgContainer: {
-    objectFit: "contain",
-    [theme.breakpoints.up("md")]: {
-      width: "80%",
+    objectFit: 'contain',
+    [theme.breakpoints.up('md')]: {
+      width: '80%',
     },
   },
   img: {
-    maxWidth: "100%",
+    maxWidth: '100%',
   },
   footer: {
     left: 0,
     bottom: 0,
-    width: "100%",
+    width: '100%',
   },
   section: {
     marginTop: theme.spacing(4),
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       marginTop: theme.spacing(8),
     },
   },
@@ -57,7 +57,7 @@ const Newsletter = ({ classes }) => {
             months of data, how your project ranks, and comparison with previous
             month <Emoji symbol="📊" />
             <p>
-              Also, you will help mantaining this website live!{" "}
+              Also, you will help mantaining this website live!{' '}
               <Emoji symbol="🤗" />
             </p>
           </Typography>

@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import ListSubheader from "@mui/material/ListSubheader";
-import { useTheme } from "@mui/material/styles";
-import { VariableSizeList } from "react-window";
-import { Typography } from "@mui/material";
-import Chip from "@mui/material/Chip";
-import Box from "@mui/material/Box";
-import { withStyles } from "@mui/styles";
-import { formatDownloads } from "../shared/helpers";
-import { createFilterOptions } from "@mui/material/Autocomplete";
+import React from 'react';
+import PropTypes from 'prop-types';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import ListSubheader from '@mui/material/ListSubheader';
+import { useTheme } from '@mui/material/styles';
+import { VariableSizeList } from 'react-window';
+import { Typography } from '@mui/material';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
+import { withStyles } from '@mui/styles';
+import { formatDownloads } from '../shared/helpers';
+import { createFilterOptions } from '@mui/material/Autocomplete';
 
 const LISTBOX_PADDING = 8; // px
 const styles = (theme) => ({});
@@ -41,7 +41,7 @@ const ListboxComponent = React.forwardRef(function ListboxComponent(
   const { children, ...other } = props;
   const itemData = React.Children.toArray(children);
   const theme = useTheme();
-  const smUp = useMediaQuery(theme.breakpoints.up("sm"), { noSsr: true });
+  const smUp = useMediaQuery(theme.breakpoints.up('sm'), { noSsr: true });
   const itemCount = itemData.length;
   const itemSize = smUp ? 36 : 48;
 
@@ -102,13 +102,13 @@ function retrieveVersionDownloads(version, downloads) {
 }
 
 function retrieveColor(downloads) {
-  let color = "#FFF";
+  let color = '#FFF';
   if (downloads < 1000) {
-    color = "#FFF";
+    color = '#FFF';
   } else if (downloads < 1000000) {
-    color = "#f95d6a";
+    color = '#f95d6a';
   } else if (downloads < 1000000000) {
-    color = "#2f4b7c";
+    color = '#2f4b7c';
   }
 
   return color;
@@ -149,7 +149,7 @@ const VersionSearchBox = ({
               downloads
             ),
             0
-          ) + "/month"}
+          ) + '/month'}
         </Typography>
       </li>
     );
@@ -179,7 +179,7 @@ const VersionSearchBox = ({
         }
         onChange={(event, value) => {
           const newValues = value.map((x) =>
-            typeof x === "string" ? x : x.value
+            typeof x === 'string' ? x : x.value
           );
           onChange(newValues);
         }}

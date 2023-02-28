@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   LineChart,
   Line,
@@ -8,9 +8,9 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
-import { withStyles } from "@mui/styles";
-import { formatDownloads } from "../shared/helpers";
+} from 'recharts';
+import { withStyles } from '@mui/styles';
+import { formatDownloads } from '../shared/helpers';
 
 const styles = (theme) => ({
   chart: {
@@ -24,18 +24,18 @@ const DownloadsChart = ({ classes, selectedVersions, data }) => {
     setWidth(window.innerWidth);
   };
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("resize", handleWindowSizeChange);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleWindowSizeChange);
     }
     handleWindowSizeChange();
     return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
+      window.removeEventListener('resize', handleWindowSizeChange);
     };
   }, []);
 
   const isMobile = width <= 600;
 
-  var colors = ["#ffa600", "#50d467", "#54b0f2", "#f95d6a", "#2f4b7c"];
+  var colors = ['#ffa600', '#50d467', '#54b0f2', '#f95d6a', '#2f4b7c'];
 
   const lines = selectedVersions.map((version) => {
     return (
@@ -62,11 +62,11 @@ const DownloadsChart = ({ classes, selectedVersions, data }) => {
         <YAxis width={40} tickFormatter={(tick) => formatDownloads(tick, 1)} />
         <Tooltip
           labelFormatter={(e) =>
-            new Date(e).toLocaleDateString("en-US", {
-              weekday: "long",
-              year: "numeric",
-              month: "short",
-              day: "numeric",
+            new Date(e).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
             })
           }
           formatter={(downloads) => {

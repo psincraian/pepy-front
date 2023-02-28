@@ -1,11 +1,11 @@
-import React from "react";
-import { makeStyles } from "@mui/styles";
-import Alert from "@mui/lab/Alert";
+import React from 'react';
+import { makeStyles } from '@mui/styles';
+import Alert from '@mui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    "& > * + *": {
+    width: '100%',
+    '& > * + *': {
       marginTop: theme.spacing(2),
     },
   },

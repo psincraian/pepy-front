@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -6,11 +6,11 @@ import {
   CardHeader,
   Button,
   Link,
-} from "@mui/material";
-import CodeBlock from "./CodeBlock";
-import { Link as RouterLink } from "react-router-dom";
+} from '@mui/material';
+import CodeBlock from './CodeBlock';
+import { Link as RouterLink } from 'react-router-dom';
 
-const PEPY_BADGES_URL = "https://static.pepy.tech/badge/";
+const PEPY_BADGES_URL = 'https://static.pepy.tech/badge/';
 
 const BadgesComponent = ({ project }) => {
   return (
@@ -27,55 +27,55 @@ const BadgesComponent = ({ project }) => {
           <Grid item xs={6}>
             <CodeBlock
               content={
-                "[![Downloads](" +
+                '[![Downloads](' +
                 PEPY_BADGES_URL +
                 project +
-                ")](https://pepy.tech/project/" +
+                ')](https://pepy.tech/project/' +
                 project +
-                ")"
+                ')'
               }
             />
           </Grid>
           <Grid item xs={6}>
             <img
               alt="Last 30 days downloads for the project"
-              src={PEPY_BADGES_URL + project + "/month"}
+              src={PEPY_BADGES_URL + project + '/month'}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                "[![Downloads](" +
+                '[![Downloads](' +
                 PEPY_BADGES_URL +
                 project +
-                "/month)](https://pepy.tech/project/" +
+                '/month)](https://pepy.tech/project/' +
                 project +
-                ")"
+                ')'
               }
             />
           </Grid>
           <Grid item xs={6}>
             <img
               alt="Last 7 days downloads for the project"
-              src={PEPY_BADGES_URL + project + "/week"}
+              src={PEPY_BADGES_URL + project + '/week'}
             />
           </Grid>
           <Grid item xs={6}>
             <CodeBlock
               content={
-                "[![Downloads](" +
+                '[![Downloads](' +
                 PEPY_BADGES_URL +
                 project +
-                "/week)](https://pepy.tech/project/" +
+                '/week)](https://pepy.tech/project/' +
                 project +
-                ")"
+                ')'
               }
             />
           </Grid>
           <Grid item xs={12}>
             <Link
               component={RouterLink}
-              to={"/project/" + project + "/personalized-badge"}
+              to={'/project/' + project + '/personalized-badge'}
             >
               <Button variant="contained" color="primary">
                 Personalized badge

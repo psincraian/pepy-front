@@ -1,32 +1,32 @@
-import React, { useEffect } from "react";
-import { withStyles } from "@mui/styles";
+import React, { useEffect } from 'react';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   adsContainer: {
-    maxWidth: "360px",
+    maxWidth: '360px',
   },
 });
 
 const CarbonAds = ({ classes }) => {
   const renderCarbonAds = () => {
-    const script = document.createElement("script");
-    var carbonAdsParent = document.getElementById("carbonadselem");
+    const script = document.createElement('script');
+    var carbonAdsParent = document.getElementById('carbonadselem');
 
     script.src =
-      "https://cdn.carbonads.com/carbon.js?serve=CE7DEKQE&placement=pepytech";
+      'https://cdn.carbonads.com/carbon.js?serve=CE7DEKQE&placement=pepytech';
     script.async = true;
-    script.id = "_carbonads_js";
+    script.id = '_carbonads_js';
 
     carbonAdsParent.appendChild(script);
   };
 
   const renderEthicalAds = () => {
-    const script = document.createElement("script");
-    var carbonAdsParent = document.getElementById("carbonadselem");
+    const script = document.createElement('script');
+    var carbonAdsParent = document.getElementById('carbonadselem');
 
-    script.src = "https://media.ethicalads.io/media/client/ethicalads.min.js";
+    script.src = 'https://media.ethicalads.io/media/client/ethicalads.min.js';
     script.async = true;
-    script.id = "_ethical";
+    script.id = '_ethical';
 
     carbonAdsParent.appendChild(script);
   };

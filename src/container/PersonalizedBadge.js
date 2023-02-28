@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import SearchAppBar from "../components/SearchAppBar";
-import CodeBlock from "../components/CodeBlock";
+import React, { useState } from 'react';
+import SearchAppBar from '../components/SearchAppBar';
+import CodeBlock from '../components/CodeBlock';
 import {
   Typography,
   Grid,
@@ -11,28 +11,28 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from "@mui/material";
-import { withStyles } from "@mui/styles";
-import Footer from "../components/Footer";
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
+import Footer from '../components/Footer';
 const styles = (theme) => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     flexGrow: 2,
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   footer: {
     left: 0,
     bottom: 0,
-    width: "100%",
+    width: '100%',
   },
   formLayout: {
     marginTop: theme.spacing(4),
@@ -42,21 +42,21 @@ const styles = (theme) => ({
     minWidth: 120,
   },
   formControlLeft: {
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: "35%",
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: '35%',
       minWidth: 120,
     },
-    [theme.breakpoints.only("xs")]: {
-      width: "100%",
+    [theme.breakpoints.only('xs')]: {
+      width: '100%',
     },
   },
   formControlRight: {
-    [theme.breakpoints.up("sm")]: {
-      marginRight: "35%",
+    [theme.breakpoints.up('sm')]: {
+      marginRight: '35%',
       minWidth: 120,
     },
-    [theme.breakpoints.only("xs")]: {
-      width: "100%",
+    [theme.breakpoints.only('xs')]: {
+      width: '100%',
     },
   },
   imageCodeTitle: {
@@ -68,17 +68,17 @@ const styles = (theme) => ({
   },
   imageCode: {
     marginTop: theme.spacing(2),
-    width: "100%",
+    width: '100%',
   },
 });
 
 const PersonalizedBadge = ({ classes, project }) => {
   const [badgeState, setBadgeState] = useState({
-    period: "month",
-    units: "international_system",
-    leftColor: "black",
-    rightColor: "orange",
-    leftText: "Downloads",
+    period: 'month',
+    units: 'international_system',
+    leftColor: 'black',
+    rightColor: 'orange',
+    leftText: 'Downloads',
   });
 
   const handleChange = (e) => {
@@ -87,37 +87,37 @@ const PersonalizedBadge = ({ classes, project }) => {
 
   const buildUrl = () => {
     return (
-      "https://static.pepy.tech/personalized-badge/" +
+      'https://static.pepy.tech/personalized-badge/' +
       project +
-      "?period=" +
+      '?period=' +
       badgeState.period +
-      "&units=" +
+      '&units=' +
       badgeState.units +
-      "&left_color=" +
+      '&left_color=' +
       badgeState.leftColor +
-      "&right_color=" +
+      '&right_color=' +
       badgeState.rightColor +
-      "&left_text=" +
+      '&left_text=' +
       encodeURI(badgeState.leftText)
     );
   };
 
   const buildProjectUrl = () => {
-    return "https://pepy.tech/project/" + project;
+    return 'https://pepy.tech/project/' + project;
   };
 
   const getColors = () => {
     return [
-      "black",
-      "brightgreen",
-      "green",
-      "yellow",
-      "yellowgreen",
-      "orange",
-      "red",
-      "blue",
-      "grey",
-      "lightgrey",
+      'black',
+      'brightgreen',
+      'green',
+      'yellow',
+      'yellowgreen',
+      'orange',
+      'red',
+      'blue',
+      'grey',
+      'lightgrey',
     ];
   };
 
@@ -250,7 +250,7 @@ const PersonalizedBadge = ({ classes, project }) => {
           <CodeBlock
             className={classes.imageCode}
             content={
-              "[![Downloads](" + buildUrl() + ")](" + buildProjectUrl() + ")"
+              '[![Downloads](' + buildUrl() + ')](' + buildProjectUrl() + ')'
             }
           />
         </Grid>
@@ -261,7 +261,7 @@ const PersonalizedBadge = ({ classes, project }) => {
           <CodeBlock
             className={classes.imageCode}
             content={
-              ".. image:: " + buildUrl() + "\n :target: " + buildProjectUrl()
+              '.. image:: ' + buildUrl() + '\n :target: ' + buildProjectUrl()
             }
           />
         </Grid>

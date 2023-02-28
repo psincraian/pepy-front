@@ -1,25 +1,25 @@
-import React from "react";
-import { AppBar as BaseAppBar, Toolbar, Typography, Link } from "@mui/material";
-import { withStyles } from "@mui/styles";
-import { withRouter, Link as RouterLink } from "react-router-dom";
+import React from 'react';
+import { AppBar as BaseAppBar, Toolbar, Typography, Link } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import { withRouter, Link as RouterLink } from 'react-router-dom';
 
 const styles = (theme) => ({
   root: {
-    width: "100%",
+    width: '100%',
   },
   title: {
-    textDecoration: "none",
-    color: "inherit",
+    textDecoration: 'none',
+    color: 'inherit',
     flexGrow: 1,
   },
   sectionFirst: {
-    textDecoration: "none",
-    color: "inherit",
+    textDecoration: 'none',
+    color: 'inherit',
   },
   section: {
     marginLeft: theme.spacing(2),
-    textDecoration: "none",
-    color: "inherit",
+    textDecoration: 'none',
+    color: 'inherit',
   },
 });
 

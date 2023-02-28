@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -6,12 +6,12 @@ import {
   CardHeader,
   Box,
   Typography,
-} from "@mui/material";
-import { withStyles } from "@mui/styles";
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   titleItem: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(),
     },
   },
@@ -24,7 +24,7 @@ const ProjectSummary = ({
   totalDownloads30Days,
   totalDownloads7Days,
 }) => {
-  const pypiLink = "https://pypi.org/project/" + name;
+  const pypiLink = 'https://pypi.org/project/' + name;
   return (
     <Card data-cy="summary">
       <CardHeader title="Summary" />

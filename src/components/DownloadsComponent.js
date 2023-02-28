@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader } from "@mui/material";
-import DownloadsChart from "./DownloadsChart";
-import DownloadsTable from "./DownloadsTable";
-import { withStyles } from "@mui/styles";
-import VersionSearchBox from "./VersionSearchBox";
-import minimatch from "minimatch";
-import { withRouter } from "react-router-dom";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader } from '@mui/material';
+import DownloadsChart from './DownloadsChart';
+import DownloadsTable from './DownloadsTable';
+import { withStyles } from '@mui/styles';
+import VersionSearchBox from './VersionSearchBox';
+import minimatch from 'minimatch';
+import { withRouter } from 'react-router-dom';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
-import dayjs from "dayjs";
-import weekOfYear from "dayjs/plugin/weekOfYear";
+import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 dayjs.extend(weekOfYear);
 
 const styles = (theme) => ({
@@ -40,9 +40,9 @@ const DownloadsComponent = ({ data, history, classes }) => {
     }
 
     const lastVersion = selectedVersions[0];
-    if (lastVersion.indexOf(".") !== -1) {
-      const major = lastVersion.substring(0, lastVersion.indexOf("."));
-      selectedVersions.push(major + ".*");
+    if (lastVersion.indexOf('.') !== -1) {
+      const major = lastVersion.substring(0, lastVersion.indexOf('.'));
+      selectedVersions.push(major + '.*');
     }
 
     return selectedVersions;
@@ -53,17 +53,17 @@ const DownloadsComponent = ({ data, history, classes }) => {
   );
 
   const versions = data.versions.slice().reverse();
-  const [displayStyle, setDisplayStyle] = useState("daily");
+  const [displayStyle, setDisplayStyle] = useState('daily');
   const width = window.innerWidth;
 
   useEffect(() => {
     const parsedUrl = new URL(window.location.href);
-    if (parsedUrl.searchParams.has("versions")) {
-      const selectedVersions = parsedUrl.searchParams.getAll("versions");
+    if (parsedUrl.searchParams.has('versions')) {
+      const selectedVersions = parsedUrl.searchParams.getAll('versions');
       setSelectedVersions(selectedVersions);
     }
-    if (parsedUrl.searchParams.has("display")) {
-      const displayStyle = parsedUrl.searchParams.get("display");
+    if (parsedUrl.searchParams.has('display')) {
+      const displayStyle = parsedUrl.searchParams.get('display');
       setDisplayStyle(displayStyle);
     }
   }, []);
@@ -72,10 +72,10 @@ const DownloadsComponent = ({ data, history, classes }) => {
     var data = [];
     Object.keys(downloads).forEach((date) => {
       var row = { date: date };
-      row["total"] = Object.values(downloads[date]).reduce(
+      row['total'] = Object.values(downloads[date]).reduce(
         (carry, x) => carry + x
       );
-      row["sum"] = 0;
+      row['sum'] = 0;
       selectedVersions.forEach((selectedVersion) => {
         if (shouldAddVersion(selectedVersion, downloads[date])) {
           const versionDownloads = retrieveVersionDownloads(
@@ -83,7 +83,7 @@ const DownloadsComponent = ({ data, history, classes }) => {
             downloads[date]
           );
           row[selectedVersion] = versionDownloads;
-          row["sum"] += versionDownloads;
+          row['sum'] += versionDownloads;
         } else {
           row[selectedVersion] = 0;
         }
@@ -91,13 +91,13 @@ const DownloadsComponent = ({ data, history, classes }) => {
       data.push(row);
     });
 
-    if (displayStyle !== "daily") {
+    if (displayStyle !== 'daily') {
       let getDateIndex = (date) => date;
 
-      if (displayStyle === "weekly") {
-        getDateIndex = (date) => date.month() + "-" + date.week();
-      } else if (displayStyle === "monthly") {
-        getDateIndex = (date) => date.year() + "-" + date.month();
+      if (displayStyle === 'weekly') {
+        getDateIndex = (date) => date.month() + '-' + date.week();
+      } else if (displayStyle === 'monthly') {
+        getDateIndex = (date) => date.year() + '-' + date.month();
       }
 
       const reducedData = data.reduce((weeks, currentDay) => {
@@ -126,7 +126,7 @@ const DownloadsComponent = ({ data, history, classes }) => {
   };
 
   const shouldAddVersion = (selectedVersion, downloads) => {
-    if (!selectedVersion.includes("*")) {
+    if (!selectedVersion.includes('*')) {
       return selectedVersion in downloads;
     }
 
@@ -141,7 +141,7 @@ const DownloadsComponent = ({ data, history, classes }) => {
   };
 
   const retrieveVersionDownloads = (selectedVersion, download) => {
-    if (!selectedVersion.includes("*")) {
+    if (!selectedVersion.includes('*')) {
       return download[selectedVersion];
     }
 
@@ -158,18 +158,18 @@ const DownloadsComponent = ({ data, history, classes }) => {
     setSelectedVersions(value);
     if (value.length > 0) {
       let currentUrlParams = new URLSearchParams(window.location.search);
-      currentUrlParams.set("versions", value[0]);
+      currentUrlParams.set('versions', value[0]);
       value
         .slice(1, value.length)
-        .forEach((x) => currentUrlParams.append("versions", x));
+        .forEach((x) => currentUrlParams.append('versions', x));
       history.push(
-        window.location.pathname + "?" + currentUrlParams.toString()
+        window.location.pathname + '?' + currentUrlParams.toString()
       );
     } else {
       let currentUrlParams = new URLSearchParams(window.location.search);
-      currentUrlParams.delete("versions");
+      currentUrlParams.delete('versions');
       history.push(
-        window.location.pathname + "?" + currentUrlParams.toString()
+        window.location.pathname + '?' + currentUrlParams.toString()
       );
     }
   };
@@ -181,8 +181,8 @@ const DownloadsComponent = ({ data, history, classes }) => {
     }
     setDisplayStyle(newDisplayStyle);
     let currentUrlParams = new URLSearchParams(window.location.search);
-    currentUrlParams.set("display", newDisplayStyle);
-    history.push(window.location.pathname + "?" + currentUrlParams.toString());
+    currentUrlParams.set('display', newDisplayStyle);
+    history.push(window.location.pathname + '?' + currentUrlParams.toString());
   };
 
   const isMobile = width <= 600;
@@ -225,9 +225,9 @@ const DownloadsComponent = ({ data, history, classes }) => {
           {isMobile ? (
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "10px",
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '10px',
               }}
             >
               {displayStyleToggle}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Table,
   TableHead,
@@ -6,15 +6,15 @@ import {
   TableCell,
   TableBody,
   TableContainer,
-} from "@mui/material";
-import { withStyles } from "@mui/styles";
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 const styles = (theme) => ({
   container: {
     maxHeight: 440,
   },
   weekendRow: {
-    backgroundColor: "#fafafa",
+    backgroundColor: '#fafafa',
   },
 });
 
@@ -38,23 +38,23 @@ const DownloadsTable = ({ classes, data, selectedVersions }) => {
             return (
               <TableRow
                 className={
-                  new Date(row["date"]).getDay() % 6 === 0
+                  new Date(row['date']).getDay() % 6 === 0
                     ? classes.weekendRow
-                    : ""
+                    : ''
                 }
-                key={row["date"]}
+                key={row['date']}
               >
-                <TableCell scope="row">{row["date"]}</TableCell>
+                <TableCell scope="row">{row['date']}</TableCell>
                 {selectedVersions.map((version) => (
                   <TableCell key={version}>
                     {row[version].toLocaleString()}
                   </TableCell>
                 ))}
                 <TableCell align="right">
-                  {row["sum"].toLocaleString()}
+                  {row['sum'].toLocaleString()}
                 </TableCell>
                 <TableCell align="right">
-                  {row["total"].toLocaleString()}
+                  {row['total'].toLocaleString()}
                 </TableCell>
               </TableRow>
             );

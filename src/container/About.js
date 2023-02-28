@@ -1,25 +1,25 @@
-import React from "react";
-import SearchAppBar from "../components/SearchAppBar";
-import { Link, Typography } from "@mui/material";
-import { withStyles } from "@mui/styles";
-import Footer from "../components/Footer";
+import React from 'react';
+import SearchAppBar from '../components/SearchAppBar';
+import { Link, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import Footer from '../components/Footer';
 const styles = (theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
   },
   layout: {
-    width: "auto",
+    width: 'auto',
     flexGrow: 2,
     paddingBottom: theme.spacing(2),
     marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       width: 900,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
 });
@@ -41,17 +41,17 @@ const About = ({ classes }) => {
         </Typography>
         <Typography variant="h6">Who is the creator of PePy.tech?</Typography>
         <Typography paragraph={true}>
-          Petru Rares Sincraian{" "}
-          <Link href="https://twitter.com/psincraian">(@psincraian)</Link>{" "}
+          Petru Rares Sincraian{' '}
+          <Link href="https://twitter.com/psincraian">(@psincraian)</Link>{' '}
           started the project.
         </Typography>
         <Typography variant="h6">
           Can I participate to improve the website?
         </Typography>
         <Typography paragraph={true}>
-          Of course, both the{" "}
-          <Link href="https://github.com/psincraian/pepy">backend</Link> and{" "}
-          <Link href="https://github.com/psincraian/pepy-front">frontend</Link>{" "}
+          Of course, both the{' '}
+          <Link href="https://github.com/psincraian/pepy">backend</Link> and{' '}
+          <Link href="https://github.com/psincraian/pepy-front">frontend</Link>{' '}
           are open source and you can contribute reporting issues or coding :-)
         </Typography>
       </div>
