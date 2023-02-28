@@ -117,6 +117,7 @@ function retrieveColor(downloads) {
 const filter = createFilterOptions();
 
 const VersionSearchBox = ({
+  downloads,
   classes,
   versions,
   onChange,
@@ -133,7 +134,7 @@ const VersionSearchBox = ({
           bgcolor={retrieveColor(
             retrieveVersionDownloads(
               option.value ? option.value : option,
-              props.downloads
+              downloads
             )
           )}
         />
@@ -145,7 +146,7 @@ const VersionSearchBox = ({
           {formatDownloads(
             retrieveVersionDownloads(
               option.value ? option.value : option,
-              props.downloads
+              downloads
             ),
             0
           ) + "/month"}
