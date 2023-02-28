@@ -81,9 +81,8 @@ const PersonalizedBadge = ({ classes, project }) => {
     leftText: "Downloads",
   });
 
-  const handleChange = (event) => {
-    const target = event.target.name;
-    setBadgeState({ [target]: event.target.value });
+  const handleChange = (e) => {
+    setBadgeState({ ...badgeState, [e.target.name]: e.target.value });
   };
 
   const buildUrl = () => {
