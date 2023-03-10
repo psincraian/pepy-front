@@ -13,8 +13,8 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import DownloadsComponent from '../components/DownloadsComponent';
-import GitHubButton from 'react-github-btn';
 import ServerError from '../components/ServerError';
+import Emoji from '../components/Emoji';
 
 const styles = (theme) => ({
   layout: {
@@ -100,7 +100,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2022-04-07').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2023-03-14').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -110,15 +110,22 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                Help us reach 500 stars on GitHub{' '}
-                <GitHubButton
-                  href="https://github.com/psincraian/pepy"
-                  data-icon="octicon-star"
-                  data-show-count="true"
-                  aria-label="Star psincraian/pepy on GitHub"
+                <Emoji symbol="🎂" label="cake" /> pepy.tech is 5 years old! Check some stats in{' '}
+                <Link
+                  href="https://twitter.com/psincraian/status/1634292533462220800?s=20"
+                  aria-label="Twitter link"
+                  target="_blank"
                 >
-                  Star
-                </GitHubButton>
+                  Twitter
+                </Link>
+                {' '}or{' '}
+                <Link
+                  href="https://fosstodon.org/@petru/110000911787264642"
+                  aria-label="Mastodon link"
+                  target="_blank"
+                >
+                  Mastodon
+                </Link>
               </Typography>
             }
           />
