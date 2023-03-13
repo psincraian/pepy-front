@@ -9,7 +9,7 @@
     "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.12",
     "@mui/styles": "^5.11.12",
-    "cypress": "^9.5.2",
+    "cypress": "^12.7.0",
     "dayjs": "^1.11.7",
     "minimatch": "^7.1.1",
     "prettier": "^2.8.4",
