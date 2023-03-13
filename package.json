@@ -7,7 +7,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "^5.0.0-alpha.122",
-    "@mui/material": "^5.11.10",
+    "@mui/material": "^5.11.12",
     "@mui/styles": "^5.11.12",
     "cypress": "^9.5.2",
     "dayjs": "^1.11.7",
