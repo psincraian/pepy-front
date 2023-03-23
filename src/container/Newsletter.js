@@ -117,7 +117,7 @@ class Newsletter extends Component {
             xs={12}
           >
             <form>
-              <FormControl>
+              <FormControl xs={12} md={4}>
                 <InputLabel required htmlFor="email">
                   Email address
                 </InputLabel>
@@ -131,7 +131,7 @@ class Newsletter extends Component {
                   We'll never share your email.
                 </FormHelperText>
               </FormControl>
-              <FormControl>
+              <FormControl xs={12} md={4}>
                 <InputLabel htmlFor="project">Project</InputLabel>
                 <Input
                   required
@@ -144,7 +144,7 @@ class Newsletter extends Component {
                   The project you are interested in
                 </FormHelperText>
               </FormControl>
-              <LoadingButton
+              <LoadingButton xs={12} md={4}
                 onClick={(e) => this.handleSubmit(e)}
                 endIcon={
                   this.props.subscribe.status === FETCHING_STATUS.fetched ? (
