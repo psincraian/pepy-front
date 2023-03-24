@@ -7,7 +7,8 @@ import { alpha } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import { withRouter, Link as RouterLink } from 'react-router-dom';
-import { Link } from '@mui/material';
+import { IconButton, Link, Menu, MenuItem } from '@mui/material';
+import MoreIcon from '@mui/icons-material/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     textDecoration: 'none',
     color: 'inherit',
+    marginLeft: theme.spacing(1),
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
@@ -97,9 +99,20 @@ const useStyles = makeStyles((theme) => ({
 function SearchAppBar(props) {
   const classes = useStyles();
   const [searchValue, setSearchValue] = React.useState('');
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
 
   function handleSearchValueChange(event) {
     setSearchValue(event.target.value);
+  }
+
+  function handleMobileMenuClose() {
+    setMobileMoreAnchorEl(null);
+  }
+
+  function handleMobileMenuOpen(event) {
+    setMobileMoreAnchorEl(event.currentTarget);
   }
 
   function handleSearchAction() {
@@ -115,6 +128,29 @@ function SearchAppBar(props) {
   const AdapterLink = React.forwardRef((props, ref) => (
     <RouterLink innerRef={ref} {...props} />
   ));
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+      <Link
+                to="/newsletter"
+                component={RouterLink}
+                className={classes.sectionFirst}
+              >
+                Newsletter
+              </Link>
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <div className={classes.root}>
@@ -142,9 +178,30 @@ function SearchAppBar(props) {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}></div>
+          <div className={classes.sectionDesktop}>
+          <Link
+                to="/newsletter"
+                component={RouterLink}
+                className={classes.sectionFirst}
+              >
+                Newsletter
+              </Link>
+          </div>
+
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
+      {renderMobileMenu}
     </div>
   );
 }
