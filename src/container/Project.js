@@ -110,15 +110,16 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🎂" label="cake" /> pepy.tech is 5 years old! Check some stats in{' '}
+                <Emoji symbol="🎂" label="cake" /> pepy.tech is 5 years old!
+                Check some stats in{' '}
                 <Link
                   href="https://twitter.com/psincraian/status/1634292533462220800?s=20"
                   aria-label="Twitter link"
                   target="_blank"
                 >
                   Twitter
-                </Link>
-                {' '}or{' '}
+                </Link>{' '}
+                or{' '}
                 <Link
                   href="https://fosstodon.org/@petru/110000911787264642"
                   aria-label="Mastodon link"

@@ -102,7 +102,6 @@ function SearchAppBar(props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-
   function handleSearchValueChange(event) {
     setSearchValue(event.target.value);
   }
@@ -141,13 +140,13 @@ function SearchAppBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-      <Link
-                to="/newsletter"
-                component={RouterLink}
-                className={classes.sectionFirst}
-              >
-                Newsletter
-              </Link>
+        <Link
+          to="/newsletter"
+          component={RouterLink}
+          className={classes.sectionFirst}
+        >
+          Newsletter
+        </Link>
       </MenuItem>
     </Menu>
   );
@@ -179,13 +178,13 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-          <Link
-                to="/newsletter"
-                component={RouterLink}
-                className={classes.sectionFirst}
-              >
-                Newsletter
-              </Link>
+            <Link
+              to="/newsletter"
+              component={RouterLink}
+              className={classes.sectionFirst}
+            >
+              Newsletter
+            </Link>
           </div>
 
           <div className={classes.sectionMobile}>
