@@ -18,6 +18,7 @@ import { subscribe } from '../api/subscribe';
 import { connect } from 'react-redux';
 import { FETCHING_STATUS } from '../api/constants';
 import DoneIcon from '@mui/icons-material/DoneOutline';
+import ErrorIcon from '@mui/icons-material/ErrorOutline';
 
 const styles = (theme) => ({
   layout: {
@@ -95,6 +96,13 @@ class Newsletter extends Component {
   render() {
     const { classes } = this.props;
 
+    var endIcon = null;
+    if (this.props.subscribe.status === FETCHING_STATUS.fetched && this.props.subscribe.error !== 500) {
+       endIcon = <ErrorIcon />
+    } else if (this.props.subscribe.status === FETCHING_STATUS.fetched) {
+      endIcon = <DoneIcon />
+    }
+
     return (
       <>
         <SearchAppBar />
@@ -116,52 +124,55 @@ class Newsletter extends Component {
             className={classes.subscribeSection}
             xs={12}
           >
-            <form>
-              <FormControl xs={12} md={4}>
-                <InputLabel required htmlFor="email">
-                  Email address
-                </InputLabel>
-                <Input
-                  id="email"
-                  aria-describedby="email-helper"
-                  onChange={this.handleChange('email')}
-                  value={this.state.email}
-                />
-                <FormHelperText id="email-helper">
-                  We'll never share your email.
-                </FormHelperText>
-              </FormControl>
-              <FormControl xs={12} md={4}>
-                <InputLabel htmlFor="project">Project</InputLabel>
-                <Input
-                  required
-                  id="project"
-                  aria-describedby="project-helper"
-                  onChange={this.handleChange('project')}
-                  value={this.state.project}
-                />
-                <FormHelperText id="project-helper">
-                  The project you are interested in
-                </FormHelperText>
-              </FormControl>
-              <LoadingButton xs={12} md={4}
-                onClick={(e) => this.handleSubmit(e)}
-                endIcon={
-                  this.props.subscribe.status === FETCHING_STATUS.fetched ? (
-                    <DoneIcon />
-                  ) : null
-                }
-                loading={
-                  this.props.subscribe.status === FETCHING_STATUS.fetching
-                }
-                type="submit"
-                variant="contained"
-                size="medium"
-                color="primary"
-              >
-                Subscribe
-              </LoadingButton>
-            </form>
+            <Grid container alignItems="center" justifyContent="center" spacing={4}>
+                <Grid item xs={12} sm={4}>
+                  <FormControl fullWidth>
+                    <InputLabel required htmlFor="email">
+                      Email address
+                    </InputLabel>
+                    <Input
+                      id="email"
+                      aria-describedby="email-helper"
+                      onChange={this.handleChange('email')}
+                      value={this.state.email}
+                    />
+                    <FormHelperText id="email-helper">
+                      We'll never share your email.
+                    </FormHelperText>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <FormControl fullWidth>
+                    <InputLabel htmlFor="project">Project</InputLabel>
+                    <Input
+                      required
+                      id="project"
+                      aria-describedby="project-helper"
+                      onChange={this.handleChange('project')}
+                      value={this.state.project}
+                    />
+                    <FormHelperText id="project-helper">
+                      The project you are interested in
+                    </FormHelperText>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <LoadingButton
+                    fullWidth
+                    onClick={(e) => this.handleSubmit(e)}
+                    endIcon={endIcon}
+                    loading={
+                      this.props.subscribe.status === FETCHING_STATUS.fetching
+                    }
+                    type="submit"
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                  >
+                    Subscribe
+                  </LoadingButton>
+                </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container alignItems="center" className={classes.section}>
