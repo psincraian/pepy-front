@@ -38,7 +38,7 @@ export const subscribe = (email, project) => (dispatch) => {
     )
     .then((response) => {
       if (response.status === 201) {
-        dispatch(success(response))
+        dispatch(success(response));
       } else {
         dispatch(error5XX());
       }

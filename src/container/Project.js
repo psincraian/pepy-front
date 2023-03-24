@@ -110,7 +110,8 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🗞" label="newsletter" /> NEWS! Get a monthly downloads report in inbox.{' '}
+                <Emoji symbol="🗞" label="newsletter" /> NEWS! Get a monthly
+                downloads report in inbox.{' '}
                 <Link
                   to="/newsletter"
                   component={RouterLink}
