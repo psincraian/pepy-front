@@ -110,7 +110,7 @@ class Newsletter extends Component {
     var endIcon = null;
     if (
       this.props.subscribe.status === FETCHING_STATUS.fetched &&
-      this.props.subscribe.error !== 500
+      this.props.subscribe.error === 500
     ) {
       endIcon = <ErrorIcon />;
     } else if (this.props.subscribe.status === FETCHING_STATUS.fetched) {

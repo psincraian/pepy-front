@@ -36,8 +36,13 @@ export const subscribe = (email, project) => (dispatch) => {
         throw errorMessage;
       }
     )
-    .then((response) => response.json())
-    .then((response) => dispatch(success(response)))
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch(success(response))
+      } else {
+        dispatch(error5XX());
+      }
+    })
     .catch((error) => {
       dispatch(error5XX());
     });
