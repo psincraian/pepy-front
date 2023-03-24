@@ -100,7 +100,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2023-03-14').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2023-04-01').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -110,23 +110,14 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🎂" label="cake" /> pepy.tech is 5 years old!
-                Check some stats in{' '}
+                <Emoji symbol="🗞" label="newsletter" /> NEWS! Get a monthly downloads report in inbox.{' '}
                 <Link
-                  href="https://twitter.com/psincraian/status/1634292533462220800?s=20"
-                  aria-label="Twitter link"
-                  target="_blank"
+                  to="/newsletter"
+                  component={RouterLink}
+                  className={classes.sectionFirst}
                 >
-                  Twitter
+                  More info here
                 </Link>{' '}
-                or{' '}
-                <Link
-                  href="https://fosstodon.org/@petru/110000911787264642"
-                  aria-label="Mastodon link"
-                  target="_blank"
-                >
-                  Mastodon
-                </Link>
               </Typography>
             }
           />
