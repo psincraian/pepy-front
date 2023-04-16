@@ -36,7 +36,7 @@ class CarbonAds extends Component {
   }
 
   componentDidMount() {
-    if (this.randomInteger(1, 10) <= 5) {
+    if (this.randomInteger(1, 10) <= 2) {
       this.renderCarbonAds();
     } else {
       this.renderEthicalAds();
