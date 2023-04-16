@@ -13,8 +13,8 @@ import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 import CarbonAds from '../components/CarbonAds';
 import DownloadsComponent from '../components/DownloadsComponent';
-import GitHubButton from 'react-github-btn';
 import ServerError from '../components/ServerError';
+import Emoji from '../components/Emoji';
 
 const styles = (theme) => ({
   layout: {
@@ -100,7 +100,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2022-04-07').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2023-04-01').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -110,15 +110,15 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                Help us reach 500 stars on GitHub{' '}
-                <GitHubButton
-                  href="https://github.com/psincraian/pepy"
-                  data-icon="octicon-star"
-                  data-show-count="true"
-                  aria-label="Star psincraian/pepy on GitHub"
+                <Emoji symbol="🗞" label="newsletter" /> NEWS! Get a monthly
+                downloads report in inbox.{' '}
+                <Link
+                  to="/newsletter"
+                  component={RouterLink}
+                  className={classes.sectionFirst}
                 >
-                  Star
-                </GitHubButton>
+                  More info here
+                </Link>{' '}
               </Typography>
             }
           />

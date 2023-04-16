@@ -41,7 +41,15 @@ class AppBar extends Component {
                 PePy
               </Typography>
             </Link>
-            <div className={classes.section}></div>
+            <div className={classes.section}>
+              <Link
+                to="/newsletter"
+                component={RouterLink}
+                className={classes.sectionFirst}
+              >
+                Newsletter
+              </Link>
+            </div>
           </Toolbar>
         </BaseAppBar>
       </div>

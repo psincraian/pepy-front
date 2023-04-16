@@ -6,3 +6,4 @@ export const FETCHING_STATUS = {
 };
 
 export const BASE_URL = 'https://api.pepy.tech';
+export const ANALYTICS_BASE_URL = 'https://analytics.pepy.tech';

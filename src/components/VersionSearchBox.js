@@ -91,13 +91,22 @@ const renderGroup = (params) => [
   params.children,
 ];
 
+const versionDownloadsCache = {};
+
 function retrieveVersionDownloads(version, downloads) {
+  if (version in versionDownloadsCache) {
+    return versionDownloadsCache[version];
+  }
+
   let total = 0;
   for (const d of Object.keys(downloads)) {
     if (version in downloads[d]) {
       total += downloads[d][version];
     }
   }
+
+  versionDownloadsCache[version] = total;
+
   return total;
 }
 
@@ -131,6 +140,7 @@ class VersionSearchBox extends React.Component {
           ListboxComponent={ListboxComponent}
           renderGroup={renderGroup}
           options={this.props.versions}
+          getOptionLabel={(option) => (option.title ? option.title : option)}
           renderInput={(params) => (
             <TextField {...params} variant="outlined" label="Select versions" />
           )}
@@ -154,6 +164,12 @@ class VersionSearchBox extends React.Component {
           value={this.props.selectedVersions}
           filterOptions={(options, params) => {
             const filtered = filter(options, params);
+            if (params.inputValue !== '') {
+              filtered.push({
+                value: params.inputValue,
+                title: `Search for "${params.inputValue}"`,
+              });
+            }
 
             return filtered;
           }}
@@ -163,6 +179,23 @@ class VersionSearchBox extends React.Component {
   }
 
   renderOption(props, option) {
+    if (option.title) {
+      return (
+        <li {...props}>
+          <Box
+            width={16}
+            height={16}
+            borderRadius="2px"
+            marginRight={2}
+            bgcolor={retrieveColor(
+              retrieveVersionDownloads(option.value, this.props.downloads)
+            )}
+          />
+          <Typography>{option.title}</Typography>
+        </li>
+      );
+    }
+
     return (
       <li {...props}>
         <Box
@@ -171,22 +204,16 @@ class VersionSearchBox extends React.Component {
           borderRadius="2px"
           marginRight={2}
           bgcolor={retrieveColor(
-            retrieveVersionDownloads(
-              option.value ? option.value : option,
-              this.props.downloads
-            )
+            retrieveVersionDownloads(option, this.props.downloads)
           )}
         />
-        <Typography>{option.title ? option.title : option}</Typography>
+        <Typography>{option}</Typography>
         <Box mx={1}>
           <Typography color="textSecondary">-</Typography>
         </Box>
         <Typography color="textSecondary">
           {formatDownloads(
-            retrieveVersionDownloads(
-              option.value ? option.value : option,
-              this.props.downloads
-            ),
+            retrieveVersionDownloads(option, this.props.downloads),
             0
           ) + '/month'}
         </Typography>
