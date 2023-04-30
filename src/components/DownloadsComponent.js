@@ -4,7 +4,7 @@ import DownloadsChart from './DownloadsChart';
 import DownloadsTable from './DownloadsTable';
 import { withStyles } from '@mui/styles';
 import VersionSearchBox from './VersionSearchBox';
-import minimatch from 'minimatch';
+import { minimatch } from 'minimatch';
 import { withRouter } from 'react-router-dom';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
