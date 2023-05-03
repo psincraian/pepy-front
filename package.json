@@ -7,7 +7,7 @@
     "@emotion/styled": "^11.10.8",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.128",
-    "@mui/material": "^5.12.1",
+    "@mui/material": "^5.12.3",
     "@mui/styles": "^5.12.0",
     "dayjs": "^1.11.7",
     "minimatch": "^9.0.0",
