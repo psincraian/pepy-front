@@ -100,7 +100,7 @@ class Project extends Component {
       return this.render5XXPage(classes);
     }
 
-    var lastDate = new Date('2023-04-01').setHours(0, 0, 0, 0);
+    var lastDate = new Date('2023-06-10').setHours(0, 0, 0, 0);
     var today = new Date().setHours(0, 0, 0, 0);
     var notification = null;
     if (today < lastDate) {
@@ -110,14 +110,15 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🗞" label="newsletter" /> NEWS! Get a monthly
-                downloads report in inbox.{' '}
+                <Emoji symbol="🗣" label="feedback" /> Help us improve pepy.tech! Please take a moment to fill out this quick survey about potential premium features and pricing:{' '}
                 <Link
-                  to="/newsletter"
-                  component={RouterLink}
-                  className={classes.sectionFirst}
+                  aria-label="surbet"
+                  color="textSecondary"
+                  component="a"
+                  target="_blank"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSe5Pnh1t_eK5EfsGYYJ2PT7qzoerqSapCRzz_AsIc_GmtzCKQ/viewform?usp=sf_link"
                 >
-                  More info here
+                  survey
                 </Link>{' '}
               </Typography>
             }
