@@ -110,7 +110,7 @@ class Project extends Component {
             severity="info"
             message={
               <Typography>
-                <Emoji symbol="🗣" label="feedback" /> Help us improve pepy.tech! Please take a moment to fill out this quick survey about potential premium features and pricing:{' '}
+                <Emoji symbol="⏳️" label="feedback" /> Last chance to have your say about the future of pepy.tech. Answer the {' '}
                 <Link
                   aria-label="surbet"
                   color="textSecondary"
