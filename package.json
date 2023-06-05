@@ -9,7 +9,7 @@
     "@mui/lab": "^5.0.0-alpha.132",
     "@mui/material": "^5.13.3",
     "@mui/styles": "^5.13.2",
-    "dayjs": "^1.11.7",
+    "dayjs": "^1.11.8",
     "minimatch": "^9.0.1",
     "react": "^17.0.2",
     "react-app-polyfill": "^3.0.0",
