@@ -8,7 +8,7 @@
     "@mui/icons-material": "^5.13.7",
     "@mui/lab": "^5.0.0-alpha.134",
     "@mui/material": "^5.13.7",
-    "@mui/styles": "^5.13.2",
+    "@mui/styles": "^5.13.7",
     "dayjs": "^1.11.9",
     "minimatch": "^9.0.3",
     "react": "^17.0.2",
