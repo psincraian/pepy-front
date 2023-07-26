@@ -1,19 +1,7 @@
-import {
-    LoginButton,
-    LogoutButton,
-    ProfileButton,
-    RegisterButton,
-} from "@/app/components/buttons";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-
 export const runtime = 'edge';
 
 
 export default async function Home() {
-    const session = await getServerSession(authOptions);
-    console.log(session);
-
     return (
         <main
             style={{
@@ -24,13 +12,7 @@ export default async function Home() {
             }}
         >
             <div>
-                <LoginButton />
-                <RegisterButton />
-                <LogoutButton />
-                <ProfileButton />
-
                 <h1>Server Session</h1>
-                <pre>{JSON.stringify(session)}</pre>
             </div>
         </main>
     );
