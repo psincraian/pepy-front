@@ -1,7 +1,5 @@
 import Link from "next/dist/client/link";
-import DownloadsChart from "@/app/components/downloads_chart";
 import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
-import VersionSearchBox from "@/app/components/version_search_box";
 import DownloadsComponent from "@/app/components/downloads_component";
 
 async function getData() :  Promise<Project> {

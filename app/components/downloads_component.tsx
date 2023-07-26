@@ -12,11 +12,14 @@ interface DownloadsChartProps {
 const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
 
     const [selectedVersions, setSelectedVersions] = useState(props.versions.slice(1, 3));
+    const versions = props.versions.map((version) => ({title: version, value: version}));
+    const mappedSelectedVersions = selectedVersions.map((version) => ({title: version, value: version}));
 
-    console.log(selectedVersions);
+
     return (
         <>
-            <VersionSearchBox versions={props.versions} selectedVersions={selectedVersions} downloads={props.data} onChange={setSelectedVersions}/>
+            <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions} downloads={props.data}
+                              onChange={setSelectedVersions}/>
             <DownloadsChart selectedVersions={selectedVersions} data={props.data}/>
         </>
     )

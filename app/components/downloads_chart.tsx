@@ -11,9 +11,6 @@ interface DownloadsChartProps {
 }
 
 const DownloadsChart: React.FC<DownloadsChartProps> = (props) => {
-    const [width, setWidth] = useState(window.innerWidth);
-    const isMobile = width <= 600;
-
     var colors = ['#ffa600', '#50d467', '#54b0f2', '#f95d6a', '#2f4b7c'];
 
     const lines = props.selectedVersions.map((version) => {
@@ -38,7 +35,7 @@ const DownloadsChart: React.FC<DownloadsChartProps> = (props) => {
     return (
         <ResponsiveContainer
             width="100%"
-            aspect={isMobile ? 1 : 2}
+            aspect={2}
         >
             <LineChart data={transformedData}>
                 <CartesianGrid strokeDasharray="3 3"/>
