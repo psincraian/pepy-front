@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SearchComponent from "@/app/components/search-bar";
+export const runtime = 'nodejs'
 
 export default function Page() {
     return (
