@@ -2,7 +2,7 @@ import Link from "next/dist/client/link";
 import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
 import DownloadsComponent from "@/app/components/downloads_component";
 
-export const runtime = 'nodejs'
+export const runtime = 'edge';
 
 async function getData() :  Promise<Project> {
     const res = await fetch('https://api.pepy.tech/api/v2/projects/requests')

@@ -7,7 +7,7 @@ import {
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
-export const runtime = 'nodejs'
+export const runtime = 'edge';
 
 
 export default async function Home() {
