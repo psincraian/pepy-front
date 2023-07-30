@@ -11,12 +11,10 @@ import { VariableSizeList } from 'react-window';
 import { Typography } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-import { withStyles } from '@mui/styles';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import {formatDownloads} from "@/app/components/helpers";
 
 const LISTBOX_PADDING = 8; // px
-const styles = (theme) => ({});
 
 function renderRow(props) {
     const { data, index, style } = props;
@@ -152,6 +150,7 @@ class VersionSearchBox extends React.Component {
                     renderTags={(value, getTagProps) =>
                         value.map((option, index) => (
                             <Chip
+                                key={option.title ? option.title : option}
                                 label={option.title ? option.title : option}
                                 {...getTagProps({ index })}
                             />
@@ -224,4 +223,4 @@ class VersionSearchBox extends React.Component {
     }
 }
 
-export default withStyles(styles)(VersionSearchBox);
+export default VersionSearchBox;
