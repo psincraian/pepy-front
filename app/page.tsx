@@ -1,7 +1,10 @@
+import SearchBar from "@/app/components/search_bar";
+
 export const runtime = 'edge';
 
 
 export default async function Home() {
+
     return (
         <main
             style={{
@@ -12,7 +15,8 @@ export default async function Home() {
             }}
         >
             <div>
-                <h1>Server Session</h1>
+                <h1>pepy.tech</h1>
+                <SearchBar/>
             </div>
         </main>
     );

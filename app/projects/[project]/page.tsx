@@ -1,11 +1,12 @@
 import Link from "next/dist/client/link";
 import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
 import DownloadsComponent from "@/app/components/downloads_component";
+import React, {Suspense} from "react";
 
 export const runtime = 'edge';
 
-async function getData(project: string) :  Promise<Project> {
-    const res = await fetch(`https://api.pepy.tech/api/v2/projects/${project}`, { next: { revalidate: 3600 } })
+async function getData(project: string): Promise<Project> {
+    const res = await fetch(`https://api.pepy.tech/api/v2/projects/${project}`, {next: {revalidate: 3600}})
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data')
@@ -28,14 +29,16 @@ async function getData(project: string) :  Promise<Project> {
     };
 }
 
-export default async function Page({ params }: { params: { project: string } }) {
+export default async function Page({params}: { params: { project: string } }) {
     const project = await getData(params.project);
 
     return (
         <>
             <h1>{params.project}</h1>
-            <Link href={"/projects"}>Back</Link>
-            <DownloadsComponent versions={project.versions} data={project.downloads} />
+            <Link href={"/"}>Back</Link>
+            <Suspense fallback={<p>Loading...</p>}>
+                <DownloadsComponent versions={project.versions} data={project.downloads}/>
+            </Suspense>
         </>
     )
 }
