@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
@@ -10,10 +11,13 @@ import { VariableSizeList } from 'react-window';
 import { Typography } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-import {formatDownloads} from "@/app/components/helpers";
+import { withStyles } from '@mui/styles';
 import { createFilterOptions } from '@mui/material/Autocomplete';
+import {formatDownloads} from "@/app/components/helpers";
 
 const LISTBOX_PADDING = 8; // px
+const styles = (theme) => ({});
+
 function renderRow(props) {
     const { data, index, style } = props;
     return React.cloneElement(data[index], {
@@ -24,8 +28,18 @@ function renderRow(props) {
     });
 }
 
+const OuterElementContext = React.createContext({});
+
+const OuterElementType = React.forwardRef((props, ref) => {
+    const outerProps = React.useContext(OuterElementContext);
+    return <div ref={ref} {...props} {...outerProps} />;
+});
+
 // Adapter for react-window
-const ListboxComponent = (props, ref) => {
+const ListboxComponent = React.forwardRef(function ListboxComponent(
+    props,
+    ref
+) {
     const { children, ...other } = props;
     const itemData = React.Children.toArray(children);
     const theme = useTheme();
@@ -50,6 +64,7 @@ const ListboxComponent = (props, ref) => {
 
     return (
         <div ref={ref}>
+            <OuterElementContext.Provider value={other}>
                 <VariableSizeList
                     itemData={itemData}
                     height={getHeight() + 2 * LISTBOX_PADDING}
@@ -62,9 +77,10 @@ const ListboxComponent = (props, ref) => {
                 >
                     {renderRow}
                 </VariableSizeList>
+            </OuterElementContext.Provider>
         </div>
     );
-};
+});
 
 ListboxComponent.propTypes = {
     children: PropTypes.node,
@@ -136,7 +152,6 @@ class VersionSearchBox extends React.Component {
                     renderTags={(value, getTagProps) =>
                         value.map((option, index) => (
                             <Chip
-                                key={option.title ? option.title : option}
                                 label={option.title ? option.title : option}
                                 {...getTagProps({ index })}
                             />
@@ -209,4 +224,4 @@ class VersionSearchBox extends React.Component {
     }
 }
 
-export default VersionSearchBox;
+export default withStyles(styles)(VersionSearchBox);
