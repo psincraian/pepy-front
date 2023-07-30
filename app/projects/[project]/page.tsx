@@ -4,8 +4,8 @@ import DownloadsComponent from "@/app/components/downloads_component";
 
 export const runtime = 'edge';
 
-async function getData() :  Promise<Project> {
-    const res = await fetch('https://api.pepy.tech/api/v2/projects/requests')
+async function getData(project: string) :  Promise<Project> {
+    const res = await fetch(`https://api.pepy.tech/api/v2/projects/${project}`, { next: { revalidate: 3600 } })
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data')
@@ -24,16 +24,16 @@ async function getData() :  Promise<Project> {
     return {
         name: response.id,
         downloads: downloadData,
-        versions: response.versions
+        versions: response.versions.reverse()
     };
 }
 
-export default async function Page() {
-    const project = await getData();
+export default async function Page({ params }: { params: { project: string } }) {
+    const project = await getData(params.project);
 
     return (
         <>
-            <h1>{project.name}</h1>
+            <h1>{params.project}</h1>
             <Link href={"/projects"}>Back</Link>
             <DownloadsComponent versions={project.versions} data={project.downloads} />
         </>
