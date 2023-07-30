@@ -28,10 +28,11 @@ function renderRow(props) {
 
 const OuterElementContext = React.createContext({});
 
-const OuterElementType = React.forwardRef((props, ref) => {
+const OuterTypeRender = (props, ref) => {
     const outerProps = React.useContext(OuterElementContext);
     return <div ref={ref} {...props} {...outerProps} />;
-});
+};
+const OuterElementType = React.forwardRef(OuterTypeRender);
 
 // Adapter for react-window
 const ListboxComponent = React.forwardRef(function ListboxComponent(
