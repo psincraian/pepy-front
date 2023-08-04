@@ -25,7 +25,7 @@ async function getData(project: string): Promise<Project> {
     return {
         name: response.id,
         downloads: downloadData,
-        versions: response.versions.reverse()
+        versions: response.versions
     };
 }
 

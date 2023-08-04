@@ -13,7 +13,7 @@ interface DownloadsChartProps {
 
 const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
 
-    const [selectedVersions, setSelectedVersions] = useState(defaultSelectedVersions(props.versions.reverse()));
+    const [selectedVersions, setSelectedVersions] = useState(defaultSelectedVersions(props.versions));
     const versions = props.versions.map((version) => ({title: version, value: version}));
     const mappedSelectedVersions = selectedVersions.map((version) => ({title: version, value: version}));
     const downloads = retrieveDownloads(props.data, selectedVersions, DisplayStyle.DAILY);
