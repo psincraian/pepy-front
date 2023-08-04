@@ -21,7 +21,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
         <>
             <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions} downloads={downloads}
                               onChange={setSelectedVersions}/>
-            <DownloadsChart selectedVersions={selectedVersions} data={props.data}/>
+            <DownloadsChart selectedVersions={selectedVersions} data={downloads}/>
         </>
     )
 }

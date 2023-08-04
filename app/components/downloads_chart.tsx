@@ -1,13 +1,13 @@
 "use client";
 
-import React, {useState} from 'react';
+import React from 'react';
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from 'recharts';
 import {formatDownloads} from './helpers';
-import {DownloadData} from "./model";
+import {DownloadsResponse} from "@/app/helper/compute_downloads";
 
 interface DownloadsChartProps {
     selectedVersions: string[];
-    data: DownloadData;
+    data: DownloadsResponse[];
 }
 
 const DownloadsChart: React.FC<DownloadsChartProps> = (props) => {
