@@ -11,3 +11,15 @@ export interface Project {
     downloads: DownloadData;
     versions: string[];
 }
+
+export interface OptionType {
+    title: string
+    value: string
+}
+
+export enum DisplayStyle {
+    DAILY,
+    WEEKLY,
+    MONTHLY,
+
+}

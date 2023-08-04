@@ -1,7 +1,7 @@
 import Link from "next/dist/client/link";
 import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
 import DownloadsComponent from "@/app/components/downloads_component";
-import React, {Suspense} from "react";
+import React from "react";
 
 export const runtime = 'edge';
 
@@ -36,9 +36,7 @@ export default async function Page({params}: { params: { project: string } }) {
         <>
             <h1>{params.project}</h1>
             <Link href={"/"}>Back</Link>
-            <Suspense fallback={<p>Loading...</p>}>
-                <DownloadsComponent versions={project.versions} data={project.downloads}/>
-            </Suspense>
+            <DownloadsComponent versions={project.versions} data={project.downloads}/>
         </>
     )
 }
