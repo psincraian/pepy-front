@@ -1,6 +1,7 @@
 import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
 import DownloadsComponent from "@/app/components/downloads_component";
 import React, {Suspense} from "react";
+import SearchAppBar from "@/app/components/search_app_bar";
 
 export const runtime = 'edge';
 
@@ -33,6 +34,7 @@ export default async function Page({params}: { params: { project: string } }) {
 
     return (
         <>
+            <SearchAppBar/>
             <h1>{params.project}</h1>
             <Suspense fallback={"Loading downloads..."}>
                 <DownloadsComponent versions={project.versions} data={project.downloads}/>
