@@ -74,7 +74,7 @@ function VersionSearchBox({downloads, onChange, selectedVersions, versions}: Ver
                         />
                     ))
                 }
-                onChange={(event, value: OptionType[]) => onChange(value.map((x) => x.value))}
+                onChange={(event, value: (string | OptionType)[]) => onChange(value.map((x) => typeof x === "string" ? x : x.value))}
                 value={selectedVersions}
                 filterOptions={(options, params) => {
                     const filtered = filter(options, params);

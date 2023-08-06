@@ -27,10 +27,9 @@ const DownloadsChart: React.FC<DownloadsChartProps> = (props) => {
     });
 
     // Transforming the data to fit into LineChart
-    const transformedData = Object.entries(props.data).map(([date, versionDownloads]) => ({
-        date,
+    const transformedData = Object.entries(props.data).map(([d, versionDownloads]) => ({
         ...versionDownloads,
-    }));
+    } as DownloadsResponse));
 
     return (
         <ResponsiveContainer
