@@ -4,6 +4,8 @@ import React, {Suspense} from "react";
 import SearchAppBar from "@/app/components/search_app_bar";
 import ProjectSummary from "@/app/components/project_summary";
 import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
+import {Grid} from "@mui/material";
+import Ads from "@/app/components/ads";
 
 export const runtime = 'edge';
 
@@ -41,16 +43,27 @@ export default async function Page({params}: { params: { project: string } }) {
     return (
         <>
             <SearchAppBar/>
-            <h1>{params.project}</h1>
-            <Suspense fallback={"Loading project data..."}>
-                <ProjectSummary name={params.project}
-                                totalDownloads={project.totalDownloads}
-                                totalDownloads30Days={totalDownloads30Days}
-                                totalDownloads7Days={totalDownloads7Days}/>
-            </Suspense>
-            <Suspense fallback={"Loading downloads..."}>
-                <DownloadsComponent versions={project.versions} data={project.downloads}/>
-            </Suspense>
+            <Grid container rowSpacing={4}>
+                <Grid item xs={12}>
+                    <h1>{params.project}</h1>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                    <Suspense fallback={"Loading project data..."}>
+                        <ProjectSummary name={params.project}
+                                        totalDownloads={project.totalDownloads}
+                                        totalDownloads30Days={totalDownloads30Days}
+                                        totalDownloads7Days={totalDownloads7Days}/>
+                    </Suspense>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                    <Ads/>
+                </Grid>
+                <Grid item xs={12}>
+                    <Suspense fallback={"Loading downloads..."}>
+                        <DownloadsComponent versions={project.versions} data={project.downloads}/>
+                    </Suspense>
+                </Grid>
+            </Grid>
         </>
     )
 };
