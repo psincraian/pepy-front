@@ -6,6 +6,7 @@ import ProjectSummary from "@/app/components/project_summary";
 import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
 import {Grid} from "@mui/material";
 import Ads from "@/app/components/ads";
+import BadgesComponent from "@/app/components/badge_component";
 
 export const runtime = 'edge';
 
@@ -43,7 +44,7 @@ export default async function Page({params}: { params: { project: string } }) {
     return (
         <>
             <SearchAppBar/>
-            <Grid container rowSpacing={4}>
+            <Grid container rowSpacing={4} columnSpacing={2}>
                 <Grid item xs={12}>
                     <h1>{params.project}</h1>
                 </Grid>
@@ -54,6 +55,9 @@ export default async function Page({params}: { params: { project: string } }) {
                                         totalDownloads30Days={totalDownloads30Days}
                                         totalDownloads7Days={totalDownloads7Days}/>
                     </Suspense>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                    <BadgesComponent project={params.project}/>
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <Ads/>
