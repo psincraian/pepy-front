@@ -13,6 +13,20 @@ export type DownloadsResponse = BaseDownloadsResponse & {
     [key: string]: number;
 }
 
+function retrieveDayDownloads(download: VersionDownloads) {
+    return Object.values(download).reduce((total, current) => total + current, 0);
+}
+
+export const retrieveTotalDownloadsSince = (downloads: DownloadData, since: Date): number => {
+    var total = 0;
+    Object.keys(downloads).forEach((date) => {
+        if (new Date(date) >= since) {
+            total += retrieveDayDownloads(downloads[date]);
+        }
+    })
+
+    return total;
+}
 
 export const retrieveDownloads = (downloads: DownloadData, selectedVersions: string[], displayStyle: DisplayStyle) => {
     var data : DownloadsResponse[] = [];

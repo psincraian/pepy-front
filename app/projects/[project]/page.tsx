@@ -2,6 +2,8 @@ import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
 import DownloadsComponent from "@/app/components/downloads_component";
 import React, {Suspense} from "react";
 import SearchAppBar from "@/app/components/search_app_bar";
+import ProjectSummary from "@/app/components/project_summary";
+import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
 
 export const runtime = 'edge';
 
@@ -22,8 +24,10 @@ async function getData(project: string): Promise<Project> {
 
         downloadData[date] = verionDownloads;
     }
+
     return {
         name: response.id,
+        totalDownloads: response.total_downloads,
         downloads: downloadData,
         versions: response.versions
     };
@@ -31,14 +35,22 @@ async function getData(project: string): Promise<Project> {
 
 export default async function Page({params}: { params: { project: string } }) {
     const project = await getData(params.project);
+    const totalDownloads30Days = retrieveTotalDownloadsSince(project.downloads, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000));
+    const totalDownloads7Days = retrieveTotalDownloadsSince(project.downloads, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
 
     return (
         <>
             <SearchAppBar/>
             <h1>{params.project}</h1>
+            <Suspense fallback={"Loading project data..."}>
+                <ProjectSummary name={params.project}
+                                totalDownloads={project.totalDownloads}
+                                totalDownloads30Days={totalDownloads30Days}
+                                totalDownloads7Days={totalDownloads7Days}/>
+            </Suspense>
             <Suspense fallback={"Loading downloads..."}>
                 <DownloadsComponent versions={project.versions} data={project.downloads}/>
             </Suspense>
         </>
     )
-}
+};

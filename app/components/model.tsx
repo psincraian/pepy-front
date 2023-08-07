@@ -8,6 +8,7 @@ export interface DownloadData {
 
 export interface Project {
     name: string;
+    totalDownloads: number;
     downloads: DownloadData;
     versions: string[];
 }
