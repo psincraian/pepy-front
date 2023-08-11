@@ -4,7 +4,7 @@ import React, {Suspense} from "react";
 import SearchAppBar from "@/app/components/search_app_bar";
 import ProjectSummary from "@/app/components/project_summary";
 import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
-import {Grid} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import Ads from "@/app/components/ads";
 import BadgesComponent from "@/app/components/badge_component";
 
@@ -46,7 +46,9 @@ export default async function Page({params}: { params: { project: string } }) {
             <SearchAppBar/>
             <Grid container rowSpacing={4} columnSpacing={2}>
                 <Grid item xs={12}>
-                    <h1>{params.project}</h1>
+                    <Typography component="h1" variant="h2">
+                        {params.project}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <Suspense fallback={"Loading project data..."}>
