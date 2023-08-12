@@ -1,7 +1,7 @@
 import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
 import DownloadsComponent from "@/app/components/downloads_component";
 import React, {Suspense} from "react";
-import SearchAppBar from "@/app/components/search_app_bar";
+import AppBar from "@/app/components/app_bar";
 import ProjectSummary from "@/app/components/project_summary";
 import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
 import {Grid, Typography} from "@mui/material";
@@ -43,7 +43,7 @@ export default async function Page({params}: { params: { project: string } }) {
 
     return (
         <>
-            <SearchAppBar/>
+            <AppBar/>
             <Grid container rowSpacing={4} columnSpacing={2}>
                 <Grid item xs={12}>
                     <Typography component="h1" variant="h2">

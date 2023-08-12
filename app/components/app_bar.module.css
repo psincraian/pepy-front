@@ -1,0 +1,69 @@
+.root {
+    display: flex;
+}
+
+.menuButton {
+    margin-right: 16px;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.title {
+    display: none;
+    color: inherit;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+.sectionDesktop {
+    display: none;
+    color: inherit;
+    margin-left: 16px;
+    text-decoration: none;
+}
+
+.sectionMobile {
+    display: flex;
+    color: inherit;
+    text-decoration: none;
+}
+
+.toolbarContent {
+    width: 936px; /* Assuming theme.spacing(3 * 2) is 36px */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sectionFirst, .section {
+    color: inherit;
+    text-decoration: none;
+}
+
+.section {
+    margin-left: 16px;
+}
+
+/* Media Queries */
+@media screen and (min-width: 600px) {
+    .title {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .sectionDesktop {
+        display: flex;
+    }
+    .sectionMobile {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 936px) {
+    .toolbarContent {
+        width: 900px;
+    }
+}

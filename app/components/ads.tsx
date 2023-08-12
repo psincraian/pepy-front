@@ -1,22 +1,7 @@
 'use client'
 import React, {useEffect} from 'react';
-import {styled} from '@mui/material/styles';
+import styles from './ads.module.css';
 
-const PREFIX = 'Ads';
-
-const classes = {
-    adsContainer: `${PREFIX}-adsContainer`
-};
-
-const Root = styled('div')((
-    {
-        theme: Theme
-    }
-) => ({
-    [`&.${classes.adsContainer}`]: {
-        maxWidth: '360px',
-    }
-}));
 
 const Ads: React.FC = () => {
 
@@ -56,14 +41,14 @@ const Ads: React.FC = () => {
     }, []);
 
     return (
-        <Root className={classes.adsContainer}>
+        <div className={styles.adsContainer}>
             <div id="carbonadselem"></div>
             <div
                 className="horizontal"
                 data-ea-publisher="pepytech"
                 data-ea-type="image"
             ></div>
-        </Root>
+        </div>
     );
 };
 
