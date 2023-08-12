@@ -1,5 +1,8 @@
 .root {
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 1;
 }
 
 .menuButton {
@@ -26,15 +29,14 @@
 }
 
 .sectionMobile {
-    display: flex;
     color: inherit;
     text-decoration: none;
 }
 
 .toolbarContent {
-    width: 936px; /* Assuming theme.spacing(3 * 2) is 36px */
     margin-left: auto;
     margin-right: auto;
+    flex: 1;
 }
 
 .sectionFirst, .section {
@@ -51,6 +53,9 @@
     .title {
         display: block;
     }
+    .sectionMobile {
+        display: flex;
+    }
 }
 
 @media screen and (min-width: 960px) {
@@ -59,11 +64,5 @@
     }
     .sectionMobile {
         display: none;
-    }
-}
-
-@media screen and (min-width: 936px) {
-    .toolbarContent {
-        width: 900px;
     }
 }
