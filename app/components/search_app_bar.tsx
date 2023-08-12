@@ -1,6 +1,6 @@
 'use client'
 import React, {useState} from 'react';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -8,9 +8,10 @@ import InputBase from '@mui/material/InputBase';
 import {alpha, makeStyles} from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'
+import {useRouter} from 'next/navigation'
 import {IconButton, Menu, MenuItem} from '@mui/material';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import {AppBarSearchComponent} from "@/app/components/app_bar_search_component";
 
 
 const PREFIX = 'SearchAppBar';
@@ -20,10 +21,6 @@ const classes = {
     grow: `${PREFIX}-grow`,
     menuButton: `${PREFIX}-menuButton`,
     title: `${PREFIX}-title`,
-    search: `${PREFIX}-search`,
-    searchIcon: `${PREFIX}-searchIcon`,
-    inputRoot: `${PREFIX}-inputRoot`,
-    inputInput: `${PREFIX}-inputInput`,
     sectionDesktop: `${PREFIX}-sectionDesktop`,
     sectionMobile: `${PREFIX}-sectionMobile`,
     toolbarContent: `${PREFIX}-toolbarContent`,
@@ -36,7 +33,7 @@ const Root = styled('div')((
         theme
     }
 ) => ({
-    [`&.${classes.root}`]: {
+    [`& .${classes.root}`]: {
         display: 'flex',
     },
 
@@ -56,42 +53,6 @@ const Root = styled('div')((
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
-    },
-
-    [`& .${classes.search}`]: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: theme.spacing(2),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(),
-            width: '100%',
-        },
-    },
-
-    [`& .${classes.searchIcon}`]: {
-        width: theme.spacing(9),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    [`& .${classes.inputRoot}`]: {
-        color: 'inherit',
-        width: '100%',
-    },
-
-    [`& .${classes.inputInput}`]: {
-        padding: theme.spacing(1, 1, 1, 7),
-        transition: theme.transitions.create('width'),
-        width: '100%',
     },
 
     [`& .${classes.sectionDesktop}`]: {
@@ -133,8 +94,11 @@ const Root = styled('div')((
     }
 }));
 
+interface SearchAppBarProps {
+    withSearch?: boolean;
+}
 
-const SearchAppBar: React.FC = () => {
+const SearchAppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
 
 
     // State variables for search value and mobile menu control
@@ -165,22 +129,10 @@ const SearchAppBar: React.FC = () => {
                     </Link>
 
                     {/* Search input */}
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            value={searchValue}
-                            onChange={(event) => setSearchValue(event.target.value)}
-                            onKeyDown={(event) => event.key === 'Enter' && handleSearchAction()}
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
+                    {withSearch && <AppBarSearchComponent
+                        searchValue={searchValue}
+                        setSearchValue={setSearchValue}
+                        handleSearchAction={handleSearchAction}/>}
 
                     {/* Desktop view for navigation items */}
                     <div className={classes.sectionDesktop}>
@@ -197,7 +149,7 @@ const SearchAppBar: React.FC = () => {
                             onClick={(event) => setMobileMoreAnchorEl(event.currentTarget)}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <MoreIcon/>
                         </IconButton>
                     </div>
                 </Toolbar>
@@ -206,9 +158,9 @@ const SearchAppBar: React.FC = () => {
             {/* Mobile menu */}
             <Menu
                 anchorEl={mobileMoreAnchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 keepMounted
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                transformOrigin={{vertical: 'top', horizontal: 'right'}}
                 open={isMobileMenuOpen}
                 onClose={() => setMobileMoreAnchorEl(null)}
             >
