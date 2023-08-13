@@ -3,6 +3,7 @@ import { Grid, Container } from '@mui/material';
 import Emoji from '@/app/components/emoji';
 import styles from './footer.module.css';
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
 
@@ -17,7 +18,7 @@ const Footer: React.FC = () => {
                             target="_blank"
                             href="https://www.digitalocean.com/?refcode=7bf782110d6c&utm_campaign=Referral_Invite&utm_medium=opensource&utm_source=pepy"
                         >
-                            <img className={styles.img} src="/images/do-logo.png" alt="Digital Ocean sponsored by logo" />
+                            <Image className={styles.img} src="/do-logo.png" width={200} height={41.6} alt="Digital Ocean sponsored by logo" />
                         </Link>
                     </Grid>
                     <Grid item xs={6} sm={4}>
