@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css'
+import Footer from "@/app/components/footer";
 
 export const metadata = {
   title: 'pepy.tech',
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Footer />
+      </body>
       <Analytics />
     </html>
   )

@@ -1,12 +1,5 @@
-.root {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex: 1;
-}
-
-.menuButton {
-    margin-right: 16px;
+.header {
+    margin-bottom: 32px;
 }
 
 .link {

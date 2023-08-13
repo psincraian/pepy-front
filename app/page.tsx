@@ -18,11 +18,6 @@ export default async function Home() {
                     <SearchBar/>
                 </div>
             </main>
-            <footer className={styles.footer}>
-                <div>
-                    <p>Footer</p>
-                </div>
-            </footer>
         </div>
     );
 }

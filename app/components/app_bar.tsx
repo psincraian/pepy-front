@@ -32,7 +32,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
     };
 
     return (
-        <header>
+        <header className={styles.header}>
             <MuiAppBar position="static" sx={{flex: 1, flexDirection: 'row'}}>
                 <Toolbar className={styles.toolbarContent}>
                     {/* Logo and site name */}
