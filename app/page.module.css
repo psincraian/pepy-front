@@ -1,0 +1,24 @@
+
+.root {
+    height: 100%;
+}
+
+.header {
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    min-height: calc(100% - 60px); /* Adjust this value based on header and footer heights */
+}
+
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

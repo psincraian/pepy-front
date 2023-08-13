@@ -44,32 +44,34 @@ export default async function Page({params}: { params: { project: string } }) {
     return (
         <>
             <AppBar/>
-            <Grid container rowSpacing={4} columnSpacing={2}>
-                <Grid item xs={12}>
-                    <Typography component="h1" variant="h2">
-                        {params.project}
-                    </Typography>
+            <main>
+                <Grid container rowSpacing={4} columnSpacing={2}>
+                    <Grid item xs={12}>
+                        <Typography component="h1" variant="h2">
+                            {params.project}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Suspense fallback={"Loading project data..."}>
+                            <ProjectSummary name={params.project}
+                                            totalDownloads={project.totalDownloads}
+                                            totalDownloads30Days={totalDownloads30Days}
+                                            totalDownloads7Days={totalDownloads7Days}/>
+                        </Suspense>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <BadgesComponent project={params.project}/>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Ads/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Suspense fallback={"Loading downloads..."}>
+                            <DownloadsComponent versions={project.versions} data={project.downloads}/>
+                        </Suspense>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <Suspense fallback={"Loading project data..."}>
-                        <ProjectSummary name={params.project}
-                                        totalDownloads={project.totalDownloads}
-                                        totalDownloads30Days={totalDownloads30Days}
-                                        totalDownloads7Days={totalDownloads7Days}/>
-                    </Suspense>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <BadgesComponent project={params.project}/>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <Ads/>
-                </Grid>
-                <Grid item xs={12}>
-                    <Suspense fallback={"Loading downloads..."}>
-                        <DownloadsComponent versions={project.versions} data={project.downloads}/>
-                    </Suspense>
-                </Grid>
-            </Grid>
+            </main>
         </>
     )
 };

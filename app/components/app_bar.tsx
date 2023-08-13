@@ -32,7 +32,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
     };
 
     return (
-        <div >
+        <header>
             <MuiAppBar position="static" sx={{flex: 1, flexDirection: 'row'}}>
                 <Toolbar className={styles.toolbarContent}>
                     {/* Logo and site name */}
@@ -86,7 +86,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                     </Link>
                 </MenuItem>
             </Menu>
-        </div>
+        </header>
     );
 }
 
