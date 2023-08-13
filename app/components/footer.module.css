@@ -18,3 +18,8 @@
         max-width: 50%;
     }
 }
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
