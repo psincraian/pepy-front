@@ -5,6 +5,8 @@ import {DisplayStyle, DownloadData} from "@/app/components/model";
 import VersionSearchBox from "@/app/components/version_search_box";
 import {defaultSelectedVersions} from "@/app/helper/versions_helper";
 import {retrieveDownloads} from "@/app/helper/compute_downloads";
+import styles from "./downloads_component.module.css";
+
 
 interface DownloadsChartProps {
     versions: string[];
@@ -19,8 +21,10 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
     const downloads = retrieveDownloads(props.data, selectedVersions, DisplayStyle.DAILY);
     return (
         <>
-            <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions} downloads={downloads}
-                              onChange={setSelectedVersions}/>
+            <div className={styles.versionSearchBox}>
+                <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions} downloads={downloads}
+                                  onChange={setSelectedVersions}/>
+            </div>
             <DownloadsChart selectedVersions={selectedVersions} data={downloads}/>
         </>
     )
