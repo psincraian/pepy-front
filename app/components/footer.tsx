@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
     return (
         <footer className={styles.footer}>
             <Container maxWidth="sm">
-                <Grid container spacing={2} rowSpacing={4}>
+                <Grid container spacing={2} rowSpacing={4} justifyContent={"center"}>
                     <Grid item xs={12} sm={12} className={styles.imgContainer}>
                         <Link
                             className={styles.link}
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                             <Image className={styles.img} src="/do-logo.png" width={200} height={41.6} alt="Digital Ocean sponsored by logo" />
                         </Link>
                     </Grid>
-                    <Grid item xs={6} sm={4}>
+                    <Grid item xs={8} sm={4}>
                         <Link
                             className={styles.link}
                             aria-label="Source code"
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
                             We <Emoji symbol="❤️" label="heart" /> open source
                         </Link>
                     </Grid>
-                    <Grid item xs={6} sm={4}>
+                    <Grid item xs={8} sm={4}>
                         <Link
                             className={styles.link}
                             aria-label="Follow us"
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                             <Emoji symbol="👤" label="person" /> Follow us
                         </Link>
                     </Grid>
-                    <Grid item xs={6} sm={4}>
+                    <Grid item xs={8} sm={4}>
                         <Link
                             className={styles.link}
                             aria-label="Support us"
