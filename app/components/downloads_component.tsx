@@ -6,6 +6,8 @@ import VersionSearchBox from "@/app/components/version_search_box";
 import {defaultSelectedVersions} from "@/app/helper/versions_helper";
 import {retrieveDownloads} from "@/app/helper/compute_downloads";
 import styles from "./downloads_component.module.css";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 
 
 interface DownloadsChartProps {
@@ -13,9 +15,17 @@ interface DownloadsChartProps {
     data: DownloadData;
 }
 
-const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
+const updateSelectedVersions = (router: AppRouterInstance, pathname: string, setSelectedVersions: React.Dispatch<React.SetStateAction<string[]>>, versions: string[]) => {
+    router.push(pathname + '?versions=' + versions.join('&versions='))
+    setSelectedVersions(versions);
+}
 
-    const [selectedVersions, setSelectedVersions] = useState(defaultSelectedVersions(props.versions));
+const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
+    const router = useRouter();
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const userVersions = searchParams.has('versions') ? searchParams.getAll('versions') : undefined;
+    const [selectedVersions, setSelectedVersions] = useState(userVersions ?? defaultSelectedVersions(props.versions));
     const versions = props.versions.map((version) => ({title: version, value: version}));
     const mappedSelectedVersions = selectedVersions.map((version) => ({title: version, value: version}));
     const downloads = retrieveDownloads(props.data, selectedVersions, DisplayStyle.DAILY);
@@ -23,7 +33,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
         <>
             <div className={styles.versionSearchBox}>
                 <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions} downloads={downloads}
-                                  onChange={setSelectedVersions}/>
+                                  onChange={(versions) => updateSelectedVersions(router, pathname, setSelectedVersions, versions)}/>
             </div>
             <DownloadsChart selectedVersions={selectedVersions} data={downloads}/>
         </>
