@@ -16,7 +16,7 @@ interface DownloadsChartProps {
 }
 
 const updateSelectedVersions = (router: AppRouterInstance, pathname: string, setSelectedVersions: React.Dispatch<React.SetStateAction<string[]>>, versions: string[]) => {
-    router.push(pathname + '?versions=' + versions.join('&versions='))
+    router.push(pathname + '?versions=' + versions.join('&versions='), {scroll: false, })
     setSelectedVersions(versions);
 }
 
