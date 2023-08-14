@@ -7,14 +7,16 @@ import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
 import {Grid, Typography} from "@mui/material";
 import Ads from "@/app/components/ads";
 import BadgesComponent from "@/app/components/badge_component";
+import {notFound} from "next/navigation";
 
 export const runtime = 'edge';
 
 async function getData(project: string): Promise<Project> {
     const res = await fetch(`https://api.pepy.tech/api/v2/projects/${project}`, {next: {revalidate: 3600}})
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
+    if (res.status === 404) {
+        notFound();
+    } else if (res.status !== 200) {
+        throw new Error(`Server error: ${res.status}`)
     }
 
     const downloadData: DownloadData = {};
