@@ -1,0 +1,63 @@
+.header {
+    margin-bottom: 32px;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.title {
+    display: none;
+    color: inherit;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+.sectionDesktop {
+    display: none;
+    color: inherit;
+    margin-left: 16px;
+    text-decoration: none;
+}
+
+.sectionMobile {
+    color: inherit;
+    text-decoration: none;
+}
+
+.toolbarContent {
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sectionFirst, .section {
+    color: inherit;
+    text-decoration: none;
+}
+
+.section {
+    margin-left: 16px;
+}
+
+/* Media Queries */
+@media screen and (min-width: 600px) {
+    .title {
+        display: block;
+    }
+    .sectionMobile {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .sectionDesktop {
+        display: flex;
+    }
+    .sectionMobile {
+        display: none;
+    }
+}
