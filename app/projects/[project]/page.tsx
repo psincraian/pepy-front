@@ -48,12 +48,12 @@ export default async function Page({params}: { params: { project: string } }) {
                 <Grid container rowSpacing={4} columnSpacing={2}>
                     <Grid item xs={12}>
                         <Typography component="h1" variant="h2">
-                            {params.project}
+                            {project.name}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Suspense fallback={"Loading project data..."}>
-                            <ProjectSummary name={params.project}
+                            <ProjectSummary name={project.name}
                                             totalDownloads={project.totalDownloads}
                                             totalDownloads30Days={totalDownloads30Days}
                                             totalDownloads7Days={totalDownloads7Days}/>
@@ -66,9 +66,7 @@ export default async function Page({params}: { params: { project: string } }) {
                         <Ads/>
                     </Grid>
                     <Grid item xs={12}>
-                        <Suspense fallback={"Loading downloads..."}>
-                            <DownloadsComponent versions={project.versions} data={project.downloads}/>
-                        </Suspense>
+                        <DownloadsComponent versions={project.versions} data={project.downloads}/>
                     </Grid>
                 </Grid>
             </main>
