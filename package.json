@@ -14,7 +14,7 @@
     "@mui/material": "^5.14.5",
     "@mui/system": "^5.14.1",
     "@types/node": "20.5.0",
-    "@types/react": "18.2.14",
+    "@types/react": "18.2.20",
     "@types/react-dom": "18.2.6",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "10.4.15",
