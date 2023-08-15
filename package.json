@@ -30,7 +30,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.4.0",
+    "@cloudflare/next-on-pages": "^1.5.1",
     "@types/react-window": "^1.8.5"
   }
 }
