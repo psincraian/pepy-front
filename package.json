@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress":  "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.5.1",
-    "@types/react-window": "^1.8.5"
+    "@types/react-window": "^1.8.5",
+    "cypress": "^12.17.4"
   }
 }
