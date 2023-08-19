@@ -8,6 +8,7 @@ import {retrieveDownloads} from "@/app/helper/compute_downloads";
 import styles from "./downloads_component.module.css";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
+import DownloadsTable from "@/app/components/downloads_table";
 
 
 interface DownloadsChartProps {
@@ -30,13 +31,14 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
     const mappedSelectedVersions = selectedVersions.map((version) => ({title: version, value: version}));
     const downloads = retrieveDownloads(props.data, selectedVersions, DisplayStyle.DAILY);
     return (
-        <>
+        <div className={styles.root}>
             <div className={styles.versionSearchBox}>
                 <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions} downloads={downloads}
                                   onChange={(versions) => updateSelectedVersions(router, pathname, setSelectedVersions, versions)}/>
             </div>
             <DownloadsChart selectedVersions={selectedVersions} data={downloads}/>
-        </>
+            <DownloadsTable selectedVersions={selectedVersions} data={downloads} />
+        </div>
     )
 }
 

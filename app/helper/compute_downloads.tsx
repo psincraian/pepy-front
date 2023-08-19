@@ -45,7 +45,8 @@ export const retrieveDownloads = (downloads: DownloadData, selectedVersions: str
                 row[selectedVersion] = 0;
             }
         });
-        row["sum"] = sum
+        row["sum"] = sum;
+        row["total"] = retrieveDayDownloads(downloads[date]);
         data.push(row as DownloadsResponse);
     });
 
