@@ -33,6 +33,6 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.6.0",
     "@types/react-window": "^1.8.5",
-    "cypress": "^12.17.4"
+    "cypress": "^13.0.0"
   }
 }
