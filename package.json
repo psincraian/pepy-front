@@ -14,7 +14,7 @@
     "@mui/icons-material": "^5.14.7",
     "@mui/lab": "^5.0.0-alpha.142",
     "@mui/material": "^5.14.7",
-    "@mui/system": "^5.14.1",
+    "@mui/system": "^5.14.8",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
