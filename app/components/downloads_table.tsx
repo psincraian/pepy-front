@@ -21,7 +21,7 @@ const DownloadsTable: React.FC<DownloadsChartProps> = (props) => {
     const downloads = data.reverse();
 
     return (
-        <TableContainer sx={{paddingTop: '16px', maxHeight: '500px'}}>
+        <TableContainer sx={{marginTop: '16px', maxHeight: '500px'}}>
             <Table id="downloads-table" stickyHeader>
                 <TableHead>
                     <TableRow>
