@@ -3,8 +3,7 @@ import React, {useState} from "react";
 import {FormControl, FormHelperText, Grid, Input, InputLabel} from "@mui/material";
 import {LoadingButton} from "@mui/lab";
 import {DoneOutline, ErrorOutline} from "@mui/icons-material";
-import {AuthenticationDetails, CognitoUser, CognitoUserPool} from "amazon-cognito-identity-js";
-import {login} from "@/app/helper/login";
+import {login} from "@/app/helper/auth";
 import {useRouter} from "next/navigation";
 
 const VALID_EMAIL_REGEX = /^(.+)@(.+)\.(.+)$/;
@@ -84,6 +83,7 @@ export const LoginForm = () => {
                         onChange={handleChange('email')}
                         error={formData.emailErrors !== ''}
                         value={formData.email}
+                        type="email"
                     />
                 </FormControl>
             </Grid>
@@ -96,6 +96,7 @@ export const LoginForm = () => {
                         aria-describedby="password-helper"
                         onChange={handleChange('password')}
                         value={formData.password}
+                        type="password"
                     />
                 </FormControl>
             </Grid>
