@@ -8,7 +8,7 @@ import {useState} from "react";
 
 export default function Home() {
     const router = useRouter();
-    const [currentUser, setCurrentUser] = useState<null|User>(getCurrentUser());
+    const [currentUser, setCurrentUser] = useState<null | User>(getCurrentUser());
     console.log("Current user", currentUser);
 
     function signoutUser() {
@@ -25,11 +25,11 @@ export default function Home() {
                 <h1>Hello {currentUser !== null ? currentUser.username : "pythonista"}</h1>
                 {currentUser === null ?
                     <>
-                        <Button variant="contained" onClick={e => router.push("/user/login")}>Login</Button>
+                        <Button sx={{m: '8px'}} variant="contained" onClick={e => router.push("/user/login")}>Login</Button>
                         <Button variant="contained" onClick={e => router.push("/user/signup")}>Signup</Button>
                     </> :
                     <>
-                        <Button variant="contained" onClick={e => signoutUser()}>Sign out</Button>
+                        <Button sx={{m: '8px'}} variant="contained" onClick={e => signoutUser()}>Sign out</Button>
                     </>
                 }
             </main>
