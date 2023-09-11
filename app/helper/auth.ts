@@ -30,7 +30,7 @@ export interface User {
     username: string | undefined,
 }
 
-const cookieStorage = new CookieStorage({domain: "localhost"});
+const cookieStorage = new CookieStorage();
 const cognitoUserPool = new CognitoUserPool({
     UserPoolId: USER_POOL_ID,
     ClientId: CLIENT_ID,
