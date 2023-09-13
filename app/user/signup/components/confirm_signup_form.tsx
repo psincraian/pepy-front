@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {FormControl, FormHelperText, Grid, Input, InputLabel} from "@mui/material";
 import {LoadingButton} from "@mui/lab";
 import {ErrorOutline} from "@mui/icons-material";
-import {confirmSignUp, isValidPassword, signup} from "@/app/helper/auth";
+import {confirmSignUp, isValidPassword, signup} from "@/app/user/helper/auth";
 import {useRouter} from "next/navigation";
 
 const VALID_EMAIL_REGEX = /^(.+)@(.+)\.(.+)$/;

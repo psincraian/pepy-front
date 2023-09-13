@@ -3,7 +3,7 @@
 import AppBar from "@/app/components/app_bar";
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
-import {getCurrentUser, signout, User} from "@/app/helper/auth";
+import {getCurrentUser, signout, User} from "@/app/user/helper/auth";
 import {useState} from "react";
 
 export default function Home() {
