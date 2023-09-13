@@ -7,7 +7,7 @@ import {
     TableBody,
     TableContainer,
 } from '@mui/material';
-import {DownloadsResponse} from "@/app/helper/compute_downloads";
+import {DownloadsResponse} from "@/app/projects/[project]/helper/compute_downloads";
 
 interface DownloadsChartProps {
     selectedVersions: string[];

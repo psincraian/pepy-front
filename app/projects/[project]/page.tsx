@@ -1,12 +1,12 @@
-import {DownloadData, Project, VersionDownloads} from "@/app/components/model";
-import DownloadsComponent from "@/app/components/downloads_component";
+import {DownloadData, Project, VersionDownloads} from "@/app/projects/[project]/model";
+import DownloadsComponent from "@/app/projects/[project]/components/downloads_component";
 import React, {Suspense} from "react";
 import AppBar from "@/app/components/app_bar";
-import ProjectSummary from "@/app/components/project_summary";
-import {retrieveTotalDownloadsSince} from "@/app/helper/compute_downloads";
+import ProjectSummary from "@/app/projects/[project]/components/project_summary";
+import {retrieveTotalDownloadsSince} from "@/app/projects/[project]/helper/compute_downloads";
 import {Grid, Typography} from "@mui/material";
-import Ads from "@/app/components/ads";
-import BadgesComponent from "@/app/components/badge_component";
+import Ads from "@/app/projects/[project]/components/ads";
+import BadgesComponent from "@/app/projects/[project]/components/badge_component";
 import {notFound} from "next/navigation";
 
 export const runtime = 'edge';

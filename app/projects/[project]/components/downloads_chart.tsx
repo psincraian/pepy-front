@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,} from 'recharts';
-import {formatDownloads} from './helpers';
-import {DownloadsResponse} from "@/app/helper/compute_downloads";
+import {formatDownloads} from '../helper/number_format';
+import {DownloadsResponse} from "@/app/projects/[project]/helper/compute_downloads";
 
 interface DownloadsChartProps {
     selectedVersions: string[];

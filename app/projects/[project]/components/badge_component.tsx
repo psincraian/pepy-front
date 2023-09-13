@@ -5,7 +5,7 @@ import {
     Grid,
     CardHeader,
 } from '@mui/material';
-import CodeBlock from "@/app/components/code_block";
+import CodeBlock from "@/app/projects/[project]/components/code_block";
 
 interface BadgesComponentProps {
     project: string;

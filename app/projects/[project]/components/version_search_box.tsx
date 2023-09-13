@@ -4,9 +4,9 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import {Typography, Chip, Box} from '@mui/material';
 import {createFilterOptions} from '@mui/material/Autocomplete';
-import {formatDownloads} from "@/app/components/helpers";
-import {OptionType} from "@/app/components/model";
-import {DownloadsResponse} from "@/app/helper/compute_downloads";
+import {formatDownloads} from "@/app/projects/[project]/helper/number_format";
+import {OptionType} from "@/app/projects/[project]/model";
+import {DownloadsResponse} from "@/app/projects/[project]/helper/compute_downloads";
 
 
 interface VersionSearchBoxProps {

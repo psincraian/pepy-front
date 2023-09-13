@@ -1,4 +1,4 @@
-import {DisplayStyle, DownloadData, VersionDownloads} from "@/app/components/model";
+import {DisplayStyle, DownloadData, VersionDownloads} from "@/app/projects/[project]/model";
 import minimatch from "minimatch";
 import dayjs from "dayjs";
 

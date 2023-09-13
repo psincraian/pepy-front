@@ -1,14 +1,14 @@
 "use client"
 import React, {useState} from 'react';
-import DownloadsChart from "@/app/components/downloads_chart";
-import {DisplayStyle, DownloadData} from "@/app/components/model";
-import VersionSearchBox from "@/app/components/version_search_box";
-import {defaultSelectedVersions} from "@/app/helper/versions_helper";
-import {retrieveDownloads} from "@/app/helper/compute_downloads";
+import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
+import {DisplayStyle, DownloadData} from "@/app/projects/[project]/model";
+import VersionSearchBox from "@/app/projects/[project]/components/version_search_box";
+import {defaultSelectedVersions} from "@/app/projects/[project]/helper/versions_helper";
+import {retrieveDownloads} from "@/app/projects/[project]/helper/compute_downloads";
 import styles from "./downloads_component.module.css";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
-import DownloadsTable from "@/app/components/downloads_table";
+import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
 
 
 interface DownloadsChartProps {
