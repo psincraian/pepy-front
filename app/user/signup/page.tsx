@@ -1,9 +1,9 @@
 'use client';
 
 import AppBar from "@/app/components/app_bar";
-import {SignupForm} from "@/app/components/signup_form";
+import {SignupForm} from "@/app/user/signup/components/signup_form";
 import {useState} from "react";
-import {ConfirmSignupForm} from "@/app/components/confirm_signup_form";
+import {ConfirmSignupForm} from "@/app/user/signup/components/confirm_signup_form";
 import {Button, Grid} from "@mui/material";
 import {useRouter} from "next/navigation";
 
