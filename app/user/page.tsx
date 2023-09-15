@@ -26,19 +26,11 @@ async function getApiKeys(user: User) {
 export default function Home() {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState<null | User>(null);
-    const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
 
     useEffect(() => {
         getCurrentUser().then(u => {setCurrentUser(u); console.log(u)}).catch(err => console.error(err));
     }, []);
 
-    useEffect(() => {
-        if (currentUser !== null) {
-            getApiKeys(currentUser)
-                .then(keys => setApiKeys(keys))
-                .catch(err => console.error(err));
-        }
-    }, [currentUser]);
     function signoutUser() {
         signout();
         setCurrentUser(null);
@@ -57,7 +49,7 @@ export default function Home() {
                         <Button variant="contained" onClick={e => router.push("/user/signup")}>Signup</Button>
                     </> :
                     <>
-                        <ApiKeyTable apiKeys={apiKeys} />
+                        <ApiKeyTable />
                         <Button sx={{m: '8px'}} variant="contained" onClick={e => signoutUser()}>Sign out</Button>
                     </>
                 }
