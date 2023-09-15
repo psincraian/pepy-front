@@ -13,8 +13,10 @@ import {PEPY_HOST} from "@/app/constants";
 export const runtime = 'edge';
 
 async function getData(project: string): Promise<Project> {
+    console.log("Fetching data for", project)
     const res = await fetch(PEPY_HOST + `/api/v2/projects/${project}`, {next: {revalidate: 3600}})
     if (res.status === 404) {
+        console.log("Response", await res.json())
         notFound();
     } else if (res.status !== 200) {
         throw new Error(`Server error: ${res.status}`)
@@ -41,6 +43,7 @@ async function getData(project: string): Promise<Project> {
 
 export default async function Page({params}: { params: { project: string } }) {
     const project = await getData(params.project);
+    console.log("Project", project);
     const totalDownloads30Days = retrieveTotalDownloadsSince(project.downloads, new Date(Date.now() - 30 * 24 * 60 * 60 * 1000));
     const totalDownloads7Days = retrieveTotalDownloadsSince(project.downloads, new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
 

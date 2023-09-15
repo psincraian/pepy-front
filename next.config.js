@@ -1,4 +1,4 @@
-const PEPY_HOST = process.env.NODE_ENV === "production" ? 'https://api.pepy.tech' : 'http://localhost:8081';
+const PEPY_HOST = 'https://api.pepy.tech';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     async redirects() {
