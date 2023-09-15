@@ -8,11 +8,12 @@ import {Grid, Typography} from "@mui/material";
 import Ads from "@/app/projects/[project]/components/ads";
 import BadgesComponent from "@/app/projects/[project]/components/badge_component";
 import {notFound} from "next/navigation";
+import {PEPY_HOST} from "@/app/constants";
 
 export const runtime = 'edge';
 
 async function getData(project: string): Promise<Project> {
-    const res = await fetch(`https://api.pepy.tech/api/v2/projects/${project}`, {next: {revalidate: 3600}})
+    const res = await fetch(PEPY_HOST + `/api/v2/projects/${project}`, {next: {revalidate: 3600}})
     if (res.status === 404) {
         notFound();
     } else if (res.status !== 200) {

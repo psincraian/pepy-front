@@ -28,6 +28,7 @@ const userPool = new CognitoUserPool({
 
 export interface User {
     username: string | undefined,
+    accessToken: string | undefined,
 }
 
 const cookieStorage = new CookieStorage();
@@ -95,27 +96,36 @@ export function confirmSignUp(formData: {username: string, code: string}, callba
     });
 }
 
-export function getCurrentUser() : null | User {
-    var cognitoUser = cognitoUserPool.getCurrentUser();
-    if (cognitoUser === null) {
-        return null;
-    }
+export function getCurrentUser(): Promise<null | User> {
+    return new Promise((resolve, reject) => {
+        const cognitoUser = cognitoUserPool.getCurrentUser();
 
-    cognitoUser?.getSession(function (err: Error | null, session: CognitoUserSession | null) {
-        console.log(err, session)
-        if (err) {
-            return null;
+        if (cognitoUser === null) {
+            resolve(null);
+            return;
         }
 
-        if (session === null ||!session.isValid()) {
-            return null;
-        }
+        cognitoUser.getSession((err: Error | null, session: CognitoUserSession | null) => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-        return session;
-    })
+            if (session === null || !session.isValid()) {
+                resolve(null);
+                return;
+            }
 
-    return { username: cognitoUser?.getUsername()};
+            const user = {
+                username: cognitoUser.getUsername(),
+                accessToken: session.getAccessToken().getJwtToken(),
+            };
+
+            resolve(user);
+        });
+    });
 }
+
 
 export function signout() {
     cognitoUserPool.getCurrentUser()?.signOut();
