@@ -18,7 +18,7 @@
     "@types/node": "20.6.0",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "amazon-cognito-identity-js": "^6.3.5",
+    "amazon-cognito-identity-js": "^6.3.6",
     "autoprefixer": "10.4.15",
     "dayjs": "^1.11.9",
     "eslint": "8.49.0",
