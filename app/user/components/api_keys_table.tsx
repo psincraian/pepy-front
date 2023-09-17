@@ -3,8 +3,7 @@
 import {ApiKey} from "@/app/user/model";
 import React, {useEffect, useState} from "react";
 import ApiKeyForm from "@/app/user/components/api_key_form";
-import {Grid} from "@mui/material";
-
+import styles from './api_keys_table.module.css';
 
 async function getApiKeys() {
     console.log("Start fetching api keys")
@@ -25,38 +24,28 @@ export default function ApiKeyTable() {
     }, []);
 
     return (
-        <>
-            <Grid
-                container
-                alignItems="center"
-                justifyContent="center"
-                spacing={4}
-            >
-                <Grid item xs={9}>
-                    <ApiKeyForm onSuccess={(key) => setApiKeys([...apiKeys, key])}/>
-                </Grid>
-                <Grid item xs={9}>
-
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Key</th>
-                            <th>Created</th>
+        <div className={styles.root}>
+            <ApiKeyForm onSuccess={(key) => setApiKeys([...apiKeys, key])}/>
+            <div className={styles.table_container}>
+                <table className={styles.table_form}>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Key</th>
+                        <th>Created</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {apiKeys.map((key) => (
+                        <tr key={key.id}>
+                            <td>{key.name}</td>
+                            <td>{key.apiKey}</td>
+                            <td>{key.createdAt}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        {apiKeys.map((key) => (
-                            <tr key={key.id}>
-                                <td>{key.name}</td>
-                                <td>{key.apiKey}</td>
-                                <td>{key.createdAt}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </Grid>
-            </Grid>
-        </>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
