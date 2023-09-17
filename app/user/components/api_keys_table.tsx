@@ -4,6 +4,7 @@ import {ApiKey} from "@/app/user/model";
 import React, {useEffect, useState} from "react";
 import ApiKeyForm from "@/app/user/components/api_key_form";
 import styles from './api_keys_table.module.css';
+import {Typography} from "@mui/material";
 
 async function getApiKeys() {
     console.log("Start fetching api keys")
@@ -25,6 +26,13 @@ export default function ApiKeyTable() {
 
     return (
         <div className={styles.root}>
+            <div className={styles.header_container}>
+                <h3>API Keys</h3>
+                <Typography variant="body2" gutterBottom>
+                    You can use these API keys to access the API. Simply set the <code>X-Api-Key</code> header to the value of the
+                    API key.
+                </Typography>
+            </div>
             <ApiKeyForm onSuccess={(key) => setApiKeys([...apiKeys, key])}/>
             <div className={styles.table_container}>
                 <table className={styles.table_form}>
