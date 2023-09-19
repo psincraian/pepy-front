@@ -16,7 +16,7 @@
     "@mui/material": "^5.14.9",
     "@mui/system": "^5.14.10",
     "@types/node": "20.6.2",
-    "@types/react": "18.2.21",
+    "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "amazon-cognito-identity-js": "^6.3.6",
     "autoprefixer": "10.4.15",
