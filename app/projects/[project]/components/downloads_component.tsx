@@ -7,8 +7,8 @@ import {defaultSelectedVersions} from "@/app/projects/[project]/helper/versions_
 import {retrieveDownloads} from "@/app/projects/[project]/helper/compute_downloads";
 import styles from "./downloads_component.module.css";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 
 
 interface DownloadsChartProps {
