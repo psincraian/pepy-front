@@ -5,24 +5,4 @@ updates:
   schedule:
     interval: daily
     time: "00:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: cypress
-    versions:
-    - 6.4.0
-    - 6.5.0
-    - 6.6.0
-    - 6.7.0
-    - 6.7.1
-    - 7.0.0
-    - 7.0.1
-    - 7.1.0
-  - dependency-name: recharts
-    versions:
-    - 2.0.4
-    - 2.0.6
-    - 2.0.7
-    - 2.0.8
-  - dependency-name: react-scripts
-    versions:
-    - 4.0.2
+  open-pull-requests-limit: 5
