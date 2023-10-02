@@ -34,7 +34,7 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.6.1",
     "@types/minimatch": "^5.1.2",
-    "@types/react-window": "^1.8.5",
+    "@types/react-window": "^1.8.6",
     "cypress": "^13.2.0"
   }
 }
