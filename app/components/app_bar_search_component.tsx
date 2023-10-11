@@ -1,24 +1,22 @@
 'use client';
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
 import styles from './app_bar_search_component.module.css'
 
-interface SearchComponentProps {
-    searchValue: string;
-    setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-    handleSearchAction: () => void;
-}
+export const AppBarSearchComponent: React.FC = () => {
+    const [searchValue, setSearchValue] = useState<string>('');
+    const router = useRouter();
 
-export const AppBarSearchComponent: React.FC<SearchComponentProps> = ({
-                                                                          searchValue,
-                                                                          setSearchValue,
-                                                                          handleSearchAction,
-                                                                      }) => {
+    const handleSearchAction = () => {
+        router.push(`/projects/${searchValue}`);
+    };
+
     return (
         <div className={styles.search}>
             <div className={styles.searchIcon}>
-                <SearchIcon/>
+                <SearchIcon />
             </div>
             <InputBase
                 placeholder="Search…"
@@ -29,7 +27,7 @@ export const AppBarSearchComponent: React.FC<SearchComponentProps> = ({
                     root: styles.inputRoot,
                     input: styles.inputInput,
                 }}
-                inputProps={{'aria-label': 'search'}}
+                inputProps={{ 'aria-label': 'search' }}
             />
         </div>
     );

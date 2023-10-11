@@ -4,32 +4,20 @@ import {default as MuiAppBar} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import {useRouter} from 'next/navigation'
 import {IconButton, Menu, MenuItem} from '@mui/material';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {AppBarSearchComponent} from "@/app/components/app_bar_search_component";
 import styles from './app_bar.module.css'
+import {AppBarUserOptions} from "@/app/components/app_bar_user_options.";
 
 interface SearchAppBarProps {
     withSearch?: boolean;
 }
 
 const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
-
-
     // State variables for search value and mobile menu control
-    const [searchValue, setSearchValue] = useState<string>('');
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    // Next.js router for programmatic navigation
-    const router = useRouter();
-
-    // Navigate to the project page based on search value
-    const handleSearchAction = () => {
-        router.push(`/projects/${searchValue}`);
-    };
 
     return (
         <header className={styles.header}>
@@ -45,16 +33,14 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                     </Link>
 
                     {/* Search input */}
-                    {withSearch && <AppBarSearchComponent
-                        searchValue={searchValue}
-                        setSearchValue={setSearchValue}
-                        handleSearchAction={handleSearchAction}/>}
+                    {withSearch && <AppBarSearchComponent/>}
 
                     {/* Desktop view for navigation items */}
                     <div className={styles.sectionDesktop}>
                         <Link className={styles.link} href="/newsletter" passHref>
                             <div className={styles.sectionFirst}>Newsletter</div>
                         </Link>
+                        <AppBarUserOptions isMobileView={false}/>
                     </div>
 
                     {/* Mobile view icon for navigation items */}
@@ -85,6 +71,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                         <div className={styles.sectionFirst}>Newsletter</div>
                     </Link>
                 </MenuItem>
+                <AppBarUserOptions isMobileView={true}/>
             </Menu>
         </header>
     );
