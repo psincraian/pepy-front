@@ -1,12 +1,20 @@
 import styles from './app_bar.module.css'
 import Link from 'next/link';
-import {User} from "@/app/user/helper/auth";
+import {getCurrentUser, User} from "@/app/user/helper/auth";
+import {useEffect, useState} from "react";
 
 export interface AppBarUserOptionsProps {
     currentUser: null | User
 }
 
-export const AppBarUserOptions = ({currentUser}: AppBarUserOptionsProps) => {
+export const AppBarUserOptions = () => {
+
+    const [currentUser, setCurrentUser] = useState<User|null>(null);
+
+    useEffect(() => {
+        getCurrentUser().then(user => setCurrentUser(user));
+    }, []);
+
     return currentUser ? (
         <Link className={styles.link} href="/user" passHref>
             <div className={styles.sectionFirst}>Hi {currentUser.username}</div>
