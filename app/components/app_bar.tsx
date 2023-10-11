@@ -4,7 +4,6 @@ import {default as MuiAppBar} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
-import {useRouter} from 'next/navigation'
 import {IconButton, Menu, MenuItem} from '@mui/material';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {AppBarSearchComponent} from "@/app/components/app_bar_search_component";
@@ -17,24 +16,14 @@ interface SearchAppBarProps {
 }
 
 const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
-
-
     // State variables for search value and mobile menu control
-    const [searchValue, setSearchValue] = useState<string>('');
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const [currentUser, setCurrentUser] = useState<User|null>(null);
 
-    // Next.js router for programmatic navigation
-    const router = useRouter();
 
     // Navigate to the project page based on search value
-    const handleSearchAction = () => {
-        router.push(`/projects/${searchValue}`);
-    };
-
     useEffect(() => {
         getCurrentUser().then(user => setCurrentUser(user));
     }, []);
@@ -57,10 +46,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                     </Link>
 
                     {/* Search input */}
-                    {withSearch && <AppBarSearchComponent
-                        searchValue={searchValue}
-                        setSearchValue={setSearchValue}
-                        handleSearchAction={handleSearchAction}/>}
+                    {withSearch && <AppBarSearchComponent />}
 
                     {/* Desktop view for navigation items */}
                     <div className={styles.sectionDesktop}>
