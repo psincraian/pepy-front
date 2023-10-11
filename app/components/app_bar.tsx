@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {default as MuiAppBar} from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -9,6 +9,8 @@ import {IconButton, Menu, MenuItem} from '@mui/material';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {AppBarSearchComponent} from "@/app/components/app_bar_search_component";
 import styles from './app_bar.module.css'
+import {getCurrentUser, User} from "@/app/user/helper/auth";
+import {AppBarUserOptions} from "@/app/components/app_bar_user_options.";
 
 interface SearchAppBarProps {
     withSearch?: boolean;
@@ -23,6 +25,8 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
 
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    const [currentUser, setCurrentUser] = useState<User|null>(null);
+
     // Next.js router for programmatic navigation
     const router = useRouter();
 
@@ -30,6 +34,14 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
     const handleSearchAction = () => {
         router.push(`/projects/${searchValue}`);
     };
+
+    useEffect(() => {
+        getCurrentUser().then(user => setCurrentUser(user));
+    }, []);
+
+    // useMemo for conditional user options rendering
+    const userOptions = useMemo(() => <AppBarUserOptions currentUser={currentUser} />, [currentUser]);
+
 
     return (
         <header className={styles.header}>
@@ -55,6 +67,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                         <Link className={styles.link} href="/newsletter" passHref>
                             <div className={styles.sectionFirst}>Newsletter</div>
                         </Link>
+                        {userOptions}
                     </div>
 
                     {/* Mobile view icon for navigation items */}

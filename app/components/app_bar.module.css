@@ -5,6 +5,7 @@
 .link {
     text-decoration: none;
     color: inherit;
+    padding-left: 8px;
 }
 
 .title {
