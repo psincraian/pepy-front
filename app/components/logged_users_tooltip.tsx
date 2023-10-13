@@ -1,24 +1,23 @@
 'use client';
-import React, { forwardRef } from 'react';
+
+import React from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import PropTypes from 'prop-types';
 
 interface LoggedUsersTooltipProps {
     display: boolean;
-    children: React.ReactNode;
+    children: any;
 }
 
-const LoggedUsersTooltip = forwardRef<HTMLDivElement, LoggedUsersTooltipProps>(
-    ({ display, children }, ref) => {
-        const message = "You must be logged in to access this feature."; // Same message across the website
+const LoggedUsersTooltip: React.FC<LoggedUsersTooltipProps> = ({ display, children  }) => {
+    const message = "You must be logged in to access this feature."; // Same message across the website
 
-        return (
-            <Tooltip title={display ? message : ""} disableHoverListener={!display} arrow>
-                <div ref={ref}>{children}</div>
-            </Tooltip>
-        );
-    }
-);
+    return (
+        <Tooltip title={display ? message : "You must be a logged user to access this feature."}>
+            {children}
+        </Tooltip>
+    );
+};
 
 LoggedUsersTooltip.propTypes = {
     display: PropTypes.bool.isRequired,

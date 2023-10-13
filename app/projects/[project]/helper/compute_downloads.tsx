@@ -40,6 +40,7 @@ const aggregateData = (
         const dateIndex = getDateIndex(dayjs(currentDay.date));
 
         if (!aggregatedData[dateIndex]) {
+            // @ts-ignore
             aggregatedData[dateIndex] = {
                 date: currentDay.date,
                 total: 0,
@@ -82,6 +83,7 @@ export const retrieveDownloads = (
                 : 0;
 
             row[selectedVersion] = versionDownloads;
+            // @ts-ignore
             row["sum"] += versionDownloads;
         });
 

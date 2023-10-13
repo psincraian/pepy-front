@@ -9,7 +9,7 @@ import styles from "./downloads_component.module.css";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
 import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
-import {DisplayStyleToggle} from "@/app/projects/[project]/components/DisplayStyleToggle";
+import {DisplayStyleToggle} from "@/app/projects/[project]/components/display_style_toggle";
 import {Grid} from "@mui/material";
 
 
@@ -44,7 +44,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
                                       onChange={(versions) => updateSelectedVersions(router, pathname, setSelectedVersions, versions)}/>
                 </Grid>
                 <Grid item>
-                    <DisplayStyleToggle displayStyle={displayStyle} handleChange={setDisplayStyle}/>
+                    <DisplayStyleToggle selected={displayStyle} handleChange={setDisplayStyle}/>
                 </Grid>
             </Grid>
             <DownloadsChart selectedVersions={selectedVersions} data={downloads}/>
