@@ -1,0 +1,64 @@
+.toggleGroup {
+    display: flex;
+}
+
+.button {
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background-color: transparent;
+    outline: 0;
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    padding: 11px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.disabled {
+    color: rgba(0, 0, 0, 0.26);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.first {
+    border-radius: 4px 0 0 4px;
+}
+
+.second {
+    border-radius: 0;
+}
+
+.third {
+    border-radius: 0 4px 4px 0;
+}
+
+.selected {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.87);
+}

@@ -1,7 +1,8 @@
 import {DisplayStyle, DownloadData, VersionDownloads} from "@/app/projects/[project]/model";
 import minimatch from "minimatch";
-import dayjs from "dayjs";
-
+import dayjs from 'dayjs';
+import isoWeek from 'dayjs/plugin/isoWeek';
+dayjs.extend(isoWeek);
 
 interface BaseDownloadsResponse {
     total: number;
@@ -28,57 +29,81 @@ export const retrieveTotalDownloadsSince = (downloads: DownloadData, since: Date
     return total;
 }
 
-export const retrieveDownloads = (downloads: DownloadData, selectedVersions: string[], displayStyle: DisplayStyle) => {
-    var data : DownloadsResponse[] = [];
-    Object.keys(downloads).forEach((date) => {
-        let row : {[key: string]: number|string} = {total: 0, sum: 0, date: date}
-        let sum = 0;
+const aggregateData = (
+    data: DownloadsResponse[],
+    getDateIndex: (date: dayjs.Dayjs) => string,
+    selectedVersions: string[]
+): DownloadsResponse[] => {
+    const aggregatedData: { [key: string]: DownloadsResponse } = {};
+
+    data.forEach((currentDay) => {
+        const dateIndex = getDateIndex(dayjs(currentDay.date));
+
+        if (!aggregatedData[dateIndex]) {
+            // @ts-ignore
+            aggregatedData[dateIndex] = {
+                date: currentDay.date,
+                total: 0,
+                sum: 0,
+            };
+
+            selectedVersions.forEach((selectedVersion) => {
+                aggregatedData[dateIndex][selectedVersion] = 0;
+            });
+        }
+
+        aggregatedData[dateIndex].total += currentDay.total;
+        aggregatedData[dateIndex].sum += currentDay.sum;
+
         selectedVersions.forEach((selectedVersion) => {
-            if (shouldAddVersion(selectedVersion, downloads[date])) {
-                const versionDownloads = retrieveVersionDownloads(
-                    selectedVersion,
-                    downloads[date]
-                );
-                row[selectedVersion] = versionDownloads;
-                sum += versionDownloads;
-            } else {
-                row[selectedVersion] = 0;
-            }
+            aggregatedData[dateIndex][selectedVersion] += currentDay[selectedVersion];
         });
-        row["sum"] = sum;
+    });
+
+    return Object.values(aggregatedData);
+};
+
+export const retrieveDownloads = (
+    downloads: DownloadData,
+    selectedVersions: string[],
+    displayStyle: DisplayStyle
+) => {
+    const data: DownloadsResponse[] = [];
+
+    Object.keys(downloads).forEach((date) => {
+        const row: { [key: string]: number | string } = {
+            total: 0,
+            sum: 0,
+            date: date,
+        };
+
+        selectedVersions.forEach((selectedVersion) => {
+            const versionDownloads = shouldAddVersion(selectedVersion, downloads[date])
+                ? retrieveVersionDownloads(selectedVersion, downloads[date])
+                : 0;
+
+            row[selectedVersion] = versionDownloads;
+            // @ts-ignore
+            row["sum"] += versionDownloads;
+        });
+
         row["total"] = retrieveDayDownloads(downloads[date]);
         data.push(row as DownloadsResponse);
     });
 
     if (displayStyle !== DisplayStyle.DAILY) {
-        let getDateIndex = displayStyle === DisplayStyle.WEEKLY ?
-            (date: dayjs.Dayjs) : string => date.month() + '-' + date.day():
-            (date: dayjs.Dayjs) => date.year() + '-' + date.month();
+        const getDateIndex = displayStyle === DisplayStyle.WEEKLY
+            ? (date: dayjs.Dayjs) => date.year() + '-' + date.isoWeek()
+            : (date: dayjs.Dayjs) => date.year() + '-' + date.month();
 
-        const reducedData = data.reduce((data : {[key: string]: DownloadsResponse}, currentDay) => {
-            const date = dayjs(currentDay.date);
-            const dateIndex = getDateIndex(date);
-            if (!data[dateIndex]) {
-                data[dateIndex] = {
-                    date: currentDay.date,
-                    total: 0,
-                    sum: 0,
-                } as DownloadsResponse;
-                selectedVersions.forEach((selectedVersion) => {
-                    data[dateIndex][selectedVersion] = 0;
-                });
-            }
-            data[dateIndex].total += currentDay.total;
-            data[dateIndex].sum += currentDay.sum;
-            selectedVersions.forEach((selectedVersion) => {
-                data[dateIndex][selectedVersion] += currentDay[selectedVersion];
-            });
-            return data;
-        }, {});
-        data = Object.values(reducedData);
+        return aggregateData(data, getDateIndex, selectedVersions);
     }
+
     return data;
-}
+};
+
+
+
 
 const shouldAddVersion = (selectedVersion: string, downloads: VersionDownloads) => {
     if (!selectedVersion.includes('*')) {
