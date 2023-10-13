@@ -30,7 +30,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
     const userVersions = searchParams.has('versions') ? searchParams.getAll('versions') : undefined;
 
     const [selectedVersions, setSelectedVersions] = useState(userVersions ?? defaultSelectedVersions(props.versions));
-    const [displayStyle, setDisplayStyle] = useState(DisplayStyle.WEEKLY);
+    const [displayStyle, setDisplayStyle] = useState(DisplayStyle.DAILY);
 
     const versions = props.versions.map((version) => ({title: version, value: version}));
     const mappedSelectedVersions = selectedVersions.map((version) => ({title: version, value: version}));
