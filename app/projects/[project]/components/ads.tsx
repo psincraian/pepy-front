@@ -1,6 +1,7 @@
 'use client'
 import React, {useEffect} from 'react';
 import styles from './ads.module.css';
+import './ads.css';
 
 
 const Ads: React.FC = () => {
