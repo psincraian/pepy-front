@@ -38,12 +38,12 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
     return (
         <div className={styles.root}>
             <Grid container spacing={2} alignItems={"center"}>
-                <Grid item xs>
+                <Grid item xs={12} sm>
                     <VersionSearchBox versions={versions} selectedVersions={mappedSelectedVersions}
                                       downloads={downloads}
                                       onChange={(versions) => updateSelectedVersions(router, pathname, setSelectedVersions, versions)}/>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm="auto">
                     <DisplayStyleToggle selected={displayStyle} handleChange={setDisplayStyle}/>
                 </Grid>
             </Grid>
