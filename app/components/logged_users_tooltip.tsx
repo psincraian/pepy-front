@@ -10,10 +10,12 @@ interface LoggedUsersTooltipProps {
 }
 
 const LoggedUsersTooltip: React.FC<LoggedUsersTooltipProps> = ({ display, children  }) => {
-    const message = "You must be logged in to access this feature."; // Same message across the website
+    const message = "You must be logged in to access this feature.";
+
+    if (!display) return children;
 
     return (
-        <Tooltip title={display ? message : "You must be a logged user to access this feature."}>
+        <Tooltip title={display ? message : ""}>
             {children}
         </Tooltip>
     );
