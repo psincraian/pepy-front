@@ -1,4 +1,4 @@
-const PEPY_HOST = 'https://api.pepy.tech';
+const PEPY_HOST = 'http://localhost:8081';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     async redirects() {
