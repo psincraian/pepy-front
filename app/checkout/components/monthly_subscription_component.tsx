@@ -3,30 +3,18 @@
 
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "stripe";
-import {CheckoutSubscriptionBody} from "@/app/api/checkout-session/route";
 import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
-import {getCurrentUser} from "@/app/user/helper/auth";
 
 const MonthlySubscriptionCard = () => {
     const handleClick = async () => {
         // step 1: load stripe
         const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
         const stripe = await loadStripe(STRIPE_PK);
-        const user = await getCurrentUser(true);
 
-        // step 2: define the data for monthly subscription
-        const body: CheckoutSubscriptionBody = {
-            interval: "month",
-            amount: 2000,
-            plan: "Monthly",
-            planDescription: "Subscribe for $20 per month",
-            customerEmail: user?.email!
-        };
 
         // step 3: make a post fetch api call to /checkout-session handler
-        const result = await fetch("/api/checkout-session", {
+        const result = await fetch("/api/v3/checkout/checkout-session", {
             method: "post",
-            body: JSON.stringify(body, null),
             headers: {
                 "content-type": "application/json",
             },
