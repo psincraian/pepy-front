@@ -30,7 +30,6 @@
     "react-dom": "18.2.0",
     "react-window": "^1.8.9",
     "recharts": "^2.9.0",
-    "stripe": "^13.10.0",
     "typescript": "5.2.2"
   },
   "devDependencies": {
