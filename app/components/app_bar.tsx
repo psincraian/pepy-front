@@ -40,6 +40,9 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                         <Link className={styles.link} href="/newsletter" passHref>
                             <div className={styles.sectionFirst}>Newsletter</div>
                         </Link>
+                        <Link className={styles.link} href="/pricing" passHref>
+                            <div className={styles.sectionFirst}>Pricing</div>
+                        </Link>
                         <AppBarUserOptions isMobileView={false}/>
                     </div>
 
@@ -69,6 +72,11 @@ const AppBar: React.FC<SearchAppBarProps> = ({withSearch = true}) => {
                 <MenuItem>
                     <Link className={styles.link} href="/newsletter" passHref>
                         <div className={styles.sectionFirst}>Newsletter</div>
+                    </Link>
+                </MenuItem>
+                <MenuItem>
+                    <Link className={styles.link} href="/pricing" passHref>
+                        <div className={styles.sectionFirst}>Pricing</div>
                     </Link>
                 </MenuItem>
                 <AppBarUserOptions isMobileView={true}/>

@@ -4,6 +4,7 @@ import Script from "next/script";
 import AppBar from "@/app/components/app_bar";
 import {useEffect, useState} from "react";
 import {getCurrentUser, User} from "@/app/user/helper/auth";
+import {Typography} from "@mui/material";
 
 declare global {
     namespace JSX {
@@ -38,7 +39,7 @@ export default function Home() {
             <Script src="https://js.stripe.com/v3/pricing-table.js" async={true}/>
             <AppBar withSearch={true}/>
             <main>
-                <h1>Pricing Table</h1>
+                <Typography variant="h2">Pricing</Typography>
                 {loaded && stripePricingTable}
             </main>
         </>
