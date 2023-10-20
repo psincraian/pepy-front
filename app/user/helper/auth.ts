@@ -29,6 +29,7 @@ const userPool = new CognitoUserPool({
 export interface User {
     username: string | undefined,
     accessToken: string | undefined,
+    email: string | undefined,
 }
 
 const cookieStorage = new CookieStorage();
@@ -38,7 +39,7 @@ const cognitoUserPool = new CognitoUserPool({
     Storage: cookieStorage
 });
 
-export function login(formData: {password: string; email: string}, callbacks: ILoginCallback) {
+export function login(formData: { password: string; email: string }, callbacks: ILoginCallback) {
     const cognitoUser = new CognitoUser({
         Username: formData.email,
         Pool: userPool,
@@ -60,12 +61,12 @@ export function login(formData: {password: string; email: string}, callbacks: IL
     });
 }
 
-export function signup(formData: {username: string, password: string; email: string}, callbacks: ISignUpCallback) {
+export function signup(formData: { username: string, password: string; email: string }, callbacks: ISignUpCallback) {
     const attributes = [
         new CognitoUserAttribute({Name: 'email', Value: formData.email})
     ]
 
-    userPool.signUp(formData.username, formData.password, attributes, [], function(
+    userPool.signUp(formData.username, formData.password, attributes, [], function (
         err,
         result
     ) {
@@ -79,14 +80,14 @@ export function signup(formData: {username: string, password: string; email: str
     });
 }
 
-export function confirmSignUp(formData: {username: string, code: string}, callbacks: ISignUpCallback) {
+export function confirmSignUp(formData: { username: string, code: string }, callbacks: ISignUpCallback) {
     const cognitoUser = new CognitoUser({
         Username: formData.username,
         Pool: userPool,
         Storage: cookieStorage
     });
 
-    cognitoUser.confirmRegistration(formData.code, true, function(err, result) {
+    cognitoUser.confirmRegistration(formData.code, true, function (err, result) {
         if (err) {
             console.log(err);
             callbacks.onFailure(err.message)
@@ -96,7 +97,7 @@ export function confirmSignUp(formData: {username: string, code: string}, callba
     });
 }
 
-export function getCurrentUser(): Promise<null | User> {
+export function getCurrentUser(withDetails: boolean = false): Promise<null | User> {
     return new Promise((resolve, reject) => {
         const cognitoUser = cognitoUserPool.getCurrentUser();
 
@@ -116,12 +117,27 @@ export function getCurrentUser(): Promise<null | User> {
                 return;
             }
 
-            const user = {
-                username: cognitoUser.getUsername(),
-                accessToken: session.getAccessToken().getJwtToken(),
-            };
+            if (!withDetails) {
+                resolve({
+                    username: cognitoUser.getUsername(),
+                    accessToken: session.getAccessToken().getJwtToken()
+                } as User);
+                return;  // no need to fetch details if we don't need them.
+            }
 
-            resolve(user);
+            cognitoUser.getUserAttributes((err, result) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                const email = result!.find(r => r.getName() === 'email')?.getValue();
+                resolve({
+                    username: cognitoUser.getUsername(),
+                    accessToken: session.getAccessToken().getJwtToken(),
+                    email
+                });
+                return;
+            });
         });
     });
 }
@@ -131,7 +147,7 @@ export function signout() {
     cognitoUserPool.getCurrentUser()?.signOut();
 }
 
-export function isValidPassword(password: string) : boolean {
+export function isValidPassword(password: string): boolean {
     return password.length >= 8 &&
         /[a-z]/.test(password) &&
         /[A-Z]/.test(password) &&
