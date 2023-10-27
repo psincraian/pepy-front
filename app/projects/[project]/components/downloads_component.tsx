@@ -8,9 +8,9 @@ import {retrieveDownloads} from "@/app/projects/[project]/helper/compute_downloa
 import styles from "./downloads_component.module.css";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
-import {AppRouterInstance} from "next/dist/shared/lib/app-router-context";
 import {DisplayStyleToggle} from "@/app/projects/[project]/components/display_style_toggle";
 import {Grid} from "@mui/material";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 
 interface DownloadsChartProps {
