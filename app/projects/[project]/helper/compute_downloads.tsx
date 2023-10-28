@@ -1,5 +1,5 @@
 import {DisplayStyle, DownloadData, VersionDownloads} from "@/app/projects/[project]/model";
-import minimatch from "minimatch";
+import {minimatch} from "minimatch";
 import dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 dayjs.extend(isoWeek);
