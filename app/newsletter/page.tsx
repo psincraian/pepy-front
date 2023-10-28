@@ -6,6 +6,7 @@ import AppBar from "@/app/components/app_bar";
 import {SubscribeForm} from "@/app/components/subscribe_form";
 import Emoji from "@/app/components/emoji";
 import styles from './page.module.css';
+import Image from "next/image";
 
 const Newsletter = () => {
     return (
@@ -35,7 +36,7 @@ const Newsletter = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <img
+                                <Image
                                     className={styles.img}
                                     alt="Example of monthly download stats"
                                     src="/newsletter/monthly_downloads.png"
@@ -51,7 +52,7 @@ const Newsletter = () => {
                                 sm={6}
                                 order={{xs: 2, sm: 1}}
                             >
-                                <img
+                                <Image
                                     className={styles.img}
                                     alt="Example of advanced stats"
                                     src="/newsletter/advanced_stats.png"
@@ -77,7 +78,7 @@ const Newsletter = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <img
+                                <Image
                                     className={styles.img}
                                     alt="Example of different graph"
                                     src="/newsletter/downloads_per_version.png"

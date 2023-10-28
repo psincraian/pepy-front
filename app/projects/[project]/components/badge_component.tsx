@@ -6,6 +6,7 @@ import {
     CardHeader,
 } from '@mui/material';
 import CodeBlock from "@/app/projects/[project]/components/code_block";
+import Image from "next/image";
 
 interface BadgesComponentProps {
     project: string;
@@ -18,7 +19,7 @@ const BadgesComponent: React.FC<BadgesComponentProps> = ({project}) => {
     const renderImageAndCode = (path: string, altText: string) => (
         <>
             <Grid item xs={6}>
-                <img alt={altText} src={PEPY_BADGES_URL + project + path}/>
+                <Image alt={altText} src={PEPY_BADGES_URL + project + path}/>
             </Grid>
             <Grid item xs={6}>
                 <CodeBlock
