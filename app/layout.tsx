@@ -1,17 +1,17 @@
-import './globals.css'
+import "./globals.css";
 import Footer from "@/app/components/footer";
 
 export const metadata = {
-  title: 'pepy.tech',
-  description: 'View download data',
-}
+  title: "pepy.tech",
+  description: "View download data",
+};
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -20,5 +20,5 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
-  )
+  );
 }

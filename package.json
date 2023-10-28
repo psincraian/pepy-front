@@ -38,6 +38,7 @@
     "@cloudflare/next-on-pages": "^1.7.2",
     "@types/minimatch": "^5.1.2",
     "@types/react-window": "^1.8.7",
-    "cypress": "^13.3.3"
+    "cypress": "^13.3.3",
+    "prettier": "3.0.3"
   }
 }
