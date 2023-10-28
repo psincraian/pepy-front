@@ -35,6 +35,8 @@ const Newsletter = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Image
+                  width={500}
+                  height={500}
                   className={styles.img}
                   alt="Example of monthly download stats"
                   src="/newsletter/monthly_downloads.png"
@@ -46,6 +48,8 @@ const Newsletter = () => {
             <Grid container alignItems="center">
               <Grid item xs={12} sm={6} order={{ xs: 2, sm: 1 }}>
                 <Image
+                  width={540}
+                  height={178}
                   className={styles.img}
                   alt="Example of advanced stats"
                   src="/newsletter/advanced_stats.png"
@@ -72,6 +76,8 @@ const Newsletter = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Image
+                  width={500}
+                  height={500}
                   className={styles.img}
                   alt="Example of different graph"
                   src="/newsletter/downloads_per_version.png"

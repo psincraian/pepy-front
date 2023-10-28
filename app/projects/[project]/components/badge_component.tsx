@@ -13,7 +13,9 @@ const BadgesComponent: React.FC<BadgesComponentProps> = ({ project }) => {
   const renderImageAndCode = (path: string, altText: string) => (
     <>
       <Grid item xs={6}>
-        <Image alt={altText} src={PEPY_BADGES_URL + project + path} />
+        <Image height={20} width={200} unoptimized={true} alt={altText}
+               style={{ width: "auto", height: "100%" }}
+               src={PEPY_BADGES_URL + project + path} />
       </Grid>
       <Grid item xs={6}>
         <CodeBlock
@@ -31,7 +33,7 @@ const BadgesComponent: React.FC<BadgesComponentProps> = ({ project }) => {
           {renderImageAndCode("", "Total downloads for the project")}
           {renderImageAndCode(
             "/month",
-            "Last 30 days downloads for the project",
+            "Last 30 days downloads for the project"
           )}
           {renderImageAndCode("/week", "Last 7 days downloads for the project")}
         </Grid>
