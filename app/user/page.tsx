@@ -5,22 +5,7 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { getCurrentUser, signout, User } from "@/app/user/helper/auth";
 import { useEffect, useState } from "react";
-import { PEPY_HOST } from "@/app/constants";
-import { ApiKey } from "@/app/user/model";
 import ApiKeyTable from "@/app/user/components/api_keys_table";
-
-async function getApiKeys(user: User) {
-  console.log("Start fetching api keys");
-  const response = await fetch(PEPY_HOST + "/api/v3/user/api-keys", {
-    method: "GET",
-    headers: {
-      authorization: "Bearer " + user.accessToken,
-    },
-  });
-  const body = await response.json();
-  console.log("Api keys fetched", body);
-  return body.map((key: any) => key as ApiKey);
-}
 
 export default function Home() {
   const router = useRouter();
