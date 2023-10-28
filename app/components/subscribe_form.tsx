@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { DoneOutline, ErrorOutline } from "@mui/icons-material";
-import { PEPY_HOST } from "@/app/constants";
 
 const VALID_EMAIL_REGEX = /^(.+)@(.+)\.(.+)$/;
 
@@ -46,7 +45,7 @@ export const SubscribeForm = () => {
   const handleSubmit = () => {
     if (formData.email.match(VALID_EMAIL_REGEX)) {
       setSubmissionStatus({ status: SubmissionStatus.FETCHING });
-      fetch(PEPY_HOST + `/subscriptions`, {
+      fetch( `/subscriptions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

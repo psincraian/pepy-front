@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { Button, FormControl, Grid, Input, InputLabel } from "@mui/material";
 import { DoneOutline, ErrorOutline } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
-import { PEPY_HOST } from "@/app/constants";
 
 enum SubmissionStatus {
   NO_FETCHING,
