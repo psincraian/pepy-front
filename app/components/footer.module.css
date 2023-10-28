@@ -1,25 +1,25 @@
 .footer {
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    margin-top: 64px;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  margin-top: 64px;
 }
 
 .imgContainer {
-    margin: 24px 0;
+  margin: 24px 0;
 }
 
 .img {
-    max-width: 40%;
+  max-width: 40%;
 }
 
 @media (max-width: 1280px) {
-    .img {
-        max-width: 50%;
-    }
+  .img {
+    max-width: 50%;
+  }
 }
 
 .link {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }

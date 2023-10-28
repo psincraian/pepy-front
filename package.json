@@ -24,18 +24,21 @@
     "dayjs": "^1.11.10",
     "eslint": "8.52.0",
     "eslint-config-next": "13.5.6",
-    "next": "^13.4.19",
+    "minimatch": "^9.0.3",
+    "next": "^14.0.0",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-window": "^1.8.9",
     "recharts": "^2.9.0",
+    "sharp": "^0.32.6",
     "typescript": "5.2.2"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.7.2",
     "@types/minimatch": "^5.1.2",
     "@types/react-window": "^1.8.7",
-    "cypress": "^13.3.3"
+    "cypress": "^13.3.3",
+    "prettier": "3.0.3"
   }
 }
