@@ -32,7 +32,7 @@ const Ads: React.FC = () => {
   };
 
   useEffect(() => {
-    if (randomInteger(1, 10) <= 10) {
+    if (randomInteger(1, 10) <= 2) {
       renderCarbonAds();
     } else {
       renderEthicalAds();
