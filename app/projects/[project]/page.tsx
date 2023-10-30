@@ -13,8 +13,20 @@ import Ads from "@/app/projects/[project]/components/ads";
 import BadgesComponent from "@/app/projects/[project]/components/badge_component";
 import { notFound } from "next/navigation";
 import { PEPY_HOST } from "@/app/constants";
+import { ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 export const runtime = "edge";
+
+export async function generateMetadata(
+  { params }: ProjectProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  return {
+    title: params.project + " download stats",
+    description: "View download stats for the " + params.project + " python package. Download stats are updated daily",
+  }
+}
 
 async function getData(project: string): Promise<Project> {
   console.log("Fetching data for", project);
@@ -49,11 +61,12 @@ async function getData(project: string): Promise<Project> {
   };
 }
 
+type ProjectProps = {
+  params: { project: string };
+};
 export default async function Page({
   params,
-}: {
-  params: { project: string };
-}) {
+}: ProjectProps) {
   const project = await getData(params.project);
   const totalDownloads30Days = retrieveTotalDownloadsSince(
     project.downloads,
@@ -69,6 +82,7 @@ export default async function Page({
       <AppBar />
       <main>
         <Grid container rowSpacing={4} columnSpacing={2}>
+
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
               {project.name}
