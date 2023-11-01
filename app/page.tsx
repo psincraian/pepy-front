@@ -7,7 +7,7 @@ export const runtime = "edge";
 
 export default async function Home() {
   return (
-    <div className={styles.root}>
+    <>
       <header className={styles.header}>
         <AppBar withSearch={false} />
       </header>
@@ -17,6 +17,6 @@ export default async function Home() {
           <SearchBar />
         </div>
       </main>
-    </div>
+    </>
   );
 }

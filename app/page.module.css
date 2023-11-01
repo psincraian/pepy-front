@@ -1,7 +1,4 @@
 .root {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
 }
 
 .header {
@@ -9,11 +6,8 @@
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  min-height: calc(
-    100% - 60px
-  ); /* Adjust this value based on header and footer heights */
+  margin-top: 80px;
+  max-width: 780px;
+  margin-right: auto;
+  margin-left: auto;
 }
