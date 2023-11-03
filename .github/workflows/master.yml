@@ -19,6 +19,8 @@ jobs:
         # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v5
+        env:
+          PEPY_API_KEY=${{secrets.PEPY_API_KEY}}
         with:
           build: npm run build
           start: npm run start
