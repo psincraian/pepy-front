@@ -6,6 +6,9 @@ import {
   Grid,
   Input,
   InputLabel,
+  Card,
+  CardContent,
+  CardHeader,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { ErrorOutline } from "@mui/icons-material";
@@ -126,8 +129,15 @@ export const SignupForm = (props: SignupFormProps) => {
     return (
       <Grid container alignItems="center" justifyContent="center" spacing={4}>
         <Grid item xs={12} sm={8}>
-          Submission successful, you will receive an email to {formData.email}{" "}
-          to confirm your registration.
+          <Card>
+            <CardHeader title="Submission successful" />
+            <CardContent>
+              <p>
+                You will receive an email to {formData.email} to confirm your
+                registration.
+              </p>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     );
@@ -136,99 +146,98 @@ export const SignupForm = (props: SignupFormProps) => {
   return (
     <Grid container alignItems="center" justifyContent="center" spacing={4}>
       <Grid item xs={12} sm={8}>
-        <FormControl fullWidth>
-          <InputLabel required htmlFor="username">
-            Username
-          </InputLabel>
-          <Input
-            id="username"
-            aria-describedby="username-helper"
-            onChange={handleChange("username")}
-            error={formData.usernameErrors !== ""}
-            value={formData.username}
-            type="username"
-          />
-          <FormHelperText id="username-helper">
-            Choose a unique username with 3-20 characters. You can use letters,
-            numbers, and underscores. Example: JohnDoe_123
-          </FormHelperText>
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <FormControl fullWidth>
-          <InputLabel required htmlFor="email">
-            Email address
-          </InputLabel>
-          <Input
-            id="email"
-            aria-describedby="email-helper"
-            onChange={handleChange("email")}
-            error={formData.emailErrors !== ""}
-            value={formData.email}
-            type="email"
-            autoComplete="current-email"
-          />
-        </FormControl>
-        <FormHelperText id="username-helper">
-          Enter a valid email address that you have access to. We&apos;ll send a
-          verification email to this address. Example: johndoe@example.com
-        </FormHelperText>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <FormControl fullWidth>
-          <InputLabel required htmlFor="password">
-            Password
-          </InputLabel>
-          <Input
-            required
-            id="password"
-            aria-describedby="password-helper"
-            onChange={handleChange("password")}
-            value={formData.password}
-            error={formData.passwordErrors !== ""}
-            type="password"
-            autoComplete="current-password"
-          />
-        </FormControl>
-        <FormHelperText id="username-helper">
-          Create a strong password with at least 8 characters, including 1
-          uppercase letter, 1 lowercase letter, and 1 number. Special characters
-          are allowed. Example: P@ssw0rd!
-        </FormHelperText>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <FormControl fullWidth>
-          <InputLabel required htmlFor="re">
-            Repeat password
-          </InputLabel>
-          <Input
-            required
-            id="repeat-password"
-            aria-describedby="repeat-password-helper"
-            onChange={handleChange("repeatPassword")}
-            value={formData.repeatPassword}
-            error={formData.repeatPasswordErrors !== ""}
-            type="password"
-          />
-        </FormControl>
-        <FormHelperText id="repeat-password-helper">
-          Confirm your password by typing it again. Make sure it matches the
-          password above.
-        </FormHelperText>
-      </Grid>
-      <Grid item xs={12} sm={8}>
-        <LoadingButton
-          fullWidth
-          onClick={() => handleSubmit()}
-          endIcon={endIcon}
-          loading={submissionStatus.status === SubmissionStatus.FETCHING}
-          type="submit"
-          variant="contained"
-          size="medium"
-          color="primary"
-        >
-          Submit
-        </LoadingButton>
+        <Card>
+          <CardHeader title="Sign Up" />
+          <CardContent>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel required htmlFor="username" sx={{ "&.Mui-focused": { marginTop: "15px" } }}>
+                Username
+              </InputLabel>
+              <Input
+                id="username"
+                aria-describedby="username-helper"
+                onChange={handleChange("username")}
+                error={formData.usernameErrors !== ""}
+                value={formData.username}
+                type="username"
+              />
+              <FormHelperText id="username-helper">
+                Choose a unique username with 3-20 characters. You can use
+                letters, numbers, and underscores. Example: JohnDoe_123
+              </FormHelperText>
+            </FormControl>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel required htmlFor="email" sx={{ "&.Mui-focused": { marginTop: "15px" } }}>
+                Email address
+              </InputLabel>
+              <Input
+                id="email"
+                aria-describedby="email-helper"
+                onChange={handleChange("email")}
+                error={formData.emailErrors !== ""}
+                value={formData.email}
+                type="email"
+                autoComplete="current-email"
+              />
+              <FormHelperText id="username-helper">
+                Enter a valid email address that you have access to. We&apos;ll
+                send a verification email to this address. Example:
+                johndoe@example.com
+              </FormHelperText>
+            </FormControl>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel required htmlFor="password" sx={{ "&.Mui-focused": { marginTop: "15px" } }}>
+                Password
+              </InputLabel>
+              <Input
+                required
+                id="password"
+                aria-describedby="password-helper"
+                onChange={handleChange("password")}
+                value={formData.password}
+                error={formData.passwordErrors !== ""}
+                type="password"
+                autoComplete="current-password"
+              />
+              <FormHelperText id="username-helper">
+                Create a strong password with at least 8 characters, including
+                1 uppercase letter, 1 lowercase letter, and 1 number. Special
+                characters are allowed. Example: P@ssw0rd!
+              </FormHelperText>
+            </FormControl>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel required htmlFor="re" sx={{ "&.Mui-focused": { marginTop: "15px" } }}>
+                Repeat password
+              </InputLabel>
+              <Input
+                required
+                id="repeat-password"
+                aria-describedby="repeat-password-helper"
+                onChange={handleChange("repeatPassword")}
+                value={formData.repeatPassword}
+                error={formData.repeatPasswordErrors !== ""}
+                type="password"
+              />
+              <FormHelperText id="repeat-password-helper">
+                Confirm your password by typing it again. Make sure it matches
+                the password above.
+              </FormHelperText>
+            </FormControl>
+            <LoadingButton
+              fullWidth
+              onClick={() => handleSubmit()}
+              endIcon={endIcon}
+              loading={submissionStatus.status === SubmissionStatus.FETCHING}
+              type="submit"
+              variant="contained"
+              size="medium"
+              color="primary"
+              sx={{ mt: 1 }}
+            >
+              Submit
+            </LoadingButton>
+          </CardContent>
+        </Card>
       </Grid>
     </Grid>
   );

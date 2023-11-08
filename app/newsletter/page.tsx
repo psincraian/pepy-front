@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Card, CardContent } from "@mui/material";
 import AppBar from "@/app/components/app_bar";
 import { SubscribeForm } from "@/app/components/subscribe_form";
 import Emoji from "@/app/components/emoji";
@@ -22,7 +22,11 @@ const Newsletter = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8}>
-            <SubscribeForm />
+            <Card>
+              <CardContent>
+                <SubscribeForm />
+              </CardContent>
+            </Card>
           </Grid>
           <Grid item xs={12} md={8}>
             <Grid container alignItems="center">

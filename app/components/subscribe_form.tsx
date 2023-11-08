@@ -77,8 +77,8 @@ export const SubscribeForm = () => {
   }
 
   return (
-    <Grid container alignItems="center" justifyContent="center" spacing={4}>
-      <Grid item xs={12} sm={4}>
+    <Grid container alignItems="center" justifyContent="center" spacing={4} rowSpacing={4}>
+      <Grid item xs={12} sm={6} md={4}>
         <FormControl fullWidth>
           <InputLabel required htmlFor="email">
             Email address
@@ -95,7 +95,7 @@ export const SubscribeForm = () => {
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={6} md={4}>
         <FormControl fullWidth>
           <InputLabel htmlFor="project">Project</InputLabel>
           <Input
@@ -110,7 +110,7 @@ export const SubscribeForm = () => {
           </FormHelperText>
         </FormControl>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} md={4}>
         <LoadingButton
           fullWidth
           onClick={() => handleSubmit()}
@@ -120,6 +120,7 @@ export const SubscribeForm = () => {
           variant="contained"
           size="medium"
           color="primary"
+          sx={{ marginTop: "15px" }}
         >
           Subscribe
         </LoadingButton>

@@ -6,6 +6,10 @@ import {
   Grid,
   Input,
   InputLabel,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { DoneOutline, ErrorOutline } from "@mui/icons-material";
@@ -75,49 +79,54 @@ export const LoginForm = () => {
 
   return (
     <Grid container alignItems="center" justifyContent="center" spacing={4}>
-      <Grid item xs={12} sm={4}>
-        <FormControl fullWidth>
-          <InputLabel required htmlFor="email">
-            Email address
-          </InputLabel>
-          <Input
-            id="email"
-            aria-describedby="email-helper"
-            onChange={handleChange("email")}
-            error={formData.emailErrors !== ""}
-            value={formData.email}
-            type="email"
-          />
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <FormControl fullWidth>
-          <InputLabel required htmlFor="password">
-            Password
-          </InputLabel>
-          <Input
-            required
-            id="password"
-            aria-describedby="password-helper"
-            onChange={handleChange("password")}
-            value={formData.password}
-            type="password"
-          />
-        </FormControl>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <LoadingButton
-          fullWidth
-          onClick={() => handleSubmit()}
-          endIcon={endIcon}
-          loading={submissionStatus.status === SubmissionStatus.FETCHING}
-          type="submit"
-          variant="contained"
-          size="medium"
-          color="primary"
-        >
-          Login
-        </LoadingButton>
+      <Grid item xs={12} sm={6} md={4}>
+        <Card>
+          <CardHeader title="Login" />
+          <CardContent>
+            <FormControl fullWidth>
+              <InputLabel required htmlFor="email" sx={{ "&.Mui-focused": { marginTop: "15px" } }}>
+                Email address
+              </InputLabel>
+              <Input
+                id="email"
+                aria-describedby="email-helper"
+                onChange={handleChange("email")}
+                error={formData.emailErrors !== ""}
+                value={formData.email}
+                type="email"
+              />
+              {formData.emailErrors && (
+                <FormHelperText error>{formData.emailErrors}</FormHelperText>
+              )}
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel required htmlFor="password" sx={{ "&.Mui-focused": { marginTop: "15px" } }}>
+                Password
+              </InputLabel>
+              <Input
+                required
+                id="password"
+                aria-describedby="password-helper"
+                onChange={handleChange("password")}
+                value={formData.password}
+                type="password"
+              />
+            </FormControl>
+            <LoadingButton
+              fullWidth
+              onClick={() => handleSubmit()}
+              endIcon={endIcon}
+              loading={submissionStatus.status === SubmissionStatus.FETCHING}
+              type="submit"
+              variant="contained"
+              size="medium"
+              color="primary"
+              sx={{ mt: 2 }}
+            >
+              Login
+            </LoadingButton>
+          </CardContent>
+        </Card>
       </Grid>
     </Grid>
   );

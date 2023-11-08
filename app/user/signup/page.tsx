@@ -69,7 +69,6 @@ export default function Home() {
         <AppBar />
       </header>
       <main>
-        <h1>Sign up</h1>
         {content}
       </main>
     </div>

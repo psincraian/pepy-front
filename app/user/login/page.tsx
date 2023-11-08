@@ -8,7 +8,6 @@ export default function Home() {
         <AppBar />
       </header>
       <main>
-        <h1>Login</h1>
         <LoginForm />
       </main>
     </div>
