@@ -23,3 +23,8 @@ export enum DisplayStyle {
   WEEKLY,
   MONTHLY,
 }
+
+export enum Range {
+  FOUR_MONTHS,
+  ONE_YEAR,
+}

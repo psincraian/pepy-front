@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { getCurrentUser, User } from "@/app/user/helper/auth";
 import styles from "./display_style_toggle.module.css";
 import LoggedUsersTooltip from "@/app/components/logged_users_tooltip";
+import { Range } from "@/app/projects/[project]/model";
 
 export interface Display_style_toggle {
-  selected: DisplayStyle;
-  handleChange: (value: DisplayStyle) => void;
+  selected: Range;
+  handleChange: (value: Range) => void;
 }
 
-export const DisplayStyleToggle = ({
+export const RangeToggle = ({
   selected,
   handleChange,
 }: Display_style_toggle) => {
@@ -21,7 +22,7 @@ export const DisplayStyleToggle = ({
     getCurrentUser().then((user) => setCurrentUser(user));
   }, []);
 
-  const disabled = currentUser === null;
+  const disabled = currentUser === null || !currentUser.isPro;
   const buttonStyles = disabled
     ? styles.button + " " + styles.disabled
     : styles.button;
@@ -33,38 +34,25 @@ export const DisplayStyleToggle = ({
     <div className={styles.toggleGroup}>
       <button
         className={
-          selected === DisplayStyle.DAILY
+          selected === Range.FOUR_MONTHS
             ? buttonSelectedStyles + " " + styles.first
             : styles.button + " " + styles.first
         }
-        onClick={() => handleChange(DisplayStyle.DAILY)}
+        onClick={() => handleChange(Range.FOUR_MONTHS)}
       >
-        Daily
+        4 Months
       </button>
       <button
         disabled={disabled}
         className={
-          selected === DisplayStyle.WEEKLY
-            ? buttonSelectedStyles + " " + styles.second
-            : buttonStyles + " " + styles.second
-        }
-        onClick={() => handleChange(DisplayStyle.WEEKLY)}
-      >
-        <LoggedUsersTooltip proOnly={false} display={disabled}>
-          <span>Weekly</span>
-        </LoggedUsersTooltip>
-      </button>
-      <button
-        disabled={disabled}
-        className={
-          selected === DisplayStyle.MONTHLY
+          selected === Range.ONE_YEAR
             ? buttonSelectedStyles + " " + styles.third
             : buttonStyles + " " + styles.third
         }
-        onClick={() => handleChange(DisplayStyle.MONTHLY)}
+        onClick={() => handleChange(Range.ONE_YEAR)}
       >
-        <LoggedUsersTooltip proOnly={false} display={disabled}>
-          <span>Monthly</span>
+        <LoggedUsersTooltip display={disabled} proOnly={true}>
+          <span>12 Months</span>
         </LoggedUsersTooltip>
       </button>
     </div>

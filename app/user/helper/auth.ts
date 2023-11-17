@@ -28,6 +28,7 @@ export interface User {
   username: string | undefined;
   accessToken: string | undefined;
   email: string | undefined;
+  isPro: boolean;
 }
 
 const cookieStorage = new CookieStorage();
@@ -130,10 +131,15 @@ export function getCurrentUser(
           return;
         }
 
+        // Check if user is a Pro user, for that inside the cognito:groups it should contain the Pro element
+
+        const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
+        console.log("Is Pro: ", isPro)
         if (!withDetails) {
           resolve({
             username: cognitoUser.getUsername(),
             accessToken: session.getAccessToken().getJwtToken(),
+            isPro: isPro
           } as User);
           return; // no need to fetch details if we don't need them.
         }
@@ -150,6 +156,7 @@ export function getCurrentUser(
             username: cognitoUser.getUsername(),
             accessToken: session.getAccessToken().getJwtToken(),
             email,
+            isPro: isPro
           });
           return;
         });

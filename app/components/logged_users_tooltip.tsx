@@ -6,14 +6,18 @@ import PropTypes from "prop-types";
 
 interface LoggedUsersTooltipProps {
   display: boolean;
+  proOnly: boolean;
   children: any;
 }
 
 const LoggedUsersTooltip: React.FC<LoggedUsersTooltipProps> = ({
   display,
+  proOnly,
   children,
 }) => {
-  const message = "You must be logged in to access this feature.";
+  const message = proOnly
+    ? "You must be a Pro to access this feature."
+    : "You must be logged in to access this feature.";
 
   if (!display) return children;
 
