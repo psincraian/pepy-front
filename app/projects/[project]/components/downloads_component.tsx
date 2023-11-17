@@ -2,22 +2,18 @@
 import React, { useState } from "react";
 import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
 import { DisplayStyle, DownloadData } from "@/app/projects/[project]/model";
+import { VersionDownloads } from "@/app/projects/[project]/model";
+import { Range } from "@/app/projects/[project]/model";
 import VersionSearchBox from "@/app/projects/[project]/components/version_search_box";
 import { defaultSelectedVersions } from "@/app/projects/[project]/helper/versions_helper";
 import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downloads";
 import styles from "./downloads_component.module.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
 import { DisplayStyleToggle } from "@/app/projects/[project]/components/display_style_toggle";
 import { Grid } from "@mui/material";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { Project } from "@/app/projects/[project]/model";
-import { PEPY_HOST } from "@/app/constants";
-import { notFound } from "next/navigation";
-import { VersionDownloads } from "@/app/projects/[project]/model";
-import { useEffect } from "react";
-import { DownloadsResponse } from "@/app/projects/[project]/helper/compute_downloads";
-import { Range } from "@/app/projects/[project]/model";
 import { RangeToggle } from "@/app/projects/[project]/components/range_toggle";
 
 interface DownloadsChartProps {
@@ -37,7 +33,7 @@ const updateSelectedVersions = (
   setSelectedVersions(versions);
 };
 
-async function getData(project: string): Promise<DownloadData> {
+async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
   const res = await fetch( `/api/v3/pro/projects/${project}/downloads`, {
     headers: {
@@ -73,22 +69,35 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
     ? searchParams.getAll("versions")
     : undefined;
 
-  const [downloads, setDownloads] = useState<DownloadsResponse[]>([])
-
-
-
+  const [downloadsData, setDownloadsData] = useState<DownloadData>(props.data);
   const [selectedVersions, setSelectedVersions] = useState(
     userVersions ?? defaultSelectedVersions(props.versions),
   );
-  const [displayStyle, setDisplayStyle] = useState(DisplayStyle.WEEKLY);
+  const [displayStyle, setDisplayStyle] = useState(DisplayStyle.DAILY);
   const [range, setRange] = useState(Range.FOUR_MONTHS);
 
-  useEffect(() => {
-    getData("requests").then(data => {
-      const response = retrieveDownloads(data, selectedVersions, displayStyle);
-      setDownloads(response)
+  function handleRangeChange(range: Range) {
+    setRange(range);
+    if (range !== Range.ONE_YEAR) {
+      setDownloadsData(props.data);
+      return;
+    }
+
+    if (displayStyle == DisplayStyle.DAILY) {
+      setDisplayStyle(DisplayStyle.WEEKLY);
+    }
+
+    getOneYearDownloadsData("requests").then(data => {
+      setDownloadsData(data);
     });
-  }, [selectedVersions, displayStyle, range])
+  }
+
+  const downloads = retrieveDownloads(
+    downloadsData,
+    selectedVersions,
+    displayStyle,
+  );
+
 
   const versions = props.versions.map((version) => ({
     title: version,
@@ -101,8 +110,8 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
 
   return (
     <div className={styles.root}>
-      <Grid container spacing={2} alignItems={"center"}>
-        <Grid item xs={12} sm>
+      <Grid container spacing={2} marginY={4} alignItems={"center"}>
+        <Grid item xs={12} sm={12} md>
           <VersionSearchBox
             versions={versions}
             selectedVersions={mappedSelectedVersions}
@@ -120,7 +129,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
         <Grid item xs={12} sm="auto">
           <RangeToggle
             selected={range}
-            handleChange={setRange}
+            handleChange={handleRangeChange}
           />
         </Grid>
         <Grid item xs={12} sm="auto">

@@ -22,7 +22,7 @@ export const RangeToggle = ({
     getCurrentUser().then((user) => setCurrentUser(user));
   }, []);
 
-  const disabled = currentUser === null;
+  const disabled = currentUser === null || !currentUser.isPro;
   const buttonStyles = disabled
     ? styles.button + " " + styles.disabled
     : styles.button;
@@ -51,7 +51,7 @@ export const RangeToggle = ({
         }
         onClick={() => handleChange(Range.ONE_YEAR)}
       >
-        <LoggedUsersTooltip display={disabled}>
+        <LoggedUsersTooltip display={disabled} proOnly={true}>
           <span>12 Months</span>
         </LoggedUsersTooltip>
       </button>

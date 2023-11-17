@@ -50,7 +50,7 @@ export const DisplayStyleToggle = ({
         }
         onClick={() => handleChange(DisplayStyle.WEEKLY)}
       >
-        <LoggedUsersTooltip display={disabled}>
+        <LoggedUsersTooltip proOnly={false} display={disabled}>
           <span>Weekly</span>
         </LoggedUsersTooltip>
       </button>
@@ -63,7 +63,7 @@ export const DisplayStyleToggle = ({
         }
         onClick={() => handleChange(DisplayStyle.MONTHLY)}
       >
-        <LoggedUsersTooltip display={disabled}>
+        <LoggedUsersTooltip proOnly={false} display={disabled}>
           <span>Monthly</span>
         </LoggedUsersTooltip>
       </button>
