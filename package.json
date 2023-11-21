@@ -15,7 +15,7 @@
     "@mui/lab": "^5.0.0-alpha.150",
     "@mui/material": "^5.14.15",
     "@mui/system": "^5.14.13",
-    "@stripe/stripe-js": "^2.1.10",
+    "@stripe/stripe-js": "^2.2.0",
     "@types/node": "20.8.9",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
