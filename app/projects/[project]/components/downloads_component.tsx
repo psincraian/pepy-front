@@ -17,6 +17,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { RangeToggle } from "@/app/projects/[project]/components/range_toggle";
 
 interface DownloadsChartProps {
+  project: string,
   versions: string[];
   data: DownloadData;
 }
@@ -87,7 +88,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
       setDisplayStyle(DisplayStyle.WEEKLY);
     }
 
-    getOneYearDownloadsData("requests").then(data => {
+    getOneYearDownloadsData(props.project).then(data => {
       setDownloadsData(data);
     });
   }

@@ -106,6 +106,7 @@ export default async function Page({
           </Grid>
           <Grid item xs={12}>
             <DownloadsComponent
+              project={project.name}
               versions={project.versions}
               data={project.downloads}
             />
