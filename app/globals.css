@@ -39,3 +39,27 @@ main {
     margin-right: 8px;
   }
 }
+
+h1 {
+  color: #333;
+}
+
+h2 {
+  color: #555;
+  margin-top: 20px;
+}
+
+h3 {
+  color: #777;
+  margin-top: 15px;
+}
+
+h4 {
+  color: #999;
+  margin-top: 10px;
+}
+
+p {
+  line-height: 1.5;
+  color: #333;
+}

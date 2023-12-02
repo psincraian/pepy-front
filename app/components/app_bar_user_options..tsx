@@ -25,8 +25,9 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
         <Link className={styles.link} href="/user/login" passHref>
           <div className={styles.sectionFirst}>Login</div>
         </Link>
-        <Link className={styles.link} href="/user/signup" passHref>
-          <div className={styles.sectionFirst}>Sign up</div>
+        <div className={styles.linkSmallSpace}>|</div>
+        <Link className={styles.linkSmallSpace} href="/user/signup" passHref>
+          <div className={styles.sectionFirst}>{' '}Sign up</div>
         </Link>
       </>
     );
