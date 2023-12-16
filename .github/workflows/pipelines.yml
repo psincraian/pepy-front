@@ -59,7 +59,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build site
-        run: @cloudflare/next-on-pages@1
+        run: npx @cloudflare/next-on-pages@1
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
