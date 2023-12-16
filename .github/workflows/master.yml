@@ -48,7 +48,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c26be9b36a513ce4fc9074e8071346dd
           projectName: pepy
-          directory: /.vercel/output/static
+          directory: .vercel/output/static
           # Optional: Enable this if you want to have GitHub Deployments triggered
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
