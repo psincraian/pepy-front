@@ -26,3 +26,48 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{secrets.PAT_AUTOMERGE}}
+  tests:
+    name: Tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        # Install NPM dependencies, cache them correctly
+        # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        env:
+          PEPY_API_KEY: ${{secrets.PEPY_API_KEY}}
+        with:
+          build: npm run build
+          start: npm run start
+          browser: chrome
+  publish:
+    runs-on: ubuntu-latest
+    environment: Preview
+    permissions:
+      contents: read
+      deployments: write
+    name: Publish to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Install dependencies
+        run: npm install
+      - name: Build site
+        run: @cloudflare/next-on-pages@1
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: c26be9b36a513ce4fc9074e8071346dd
+          projectName: pepy
+          directory: /.vercel/output/static
+          # Optional: Enable this if you want to have GitHub Deployments triggered
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
+          wranglerVersion: '3'
