@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:
   tests:
@@ -25,3 +22,35 @@ jobs:
           build: npm run build
           start: npm run start
           browser: chrome
+  publish:
+    needs:
+      - tests
+    runs-on: ubuntu-latest
+    environment: Production
+    permissions:
+      contents: read
+      deployments: write
+    name: Publish to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Install dependencies
+        run: npm install
+      - name: Build site
+        run: npx @cloudflare/next-on-pages@1
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: c26be9b36a513ce4fc9074e8071346dd
+          projectName: pepy
+          branch:  master
+          directory: .vercel/output/static
+          # Optional: Enable this if you want to have GitHub Deployments triggered
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
+          wranglerVersion: '3'
