@@ -5,7 +5,25 @@
 .link {
   text-decoration: none;
   color: inherit;
-  padding-left: 8px;
+  padding-left: 16px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: inherit;
+  padding-left: 16px;
+}
+
+.linkSmallSpace {
+  text-decoration: none;
+  color: inherit;
+  padding-left: 4px;
+}
+
+.linkSmallSpace:hover {
+  text-decoration: underline;
+  color: inherit;
+  padding-left: 4px;
 }
 
 .title {
