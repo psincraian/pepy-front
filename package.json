@@ -29,7 +29,7 @@
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-window": "^1.8.9",
+    "react-window": "^1.8.10",
     "recharts": "^2.9.2",
     "sharp": "^0.32.6",
     "typescript": "5.2.2"
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.7.2",
     "@types/minimatch": "^5.1.2",
-    "@types/react-window": "^1.8.7",
+    "@types/react-window": "^1.8.8",
     "cypress": "^13.3.3",
     "prettier": "3.0.3",
     "jest": "^29.7.0"
