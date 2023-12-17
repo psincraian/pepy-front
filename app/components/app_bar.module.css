@@ -57,6 +57,9 @@
 .section {
   color: inherit;
   text-decoration: none;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .section {
@@ -76,6 +79,8 @@
 @media screen and (min-width: 960px) {
   .sectionDesktop {
     display: flex;
+    align-items: center;
+    height: 30px;
   }
   .sectionMobile {
     display: none;

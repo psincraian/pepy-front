@@ -2,7 +2,8 @@ import styles from "./app_bar.module.css";
 import Link from "next/link";
 import { getCurrentUser, User } from "@/app/user/helper/auth";
 import { useEffect, useState } from "react";
-import { MenuItem } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Chip from "@mui/material/Chip";
 
 export interface AppBarUserOptionsProps {
   isMobileView: boolean;
@@ -15,10 +16,12 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
     getCurrentUser().then((user) => setCurrentUser(user));
   }, []);
 
+  const proChip = currentUser?.isPro ? (<Chip sx={{marginLeft: '4px'}} label={"Pro"} size="small" color="default"  />) : (<div className={styles.proChip}>PRO</div>);
+
   function renderDesktopView() {
     return currentUser ? (
       <Link className={styles.link} href="/user" passHref>
-        <div className={styles.sectionFirst}>Hi {currentUser.username}</div>
+        <div className={styles.sectionFirst}>Hi {currentUser.username}{proChip}</div>
       </Link>
     ) : (
       <>
