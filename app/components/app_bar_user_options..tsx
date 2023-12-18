@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getCurrentUser, User } from "@/app/user/helper/auth";
 import { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
-import Chip from "@mui/material/Chip";
+import { ProBadge } from "@/app/components/app_bar_user_pro_badge";
 
 export interface AppBarUserOptionsProps {
   isMobileView: boolean;
@@ -16,7 +16,7 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
     getCurrentUser().then((user) => setCurrentUser(user));
   }, []);
 
-  const proChip = currentUser?.isPro ? (<Chip sx={{marginLeft: '4px'}} label={"Pro"} size="small" color="default"  />) : (<div className={styles.proChip}>PRO</div>);
+  const proChip = currentUser?.isPro ? (<ProBadge />) : null;
 
   function renderDesktopView() {
     return currentUser ? (
