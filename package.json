@@ -22,7 +22,7 @@
     "amazon-cognito-identity-js": "^6.3.7",
     "autoprefixer": "10.4.16",
     "dayjs": "^1.11.10",
-    "eslint": "8.52.0",
+    "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "minimatch": "^9.0.3",
     "next": "^14.0.0",
