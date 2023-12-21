@@ -6,6 +6,12 @@ import { useRouter } from "next/navigation";
 import { getCurrentUser, signout, User } from "@/app/user/helper/auth";
 import { useEffect, useState } from "react";
 import ApiKeyTable from "@/app/user/components/api_keys_table";
+import React from "react";
+import ManageSubscriptionButton from "@/app/user/components/CustomerSubscriptionPortal";
+import { Grid } from "@mui/material";
+import { Card } from "@mui/material";
+import { CardHeader } from "@mui/material";
+import { CardContent } from "@mui/material";
 
 export default function Home() {
   const router = useRouter();
@@ -51,16 +57,28 @@ export default function Home() {
             </Button>
           </>
         ) : (
-          <>
-            <ApiKeyTable />
-            <Button
-              sx={{ m: "8px" }}
-              variant="contained"
-              onClick={(e) => signoutUser()}
-            >
-              Sign out
-            </Button>
-          </>
+          <Grid container spacing={4}>
+            <Grid item xs={12} lg={8}>
+              <ApiKeyTable />
+            </Grid>
+            <Grid item xs={12} lg={4}>
+              <Card variant="outlined">
+                <CardHeader title="Profile"/>
+                <CardContent>
+                  <ManageSubscriptionButton />
+                  <br />
+                  <Button
+                    sx={{ marginTop: "8px" }}
+                    variant="contained"
+                    fullWidth
+                    onClick={(e) => signoutUser()}
+                  >
+                    Sign out
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         )}
       </main>
     </div>

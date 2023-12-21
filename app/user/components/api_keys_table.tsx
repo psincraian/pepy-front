@@ -5,12 +5,15 @@ import React, { useEffect, useState } from "react";
 import ApiKeyForm from "@/app/user/components/api_key_form";
 import styles from "./api_keys_table.module.css";
 import { Typography } from "@mui/material";
+import { Card } from "@mui/material";
+import { CardHeader } from "@mui/material";
+import { CardContent } from "@mui/material";
 
 async function getApiKeys() {
   console.log("Start fetching api keys");
   const response = await fetch("/api/v3/user/api-keys", {
     method: "GET",
-    headers: {},
+    headers: {}
   });
   const body = await response.json();
   console.log("Api keys fetched", body);
@@ -25,35 +28,37 @@ export default function ApiKeyTable() {
   }, []);
 
   return (
-    <div className={styles.root}>
-      <div className={styles.header_container}>
-        <h3>API Keys</h3>
-        <Typography variant="body2" gutterBottom>
-          You can use these API keys to access the API. Simply set the{" "}
-          <code>X-Api-Key</code> header to the value of the API key.
-        </Typography>
-      </div>
-      <ApiKeyForm onSuccess={(key) => setApiKeys([...apiKeys, key])} />
-      <div className={styles.table_container}>
-        <table className={styles.table_form}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Key</th>
-              <th>Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {apiKeys.map((key) => (
-              <tr key={key.id}>
-                <td>{key.name}</td>
-                <td>{key.apiKey}</td>
-                <td>{key.createdAt}</td>
+      <Card variant="outlined">
+        <CardHeader title="Api Keys" />
+        <CardContent>
+          <div className={styles.header_container}>
+            <Typography variant="body2" gutterBottom>
+              You can use these API keys to access the API. Simply set the{" "}
+              <code>X-Api-Key</code> header to the value of the API key.
+            </Typography>
+          </div>
+          <ApiKeyForm onSuccess={(key) => setApiKeys([...apiKeys, key])} />
+          <div className={styles.table_container}>
+            <table className={styles.table_form}>
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Key</th>
+                <th>Created</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+              </thead>
+              <tbody>
+              {apiKeys.map((key) => (
+                <tr key={key.id}>
+                  <td>{key.name}</td>
+                  <td>{key.apiKey}</td>
+                  <td>{key.createdAt}</td>
+                </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
   );
 }

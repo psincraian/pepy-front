@@ -79,7 +79,7 @@ export default function ApiKeyForm(callbacks: AddApiKeyButtonCallbacks) {
 
   return (
     <Grid container alignItems="center" justifyContent="center" spacing={4}>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
           <InputLabel required htmlFor="apiKeyName">
             Api Key Name
@@ -94,7 +94,7 @@ export default function ApiKeyForm(callbacks: AddApiKeyButtonCallbacks) {
           />
         </FormControl>
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={6}>
         <LoadingButton
           fullWidth
           onClick={() => handleSubmit()}
