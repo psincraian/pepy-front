@@ -107,6 +107,7 @@ export const LoginForm = () => {
       </Grid>
       <Grid item xs={12} sm={4}>
         <LoadingButton
+          id="login-button"
           fullWidth
           onClick={() => handleSubmit()}
           endIcon={endIcon}

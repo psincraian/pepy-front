@@ -19,11 +19,14 @@ async function getRedirectUrl() {
 }
 
 export default function ManageSubscriptionButton() {
-  const [redirectUrl, setRedirectUrl] = useState("");
+  const [redirectUrl, setRedirectUrl] = useState<null|string>(null);
   const [clicked, setClicked] = useState(false);
-  getRedirectUrl().then(url => setRedirectUrl(url));
 
-  if (clicked) {
+  if (redirectUrl === null) {
+    getRedirectUrl().then(url => setRedirectUrl(url));
+  }
+
+  if (clicked && redirectUrl !== null) {
     console.log("Redirecting...")
     redirect(redirectUrl);
   }
