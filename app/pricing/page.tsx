@@ -5,6 +5,7 @@ import AppBar from "@/app/components/app_bar";
 import { useEffect, useState } from "react";
 import { getCurrentUser, User } from "@/app/user/helper/auth";
 import { Typography } from "@mui/material";
+import { PriceComponent } from "@/app/pricing/components/price";
 
 declare global {
   namespace JSX {
@@ -39,13 +40,15 @@ export default function Home() {
     </>
   );
 
+  const pricingTable = currentUser === null ? (<PriceComponent />) : stripePricingTable;
+
   return (
     <>
       <Script src="https://js.stripe.com/v3/pricing-table.js" async={true} />
       <AppBar withSearch={true} />
       <main>
         <Typography variant="h2">Pricing</Typography>
-        {loaded && stripePricingTable}
+        {loaded && pricingTable}
       </main>
     </>
   );
