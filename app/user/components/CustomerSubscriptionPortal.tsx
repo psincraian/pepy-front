@@ -28,7 +28,7 @@ export default function ManageSubscriptionButton() {
 
   return (
         <Button variant="contained" fullWidth disabled={redirectUrl === null} onClick={x => router.push(redirectUrl as string)}>
-          Manage subscriptions
+          Manage Pro subscription
         </Button>
   );
 }

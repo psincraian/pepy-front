@@ -71,6 +71,15 @@ export default function Home() {
                     sx={{ marginTop: "8px" }}
                     variant="contained"
                     fullWidth
+                    onClick={(e) => router.push("/user/subscriptions")}
+                  >
+                    Newsletter subscriptions
+                  </Button>
+                  <br />
+                  <Button
+                    sx={{ marginTop: "8px" }}
+                    variant="contained"
+                    fullWidth
                     onClick={(e) => signoutUser()}
                   >
                     Sign out
