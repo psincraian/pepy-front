@@ -1,3 +1,5 @@
 .adsContainer {
   max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
 }
