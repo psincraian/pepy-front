@@ -19,16 +19,17 @@ async function deleteSubscription(project: string) {
 
 interface SubscriptionCardProps {
   project: string
+  onSuccess: () => void;
 }
 
-export const SubscriptionCard = ({ project }: SubscriptionCardProps) => {
+export const SubscriptionCard = ({ project, onSuccess }: SubscriptionCardProps) => {
   const router = useRouter();
   const [deleteStatus, setDeleteStatus] = useState("none");
 
   if (deleteStatus === "in-progress") {
     deleteSubscription(project).then((status) => {
       if (status === "success") {
-        router.refresh()
+        onSuccess();
       } else {
         setDeleteStatus("error");
       }
