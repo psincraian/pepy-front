@@ -114,6 +114,7 @@ export function SubscribeButton(props: { project: string }) {
     <LoggedUsersTooltip display={disabled} proOnly={false}>
       <span>
         <Button
+          variant="contained"
           disabled={disabled}
           className="btn btn-primary"
           onClick={() => setSubscribeStatus(nextStatus)}
