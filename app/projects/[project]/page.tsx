@@ -15,6 +15,10 @@ import { notFound } from "next/navigation";
 import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
 import { Metadata } from "next";
+import { SubscribeButton } from "@/app/projects/[project]/components/SubscribeButton";
+import { CardHeader } from "@mui/material";
+import { CardActions } from "@mui/material";
+import { Card } from "@mui/material";
 
 export const runtime = "edge";
 
@@ -102,7 +106,13 @@ export default async function Page({
             <BadgesComponent project={params.project} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <Ads />
+            <Card sx={{marginBottom: 2}}>
+              <CardHeader title={"Subscribe to " + params.project} subheader={"Get a monthly newsletter on your inbox about this project"} />
+              <CardActions>
+                <SubscribeButton project={params.project} />
+              </CardActions>
+            </Card>
+            <Ads/>
           </Grid>
           <Grid item xs={12}>
             <DownloadsComponent
