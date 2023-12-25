@@ -10,7 +10,7 @@
     "cypress": "cypress open"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.3",
     "@mui/icons-material": "^5.15.1",
     "@mui/lab": "=5.0.0-alpha.150",
     "@mui/material": "^5.15.1",
