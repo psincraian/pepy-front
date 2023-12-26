@@ -14,7 +14,7 @@
     "@mui/icons-material": "^5.15.1",
     "@mui/lab": "=5.0.0-alpha.157",
     "@mui/material": "^5.15.1",
-    "@mui/system": "^5.15.0",
+    "@mui/system": "^5.15.2",
     "@stripe/stripe-js": "^2.2.2",
     "@types/node": "20.10.5",
     "@types/react": "18.2.45",
