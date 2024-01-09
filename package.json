@@ -35,7 +35,7 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.8.3",
+    "@cloudflare/next-on-pages": "^1.8.5",
     "@types/minimatch": "^5.1.2",
     "@types/react-window": "^1.8.8",
     "cypress": "^13.6.2",
