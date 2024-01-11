@@ -108,8 +108,38 @@ export function confirmSignUp(
   });
 }
 
+function convertSessionToUser(session: CognitoUserSession, withDetails: boolean, resolve: (value: (User | null)) => void, cognitoUser: CognitoUser, reject: (reason?: any) => void) {
+  // Check if user is a Pro user, for that inside the cognito:groups it should contain the Pro element
+  const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
+  console.log("Is Pro: ", isPro);
+  if (!withDetails) {
+    resolve({
+      username: cognitoUser.getUsername(),
+      accessToken: session.getAccessToken().getJwtToken(),
+      isPro: isPro
+    } as User);
+    return; // no need to fetch details if we don't need them.
+  }
+
+  cognitoUser.getUserAttributes((err, result) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+    const email = result!.find((r) => r.getName() === "email")?.getValue();
+    resolve({
+      username: cognitoUser.getUsername(),
+      accessToken: session.getAccessToken().getJwtToken(),
+      email,
+      isPro: isPro
+    });
+    return;
+  });
+}
+
 export function getCurrentUser(
   withDetails: boolean = false,
+  refresh: boolean = false
 ): Promise<null | User> {
   return new Promise((resolve, reject) => {
     const cognitoUser = cognitoUserPool.getCurrentUser();
@@ -131,35 +161,22 @@ export function getCurrentUser(
           return;
         }
 
-        // Check if user is a Pro user, for that inside the cognito:groups it should contain the Pro element
+        if (refresh) {
+          cognitoUser.refreshSession(
+            session.getRefreshToken(),
+            (err, refreshed_session) => {
+              if (err) {
+                reject(err);
+                return;
+              }
 
-        const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
-        console.log("Is Pro: ", isPro)
-        if (!withDetails) {
-          resolve({
-            username: cognitoUser.getUsername(),
-            accessToken: session.getAccessToken().getJwtToken(),
-            isPro: isPro
-          } as User);
+              convertSessionToUser(refreshed_session, withDetails, resolve, cognitoUser, reject);
+            }
+          );
           return; // no need to fetch details if we don't need them.
+        } else {
+          convertSessionToUser(session, withDetails, resolve, cognitoUser, reject);
         }
-
-        cognitoUser.getUserAttributes((err, result) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-          const email = result!
-            .find((r) => r.getName() === "email")
-            ?.getValue();
-          resolve({
-            username: cognitoUser.getUsername(),
-            accessToken: session.getAccessToken().getJwtToken(),
-            email,
-            isPro: isPro
-          });
-          return;
-        });
       },
     );
   });

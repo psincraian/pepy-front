@@ -18,7 +18,7 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState<null | User>(null);
 
   useEffect(() => {
-    getCurrentUser()
+    getCurrentUser(false, true)
       .then((u) => {
         setCurrentUser(u);
         console.log(u);
