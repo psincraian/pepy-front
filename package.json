@@ -13,7 +13,7 @@
     "@emotion/react": "^11.11.3",
     "@mui/icons-material": "^5.15.5",
     "@mui/lab": "=5.0.0-alpha.160",
-    "@mui/material": "^5.15.4",
+    "@mui/material": "^5.15.5",
     "@mui/system": "^5.15.5",
     "@stripe/stripe-js": "^2.3.0",
     "@types/node": "20.11.4",
