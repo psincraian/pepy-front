@@ -29,13 +29,13 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({
     <Card data-cy="summary">
       <CardHeader title="Summary" />
       <CardContent>
-        <Grid container spacing={1}>
+        <Grid container >
           {/* PyPI Link */}
           <Grid item xs={12}>
             <Box fontWeight="fontWeightMedium">PyPI link</Box>
           </Grid>
           <Grid item xs={12} marginBottom={1}>
-            <a href={pypiLink}>
+            <a rel="nofollow" href={pypiLink}>
               <Typography noWrap>{pypiLink}</Typography>
             </a>
           </Grid>
@@ -46,22 +46,6 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({
           </Grid>
           <Grid item xs={12} marginBottom={1}>
             {totalDownloads.toLocaleString()}
-          </Grid>
-
-          {/* Total Downloads (Last 30 days) */}
-          <Grid item xs={12}>
-            <Box fontWeight="fontWeightMedium">Total downloads - 30 days</Box>
-          </Grid>
-          <Grid item xs={12} marginBottom={1}>
-            {totalDownloads30Days.toLocaleString()}
-          </Grid>
-
-          {/* Total Downloads (Last 7 days) */}
-          <Grid item xs={12}>
-            <Box fontWeight="fontWeightMedium">Total downloads - 7 days</Box>
-          </Grid>
-          <Grid item xs={12}>
-            {totalDownloads7Days.toLocaleString()}
           </Grid>
         </Grid>
       </CardContent>

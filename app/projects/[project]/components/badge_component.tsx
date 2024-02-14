@@ -12,12 +12,12 @@ const PEPY_BADGES_URL = "https://static.pepy.tech/badge/";
 const BadgesComponent: React.FC<BadgesComponentProps> = ({ project }) => {
   const renderImageAndCode = (path: string, altText: string) => (
     <>
-      <Grid item xs={6}>
+      <Grid item >
         <Image height={20} width={200} unoptimized={true} alt={altText}
-               style={{ width: "auto", height: "100%" }}
+               style={{ width: "auto", height: "100%", marginRight: "8px" }}
                src={PEPY_BADGES_URL + project + path} />
-      </Grid>
-      <Grid item xs={6}>
+
+        <br/>
         <CodeBlock
           content={`[![Downloads](${PEPY_BADGES_URL}${project}${path})](https://pepy.tech/project/${project})`}
         />
@@ -27,9 +27,9 @@ const BadgesComponent: React.FC<BadgesComponentProps> = ({ project }) => {
 
   return (
     <Card data-cy="badges">
-      <CardHeader title="Badges" />
+      <CardHeader title="Badges" subheader="Put the download badge on your README.md to show the popularity of your project" />
       <CardContent>
-        <Grid container spacing={1} alignItems="center">
+        <Grid container spacing={1} alignItems="center" justifyContent="space-around" >
           {renderImageAndCode("", "Total downloads for the project")}
           {renderImageAndCode(
             "/month",

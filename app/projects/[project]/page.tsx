@@ -102,9 +102,7 @@ export default async function Page({
               />
             </Suspense>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <BadgesComponent project={params.project} />
-          </Grid>
+
           <Grid item xs={12} md={4}>
             <Card sx={{marginBottom: 2}}>
               <CardHeader title={"Subscribe to " + params.project} subheader={"Get a monthly newsletter on your inbox about this project"} />
@@ -112,8 +110,16 @@ export default async function Page({
                 <SubscribeButton project={params.project} />
               </CardActions>
             </Card>
+          </Grid>
+          <Grid item xs={12} md={4}>
             <Ads/>
           </Grid>
+          <Grid item xs={12}>
+            <BadgesComponent project={params.project} />
+          </Grid>
+
+
+
           <Grid item xs={12}>
             <DownloadsComponent
               project={project.name}
