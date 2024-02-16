@@ -111,7 +111,7 @@ const DownloadsComponent: React.FC<DownloadsChartProps> = (props) => {
 
   return (
     <div className={styles.root}>
-      <Grid container spacing={2} marginY={4} alignItems={"center"}>
+      <Grid container spacing={2} alignItems={"center"}>
         <Grid item xs={12} sm={12} md>
           <VersionSearchBox
             versions={versions}

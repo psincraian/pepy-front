@@ -19,6 +19,7 @@ import { SubscribeButton } from "@/app/projects/[project]/components/SubscribeBu
 import { CardHeader } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Card } from "@mui/material";
+import StatsTab from "@/app/projects/[project]/components/statsTab";
 
 export const runtime = "edge";
 
@@ -121,11 +122,7 @@ export default async function Page({
 
 
           <Grid item xs={12}>
-            <DownloadsComponent
-              project={project.name}
-              versions={project.versions}
-              data={project.downloads}
-            />
+            <StatsTab project={project} />
           </Grid>
         </Grid>
       </main>
