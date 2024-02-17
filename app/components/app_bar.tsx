@@ -21,7 +21,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   return (
-    <header className={styles.header}>
+    <div className={styles.header}>
       <MuiAppBar position="static" sx={{ flex: 1, flexDirection: "row" }}>
         <Toolbar className={styles.toolbarContent}>
           {/* Logo and site name */}
@@ -90,7 +90,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
         </MenuItem>
         <AppBarUserOptions isMobileView={true} />
       </Menu>
-    </header>
+    </div>
   );
 };
 

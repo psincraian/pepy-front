@@ -4,8 +4,8 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { User } from "@/app/user/helper/auth";
 import { useEffect } from "react";
-import { getCurrentUser } from "@/app/user/helper/auth";
 import LoggedUsersTooltip from "@/app/components/logged_users_tooltip";
+import { useUser } from "@/app/user/UserContext";
 
 
 async function subscribe(project: string): Promise<string> {
@@ -32,7 +32,7 @@ async function unsubscribe(project: string): Promise<string> {
   const res = await fetch(`/api/v3/subscriptions/` + project, {
     method: "DELETE",
     headers: {
-      "X-Api-Key": process.env.PEPY_API_KEY!,
+      "X-Api-Key": process.env.PEPY_API_KEY!
     }
   });
   if (res.status !== 200) {
@@ -47,7 +47,7 @@ async function isSubscribed(project: string): Promise<boolean> {
   const res = await fetch(`/api/v3/subscriptions/`, {
     method: "GET",
     headers: {
-      "X-Api-Key": process.env.PEPY_API_KEY!,
+      "X-Api-Key": process.env.PEPY_API_KEY!
     }
   });
   if (res.status !== 200) {
@@ -63,22 +63,22 @@ async function isSubscribed(project: string): Promise<boolean> {
   return false;
 }
 
-export function SubscribeButton(props: { project: string }) {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+export function Subscribe_button(props: { project: string }) {
   const [subscribeStatus, setSubscribeStatus] = useState("none");
+  const { user, error } = useUser();
 
   useEffect(() => {
-    getCurrentUser().then((user) => {
-      setCurrentUser(user)
-      isSubscribed(props.project).then((isSubscribed) => {
-        if (isSubscribed) {
-          setSubscribeStatus("subscribed");
-        } else {
-          setSubscribeStatus("unsubscribed");
-        }
-      })
+    if (user === null) {
+      return;
+    }
+    isSubscribed(props.project).then((isSubscribed) => {
+      if (isSubscribed) {
+        setSubscribeStatus("subscribed");
+      } else {
+        setSubscribeStatus("unsubscribed");
+      }
     });
-  }, []);
+  }, [user]);
 
   if (subscribeStatus === "subscribing") {
     subscribe(props.project).then((status) => {
@@ -100,11 +100,11 @@ export function SubscribeButton(props: { project: string }) {
     });
   }
 
-  const disabled = currentUser === null || subscribeStatus === "subscribing" ||subscribeStatus === "unsubscribing";
+  const disabled = user === null || subscribeStatus === "subscribing" || subscribeStatus === "unsubscribing";
   let buttonText = "";
   if (subscribeStatus === "subscribed" || subscribeStatus === "error-unsubscribe" || subscribeStatus === "unsubscribing") {
     buttonText = "Unsubscribe";
-  } else if (subscribeStatus === "none" || subscribeStatus == "unsubscribed" || subscribeStatus === "subscribing" || subscribeStatus == "error-subscribe"){
+  } else if (subscribeStatus === "none" || subscribeStatus == "unsubscribed" || subscribeStatus === "subscribing" || subscribeStatus == "error-subscribe") {
     buttonText = "Subscribe";
   }
 

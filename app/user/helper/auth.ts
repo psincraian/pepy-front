@@ -8,7 +8,7 @@ import {
 } from "amazon-cognito-identity-js";
 
 export interface ILoginCallback {
-  onSuccess: (email: string) => void;
+  onSuccess: (user: User) => void;
   onFailure: (err: string) => void;
 }
 
@@ -19,7 +19,7 @@ export interface ISignUpCallback {
 
 const USER_POOL_ID = "us-east-1_YFNT7b4nQ";
 const CLIENT_ID = "67oda21n4538a52ub88r0tav24";
-const userPool = new CognitoUserPool({
+export const userPool = new CognitoUserPool({
   UserPoolId: USER_POOL_ID,
   ClientId: CLIENT_ID,
 });
@@ -31,7 +31,7 @@ export interface User {
   isPro: boolean;
 }
 
-const cookieStorage = new CookieStorage();
+export const cookieStorage = new CookieStorage();
 const cognitoUserPool = new CognitoUserPool({
   UserPoolId: USER_POOL_ID,
   ClientId: CLIENT_ID,
@@ -54,8 +54,24 @@ export function login(
   });
 
   cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: (result) => {
-      callbacks.onSuccess("result");
+    onSuccess: (session) => {
+      const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
+      console.log("Is Pro: ", isPro);
+
+      cognitoUser.getUserAttributes((err, result) => {
+          if (err) {
+            callbacks.onFailure(err.message);
+            return;
+          }
+          const email = result!.find((r) => r.getName() === "email")?.getValue();
+          callbacks.onSuccess({
+            username: cognitoUser.getUsername(),
+            accessToken: session.getAccessToken().getJwtToken(),
+            email,
+            isPro: isPro
+          });
+          return;
+          })
     },
     onFailure: (err) => {
       callbacks.onFailure(err);
@@ -108,7 +124,7 @@ export function confirmSignUp(
   });
 }
 
-function convertSessionToUser(session: CognitoUserSession, withDetails: boolean, resolve: (value: (User | null)) => void, cognitoUser: CognitoUser, reject: (reason?: any) => void) {
+function convertSessionToUser(session: CognitoUserSession, withDetails: boolean, resolve: (value: (User)) => void, cognitoUser: CognitoUser, reject: (reason?: any) => void) {
   // Check if user is a Pro user, for that inside the cognito:groups it should contain the Pro element
   const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
   console.log("Is Pro: ", isPro);
@@ -140,12 +156,12 @@ function convertSessionToUser(session: CognitoUserSession, withDetails: boolean,
 export function getCurrentUser(
   withDetails: boolean = false,
   refresh: boolean = false
-): Promise<null | User> {
+): Promise<User> {
   return new Promise((resolve, reject) => {
     const cognitoUser = cognitoUserPool.getCurrentUser();
 
     if (cognitoUser === null) {
-      resolve(null);
+      reject(null);
       return;
     }
 
@@ -157,7 +173,7 @@ export function getCurrentUser(
         }
 
         if (session === null || !session.isValid()) {
-          resolve(null);
+          reject(null);
           return;
         }
 

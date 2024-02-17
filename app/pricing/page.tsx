@@ -3,9 +3,9 @@
 import Script from "next/script";
 import AppBar from "@/app/components/app_bar";
 import { useEffect, useState } from "react";
-import { getCurrentUser, User } from "@/app/user/helper/auth";
 import { Typography } from "@mui/material";
 import { PriceComponent } from "@/app/pricing/components/price";
+import { useUser } from "@/app/user/UserContext";
 
 declare global {
   namespace JSX {
@@ -19,28 +19,22 @@ declare global {
 }
 
 export default function Home() {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const {user, error} = useUser();
 
-  useEffect(() => {
-    getCurrentUser(true).then((user) => {
-      setCurrentUser(user);
-      setLoaded(true);
-    });
-  }, []);
 
-  console.log(currentUser);
+  console.log(user);
   const stripePricingTable = (
     <>
       <stripe-pricing-table
         pricing-table-id="prctbl_1O3NjqLkhgcLjWWE4QWZ1F1G"
         publishable-key="pk_live_fGp4vBPOGSP5uIvvM2qXoQyZ006F0MCL4G"
-        customer-email={currentUser?.email}
+        customer-email={user?.email}
       ></stripe-pricing-table>
     </>
   );
 
-  const pricingTable = currentUser === null ? (<PriceComponent />) : stripePricingTable;
+  const pricingTable = user === null ? (<PriceComponent />) : stripePricingTable;
 
   return (
     <>

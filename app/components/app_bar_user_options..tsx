@@ -1,27 +1,21 @@
 import styles from "./app_bar.module.css";
 import Link from "next/link";
-import { getCurrentUser, User } from "@/app/user/helper/auth";
-import { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import { ProBadge } from "@/app/components/app_bar_user_pro_badge";
-
+import { useUser } from "@/app/user/UserContext";
 export interface AppBarUserOptionsProps {
   isMobileView: boolean;
 }
 
 export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { user, error } = useUser();
 
-  useEffect(() => {
-    getCurrentUser().then((user) => setCurrentUser(user));
-  }, []);
-
-  const proChip = currentUser?.isPro ? (<ProBadge />) : null;
+  const proChip = user?.isPro ? (<ProBadge />) : null;
 
   function renderDesktopView() {
-    return currentUser ? (
+    return user ? (
       <Link className={styles.link} href="/user" passHref>
-        <div className={styles.sectionFirst}>Hi {currentUser.username}{proChip}</div>
+        <div className={styles.sectionFirst}>Hi {user.username}{proChip}</div>
       </Link>
     ) : (
       <>
@@ -30,14 +24,14 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
         </Link>
         <div className={styles.linkSmallSpace}>|</div>
         <Link className={styles.linkSmallSpace} href="/user/signup" passHref>
-          <div className={styles.sectionFirst}>{' '}Sign up</div>
+          <div className={styles.sectionFirst}>{" "}Sign up</div>
         </Link>
       </>
     );
   }
 
   function renderMobileView() {
-    return currentUser ? (
+    return user ? (
       <MenuItem>
         <Link className={styles.link} href="/user" passHref>
           <div className={styles.sectionFirst}>Profile</div>

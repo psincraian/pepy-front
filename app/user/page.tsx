@@ -3,8 +3,7 @@
 import AppBar from "@/app/components/app_bar";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { getCurrentUser, signout, User } from "@/app/user/helper/auth";
-import { useEffect, useState } from "react";
+import { signout } from "@/app/user/helper/auth";
 import ApiKeyTable from "@/app/user/components/api_keys_table";
 import React from "react";
 import ManageSubscriptionButton from "@/app/user/components/CustomerSubscriptionPortal";
@@ -12,23 +11,14 @@ import { Grid } from "@mui/material";
 import { Card } from "@mui/material";
 import { CardHeader } from "@mui/material";
 import { CardContent } from "@mui/material";
+import { useUser } from "@/app/user/UserContext";
 
 export default function Home() {
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<null | User>(null);
-
-  useEffect(() => {
-    getCurrentUser(false, true)
-      .then((u) => {
-        setCurrentUser(u);
-        console.log(u);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const {user, error} = useUser();
 
   function signoutUser() {
     signout();
-    setCurrentUser(null);
   }
 
   return (
@@ -38,9 +28,9 @@ export default function Home() {
       </header>
       <main>
         <h1>
-          Hello {currentUser !== null ? currentUser.username : "pythonista"}
+          Hello {user !== null ? user.username : "pythonista"}
         </h1>
-        {currentUser === null ? (
+        {user === null ? (
           <>
             <Button
               sx={{ m: "8px" }}

@@ -1,24 +1,26 @@
+"use client";
 import "./globals.css";
 import Footer from "@/app/components/footer";
+import { UserProvider } from "@/app/user/UserContext";
 
-export const metadata = {
-  title: "pepy.tech - Python Packages Download Stats",
-  description: "View download stats for more than 490k python packages. PyPI Download stats are updated daily",
-};
 
 export const runtime = "edge";
 
-export default function RootLayout({
-  children,
-}: {
+type ReactNode = {
   children: React.ReactNode;
-}) {
+};
+
+export default function RootLayout({ children }: ReactNode) {
+
+
   return (
     <html lang="en">
-      <body>
-        {children}
-        <Footer />
-      </body>
+    <body>
+    <UserProvider>
+      {children}
+    </UserProvider>
+    <Footer />
+    </body>
     </html>
   );
 }

@@ -1,10 +1,9 @@
 "use client";
 
 import { DisplayStyle } from "@/app/projects/[project]/model";
-import { useEffect, useState } from "react";
-import { getCurrentUser, User } from "@/app/user/helper/auth";
 import styles from "./display_style_toggle.module.css";
 import LoggedUsersTooltip from "@/app/components/logged_users_tooltip";
+import { useUser } from "@/app/user/UserContext";
 
 export interface Display_style_toggle {
   selected: DisplayStyle;
@@ -15,13 +14,10 @@ export const DisplayStyleToggle = ({
   selected,
   handleChange,
 }: Display_style_toggle) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const {user, error} = useUser();
 
-  useEffect(() => {
-    getCurrentUser().then((user) => setCurrentUser(user));
-  }, []);
 
-  const disabled = currentUser === null;
+  const disabled = user === null;
   const buttonStyles = disabled
     ? styles.button + " " + styles.disabled
     : styles.button;

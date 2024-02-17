@@ -15,11 +15,11 @@ import { notFound } from "next/navigation";
 import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
 import { Metadata } from "next";
-import { SubscribeButton } from "@/app/projects/[project]/components/SubscribeButton";
+import { Subscribe_button } from "@/app/projects/[project]/components/subscribe_button";
 import { CardHeader } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Card } from "@mui/material";
-import StatsTab from "@/app/projects/[project]/components/statsTab";
+import StatsTab from "@/app/projects/[project]/components/stats_tab";
 
 export const runtime = "edge";
 
@@ -108,7 +108,7 @@ export default async function Page({
             <Card sx={{marginBottom: 2}}>
               <CardHeader title={"Subscribe to " + params.project} subheader={"Get a monthly newsletter on your inbox about this project"} />
               <CardActions>
-                <SubscribeButton project={params.project} />
+                <Subscribe_button project={params.project} />
               </CardActions>
             </Card>
           </Grid>
