@@ -19,8 +19,8 @@ export default function Error({
     <div>
       <h2>Something went wrong!</h2>
       <p>
-        There was an internal server error, please report it to{" "}
-        <a href="https://twitter.com/psincraian">@psincraian</a> at Twitter/X
+        There was an internal server error, please see submit or view issues{" "}
+        <a href="https://github.com/psincraian/pepy/issues">here</a>.
       </p>
       <p>Status details:</p>
       <ul>
