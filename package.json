@@ -18,7 +18,7 @@
     "@stripe/stripe-js": "^2.4.0",
     "@types/node": "20.11.24",
     "@types/react": "18.2.62",
-    "@types/react-dom": "18.2.19",
+    "@types/react-dom": "18.2.20",
     "amazon-cognito-identity-js": "^6.3.7",
     "autoprefixer": "10.4.18",
     "dayjs": "^1.11.10",
