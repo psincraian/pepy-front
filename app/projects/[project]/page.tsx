@@ -1,7 +1,7 @@
 import {
   DownloadData,
   Project,
-  VersionDownloads,
+  VersionDownloads
 } from "@/app/projects/[project]/model";
 import DownloadsComponent from "@/app/projects/[project]/components/downloads_component";
 import React, { Suspense } from "react";
@@ -20,6 +20,11 @@ import { CardHeader } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Card } from "@mui/material";
 import StatsTab from "@/app/projects/[project]/components/stats_tab";
+import { Alert } from "@mui/lab";
+import Emoji from "@/app/components/emoji";
+import { Icon } from "@mui/material";
+import { CakeOutlined } from "@mui/icons-material";
+import { Cake } from "@mui/icons-material";
 
 export const runtime = "edge";
 
@@ -29,17 +34,17 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   return {
     title: params.project + " download stats",
-    description: "View download stats for the " + params.project + " python package. Download stats are updated daily",
-  }
+    description: "View download stats for the " + params.project + " python package. Download stats are updated daily"
+  };
 }
 
 async function getData(project: string): Promise<Project> {
   console.log("Fetching data for", project);
   const res = await fetch(PEPY_HOST + `/api/v2/projects/${project}`, {
     headers: {
-      'X-Api-Key': process.env.PEPY_API_KEY!,
+      "X-Api-Key": process.env.PEPY_API_KEY!
     },
-    next: { revalidate: 3600 },
+    next: { revalidate: 3600 }
   });
   if (res.status === 404) {
     notFound();
@@ -62,7 +67,7 @@ async function getData(project: string): Promise<Project> {
     name: response.id,
     totalDownloads: response.total_downloads,
     downloads: downloadData,
-    versions: response.versions,
+    versions: response.versions
   };
 }
 
@@ -70,24 +75,34 @@ type ProjectProps = {
   params: { project: string };
 };
 export default async function Page({
-  params,
-}: ProjectProps) {
+                                     params
+                                   }: ProjectProps) {
   const project = await getData(params.project);
   const totalDownloads30Days = retrieveTotalDownloadsSince(
     project.downloads,
-    new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+    new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
   );
   const totalDownloads7Days = retrieveTotalDownloadsSince(
     project.downloads,
-    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
   );
+
+  const shouldShowNotification = Date.now() <= Date.parse("2024-03-17 23:59");
+  var notification = null;
+  if (shouldShowNotification) {
+    notification = (
+      <Grid item xs={12}>
+        <Alert severity="info" icon={<Cake fontSize="inherit" />}>Cheers to 6 Incredible Years of pepy.tech!</Alert>
+      </Grid>
+    );
+  }
 
   return (
     <>
       <AppBar />
       <main>
         <Grid container rowSpacing={4} columnSpacing={2}>
-
+          {notification}
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
               {project.name}
@@ -105,20 +120,20 @@ export default async function Page({
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Card sx={{marginBottom: 2}}>
-              <CardHeader title={"Subscribe to " + params.project} subheader={"Get a monthly newsletter on your inbox about this project"} />
+            <Card sx={{ marginBottom: 2 }}>
+              <CardHeader title={"Subscribe to " + params.project}
+                          subheader={"Get a monthly newsletter on your inbox about this project"} />
               <CardActions>
                 <Subscribe_button project={params.project} />
               </CardActions>
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            <Ads/>
+            <Ads />
           </Grid>
           <Grid item xs={12}>
             <BadgesComponent project={params.project} />
           </Grid>
-
 
 
           <Grid item xs={12}>
