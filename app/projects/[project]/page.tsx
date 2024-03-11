@@ -101,7 +101,7 @@ export default async function Page({
     <>
       <AppBar />
       <main>
-        <Grid container rowSpacing={4} columnSpacing={2}>
+        <Grid container rowSpacing={4} columnSpacing={2}   justifyContent="space-between">
           {notification}
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
@@ -128,7 +128,7 @@ export default async function Page({
               </CardActions>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md="auto">
             <Ads />
           </Grid>
           <Grid item xs={12}>
