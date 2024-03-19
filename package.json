@@ -12,7 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@mui/icons-material": "^5.15.13",
-    "@mui/lab": "=5.0.0-alpha.167",
+    "@mui/lab": "=5.0.0-alpha.168",
     "@mui/material": "^5.15.13",
     "@mui/system": "^5.15.13",
     "@stripe/stripe-js": "^2.4.0",
