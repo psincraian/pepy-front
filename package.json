@@ -32,7 +32,7 @@
     "react-window": "^1.8.10",
     "recharts": "^2.12.3",
     "sharp": "^0.33.2",
-    "typescript": "5.4.2"
+    "typescript": "5.4.3"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.10.0",
