@@ -49,7 +49,6 @@ const DownloadsChart: React.FC<DownloadsChartProps> = (props) => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis
-          width={40}
           tickFormatter={(tick) => {
             return formatDownloads(tick, 1);
           }}
