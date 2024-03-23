@@ -17,6 +17,16 @@ export interface ISignUpCallback {
   onFailure: (err: string) => void;
 }
 
+export interface IForgotPasswordCallback {
+  onSuccess: (email: string) => void;
+  onFailure: (err: string) => void;
+}
+
+export interface IConfirmPasswordCallback {
+  onSuccess: (email: string) => void;
+  onFailure: (err: string) => void;
+}
+
 const USER_POOL_ID = "us-east-1_YFNT7b4nQ";
 const CLIENT_ID = "67oda21n4538a52ub88r0tav24";
 export const userPool = new CognitoUserPool({
@@ -75,6 +85,51 @@ export function login(
     },
     onFailure: (err) => {
       callbacks.onFailure(err);
+    },
+  });
+}
+
+export function forgotPassword(
+  formData: { email: string },
+  callbacks: IForgotPasswordCallback,
+) {
+  const cognitoUser = new CognitoUser({
+    Username: formData.email,
+    Pool: userPool,
+    Storage: cookieStorage,
+  });
+
+
+  cognitoUser.forgotPassword({
+    onSuccess: function (data) {
+      // successfully initiated reset password request
+      console.log('CodeDeliveryData from forgotPassword: ' + data);
+      callbacks.onSuccess(formData.email)
+
+    },
+    onFailure: function (err) {
+      callbacks.onFailure(err.message);
+    },
+  });
+}
+
+export function confirmPassword(
+    formData: { email: string; code: string; newPassword: string }
+    , callbacks: IConfirmPasswordCallback
+) {
+  const cognitoUser = new CognitoUser({
+    Username: formData.email,
+    Pool: userPool,
+    Storage: cookieStorage,
+  });
+
+  cognitoUser.confirmPassword(formData.code, formData.newPassword, {
+    onSuccess: function (data) {
+      console.log('Successfully reset password');
+      callbacks.onSuccess(formData.email)
+    },
+    onFailure: function (err) {
+      callbacks.onFailure(err.message);
     },
   });
 }

@@ -3,16 +3,16 @@ export function formatDownloads(
   maxPrecision: number = 2,
 ): string {
   let letter: string = "";
-  if (downloads < 1000) {
+  if (downloads < 1_000) {
     letter = "";
-  } else if (downloads < 1000000) {
-    downloads = downloads / 1000;
+  } else if (downloads < 1_000_000) {
+    downloads = downloads / 1_000;
     letter = "k";
-  } else if (downloads < 1000000000) {
-    downloads = downloads / 1000000;
+  } else if (downloads < 1_000_000_000) {
+    downloads = downloads / 1_000_000;
     letter = "M";
   } else {
-    downloads = downloads / 1000000000;
+    downloads = downloads / 1_000_000_000;
     letter = "G";
   }
 

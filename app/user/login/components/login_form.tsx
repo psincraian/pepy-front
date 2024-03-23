@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import {
   FormControl,
-  FormHelperText,
   Grid,
   Input,
   InputLabel
@@ -11,9 +10,9 @@ import { LoadingButton } from "@mui/lab";
 import { DoneOutline, ErrorOutline } from "@mui/icons-material";
 import { login } from "@/app/user/helper/auth";
 import { useRouter } from "next/navigation";
-import { UserProvider } from "@/app/user/UserContext";
 import { useUserDispatch } from "@/app/user/UserContext";
 import { UserAction } from "@/app/user/UserContext";
+import { Button } from "@mui/material";
 
 const VALID_EMAIL_REGEX = /^(.+)@(.+)\.(.+)$/;
 
@@ -80,7 +79,7 @@ export const LoginForm = () => {
 
   return (
       <Grid container alignItems="center" justifyContent="center" spacing={4}>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={6} order={{ xs: 1, sm: 1 }}>
           <FormControl fullWidth>
             <InputLabel required htmlFor="email">
               Email address
@@ -95,7 +94,7 @@ export const LoginForm = () => {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={6} order={{ xs: 2, sm: 2 }}>
           <FormControl fullWidth>
             <InputLabel required htmlFor="password">
               Password
@@ -110,7 +109,7 @@ export const LoginForm = () => {
             />
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={6}  order={{ xs: 3, sm: 4 }}>
           <LoadingButton
             id="login-button"
             fullWidth
@@ -124,6 +123,19 @@ export const LoginForm = () => {
           >
             Login
           </LoadingButton>
+        </Grid>
+        <Grid item xs={12} sm={6} order={{ xs: 4, sm: 3 }}>
+          <Button
+            id="forgot--password-button"
+            fullWidth
+            onClick={() => router.push("/user/forgot-password")}
+            type="submit"
+            variant="text"
+            size="medium"
+            color="primary"
+          >
+            Forgot password
+          </Button>
         </Grid>
       </Grid>
   );
