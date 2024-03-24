@@ -26,7 +26,7 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({
 
   // Render the component
   return (
-    <Card data-cy="summary">
+    <Card data-cy="summary" sx={{height: 190}}>
       <CardHeader title="Summary" />
       <CardContent>
         <Grid container >

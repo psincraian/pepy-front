@@ -63,7 +63,7 @@ async function isSubscribed(project: string): Promise<boolean> {
   return false;
 }
 
-export function Subscribe_button(props: { project: string }) {
+export function SubscribeButton(props: { project: string }) {
   const [subscribeStatus, setSubscribeStatus] = useState("none");
   const { user, error } = useUser();
 
@@ -112,8 +112,9 @@ export function Subscribe_button(props: { project: string }) {
 
   return (
     <LoggedUsersTooltip display={disabled} proOnly={false}>
-      <span>
+      <span style={{width: "100%"}}>
         <Button
+          fullWidth
           variant="contained"
           disabled={disabled}
           className="btn btn-primary"

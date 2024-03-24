@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { DoneOutline, ErrorOutline } from "@mui/icons-material";
-import { Subscribe_button } from "@/app/projects/[project]/components/subscribe_button";
+import { SubscribeButton } from "@/app/projects/[project]/components/subscribe_button";
 
 export const SubscribeForm = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +43,7 @@ export const SubscribeForm = () => {
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={4}>
-        <Subscribe_button project={formData.project} />
+        <SubscribeButton project={formData.project} />
       </Grid>
     </Grid>
   );

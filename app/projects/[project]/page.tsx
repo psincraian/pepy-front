@@ -15,7 +15,7 @@ import { notFound } from "next/navigation";
 import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
 import { Metadata } from "next";
-import { Subscribe_button } from "@/app/projects/[project]/components/subscribe_button";
+import { SubscribeButton } from "@/app/projects/[project]/components/subscribe_button";
 import { CardHeader } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { Card } from "@mui/material";
@@ -25,6 +25,7 @@ import Emoji from "@/app/components/emoji";
 import { Icon } from "@mui/material";
 import { CakeOutlined } from "@mui/icons-material";
 import { Cake } from "@mui/icons-material";
+import { CardContent } from "@mui/material";
 
 export const runtime = "edge";
 
@@ -101,14 +102,14 @@ export default async function Page({
     <>
       <AppBar />
       <main>
-        <Grid container rowSpacing={4} columnSpacing={2}   justifyContent="space-between">
+        <Grid container rowSpacing={4} columnSpacing={2}  justifyContent="space-between">
           {notification}
           <Grid item xs={12}>
             <Typography component="h1" variant="h2">
               {project.name}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6} lg={4}>
             <Suspense fallback={"Loading project data..."}>
               <ProjectSummary
                 name={project.name}
@@ -119,16 +120,18 @@ export default async function Page({
             </Suspense>
           </Grid>
 
-          <Grid item xs={12} md={4}>
-            <Card sx={{ marginBottom: 2 }}>
-              <CardHeader title={"Subscribe to " + params.project}
-                          subheader={"Get a monthly newsletter on your inbox about this project"} />
-              <CardActions>
-                <Subscribe_button project={params.project} />
+          <Grid item xs={12} sm={6} lg={4} >
+            <Card sx={{ height: 190 }}>
+              <CardHeader title={"Subscribe to " + params.project} />
+              <CardContent>
+                Get a monthly newsletter with download stats about this project.
+              </CardContent>
+              <CardActions >
+                <SubscribeButton project={params.project} />
               </CardActions>
             </Card>
           </Grid>
-          <Grid item xs={12} md="auto">
+          <Grid item xs={12} sm={12} lg="auto">
             <Ads />
           </Grid>
           <Grid item xs={12}>
