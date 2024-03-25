@@ -9,6 +9,8 @@ import TabPanel from '@mui/lab/TabPanel';
 import DownloadsComponent from "@/app/projects/[project]/components/downloads_component";
 import { Project } from "@/app/projects/[project]/model";
 import CountryDownloads from "@/app/projects/[project]/components/country_downloads";
+import { useDimensions } from "@/app/components/useDimension";
+import { useRef } from "react";
 
 interface StatsTabProps {
   project: Project
@@ -17,12 +19,16 @@ interface StatsTabProps {
 export default function StatsTab(props: StatsTabProps) {
   const [value, setValue] = React.useState('1');
 
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
   const isPro = false;
   const countryText = isPro ? 'Coming soon...' : 'You must bre a Pro to access this feature';
+  const countryDownloadsComponent = <CountryDownloads project={props.project.name}/>;
+  const featureEnabled = false;
+  const countryDownloads = featureEnabled ? countryDownloadsComponent : countryText;
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -38,8 +44,10 @@ export default function StatsTab(props: StatsTabProps) {
             project={props.project.name}
             versions={props.project.versions}
             data={props.project.downloads}
-        /></TabPanel>
-        <TabPanel value="2"><CountryDownloads project={props.project.name} /></TabPanel>
+          /></TabPanel>
+        <TabPanel value="2">
+          {countryDownloads}
+        </TabPanel>
       </TabContext>
     </Box>
   );

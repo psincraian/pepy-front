@@ -21,6 +21,8 @@
     "@types/react-dom": "18.2.22",
     "amazon-cognito-identity-js": "^6.3.12",
     "autoprefixer": "10.4.19",
+    "d3": "^7.9.0",
+    "d3-geo": "^3.1.1",
     "dayjs": "^1.11.10",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
@@ -36,6 +38,8 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.11.0",
+    "@types/d3": "^7.4.3",
+    "@types/d3-geo": "^3.1.0",
     "@types/minimatch": "^5.1.2",
     "@types/react-window": "^1.8.8",
     "cypress": "^13.7.1",
