@@ -31,7 +31,7 @@
     "react-dom": "18.2.0",
     "react-window": "^1.8.10",
     "recharts": "^2.12.3",
-    "sharp": "^0.33.2",
+    "sharp": "^0.33.3",
     "typescript": "5.4.3"
   },
   "devDependencies": {
