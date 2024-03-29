@@ -11,12 +11,14 @@ import { Project } from "@/app/projects/[project]/model";
 import CountryDownloads from "@/app/projects/[project]/components/country_downloads";
 import { useDimensions } from "@/app/components/useDimension";
 import { useRef } from "react";
+import { useUser } from "@/app/user/UserContext";
 
 interface StatsTabProps {
   project: Project
 }
 
 export default function StatsTab(props: StatsTabProps) {
+  const {user, error} = useUser();
   const [value, setValue] = React.useState('1');
 
 
@@ -24,11 +26,8 @@ export default function StatsTab(props: StatsTabProps) {
     setValue(newValue);
   };
 
-  const isPro = false;
-  const countryText = isPro ? 'Coming soon...' : 'You must bre a Pro to access this feature';
   const countryDownloadsComponent = <CountryDownloads project={props.project.name}/>;
-  const featureEnabled = false;
-  const countryDownloads = featureEnabled ? countryDownloadsComponent : countryText;
+  const countryDownloads =  user?.isPro ? countryDownloadsComponent : 'You must bre a Pro to access this feature';
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>

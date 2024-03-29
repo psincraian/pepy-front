@@ -6,6 +6,15 @@ export interface DownloadData {
   [date: string]: VersionDownloads;
 }
 
+export interface CountryDownloads {
+  country: string;
+  downloads: number
+}
+
+export interface CountryDownloadsData {
+  [date: string]: CountryDownloads[]
+}
+
 export interface Project {
   name: string;
   totalDownloads: number;
