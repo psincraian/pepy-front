@@ -88,12 +88,12 @@ export default async function Page({
     new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
   );
 
-  const shouldShowNotification = Date.now() <= Date.parse("2024-03-17 23:59");
+  const shouldShowNotification = Date.now() <= Date.parse("2024-04-07 23:59");
   var notification = null;
   if (shouldShowNotification) {
     notification = (
       <Grid item xs={12}>
-        <Alert severity="info" icon={<Cake fontSize="inherit" />}>Cheers to 6 Incredible Years of pepy.tech!</Alert>
+        <Alert severity="info">New Feature: download stats per country are available to Pro users</Alert>
       </Grid>
     );
   }
