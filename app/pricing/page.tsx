@@ -19,7 +19,6 @@ declare global {
 }
 
 export default function Home() {
-  const [loaded, setLoaded] = useState(false);
   const {user, error} = useUser();
 
 
@@ -42,7 +41,7 @@ export default function Home() {
       <AppBar withSearch={true} />
       <main>
         <Typography variant="h2">Pricing</Typography>
-        {loaded && pricingTable}
+        {pricingTable}
       </main>
     </>
   );
