@@ -24,7 +24,8 @@ export function PriceComponent() {
             This includes:
             <ul className={styles.list}>
               <li><Emoji symbol={"✔"}/> 100 API Calls/Min: Unleash fast data access!</li>
-              <li><Emoji symbol={"✔"}/> 1-Year Data (Soon): Coming soon for deep insights.</li>
+              <li><Emoji symbol={"✔"}/> 1-Year Data: for deep insights.</li>
+              <li><Emoji symbol={"🆕"}/> Download stats per country: check your users history</li>
               <li><Emoji symbol={"✔"}/> Name in README: Be a part of our Hall of Fame!</li>
               <li><Emoji symbol={"✔"}/> Support Us: Keep pepy.tech up and running.</li>
             </ul>
@@ -40,11 +41,12 @@ export function PriceComponent() {
           <CardContent sx={{height: 140}}>
             This includes:
             <ul className={styles.list}>
-              <li><Emoji symbol={"✔"}/> 100 API Calls/Min: Unleash fast data access!</li>
-              <li><Emoji symbol={"✔"}/> 1-Year Data (Soon): Coming soon for deep insights.</li>
-              <li><Emoji symbol={"✔"}/> Name in README: Be a part of our Hall of Fame!</li>
-              <li><Emoji symbol={"✔"}/> Support Us: Keep pepy.tech up and running.</li>
-              <li><Emoji symbol={"➕"}/> 2 months for free</li>
+              <li><Emoji symbol={"✔"} /> 100 API Calls/Min: Unleash fast data access!</li>
+              <li><Emoji symbol={"✔"}/> 1-Year Data: for deep insights.</li>
+              <li><Emoji symbol={"🆕"} /> Download stats per country: check your users history</li>
+              <li><Emoji symbol={"✔"} /> Name in README: Be a part of our Hall of Fame!</li>
+              <li><Emoji symbol={"✔"} /> Support Us: Keep pepy.tech up and running.</li>
+              <li><Emoji symbol={"➕"} /> 2 months for free</li>
             </ul>
           </CardContent>
           <CardActions>
