@@ -37,7 +37,7 @@
     "typescript": "5.4.5"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.11.0",
+    "@cloudflare/next-on-pages": "^1.11.1",
     "@types/d3": "^7.4.3",
     "@types/d3-geo": "^3.1.0",
     "@types/minimatch": "^5.1.2",
