@@ -23,7 +23,7 @@
     "autoprefixer": "10.4.19",
     "d3": "^7.9.0",
     "d3-geo": "^3.1.1",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.11",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.3",
     "minimatch": "^9.0.4",
