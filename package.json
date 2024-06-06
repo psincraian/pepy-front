@@ -16,7 +16,7 @@
     "@mui/material": "^5.15.19",
     "@mui/system": "^5.15.13",
     "@stripe/stripe-js": "^2.4.0",
-    "@types/node": "20.14.1",
+    "@types/node": "20.14.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "amazon-cognito-identity-js": "^6.3.12",
