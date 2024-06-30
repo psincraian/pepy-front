@@ -18,17 +18,35 @@ declare global {
   }
 }
 
+async function getCustomerSecret() {
+  const res = await fetch(`/api/v3/user/subscription-portal/customer-session`, {
+    method: "POST",
+    headers: {
+      "X-Api-Key": process.env.PEPY_API_KEY!
+    }
+  });
+
+  const body = await res.json();
+  return body["customerSecret"];
+}
+
 export default function Home() {
   const {user, error} = useUser();
+  const [customerSecret, setCustomerSecret] = useState<null|String>(null);
 
+  useEffect(() => {
+    if (user !== null) {
+      getCustomerSecret().then(secret => setCustomerSecret(secret));
+    }
+  }, [user]);
 
-  console.log(user);
+  console.log("Customer Secret", customerSecret)
   const stripePricingTable = (
     <>
       <stripe-pricing-table
         pricing-table-id="prctbl_1O3NjqLkhgcLjWWE4QWZ1F1G"
         publishable-key="pk_live_fGp4vBPOGSP5uIvvM2qXoQyZ006F0MCL4G"
-        customer-email={user?.email}
+        customer-session-client-secret={customerSecret}
       ></stripe-pricing-table>
     </>
   );
