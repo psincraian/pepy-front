@@ -29,7 +29,7 @@
     "eslint-config-next": "14.2.4",
     "minimatch": "^9.0.5",
     "newrelic": "^11.21.0",
-    "next": "^14.2.4",
+    "next": "^14.2.10",
     "postcss": "8.4.38",
     "react": "18.3.1",
     "react-dom": "18.3.1",
