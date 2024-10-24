@@ -4,14 +4,14 @@ import { Mail } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import { FileCode2 } from "lucide-react";
 import { MoreVertical } from "lucide-react";
-import { Button } from "@/app/components/button";
+import { Button } from "@/components/button";
 import Link from "next/link";
-import { AppBarSearchComponent } from "@/app/components/app_bar_search_component";
-import { AppBarUserOptions } from "@/app/components/app_bar_user_options.";
-import { DropdownMenu } from "@/app/components/dropdown-menu";
-import { DropdownMenuTrigger } from "@/app/components/dropdown-menu";
-import { DropdownMenuContent } from "@/app/components/dropdown-menu";
-import { DropdownMenuItem } from "@/app/components/dropdown-menu";
+import { AppBarSearchComponent } from "@/components/app_bar_search_component";
+import { AppBarUserOptions } from "@/components/app_bar_user_options.";
+import { DropdownMenu } from "@/components/dropdown-menu";
+import { DropdownMenuTrigger } from "@/components/dropdown-menu";
+import { DropdownMenuContent } from "@/components/dropdown-menu";
+import { DropdownMenuItem } from "@/components/dropdown-menu";
 
 interface SearchAppBarProps {
   withSearch?: boolean;
@@ -80,7 +80,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8 w-full">
-            <Link href="/">
+            <Link href="/public">
               <div className="flex items-center space-x-2">
                 <span className="text-xl font-bold">pepy.tech</span>
               </div>

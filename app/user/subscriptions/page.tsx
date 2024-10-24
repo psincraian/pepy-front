@@ -1,6 +1,6 @@
 "use client";
 
-import AppBar from "@/app/components/app_bar";
+import AppBar from "@/components/app_bar";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Grid } from "@mui/material";

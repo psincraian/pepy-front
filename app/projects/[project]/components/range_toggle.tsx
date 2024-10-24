@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./display_style_toggle.module.css";
-import LoggedUsersTooltip from "@/app/components/logged_users_tooltip";
+import LoggedUsersTooltip from "@/components/logged_users_tooltip";
 import { Range } from "@/app/projects/[project]/model";
 import { useUser } from "@/app/user/UserContext";
 

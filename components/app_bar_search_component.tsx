@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { Input } from "@/app/components/input";
+import { Input } from "@/components/input";
 
 export const AppBarSearchComponent: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");

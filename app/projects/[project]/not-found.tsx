@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AppBar from "@/app/components/app_bar";
+import AppBar from "@/components/app_bar";
 
 export default function NotFound() {
   return (

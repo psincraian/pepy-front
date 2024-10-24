@@ -1,16 +1,14 @@
 "use client";
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import DownloadsComponent from "@/app/projects/[project]/components/downloads_component";
 import { Project } from "@/app/projects/[project]/model";
 import CountryDownloads from "@/app/projects/[project]/components/country_downloads";
-import { useDimensions } from "@/app/components/useDimension";
-import { useRef } from "react";
 import { useUser } from "@/app/user/UserContext";
 
 interface StatsTabProps {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
-import AppBar from "@/app/components/app_bar";
-import { SubscribeForm } from "@/app/components/subscribe_form";
-import Emoji from "@/app/components/emoji";
+import AppBar from "@/components/app_bar";
+import { SubscribeForm } from "@/components/subscribe_form";
+import Emoji from "@/components/emoji";
 import styles from "./page.module.css";
 import Image from "next/image";
 

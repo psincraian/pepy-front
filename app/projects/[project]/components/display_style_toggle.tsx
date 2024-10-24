@@ -2,7 +2,7 @@
 
 import { DisplayStyle } from "@/app/projects/[project]/model";
 import styles from "./display_style_toggle.module.css";
-import LoggedUsersTooltip from "@/app/components/logged_users_tooltip";
+import LoggedUsersTooltip from "@/components/logged_users_tooltip";
 import { useUser } from "@/app/user/UserContext";
 
 export interface Display_style_toggle {

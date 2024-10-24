@@ -4,12 +4,11 @@ import { Grid } from "@mui/material";
 import { Card } from "@mui/material";
 import { CardHeader } from "@mui/material";
 import { CardContent } from "@mui/material";
-import Emoji from "@/app/components/emoji";
 import { CardActions } from "@mui/material";
 import { Button } from "@mui/material";
+import Emoji from "@/components/emoji";
 import { useRouter } from "next/navigation";
 import styles from "./price.module.css";
-import { height } from "@mui/system";
 
 
 export function PriceComponent() {

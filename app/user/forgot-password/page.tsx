@@ -1,9 +1,7 @@
 "use client";
 
-import AppBar from "@/app/components/app_bar";
-import { SignupForm } from "@/app/user/signup/components/signup_form";
+import AppBar from "@/components/app_bar";
 import { useState } from "react";
-import { ConfirmSignupForm } from "@/app/user/signup/components/confirm_signup_form";
 import { Button, Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { ForgotPasswordForm } from "@/app/user/forgot-password/components/forgot_password_form";

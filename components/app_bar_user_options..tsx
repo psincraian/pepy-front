@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useUser } from "@/app/user/UserContext";
-import { Button } from "@/app/components/button";
+import { Button } from "@/components/button";
 import { LogIn } from "lucide-react";
 import { User } from "lucide-react";
 import { UserPlus } from "lucide-react";
-import { Badge } from "@/app/components/badge";
-import { DropdownMenuItem } from "@/app/components/dropdown-menu";
+import { Badge } from "@/components/badge";
+import { DropdownMenuItem } from "@/components/dropdown-menu";
 
 export interface AppBarUserOptionsProps {
   isMobileView: boolean;

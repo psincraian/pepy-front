@@ -1,5 +1,5 @@
-import SearchBar from "@/app/components/search_bar";
-import AppBar from "@/app/components/app_bar";
+import SearchBar from "@/components/search_bar";
+import AppBar from "@/components/app_bar";
 import styles from "./page.module.css";
 
 

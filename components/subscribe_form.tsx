@@ -1,14 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  FormControl,
-  FormHelperText,
-  Grid,
-  Input,
-  InputLabel,
-} from "@mui/material";
-import { LoadingButton } from "@mui/lab";
-import { DoneOutline, ErrorOutline } from "@mui/icons-material";
+import { FormControl, FormHelperText, Grid, Input, InputLabel } from "@mui/material";
 import { SubscribeButton } from "@/app/projects/[project]/components/subscribe_button";
 
 export const SubscribeForm = () => {

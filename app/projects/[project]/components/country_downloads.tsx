@@ -1,16 +1,14 @@
 import * as d3 from "d3";
+import { GeoGeometryObjects } from "d3";
+import { GeoPermissibleObjects } from "d3";
 import { WORLD } from "@/app/projects/[project]/components/world";
 import { useState } from "react";
 import { useRef } from "react";
-import { useDimensions } from "@/app/components/useDimension";
+import { useEffect } from "react";
+import { useDimensions } from "@/components/useDimension";
 import { Tooltip } from "@/app/projects/[project]/components/tooltip";
-import { GeoGeometryObjects } from "d3";
-import { GeoPermissibleObjects } from "d3";
 import { notFound } from "next/navigation";
 import { CountryDownloadsData } from "@/app/projects/[project]/model";
-import { CountryDownloads } from "@/app/projects/[project]/model";
-import { useEffect } from "react";
-import { string } from "prop-types";
 
 interface CountryDownloadsProps {
   project: string,

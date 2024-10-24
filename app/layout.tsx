@@ -1,6 +1,6 @@
 "use client";
 import "./globals.css";
-import Footer from "@/app/components/footer";
+import Footer from "@/components/footer";
 import { UserProvider } from "@/app/user/UserContext";
 
 

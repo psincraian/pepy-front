@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, Container } from "@mui/material";
-import Emoji from "@/app/components/emoji";
+import { Container, Grid } from "@mui/material";
+import Emoji from "@/components/emoji";
 import styles from "./footer.module.css";
 import Link from "next/link";
 import Image from "next/image";

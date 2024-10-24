@@ -1,10 +1,8 @@
 "use client";
-import { notFound } from "next/navigation";
 import { Button } from "@mui/material";
 import { useState } from "react";
-import { User } from "@/app/user/helper/auth";
 import { useEffect } from "react";
-import LoggedUsersTooltip from "@/app/components/logged_users_tooltip";
+import LoggedUsersTooltip from "@/components/logged_users_tooltip";
 import { useUser } from "@/app/user/UserContext";
 
 

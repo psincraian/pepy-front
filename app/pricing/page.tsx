@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import AppBar from "@/app/components/app_bar";
+import AppBar from "@/components/app_bar";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { PriceComponent } from "@/app/pricing/components/price";

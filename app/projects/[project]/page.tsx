@@ -1,14 +1,13 @@
-import {
-  DownloadData,
-  Project,
-  VersionDownloads
-} from "@/app/projects/[project]/model";
-import DownloadsComponent from "@/app/projects/[project]/components/downloads_component";
+import { DownloadData, Project, VersionDownloads } from "@/app/projects/[project]/model";
 import React, { Suspense } from "react";
-import AppBar from "@/app/components/app_bar";
+import AppBar from "@/components/app_bar";
 import ProjectSummary from "@/app/projects/[project]/components/project_summary";
 import { retrieveTotalDownloadsSince } from "@/app/projects/[project]/helper/compute_downloads";
 import { Grid, Typography } from "@mui/material";
+import { CardHeader } from "@mui/material";
+import { CardActions } from "@mui/material";
+import { Card } from "@mui/material";
+import { CardContent } from "@mui/material";
 import Ads from "@/app/projects/[project]/components/ads";
 import BadgesComponent from "@/app/projects/[project]/components/badge_component";
 import { notFound } from "next/navigation";
@@ -16,16 +15,8 @@ import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
 import { Metadata } from "next";
 import { SubscribeButton } from "@/app/projects/[project]/components/subscribe_button";
-import { CardHeader } from "@mui/material";
-import { CardActions } from "@mui/material";
-import { Card } from "@mui/material";
 import StatsTab from "@/app/projects/[project]/components/stats_tab";
 import { Alert } from "@mui/lab";
-import Emoji from "@/app/components/emoji";
-import { Icon } from "@mui/material";
-import { CakeOutlined } from "@mui/icons-material";
-import { Cake } from "@mui/icons-material";
-import { CardContent } from "@mui/material";
 
 export const runtime = "edge";
 

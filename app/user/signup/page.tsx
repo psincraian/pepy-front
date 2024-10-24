@@ -1,6 +1,6 @@
 "use client";
 
-import AppBar from "@/app/components/app_bar";
+import AppBar from "@/components/app_bar";
 import { SignupForm } from "@/app/user/signup/components/signup_form";
 import { useState } from "react";
 import { ConfirmSignupForm } from "@/app/user/signup/components/confirm_signup_form";
