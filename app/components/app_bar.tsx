@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import { default as MuiAppBar } from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import { Mail } from "lucide-react";
+import { DollarSign } from "lucide-react";
+import { FileCode2 } from "lucide-react";
+import { MoreVertical } from "lucide-react";
+import { Button } from "@/app/components/button";
 import Link from "next/link";
-import { IconButton, Menu, MenuItem } from "@mui/material";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import { AppBarSearchComponent } from "@/app/components/app_bar_search_component";
-import styles from "./app_bar.module.css";
 import { AppBarUserOptions } from "@/app/components/app_bar_user_options.";
+import { DropdownMenu } from "@/app/components/dropdown-menu";
+import { DropdownMenuTrigger } from "@/app/components/dropdown-menu";
+import { DropdownMenuContent } from "@/app/components/dropdown-menu";
+import { DropdownMenuItem } from "@/app/components/dropdown-menu";
 
 interface SearchAppBarProps {
   withSearch?: boolean;
@@ -20,77 +23,70 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
     useState<null | HTMLElement>(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  function renderDesktopView() {
+    return <nav className="hidden md:flex items-center space-x-6">
+      <Link href="/newsletter" passHref>
+        <Button variant="ghost" className="flex items-center space-x-2">
+          <Mail className="h-5 w-5" />
+          <span>Newsletter</span>
+        </Button>
+      </Link>
+      <Link href="/pricing" passHref>
+        <Button variant="ghost" className="flex items-center space-x-2">
+          <DollarSign className="h-5 w-5" />
+          <span>Pricing</span>
+        </Button>
+      </Link>
+      <Link href="/pepy-api" passHref>
+        <Button variant="ghost" className="flex items-center space-x-2">
+          <FileCode2 className="h-5 w-5" />
+          <span>API</span>
+        </Button>
+      </Link>
+      <AppBarUserOptions isMobileView={false} />
+    </nav>;
+  }
+
+  function renderMobileView() {
+    return <div className="md:hidden">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon">
+            <MoreVertical className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuItem className="flex items-center">
+            <Mail className="h-4 w-4 mr-2" />
+            Newsletter
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <DollarSign className="h-4 w-4 mr-2" />
+            Pricing
+          </DropdownMenuItem>
+          <AppBarUserOptions isMobileView={true} />
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>;
+  }
+
   return (
-    <div className={styles.header}>
-      <MuiAppBar position="static" sx={{ flex: 1, flexDirection: "row" }}>
-        <Toolbar className={styles.toolbarContent}>
-          {/* Logo and site name */}
-          <Link href="/" className={styles.link}>
-            <div className={styles.sectionFirst}>
-              <Typography className={styles.title} variant="h6" noWrap>
-                PePy
-              </Typography>
-            </div>
-          </Link>
-
-          {/* Search input */}
-          {withSearch && <AppBarSearchComponent />}
-
-          {/* Desktop view for navigation items */}
-          <div className={styles.sectionDesktop}>
-            <Link className={styles.link} href="/newsletter" passHref>
-              <div className={styles.sectionFirst}>Newsletter</div>
+    <header className="border-b">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-8 w-full">
+            <Link href={"/"}>
+              <div className="flex items-center space-x-2">
+                <span className="text-xl font-bold">pepy.tech</span>
+              </div>
             </Link>
-            <Link className={styles.link} href="/pricing" passHref>
-              <div className={styles.sectionFirst}>Pricing</div>
-            </Link>
-            <Link className={styles.link} href="/pepy-api" passHref>
-              <div className={styles.sectionFirst}>API</div>
-            </Link>
-            <AppBarUserOptions isMobileView={false} />
+            {withSearch && <AppBarSearchComponent />}
           </div>
-
-          {/* Mobile view icon for navigation items */}
-          <div className={styles.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-haspopup="true"
-              onClick={(event) => setMobileMoreAnchorEl(event.currentTarget)}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </MuiAppBar>
-
-      {/* Mobile menu */}
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        keepMounted
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={isMobileMenuOpen}
-        onClose={() => setMobileMoreAnchorEl(null)}
-      >
-        <MenuItem>
-          <Link className={styles.link} href="/newsletter" passHref>
-            <div className={styles.sectionFirst}>Newsletter</div>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link className={styles.link} href="/pricing" passHref>
-            <div className={styles.sectionFirst}>Pricing</div>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link className={styles.link} href="/pepy-api" passHref>
-            <div className={styles.sectionFirst}>API</div>
-          </Link>
-        </MenuItem>
-        <AppBarUserOptions isMobileView={true} />
-      </Menu>
-    </div>
+          {renderDesktopView()}
+          {renderMobileView()}
+        </div>
+      </div>
+    </header>
   );
 };
 

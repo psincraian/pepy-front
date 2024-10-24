@@ -1,9 +1,8 @@
 "use client";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./app_bar_search_component.module.css";
+import { Search } from "lucide-react";
+import { Input } from "@/app/components/input";
 
 export const AppBarSearchComponent: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -14,20 +13,16 @@ export const AppBarSearchComponent: React.FC = () => {
   };
 
   return (
-    <div className={styles.search}>
-      <div className={styles.searchIcon}>
-        <SearchIcon />
-      </div>
-      <InputBase
-        placeholder="Search…"
+    <div className="hidden md:flex relative w-full">
+      <Search className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground pointer-events-none" />
+      <Input
+        placeholder="Search packages..."
+        className="pl-10"
+        suppressHydrationWarning
         value={searchValue}
         onChange={(event) => setSearchValue(event.target.value)}
         onKeyDown={(event) => event.key === "Enter" && handleSearchAction()}
-        classes={{
-          root: styles.inputRoot,
-          input: styles.inputInput,
-        }}
-        inputProps={{ "aria-label": "search" }}
+        type={"search"}
       />
     </div>
   );

@@ -1,54 +1,79 @@
-import styles from "./app_bar.module.css";
 import Link from "next/link";
-import MenuItem from "@mui/material/MenuItem";
-import { ProBadge } from "@/app/components/app_bar_user_pro_badge";
 import { useUser } from "@/app/user/UserContext";
+import { Button } from "@/app/components/button";
+import { LogIn } from "lucide-react";
+import { User } from "lucide-react";
+import { UserPlus } from "lucide-react";
+import { Badge } from "@/app/components/badge";
+import { DropdownMenuItem } from "@/app/components/dropdown-menu";
+
 export interface AppBarUserOptionsProps {
   isMobileView: boolean;
 }
 
 export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
-  const { user, error } = useUser();
+  const { user } = useUser();
 
-  const proChip = user?.isPro ? (<ProBadge />) : null;
+  const isPro = !!user?.isPro;
 
-  function renderDesktopView() {
+  function renderMobileView() {
     return user ? (
-      <Link className={styles.link} href="/user" passHref>
-        <div className={styles.sectionFirst}>Hi {user.username}{proChip}</div>
+      <Link href="/user" passHref>
+        <DropdownMenuItem className="flex items-center">
+          <User className="h-4 w-4 mr-2" />
+          Profile
+          {isPro && (
+            <Badge variant="secondary" className="ml-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+              Pro
+            </Badge>
+          )}
+        </DropdownMenuItem>
       </Link>
     ) : (
       <>
-        <Link className={styles.link} href="/user/login" passHref>
-          <div className={styles.sectionFirst}>Login</div>
+        <Link href="/user/login" passHref>
+          <DropdownMenuItem className="flex items-center">
+            <LogIn className="h-4 w-4 mr-2" />
+            Login
+          </DropdownMenuItem>
         </Link>
-        <div className={styles.linkSmallSpace}>|</div>
-        <Link className={styles.linkSmallSpace} href="/user/signup" passHref>
-          <div className={styles.sectionFirst}>{" "}Sign up</div>
+        <Link href="/user/signup" passHref>
+          <DropdownMenuItem className="font-medium text-blue-600">
+            <UserPlus className="h-4 w-4 mr-2" />
+            Sign up
+          </DropdownMenuItem>
         </Link>
       </>
     );
   }
 
-  function renderMobileView() {
+  function renderDesktopView() {
     return user ? (
-      <MenuItem>
-        <Link className={styles.link} href="/user" passHref>
-          <div className={styles.sectionFirst}>Profile</div>
-        </Link>
-      </MenuItem>
+      <Link href="/user" passHref>
+        <Button variant="ghost" className="flex items-center space-x-2">
+          <User className="h-5 w-5" />
+          <span>Profile</span>
+          {isPro && (
+            <Badge variant="secondary" className="ml-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+              Pro
+            </Badge>
+          )}
+        </Button>
+      </Link>
     ) : (
       <>
-        <MenuItem>
-          <Link className={styles.link} href="/user/login" passHref>
-            <div className={styles.sectionFirst}>Login</div>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link className={styles.link} href="/user/signup" passHref>
-            <div className={styles.sectionFirst}>Sign up</div>
-          </Link>
-        </MenuItem>
+        <Link href="/user/login" passHref>
+          <Button variant="ghost">
+            <LogIn className="h-5 w-5 mr-2" />
+            Login
+          </Button>
+        </Link>
+        <Link href="/user/signup" passHref>
+          <Button className="bg-blue-600 hover:bg-blue-700">
+            <UserPlus className="h-5 w-5 mr-2" />
+            Sign up
+          </Button>
+        </Link>
       </>
     );
   }

@@ -13,7 +13,7 @@ export default async function Home() {
       </header>
       <main className={styles.main}>
         <div>
-          <h1>pepy.tech</h1>
+          <h1 className="text-3xl">pepy.tech</h1>
           <SearchBar />
         </div>
       </main>
