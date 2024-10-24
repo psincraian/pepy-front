@@ -13,7 +13,7 @@ export const AppBarSearchComponent: React.FC = () => {
   };
 
   return (
-    <div className="hidden md:flex relative w-full">
+    <div className="flex relative w-full">
       <Search className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground pointer-events-none" />
       <Input
         placeholder="Search packages..."

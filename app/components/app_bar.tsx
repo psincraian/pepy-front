@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Mail } from "lucide-react";
 import { DollarSign } from "lucide-react";
 import { FileCode2 } from "lucide-react";
@@ -18,13 +18,8 @@ interface SearchAppBarProps {
 }
 
 const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
-  // State variables for search value and mobile menu control
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-    useState<null | HTMLElement>(null);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
   function renderDesktopView() {
-    return <nav className="hidden md:flex items-center space-x-6">
+    return <nav className="hidden lg:flex items-center space-x-6">
       <Link href="/newsletter" passHref>
         <Button variant="ghost" className="flex items-center space-x-2">
           <Mail className="h-5 w-5" />
@@ -48,7 +43,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
   }
 
   function renderMobileView() {
-    return <div className="md:hidden">
+    return <div className="lg:hidden">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon">
@@ -56,14 +51,24 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuItem className="flex items-center">
-            <Mail className="h-4 w-4 mr-2" />
-            Newsletter
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <DollarSign className="h-4 w-4 mr-2" />
-            Pricing
-          </DropdownMenuItem>
+          <Link href="/newsletter" passHref>
+            <DropdownMenuItem className="flex items-center">
+              <Mail className="h-4 w-4 mr-2" />
+              Newsletter
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/pricing" passHref>
+            <DropdownMenuItem>
+              <DollarSign className="h-4 w-4 mr-2" />
+              Pricing
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/pepy-api" passHref>
+            <DropdownMenuItem>
+              <FileCode2 className="h-4 w-4 mr-2" />
+              <span>API</span>
+            </DropdownMenuItem>
+          </Link>
           <AppBarUserOptions isMobileView={true} />
         </DropdownMenuContent>
       </DropdownMenu>
@@ -75,7 +80,7 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8 w-full">
-            <Link href={"/"}>
+            <Link href="/">
               <div className="flex items-center space-x-2">
                 <span className="text-xl font-bold">pepy.tech</span>
               </div>
