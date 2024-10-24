@@ -1,6 +1,5 @@
 "use client";
 
-import AppBar from "@/components/app_bar";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Grid } from "@mui/material";
@@ -39,9 +38,6 @@ export default function Home() {
 
   return (
     <div>
-      <header>
-        <AppBar />
-      </header>
       <main>
         <h1>
           Subscriptions

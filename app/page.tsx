@@ -1,22 +1,44 @@
-import SearchBar from "@/components/search_bar";
-import AppBar from "@/components/app_bar";
-import styles from "./page.module.css";
+import { Package } from "lucide-react";
+import { PopularPackages } from "@/components/popular-packages";
+import { SearchBar } from "@/components/search-bar";
 
 
 export const runtime = "edge";
 
-export default async function Home() {
+export default function Home() {
   return (
-    <>
-      <header className={styles.header}>
-        <AppBar withSearch={false} />
-      </header>
-      <main className={styles.main}>
-        <div>
-          <h1 className="text-3xl">pepy.tech</h1>
-          <SearchBar />
+    <div className="min-h-[calc(100vh-140px)] flex flex-col">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="flex justify-center mb-6">
+            <Package className="h-16 w-16 text-blue-600" />
+          </div>
+          <h1
+            className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+            Python Package Analytics
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8">
+            Track downloads, analyze trends, and gain insights into the Python ecosystem
+          </p>
+          <SearchBar className="mb-8" />
+          <PopularPackages />
         </div>
-      </main>
-    </>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">300K+</h2>
+            <p className="text-muted-foreground">Python packages tracked</p>
+          </div>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">1B+</h2>
+            <p className="text-muted-foreground">Monthly downloads analyzed</p>
+          </div>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">50K+</h2>
+            <p className="text-muted-foreground">Active developers</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

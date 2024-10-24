@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
-import AppBar from "@/components/app_bar";
 import { SubscribeForm } from "@/components/subscribe_form";
 import Emoji from "@/components/emoji";
 import styles from "./page.module.css";
@@ -9,7 +8,6 @@ import Image from "next/image";
 const Newsletter = () => {
   return (
     <>
-      <AppBar />
       <main>
         <Grid container justifyContent="center" rowSpacing={6}>
           <Grid item xs={12}>

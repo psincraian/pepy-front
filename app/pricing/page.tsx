@@ -1,7 +1,6 @@
 "use client";
 
 import Script from "next/script";
-import AppBar from "@/components/app_bar";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { PriceComponent } from "@/app/pricing/components/price";
@@ -56,7 +55,6 @@ export default function Home() {
   return (
     <>
       <Script src="https://js.stripe.com/v3/pricing-table.js" async={true} />
-      <AppBar withSearch={true} />
       <main>
         <Typography variant="h2">Pricing</Typography>
         {pricingTable}

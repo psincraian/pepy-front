@@ -1,6 +1,5 @@
 "use client";
 
-import AppBar from "@/components/app_bar";
 import { useState } from "react";
 import { Button, Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -65,9 +64,6 @@ export default function Home() {
 
   return (
     <div>
-      <header>
-        <AppBar />
-      </header>
       <main>
         <h1>Password reset</h1>
         {content}

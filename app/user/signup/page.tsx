@@ -1,6 +1,5 @@
 "use client";
 
-import AppBar from "@/components/app_bar";
 import { SignupForm } from "@/app/user/signup/components/signup_form";
 import { useState } from "react";
 import { ConfirmSignupForm } from "@/app/user/signup/components/confirm_signup_form";
@@ -65,9 +64,6 @@ export default function Home() {
 
   return (
     <div>
-      <header>
-        <AppBar />
-      </header>
       <main>
         <h1>Sign up</h1>
         {content}

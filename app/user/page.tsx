@@ -1,6 +1,5 @@
 "use client";
 
-import AppBar from "@/components/app_bar";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Card } from "@mui/material";
@@ -23,9 +22,6 @@ export default function Home() {
 
   return (
     <div>
-      <header>
-        <AppBar />
-      </header>
       <main>
         <h1>
           Hello {user !== null ? user.username : "pythonista"}

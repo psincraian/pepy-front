@@ -1,11 +1,9 @@
 import React from "react";
-import AppBar from "@/components/app_bar";
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
     <>
-      <AppBar withSearch={true} />
       <main className={styles.main}>
         <h1 className={styles.heading}>API Documentation</h1>
 
