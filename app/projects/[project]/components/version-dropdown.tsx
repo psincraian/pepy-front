@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
+import { getDownloadColor } from "@/app/projects/[project]/helper/downloads-color";
 
 export interface Version {
   version: string;
@@ -27,17 +28,6 @@ interface VersionDropdownProps {
 
 type Selection = Version | VersionPattern;
 
-const getDownloadColor = (downloads: number) => {
-  const colors = ["bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-green-500", "bg-blue-500"];
-  let index = 0;
-  while (downloads > 100 && index < colors.length - 1) {
-    downloads /= 100;
-    index++;
-  }
-
-  return colors[index];
-};
-
 function matchesPattern(version: string, pattern: string): boolean {
   if (!pattern.includes("*")) return version === pattern;
   const regex = new RegExp(
@@ -50,6 +40,40 @@ function isVersionPattern(selection: Selection): selection is VersionPattern {
   return "type" in selection && selection.type === "pattern";
 }
 
+
+function VersionDropdownChip(props: {
+  color: string,
+  selection: Selection,
+  onKeyDown: (e) => void,
+  onMouseDown: (e) => void,
+  onClick: () => void
+}) {
+  return <Badge
+
+    variant="outline"
+    className={cn(
+      "flex items-center gap-1 border-0",
+      props.color.replace("bg-", "bg-opacity-20 ")
+    )}
+  >
+    <div className={cn("w-2 h-2 rounded-full", props.color)} />
+    {isVersionPattern(props.selection) ? props.selection.pattern : props.selection.version}
+    {!isVersionPattern(props.selection) && (
+      <span className="text-xs text-muted-foreground">
+                    ({formatDownloads(props.selection.downloads)})
+                  </span>
+    )}
+    <button
+      className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+      onKeyDown={props.onKeyDown}
+      onMouseDown={props.onMouseDown}
+      onClick={props.onClick}
+    >
+      <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+    </button>
+  </Badge>;
+}
+
 export function VersionDropdown({
                                   versions,
                                   maxSelections = 5,
@@ -58,11 +82,6 @@ export function VersionDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [selections, setSelections] = useState<Selection[]>([]);
-
-  const maxDownloads = useMemo(() =>
-      Math.max(...versions.map(v => v.downloads)),
-    [versions]
-  );
 
   const selectedVersions = useMemo(() => {
     const directVersions = selections.filter((s): s is Version => !isVersionPattern(s));
@@ -191,35 +210,16 @@ export function VersionDropdown({
               : getDownloadColor(selection.downloads);
 
             return (
-              <Badge
-                key={isVersionPattern(selection) ? selection.pattern : selection.version}
-                variant="outline"
-                className={cn(
-                  "flex items-center gap-1 border-0",
-                  color.replace("bg-", "bg-opacity-20 ")
-                )}
-              >
-                <div className={cn("w-2 h-2 rounded-full", color)} />
-                {isVersionPattern(selection) ? selection.pattern : selection.version}
-                {!isVersionPattern(selection) && (
-                  <span className="text-xs text-muted-foreground">
-                    ({formatDownloads(selection.downloads)})
-                  </span>
-                )}
-                <button
-                  className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") removeSelection(selection);
-                  }}
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                  onClick={() => removeSelection(selection)}
-                >
-                  <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-                </button>
-              </Badge>
+              <VersionDropdownChip key={isVersionPattern(selection) ? selection.pattern : selection.version}
+                                   color={color} selection={selection}
+                                   onKeyDown={(e) => {
+                                     if (e.key === "Enter") removeSelection(selection);
+                                   }}
+                                   onMouseDown={(e) => {
+                                     e.preventDefault();
+                                     e.stopPropagation();
+                                   }}
+                                   onClick={() => removeSelection(selection)} />
             );
           })}
         </div>
