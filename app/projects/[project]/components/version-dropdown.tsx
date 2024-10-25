@@ -2,6 +2,7 @@
 
 import React, { useCallback, useMemo, useState } from "react";
 import { Check, ChevronDown, HelpCircle, X } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
@@ -198,7 +199,7 @@ export function VersionDropdown({
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <ChevronDown className="h-4 w-4 opacity-50" />
+              {isOpen ? <ChevronUp className="h-4 w-4 opacity-50" /> : <ChevronDown className="h-4 w-4 opacity-50" />}
             </Button>
           </div>
         </div>
