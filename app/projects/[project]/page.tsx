@@ -1,6 +1,5 @@
 import { DownloadData, Project, VersionDownloads } from "@/app/projects/[project]/model";
 import React from "react";
-import { retrieveTotalDownloadsSince } from "@/app/projects/[project]/helper/compute_downloads";
 import { notFound } from "next/navigation";
 import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
@@ -59,14 +58,6 @@ export default async function Page({
                                      params
                                    }: ProjectProps) {
   const project = await getData(params.project);
-  const totalDownloads30Days = retrieveTotalDownloadsSince(
-    project.downloads,
-    new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
-  );
-  const totalDownloads7Days = retrieveTotalDownloadsSince(
-    project.downloads,
-    new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-  );
 
   return (
     <main>

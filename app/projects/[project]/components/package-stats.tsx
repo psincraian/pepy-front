@@ -11,35 +11,85 @@ import { Badge } from "@/components/ui/badge";
 import { StatsControls } from "@/app/projects/[project]/components/stats-controls";
 import { Project } from "@/app/projects/[project]/model";
 import { DisplayStyle } from "@/app/projects/[project]/model";
+import { DownloadData } from "@/app/projects/[project]/model";
+import { VersionDownloads } from "@/app/projects/[project]/model";
+import { Range } from "@/app/projects/[project]/model";
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { computeTotalDownloadsByVersion } from "@/app/projects/[project]/helper/compute_downloads";
 import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downloads";
 import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
+import { notFound } from "next/navigation";
+import { useUser } from "@/app/user/UserContext";
+
+async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
+  console.log("Fetching data for", project);
+  const res = await fetch(`/api/v3/pro/projects/${project}/downloads`, {
+    headers: {
+      "X-Api-Key": process.env.PEPY_API_KEY!
+    },
+    next: { revalidate: 3600 }
+  });
+  if (res.status === 404) {
+    notFound();
+  } else if (res.status !== 200) {
+    throw new Error(`Server error: ${res.status}`);
+  }
+
+  const downloadData: DownloadData = {};
+  let response = await res.json();
+  for (const [date, downloads] of Object.entries(response.downloads)) {
+    const verionDownloads: VersionDownloads = {};
+    for (const [version, count] of Object.entries(downloads!)) {
+      verionDownloads[version] = count;
+    }
+
+    downloadData[date] = verionDownloads;
+  }
+
+  return downloadData;
+}
 
 export function PackageStats({ project }: { project: Project }) {
-  const [showCI, setShowCI] = useState(false);
+  const { user } = useUser();
   const [viewType, setViewType] = useState<"chart" | "table">("chart");
-  const [timeRange, setTimeRange] = useState("30d");
+  const [timeRange, setTimeRange] = useState(Range.FOUR_MONTHS);
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
   const [category, setCategory] = useState("version");
+  const [downloadsData, setDownloadsData] = useState(project.downloads);
 
   const versionDownloadsCache = useMemo(() => {
-    return computeTotalDownloadsByVersion(project.downloads);
-  }, [project.downloads]);
+    return computeTotalDownloadsByVersion(downloadsData);
+  }, [downloadsData]);
 
   const versions = project.versions
-    .reverse()
+    .toReversed()
     .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
   const [selectedVersions, setSelectedVersions] = useState<Version[]>(versions.slice(0, 3));
+
+  function handleRangeChange(range: Range) {
+    setTimeRange(range);
+    if (range !== Range.ONE_YEAR) {
+      setDownloadsData(project.downloads);
+      return;
+    }
+
+    if (granularity == DisplayStyle.DAILY) {
+      setGranularity(DisplayStyle.WEEKLY);
+    }
+
+    getOneYearDownloadsData(project.name).then(data => {
+      setDownloadsData(data);
+    });
+  }
 
 
   const downloadsCache = useMemo(() => {
     return retrieveDownloads(
-      project.downloads,
+      downloadsData,
       selectedVersions.map((value) => value.version),
       granularity
     );
-  }, [project.downloads, selectedVersions, granularity]);
+  }, [downloadsData, selectedVersions, granularity]);
 
 
   return (
@@ -77,20 +127,18 @@ export function PackageStats({ project }: { project: Project }) {
         <TabsContent value="downloads">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[600px]">
             <StatsControls
-              showCI={showCI}
-              setShowCI={setShowCI}
               viewType={viewType}
               setViewType={setViewType}
               versions={versions}
               selectedVersions={selectedVersions}
               setSelectedVersions={setSelectedVersions}
               timeRange={timeRange}
-              setTimeRange={setTimeRange}
+              setTimeRange={handleRangeChange}
               granularity={granularity}
               setGranularity={setGranularity}
               category={category}
               setCategory={setCategory}
-            />
+              isUserPro={user?.isPro ?? false} />
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-full">
                 <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)} data={downloadsCache} />
