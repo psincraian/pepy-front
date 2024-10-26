@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Crown } from "lucide-react";
 import { VersionDropdown } from "@/app/projects/[project]/components/version-dropdown";
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
+import { DisplayStyle } from "@/app/projects/[project]/model";
 
 interface StatsControlsProps {
   showCI: boolean;
@@ -19,8 +20,8 @@ interface StatsControlsProps {
   setSelectedVersions: (value: Version[]) => void;
   timeRange: string;
   setTimeRange: (value: string) => void;
-  granularity: string;
-  setGranularity: (value: string) => void;
+  granularity: DisplayStyle;
+  setGranularity: (value: DisplayStyle) => void;
   category: string;
   setCategory: (value: string) => void;
 }
@@ -41,7 +42,7 @@ export function StatsControls({
                                 setCategory
                               }: StatsControlsProps) {
   return (
-    <Card className="p-6 h-full overflow-auto">
+    <Card className="p-6 h-full min-h-200 overflow-auto">
       <div className="space-y-4">
         <div className="space-y-2">
           <Label>Time Range</Label>
@@ -65,14 +66,17 @@ export function StatsControls({
 
         <div className="space-y-2">
           <Label>Time Granularity</Label>
-          <Select value={granularity} onValueChange={setGranularity}>
+          <Select value={DisplayStyle[granularity]} onValueChange={(v: string) => {
+            const granularity: DisplayStyle = DisplayStyle[v as keyof typeof DisplayStyle];
+            setGranularity(granularity);
+          }}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="daily">Daily</SelectItem>
-              <SelectItem value="weekly">Weekly</SelectItem>
-              <SelectItem value="monthly">Monthly</SelectItem>
+              <SelectItem value={DisplayStyle[DisplayStyle.DAILY]}>Daily</SelectItem>
+              <SelectItem value={DisplayStyle[DisplayStyle.WEEKLY]}>Weekly</SelectItem>
+              <SelectItem value={DisplayStyle[DisplayStyle.MONTHLY]}>Monthly</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -99,7 +103,8 @@ export function StatsControls({
 
         <div className="space-y-2">
           <Label>Package Version</Label>
-          <VersionDropdown versions={versions} maxSelections={5} onSelectVersions={setSelectedVersions} />
+          <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
+                           onSelectVersions={setSelectedVersions} />
         </div>
 
         <div className="flex items-center justify-between">

@@ -23,6 +23,7 @@ interface VersionPattern {
 
 interface VersionDropdownProps {
   versions: Version[];
+  initialVersions: Version[];
   maxSelections?: number;
   onSelectVersions: (versions: Version[]) => void;
 }
@@ -41,12 +42,11 @@ function isVersionPattern(selection: Selection): selection is VersionPattern {
   return "type" in selection && selection.type === "pattern";
 }
 
-
 function VersionDropdownChip(props: {
   color: string,
   selection: Selection,
-  onKeyDown: (e) => void,
-  onMouseDown: (e) => void,
+  onKeyDown: (e: any) => void,
+  onMouseDown: (e: any) => void,
   onClick: () => void
 }) {
   return <Badge
@@ -77,12 +77,13 @@ function VersionDropdownChip(props: {
 
 export function VersionDropdown({
                                   versions,
+                                  initialVersions,
                                   maxSelections = 5,
                                   onSelectVersions
                                 }: VersionDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [selections, setSelections] = useState<Selection[]>([]);
+  const [selections, setSelections] = useState<Selection[]>(initialVersions);
 
   const selectedVersions = useMemo(() => {
     const directVersions = selections.filter((s): s is Version => !isVersionPattern(s));

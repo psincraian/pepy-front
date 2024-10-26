@@ -10,21 +10,37 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatsControls } from "@/app/projects/[project]/components/stats-controls";
 import { Project } from "@/app/projects/[project]/model";
+import { DisplayStyle } from "@/app/projects/[project]/model";
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { computeTotalDownloadsByVersion } from "@/app/projects/[project]/helper/compute_downloads";
+import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downloads";
+import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
 
 export function PackageStats({ project }: { project: Project }) {
   const [showCI, setShowCI] = useState(false);
   const [viewType, setViewType] = useState<"chart" | "table">("chart");
-  const [selectedVersions, setSelectedVersions] = useState<Version[]>([]);
   const [timeRange, setTimeRange] = useState("30d");
-  const [granularity, setGranularity] = useState("daily");
+  const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
   const [category, setCategory] = useState("version");
 
   const versionDownloadsCache = useMemo(() => {
     return computeTotalDownloadsByVersion(project.downloads);
   }, [project.downloads]);
-  console.log(versionDownloadsCache);
+
+  const versions = project.versions
+    .reverse()
+    .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
+  const [selectedVersions, setSelectedVersions] = useState<Version[]>(versions.slice(0, 3));
+
+
+  const downloadsCache = useMemo(() => {
+    return retrieveDownloads(
+      project.downloads,
+      selectedVersions.map((value) => value.version),
+      granularity
+    );
+  }, [project.downloads, selectedVersions, granularity]);
+
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -65,7 +81,7 @@ export function PackageStats({ project }: { project: Project }) {
               setShowCI={setShowCI}
               viewType={viewType}
               setViewType={setViewType}
-              versions={project.versions.map(value => ({ version: value, downloads: versionDownloadsCache[value] }))}
+              versions={versions}
               selectedVersions={selectedVersions}
               setSelectedVersions={setSelectedVersions}
               timeRange={timeRange}
@@ -77,7 +93,7 @@ export function PackageStats({ project }: { project: Project }) {
             />
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-full">
-                TODO
+                <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)} data={downloadsCache} />
               </Card>
             </div>
           </div>
