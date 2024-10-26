@@ -29,9 +29,9 @@ const DownloadsChart: React.FC<DownloadsChartProps> = (props) => {
   );
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full min-h-80">
 
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" minHeight="100%">
         <LineChart data={transformedData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date"

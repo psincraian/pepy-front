@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useCallback, useMemo, useState } from "react";
-import { Check, ChevronDown, HelpCircle, X } from "lucide-react";
+import { Check, ChevronDown, X } from "lucide-react";
 import { ChevronUp } from "lucide-react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -184,18 +183,8 @@ export function VersionDropdown({
             onClick={() => setIsOpen(true)}
           />
           <div className="absolute right-1 flex items-center gap-1">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger type="button">
-                  <HelpCircle className="h-4 w-4 text-muted-foreground" />
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  <p>Type exact version or use patterns (e.g., 2.* or 1.2.*)</p>
-                  <p>Press Enter to add</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <Button
+
+          <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}

@@ -20,6 +20,7 @@ import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downl
 import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
 import { notFound } from "next/navigation";
 import { useUser } from "@/app/user/UserContext";
+import { SignInToSubscribeDialog } from "@/components/sign-in-to-subscribe-dialog";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -56,6 +57,7 @@ export function PackageStats({ project }: { project: Project }) {
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
   const [category, setCategory] = useState("version");
   const [downloadsData, setDownloadsData] = useState(project.downloads);
+  const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
 
   const versionDownloadsCache = useMemo(() => {
     return computeTotalDownloadsByVersion(downloadsData);
@@ -80,6 +82,13 @@ export function PackageStats({ project }: { project: Project }) {
     getOneYearDownloadsData(project.name).then(data => {
       setDownloadsData(data);
     });
+  }
+
+  function handleSubscribe() {
+    if (!user) {
+      setLoginDialogOpen(true);
+      return;
+    }
   }
 
 
@@ -111,7 +120,7 @@ export function PackageStats({ project }: { project: Project }) {
               </Badge>
             </div>
           </div>
-          <Button className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={handleSubscribe} className="bg-blue-600 hover:bg-blue-700">
             Subscribe to Updates
           </Button>
         </div>
@@ -187,6 +196,7 @@ export function PackageStats({ project }: { project: Project }) {
           </Card>
         </TabsContent>
       </Tabs>
+      <SignInToSubscribeDialog open={isLoginDialogOpen} onClose={() => setLoginDialogOpen(false)} />
     </div>
   );
 }

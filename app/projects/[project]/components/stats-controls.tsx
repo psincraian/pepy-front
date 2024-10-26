@@ -5,12 +5,18 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Crown } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 import { VersionDropdown } from "@/app/projects/[project]/components/version-dropdown";
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { DisplayStyle } from "@/app/projects/[project]/model";
 import { Range } from "@/app/projects/[project]/model";
 import { ProDialog } from "@/components/ProDialog";
 import { useState } from "react";
+import React from "react";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
+import { TooltipTrigger } from "@/components/ui/tooltip";
+import { TooltipContent } from "@/components/ui/tooltip";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -133,7 +139,20 @@ export function StatsControls({
         </div>
 
         <div className="space-y-2">
-          <Label>Package Version</Label>
+          <div className="flex flex-row items-center">
+            <Label>Package Version</Label>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger type="button" className="ml-2">
+                  <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <p>Type exact version or use patterns (e.g., 2.* or 1.2.*)</p>
+                  <p>Press Enter to add</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
           <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
                            onSelectVersions={setSelectedVersions} />
         </div>
