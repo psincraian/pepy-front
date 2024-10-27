@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useMemo } from "react";
 import React from "react";
-import { Star } from "lucide-react";
+import { useEffect } from "react";
 import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
@@ -30,6 +30,8 @@ import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
 import CountryDownloadsComponent from "@/app/projects/[project]/components/country-downloads";
 import { BadgeConfigurator } from "@/app/projects/[project]/components/badge-configurator";
+import { PyPiInfo } from "@/app/projects/[project]/components/PackageInfo";
+import { PackageInfo } from "@/app/projects/[project]/components/PackageInfo";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -59,6 +61,56 @@ async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   return downloadData;
 }
 
+// Function to get the latest release date for the version in `info`
+function getLatestReleaseDateForVersion(data: any): string | null {
+  const version = data.info.version;
+  const releases = data.releases[version];
+
+  if (!releases || releases.length === 0) {
+    return null; // No release data for the specified version
+  }
+
+  // Find the latest date for this specific version
+  let latestDate = new Date(releases[0].upload_time_iso_8601);
+  for (const release of releases) {
+    const releaseDate = new Date(release.upload_time_iso_8601);
+    if (releaseDate > latestDate) {
+      latestDate = releaseDate;
+    }
+  }
+
+  return latestDate.toISOString();
+}
+
+async function getPypiInfo(project: string): Promise<PyPiInfo> {
+  console.log("Fetching data for", project);
+  const res = await fetch(`https://pypi.org/pypi/${project}/json`, {
+    next: { revalidate: 24 * 60 * 60 }
+  });
+  if (res.status !== 200) {
+    return {
+      summary: "No summary found",
+      lastRelease: "No last release found",
+      releaseDate: "No release date found",
+      homepageUrl: null,
+      sourceUrl: null,
+      author: "N/A"
+    };
+  }
+
+  const response = await res.json();
+  return {
+    packageName: project,
+    summary: response["info"]["summary"],
+    lastRelease: response["info"]["version"],
+    releaseDate: getLatestReleaseDateForVersion(response)!,
+    homepageUrl: response["info"]["home_page"],
+    sourceUrl: response["info"]["project_urls"]["Source"],
+    author: response["info"]["author"]
+  };
+}
+
+
 export function PackageStats({ project }: { project: Project }) {
   const { user } = useUser();
   const [viewType, setViewType] = useState<"chart" | "table">("chart");
@@ -67,6 +119,21 @@ export function PackageStats({ project }: { project: Project }) {
   const [category, setCategory] = useState<"version" | "country">("version");
   const [downloadsData, setDownloadsData] = useState(project.downloads);
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
+  const [pypiInfo, setPypiInfo] = useState<PyPiInfo>({
+    packageName: project.name,
+    summary: "",
+    lastRelease: "",
+    releaseDate: "",
+    homepageUrl: null,
+    sourceUrl: null,
+    author: ""
+  });
+
+  useEffect(() => {
+    getPypiInfo(project.name).then(data => {
+      setPypiInfo(data);
+    });
+  }, [project.name]);
 
   const versionDownloadsCache = useMemo(() => {
     return computeTotalDownloadsByVersion(downloadsData);
@@ -100,7 +167,6 @@ export function PackageStats({ project }: { project: Project }) {
     }
   }
 
-
   const downloadsCache = useMemo(() => {
     return retrieveDownloads(
       downloadsData,
@@ -117,15 +183,11 @@ export function PackageStats({ project }: { project: Project }) {
           <div>
             <h1 className="text-3xl font-bold mb-2">{project.name}</h1>
             <p className="text-muted-foreground mb-4">
-              {"TODO: Package description loading..."}
+              {pypiInfo.summary}
             </p>
             <div className="flex items-center space-x-4">
               <Badge variant="secondary" className="text-sm">
-                <Star className="h-4 w-4 mr-1 inline" />
-                TODO
-              </Badge>
-              <Badge variant="secondary" className="text-sm">
-                TODO
+                {pypiInfo.lastRelease}
               </Badge>
               <TooltipProvider>
                 <Tooltip>
@@ -177,11 +239,11 @@ export function PackageStats({ project }: { project: Project }) {
 
                   category == "country" ?
                     <CountryDownloadsComponent view={viewType} project={project.name} /> :
-                  viewType == "table" ?
-                    <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
-                                    data={downloadsCache} /> :
-                    <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)}
-                                    data={downloadsCache} />
+                    viewType == "table" ?
+                      <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
+                                      data={downloadsCache} /> :
+                      <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)}
+                                      data={downloadsCache} />
                 }
               </Card>
             </div>
@@ -189,24 +251,10 @@ export function PackageStats({ project }: { project: Project }) {
         </TabsContent>
 
         <TabsContent value="info">
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-4">Package Information</h2>
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                {"Package information loading..."}
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="font-semibold">Latest Version</h3>
-                  <p className="text-muted-foreground">TODO</p>
-                </div>
-                <div>
-                  <h3 className="font-semibold">Release Date</h3>
-                  <p className="text-muted-foreground">TODO</p>
-                </div>
-              </div>
-            </div>
-          </Card>
+          <PackageInfo packageName={project.name} summary={pypiInfo.summary} author={pypiInfo.author}
+                       homepageUrl={pypiInfo.homepageUrl}
+                       lastRelease={pypiInfo.lastRelease} releaseDate={pypiInfo.releaseDate}
+                       sourceUrl={pypiInfo.sourceUrl} />
         </TabsContent>
 
         <TabsContent value="badge">
