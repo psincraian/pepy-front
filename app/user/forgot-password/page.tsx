@@ -1,73 +1,39 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { ForgotPasswordForm } from "@/app/user/forgot-password/components/forgot_password_form";
-import { ConfirmNewPasswordForm } from "@/app/user/forgot-password/components/confirm_password";
+import RecoverPasswordForm from "@/app/user/forgot-password/components/recover-password-form";
+import { ConfirmPasswordForm } from "@/app/user/forgot-password/components/confirm-password-form";
 
-enum SignupState {
-  STARTED,
-  CODE_VERIFICATION,
-  COMPLETED,
-}
-
-export default function Home() {
+export default function LoginPage() {
+  const [step, setStep] = useState<"first" | "verify">("first");
+  const [email, setEmail] = useState("");
   const router = useRouter();
 
-  const [submissionStatus, setSubmissionStatus] = useState({
-    status: SignupState.STARTED,
-    email: "",
-  });
+  const handleSignupSuccess = (email: string) => {
+    setEmail(email);
+    setStep("verify");
+  };
 
-  var content = null;
-  if (submissionStatus.status === SignupState.STARTED) {
-    content = (
-      <ForgotPasswordForm
-        onSuccess={(email) =>
-          setSubmissionStatus({
-            status: SignupState.CODE_VERIFICATION,
-            email: email,
-          })
-        }
-      />
-    );
-  } else if (submissionStatus.status === SignupState.CODE_VERIFICATION) {
-    content = (
-      <ConfirmNewPasswordForm
-        email={submissionStatus.email}
-        onSuccess={() =>
-          setSubmissionStatus({
-            ...submissionStatus,
-            status: SignupState.COMPLETED,
-          })
-        }
-      />
-    );
-  } else {
-    content = (
-      <Grid container alignItems="center" justifyContent="center" spacing={4}>
-        <Grid item xs={12} sm={8}>
-          Password reset correctly. You can now login.
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <Button
-            variant="contained"
-            onClick={() => router.push("/user/login")}
-          >
-            Login
-          </Button>
-        </Grid>
-      </Grid>
-    );
-  }
+  const handleVerificationComplete = () => {
+    router.push("/user/login?recovered=true");
+  };
+
+  const handleResendCode = async () => {
+    // Add resend verification code logic here
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  };
 
   return (
-    <div>
-      <main>
-        <h1>Password reset</h1>
-        {content}
-      </main>
+    <div className="container mx-auto px-4 py-12">
+      {step === "first" ? (
+        <RecoverPasswordForm onCodeRequested={handleSignupSuccess} />
+      ) : (
+        <ConfirmPasswordForm
+          email={email}
+          onConfirmationSuccess={handleVerificationComplete}
+        />
+      )}
     </div>
   );
 }

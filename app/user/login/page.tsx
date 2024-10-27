@@ -13,7 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { Alert } from "@/components/ui/alert";
 import { AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import { TicketCheck } from "lucide-react";
+import { Check } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,6 +26,7 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const verified = searchParams.get("verified");
+  const recovered = searchParams.get("recovered");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,8 +61,15 @@ export default function LoginPage() {
 
         {verified && (
           <Alert variant="success" className="mb-6">
-            <TicketCheck className="h-4 w-4" />
+            <Check className="h-4 w-4" />
             <AlertDescription>Registration succeeded</AlertDescription>
+          </Alert>
+        )}
+
+        {recovered && (
+          <Alert variant="success" className="mb-6">
+            <Check className="h-4 w-4" />
+            <AlertDescription>Password recovery succeeded</AlertDescription>
           </Alert>
         )}
 
