@@ -21,6 +21,7 @@ import DownloadsChart from "@/app/projects/[project]/components/downloads_chart"
 import { notFound } from "next/navigation";
 import { useUser } from "@/app/user/UserContext";
 import { SignInToSubscribeDialog } from "@/components/sign-in-to-subscribe-dialog";
+import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -149,8 +150,14 @@ export function PackageStats({ project }: { project: Project }) {
               setCategory={setCategory}
               isUserPro={user?.isPro ?? false} />
             <div className="lg:col-span-3 h-full">
-              <Card className="p-6 h-full">
-                <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)} data={downloadsCache} />
+              <Card className="p-6 h-[600px] ">
+                {
+                  viewType == "table" ?
+                    <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
+                                    data={downloadsCache} /> :
+                    <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)}
+                                    data={downloadsCache} />
+                }
               </Card>
             </div>
           </div>

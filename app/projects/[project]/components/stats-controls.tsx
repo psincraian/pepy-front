@@ -69,7 +69,7 @@ export function StatsControls({
   }
 
   return (
-    <Card className="p-6 h-full min-h-200 overflow-auto">
+    <Card className="p-6 h-[600px] overflow-auto">
       <div className="space-y-4">
         <div className="space-y-2">
           <Label>Time Range</Label>

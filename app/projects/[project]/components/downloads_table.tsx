@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableContainer,
-} from "@mui/material";
 import { DownloadsResponse } from "@/app/projects/[project]/helper/compute_downloads";
+import { TableHeader } from "@/components/ui/table";
+import { Table } from "@/components/ui/table";
+import { TableRow } from "@/components/ui/table";
+import { TableHead } from "@/components/ui/table";
+import { TableBody } from "@/components/ui/table";
+import { TableCell } from "@/components/ui/table";
 
 interface DownloadsChartProps {
   selectedVersions: string[];
@@ -21,44 +19,31 @@ const DownloadsTable: React.FC<DownloadsChartProps> = (props) => {
   const downloads = data.reverse();
 
   return (
-    <TableContainer sx={{ marginTop: "16px", maxHeight: "500px" }}>
-      <Table id="downloads-table" stickyHeader>
-        <TableHead>
+    <div className="h-full overflow-auto">
+      <Table>
+        <TableHeader>
           <TableRow>
-            <TableCell style={{ minWidth: 100 }}>Date</TableCell>
+            <TableHead>Date</TableHead>
             {props.selectedVersions.map((version) => (
-              <TableCell key={version}>{version}</TableCell>
+              <TableHead key={version} className="text-right">{version}</TableHead>
             ))}
-            <TableCell align="right">Sum</TableCell>
-            <TableCell align="right">Total</TableCell>
           </TableRow>
-        </TableHead>
+        </TableHeader>
         <TableBody>
           {downloads.map((row) => (
-            <TableRow
-              sx={
-                new Date(row["date"]).getDay() % 6 === 0
-                  ? { backgroundColor: "#fafafa" }
-                  : {}
-              }
-              key={row["date"]}
-            >
-              <TableCell scope="row">{row["date"]}</TableCell>
+            <TableRow key={row.date}>
+              <TableCell>{row.date}</TableCell>
               {props.selectedVersions.map((version) => (
-                <TableCell key={version}>
-                  {row[version].toLocaleString()}
+                <TableCell key={version} className="text-right">
+                  {row[version as keyof typeof row]?.toLocaleString()}
                 </TableCell>
               ))}
-              <TableCell align="right">{row["sum"].toLocaleString()}</TableCell>
-              <TableCell align="right">
-                {row["total"].toLocaleString()}
-              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
-  );
+    </div>
+  )
 };
 
 export default DownloadsTable;
