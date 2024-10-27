@@ -143,13 +143,14 @@ export function VersionDropdown({
           ? !isVersionPattern(selection) || s.pattern !== selection.pattern
           : isVersionPattern(selection) || s.version !== selection.version
       );
+      const newPatterns = newSelections
+        .filter((s) => isVersionPattern(s))
+        .map(s => {
+          return { version: s.pattern, downloads: 0 } as Version;
+        });
       const newVersions = newSelections
         .filter((s): s is Version => !isVersionPattern(s))
-        .concat(versions.filter(v =>
-          newSelections
-            .filter(isVersionPattern)
-            .some(p => matchesPattern(v.version, p.pattern))
-        ));
+        .concat(newPatterns)
       onSelectVersions(newVersions);
       return newSelections;
     });
