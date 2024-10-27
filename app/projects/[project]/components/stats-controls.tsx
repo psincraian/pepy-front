@@ -28,8 +28,8 @@ interface StatsControlsProps {
   setTimeRange: (value: Range) => void;
   granularity: DisplayStyle;
   setGranularity: (value: DisplayStyle) => void;
-  category: string;
-  setCategory: (value: string) => void;
+  category: "version" | "country";
+  setCategory: (value: "version" | "country") => void;
   isUserPro: boolean,
 }
 
@@ -59,7 +59,7 @@ export function StatsControls({
     setTimeRange(range);
   }
 
-  function handleCategoryChange(category: string) {
+  function handleCategoryChange(category: "version" | "country") {
     if (category === "country" && !isUserPro) {
       setProDialogOpen(true);
       return;
@@ -89,19 +89,6 @@ export function StatsControls({
           </Select>
         </div>
 
-        <div className="space-y-2">
-          <Label>View Type</Label>
-          <RadioGroup value={viewType} onValueChange={(value: "chart" | "table") => setViewType(value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="chart" id="chart" />
-              <Label htmlFor="chart">Chart</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="table" id="table" />
-              <Label htmlFor="table">Table</Label>
-            </div>
-          </RadioGroup>
-        </div>
 
         <div className="space-y-2">
           <Label>Category</Label>
@@ -119,6 +106,20 @@ export function StatsControls({
               </SelectItem>
             </SelectContent>
           </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label>View Type</Label>
+          <RadioGroup value={viewType} onValueChange={(value: "chart" | "table") => setViewType(value)}>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="chart" id="chart" />
+              <Label htmlFor="chart">Chart</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="table" id="table" />
+              <Label htmlFor="table">Table</Label>
+            </div>
+          </RadioGroup>
         </div>
 
         <div className="space-y-2">

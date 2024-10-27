@@ -29,6 +29,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
+import CountryDownloadsComponent from "@/app/projects/[project]/components/country_downloads";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -63,7 +64,7 @@ export function PackageStats({ project }: { project: Project }) {
   const [viewType, setViewType] = useState<"chart" | "table">("chart");
   const [timeRange, setTimeRange] = useState(Range.FOUR_MONTHS);
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
-  const [category, setCategory] = useState("version");
+  const [category, setCategory] = useState<"version" | "country">("version");
   const [downloadsData, setDownloadsData] = useState(project.downloads);
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
 
@@ -172,6 +173,10 @@ export function PackageStats({ project }: { project: Project }) {
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-[600px] ">
                 {
+
+
+                  category == "country" ?
+                    <CountryDownloadsComponent project={project.name} /> :
                   viewType == "table" ?
                     <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
                                     data={downloadsCache} /> :
