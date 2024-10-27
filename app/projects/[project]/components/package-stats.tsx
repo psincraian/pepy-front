@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { useMemo } from "react";
+import React from "react";
 import { Star } from "lucide-react";
+import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,6 +24,11 @@ import { notFound } from "next/navigation";
 import { useUser } from "@/app/user/UserContext";
 import { SignInToSubscribeDialog } from "@/components/sign-in-to-subscribe-dialog";
 import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
+import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
+import { TooltipTrigger } from "@/components/ui/tooltip";
+import { TooltipContent } from "@/components/ui/tooltip";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -119,6 +126,19 @@ export function PackageStats({ project }: { project: Project }) {
               <Badge variant="secondary" className="text-sm">
                 TODO
               </Badge>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger type="button" className="ml-2">
+                    <Badge variant="secondary" className="text-sm">
+                      <Download className="h-4 w-4 mr-1 inline" />
+                      {formatDownloads(project.totalDownloads)}
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">
+                    <p>{project.name} has been downloaded {project.totalDownloads} times!</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
           <Button onClick={handleSubscribe} className="bg-blue-600 hover:bg-blue-700">
