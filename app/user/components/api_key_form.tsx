@@ -2,9 +2,9 @@
 
 import { ApiKey } from "@/app/user/model";
 import React, { useState } from "react";
-import { Button, FormControl, Grid, Input, InputLabel } from "@mui/material";
+import { FormControl, Grid, Input, InputLabel } from "@mui/material";
 import { DoneOutline, ErrorOutline } from "@mui/icons-material";
-import LoadingButton from '@mui/lab/LoadingButton';
+import LoadingButton from "@mui/lab/LoadingButton";
 
 enum SubmissionStatus {
   NO_FETCHING,
@@ -90,7 +90,7 @@ export default function ApiKeyForm(callbacks: AddApiKeyButtonCallbacks) {
             onChange={handleChange("apiKeyName")}
             error={formData.apiKeyNameErors !== ""}
             value={formData.apiKeyName}
-            type="email"
+            type="number"
           />
         </FormControl>
       </Grid>
