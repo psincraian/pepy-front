@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:cc="http://creativecommons.org/ns#"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        inkscape:version="1.0 (4035a4f, 2020-05-01)"
+        sodipodi:docname="logo.svg"
+        id="svg20"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 1910 1760"
+        height="176px"
+        width="191px"
+        version="1.0">
+    <metadata
+            id="metadata26">
+        <rdf:RDF>
+            <cc:Work
+                    rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type
+                        rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs
+            id="defs24">
+        <filter
+                height="1.0062557"
+                y="-0.0031278409"
+                width="1.0057644"
+                x="-0.002882199"
+                id="filter855"
+                style="color-interpolation-filters:sRGB"
+                inkscape:collect="always">
+            <feGaussianBlur
+                    id="feGaussianBlur857"
+                    stdDeviation="2.29375"
+                    inkscape:collect="always"/>
+        </filter>
+    </defs>
+    <sodipodi:namedview
+            inkscape:current-layer="svg20"
+            inkscape:window-maximized="1"
+            inkscape:window-y="23"
+            inkscape:window-x="0"
+            inkscape:cy="94.639037"
+            inkscape:cx="72.008021"
+            inkscape:zoom="3.9162304"
+            showgrid="false"
+            id="namedview22"
+            inkscape:window-height="932"
+            inkscape:window-width="1680"
+            inkscape:pageshadow="2"
+            inkscape:pageopacity="0"
+            guidetolerance="10"
+            gridtolerance="10"
+            objecttolerance="10"
+            borderopacity="1"
+            bordercolor="#2563eb"
+            pagecolor="#ffffff"/>
+    <g
+            stroke="1"
+            fill="#2563eb"
+            id="layer102">
+        <path
+                id="path13"
+                d="M720 1454 l-80 -77 0 -113 0 -114 -108 0 -109 0 -81 -76 -82 -76 0 -143 0 -143 82 -76 83 -76 107 0 108 0 0 -114 0 -114 82 -76 81 -76 146 0 146 0 78 78 77 77 0 68 0 67 -45 0 -45 0 0 -43 c0 -39 -5 -48 -58 -100 l-58 -57 -98 0 -97 0 -60 57 -60 57 3 85 3 86 110 5 110 5 0 40 0 40 -246 5 -245 5 -57 54 -57 54 0 92 0 92 60 57 59 57 83 -3 83 -3 3 -47 c3 -44 7 -50 84 -122 l82 -76 121 0 122 0 56 -59 c52 -54 57 -63 57 -105 0 -36 5 -48 26 -65 24 -19 40 -21 158 -21 l131 0 78 78 77 77 0 140 0 140 -78 78 -77 77 -113 0 -112 0 0 113 0 112 -78 78 -77 77 -148 0 -147 0 -80 -76z m384 -71 l56 -58 -2 -85 -3 -85 -87 -3 -88 -3 0 -44 0 -45 222 0 222 0 58 -57 58 -57 0 -91 0 -90 -56 -58 -55 -58 -87 3 -87 3 -3 45 c-3 41 -10 52 -80 123 l-77 77 -121 0 -121 0 -61 56 -62 56 0 168 0 168 58 46 57 46 101 0 101 0 57 -57z"/>
+        <path
+                id="path15"
+                d="M982 1288 l3 -43 45 0 45 0 3 43 3 42 -51 0 -51 0 3 -42z"/>
+        <path
+                id="path17"
+                d="M830 430 l0 -50 40 0 c34 0 41 4 46 25 3 14 3 36 0 50 -5 21 -12 25 -46 25 l-40 0 0 -50z"/>
+    </g>
+</svg>

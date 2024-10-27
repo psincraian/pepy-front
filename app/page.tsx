@@ -1,6 +1,7 @@
-import { Package } from "lucide-react";
 import { PopularPackages } from "@/components/popular-packages";
 import { SearchBar } from "@/components/search-bar";
+import React from "react";
+import Logo from "@/components/Logo";
 
 
 export const runtime = "edge";
@@ -11,7 +12,9 @@ export default function Home() {
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-12">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="flex justify-center mb-6">
-            <Package className="h-16 w-16 text-blue-600" />
+            <div className="h-16 w-16">
+              <Logo outlineWidth={40} />
+            </div>
           </div>
           <h1
             className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
