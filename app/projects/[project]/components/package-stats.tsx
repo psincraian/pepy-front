@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatsControls } from "@/app/projects/[project]/components/stats-controls";
 import { Project } from "@/app/projects/[project]/model";
@@ -21,7 +20,6 @@ import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downl
 import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
 import { notFound } from "next/navigation";
 import { useUser } from "@/app/user/UserContext";
-import { SignInToSubscribeDialog } from "@/components/sign-in-to-subscribe-dialog";
 import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
 import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -32,6 +30,7 @@ import CountryDownloadsComponent from "@/app/projects/[project]/components/count
 import { BadgeConfigurator } from "@/app/projects/[project]/components/badge-configurator";
 import { PyPiInfo } from "@/app/projects/[project]/components/PackageInfo";
 import { PackageInfo } from "@/app/projects/[project]/components/PackageInfo";
+import { SubscribeButton } from "@/components/subscribe-button";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -89,6 +88,7 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
   });
   if (res.status !== 200) {
     return {
+      packageName: project,
       summary: "No summary found",
       lastRelease: "No last release found",
       releaseDate: "No release date found",
@@ -118,7 +118,6 @@ export function PackageStats({ project }: { project: Project }) {
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
   const [category, setCategory] = useState<"version" | "country">("version");
   const [downloadsData, setDownloadsData] = useState(project.downloads);
-  const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
   const [pypiInfo, setPypiInfo] = useState<PyPiInfo>({
     packageName: project.name,
     summary: "",
@@ -160,13 +159,6 @@ export function PackageStats({ project }: { project: Project }) {
     });
   }
 
-  function handleSubscribe() {
-    if (!user) {
-      setLoginDialogOpen(true);
-      return;
-    }
-  }
-
   const downloadsCache = useMemo(() => {
     return retrieveDownloads(
       downloadsData,
@@ -204,9 +196,7 @@ export function PackageStats({ project }: { project: Project }) {
               </TooltipProvider>
             </div>
           </div>
-          <Button onClick={handleSubscribe} className="bg-blue-600 hover:bg-blue-700">
-            Subscribe to Updates
-          </Button>
+          <SubscribeButton project={project.name} className="bg-blue-600 hover:bg-blue-700" />
         </div>
       </div>
 
@@ -261,7 +251,6 @@ export function PackageStats({ project }: { project: Project }) {
           <BadgeConfigurator packageName={project.name} />
         </TabsContent>
       </Tabs>
-      <SignInToSubscribeDialog open={isLoginDialogOpen} onClose={() => setLoginDialogOpen(false)} />
     </div>
   );
 }
