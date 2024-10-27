@@ -29,7 +29,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
-import CountryDownloadsComponent from "@/app/projects/[project]/components/country_downloads";
+import CountryDownloadsComponent from "@/app/projects/[project]/components/country-downloads";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -176,7 +176,7 @@ export function PackageStats({ project }: { project: Project }) {
 
 
                   category == "country" ?
-                    <CountryDownloadsComponent project={project.name} /> :
+                    <CountryDownloadsComponent view={viewType} project={project.name} /> :
                   viewType == "table" ?
                     <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
                                     data={downloadsCache} /> :

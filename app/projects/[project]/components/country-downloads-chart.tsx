@@ -4,14 +4,11 @@ import { GeoPermissibleObjects } from "d3";
 import { WORLD } from "@/app/projects/[project]/components/world";
 import { useState } from "react";
 import { useRef } from "react";
-import { useEffect } from "react";
 import { useDimensions } from "@/components/useDimension";
 import { Tooltip } from "@/app/projects/[project]/components/tooltip";
-import { notFound } from "next/navigation";
-import { CountryDownloadsData } from "@/app/projects/[project]/model";
 
-interface CountryDownloadsProps {
-  project: string,
+interface CountryDownloadsChart {
+  data: { [country: string]: number };
 }
 
 interface TooltipData {
@@ -19,43 +16,6 @@ interface TooltipData {
   y: number;
   title: string;
   visible: boolean;
-}
-
-async function getCountryDownloadsData(project: string): Promise<CountryDownloadsData> {
-  console.log("Fetching data for", project);
-  const res = await fetch( `/api/v3/pro/projects/${project}/country-downloads`, {
-    headers: {
-      'X-Api-Key': process.env.PEPY_API_KEY!,
-    },
-    next: { revalidate: 3600 },
-  });
-  if (res.status === 404) {
-    notFound();
-  } else if (res.status !== 200) {
-    throw new Error(`Server error: ${res.status}`);
-  }
-
-  const downloadData: CountryDownloadsData = {};
-  let response = await res.json();
-  for (const [date, countryDownloads] of Object.entries(response.downloads)) {
-    downloadData[date] = []
-    for (const {country, downloads} of Object.values(countryDownloads!)) {
-      downloadData[date].push({country: country, downloads: downloads})
-    }
-  }
-
-  return downloadData;
-}
-
-function getDownloadsPerCountry(downloads: CountryDownloadsData): {[country: string] : number} {
-  const downloadsPerCountry : {[country: string] : number} = {};
-  for (const countryDownloads of Object.values(downloads)) {
-    for (const { country, downloads } of countryDownloads) {
-      downloadsPerCountry[country] = downloadsPerCountry[country] ? downloadsPerCountry[country] + downloads : downloads;
-    }
-  }
-  console.log(downloadsPerCountry);
-  return downloadsPerCountry;
 }
 
 function calculatePercentiles(data: number[], numBuckets: number): number[] {
@@ -84,20 +44,14 @@ function calculatePercentiles(data: number[], numBuckets: number): number[] {
 }
 
 
-export default function CountryDownloadsComponent(props: CountryDownloadsProps) {
+export default function CountryDownloadsChart(props: CountryDownloadsChart) {
   const [mouseOverCountry, setMouseOverCountry] = useState<string>("null");
   const [tooltipData, setTooltipData] = useState({ x: 0, y: 0, title: "", visible: false } as TooltipData);
   const chartRef = useRef(null);
   const { width, height } = useDimensions(chartRef);
-  const [downloadData, setDownloadData] = useState<{[country: string] : number}>({ });
+  const downloadData = props.data;
   const totalDownloads = Object.values(downloadData).reduce((acc, curr) => acc + curr, 0);
   const maxDownloads = Math.max(...Object.values(downloadData));
-
-  useEffect(() => {
-    getCountryDownloadsData(props.project).then((data) => {
-      setDownloadData(getDownloadsPerCountry(data));
-    });
-  }, [props.project]);
 
 
   const domain = calculatePercentiles(Object.values(downloadData), 6);

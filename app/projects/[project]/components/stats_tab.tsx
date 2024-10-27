@@ -8,7 +8,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import DownloadsComponent from "@/app/projects/[project]/components/downloads_component";
 import { Project } from "@/app/projects/[project]/model";
-import CountryDownloads from "@/app/projects/[project]/components/country_downloads";
+import CountryDownloads from "@/app/projects/[project]/components/country-downloads-chart";
 import { useUser } from "@/app/user/UserContext";
 
 interface StatsTabProps {
