@@ -15,6 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog";
+import { signout } from "@/app/user/helper/auth";
 
 interface ProfileHeaderProps {
   user: {
@@ -29,8 +30,8 @@ export function ProfileHeader({ user }: ProfileHeaderProps) {
   const router = useRouter();
 
   const handleSignOut = () => {
-    // Add sign out logic here
-    router.push("/login");
+    signout();
+    router.push("/user/login");
   };
 
   return (
