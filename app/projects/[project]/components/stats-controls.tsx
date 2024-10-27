@@ -20,6 +20,7 @@ import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Separator } from "@/components/ui/separator";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -106,59 +107,68 @@ export function StatsControls({
           </ToggleGroup>
         </div>
 
-        <div className="space-y-2">
-          <Label>Time Range</Label>
-          <Select value={Range[timeRange]} onValueChange={(v) => handleTimeRangeChange(Range[v as keyof typeof Range])}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={Range[Range.FOUR_MONTHS]}>4 months</SelectItem>
-              <SelectItem value={Range[Range.ONE_YEAR]}>
-                <div className="flex flex-row items-center">
-                  <span>12 months</span>
-                  <Crown className="ml-2 h-4 w-4 text-yellow-500" />
-                </div>
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        {/* Separator */}
+        <Separator className="my-4" />
 
-        <div className="space-y-2">
-          <Label>Time Granularity</Label>
-          <Select value={DisplayStyle[granularity]} onValueChange={(v: string) => {
-            const granularity: DisplayStyle = DisplayStyle[v as keyof typeof DisplayStyle];
-            setGranularity(granularity);
-          }}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={DisplayStyle[DisplayStyle.DAILY]}>Daily</SelectItem>
-              <SelectItem value={DisplayStyle[DisplayStyle.WEEKLY]}>Weekly</SelectItem>
-              <SelectItem value={DisplayStyle[DisplayStyle.MONTHLY]}>Monthly</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
 
-        <div className="space-y-2">
-          <div className="flex flex-row items-center">
-            <Label>Package Version</Label>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger type="button" className="ml-2">
-                  <HelpCircle className="h-4 w-4 text-muted-foreground" />
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  <p>Type exact version or use patterns (e.g., 2.* or 1.2.*)</p>
-                  <p>Press Enter to add</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-          <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
-                           onSelectVersions={setSelectedVersions} />
-        </div>
+        {category === "version" && (
+          <div className="space-y-6">
+
+            <div className="space-y-2">
+              <Label>Time Range</Label>
+              <Select value={Range[timeRange]}
+                      onValueChange={(v) => handleTimeRangeChange(Range[v as keyof typeof Range])}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={Range[Range.FOUR_MONTHS]}>4 months</SelectItem>
+                  <SelectItem value={Range[Range.ONE_YEAR]}>
+                    <div className="flex flex-row items-center">
+                      <span>12 months</span>
+                      <Crown className="ml-2 h-4 w-4 text-yellow-500" />
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Time Granularity</Label>
+              <Select value={DisplayStyle[granularity]} onValueChange={(v: string) => {
+                const granularity: DisplayStyle = DisplayStyle[v as keyof typeof DisplayStyle];
+                setGranularity(granularity);
+              }}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={DisplayStyle[DisplayStyle.DAILY]}>Daily</SelectItem>
+                  <SelectItem value={DisplayStyle[DisplayStyle.WEEKLY]}>Weekly</SelectItem>
+                  <SelectItem value={DisplayStyle[DisplayStyle.MONTHLY]}>Monthly</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex flex-row items-center">
+                <Label>Package Version</Label>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger type="button" className="ml-2">
+                      <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top">
+                      <p>Type exact version or use patterns (e.g., 2.* or 1.2.*)</p>
+                      <p>Press Enter to add</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
+                               onSelectVersions={setSelectedVersions} />
+            </div>
+          </div>)}
 
       </div>
       <ProDialog isOpen={isProDialogOpen} setIsOpen={setProDialogOpen} />
