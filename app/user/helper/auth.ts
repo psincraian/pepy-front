@@ -4,7 +4,7 @@ import {
   CognitoUserAttribute,
   CognitoUserPool,
   CognitoUserSession,
-  CookieStorage,
+  CookieStorage
 } from "amazon-cognito-identity-js";
 
 export interface ILoginCallback {
@@ -63,14 +63,15 @@ export function login(
     Password: formData.password,
   });
 
-  cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: (session) => {
-      const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
-      console.log("Is Pro: ", isPro);
+  try {
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (session) => {
+        const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
+        console.log("Is Pro: ", isPro);
 
-      cognitoUser.getUserAttributes((err, result) => {
-          if (err) {
-            callbacks.onFailure(err.message);
+        cognitoUser.getUserAttributes((error, result) => {
+          if (error) {
+            callbacks.onFailure(error.message);
             return;
           }
           const email = result!.find((r) => r.getName() === "email")?.getValue();
@@ -81,12 +82,15 @@ export function login(
             isPro: isPro
           });
           return;
-          })
-    },
-    onFailure: (err) => {
-      callbacks.onFailure(err);
-    },
-  });
+        })
+      },
+      onFailure: (error) => {
+        callbacks.onFailure(error instanceof Error ? error.message : "Unknown error");
+      }
+    });
+  } catch (error) {
+    callbacks.onFailure(error instanceof Error ? error.message : "Unknown error");
+  }
 }
 
 export function forgotPassword(
