@@ -7,7 +7,6 @@ import { Star } from "lucide-react";
 import { Download } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { StatsControls } from "@/app/projects/[project]/components/stats-controls";
@@ -30,6 +29,7 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
 import CountryDownloadsComponent from "@/app/projects/[project]/components/country-downloads";
+import { BadgeConfigurator } from "@/app/projects/[project]/components/badge-configurator";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -210,22 +210,7 @@ export function PackageStats({ project }: { project: Project }) {
         </TabsContent>
 
         <TabsContent value="badge">
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-4">Badge Generator</h2>
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                Generate badges to show your package statistics in your README
-                or documentation.
-              </p>
-              <div className="space-y-2">
-                <h3 className="font-semibold">Markdown</h3>
-                <Input
-                  readOnly
-                  value={`![Python Downloads](https://pepy.tech/badge/${project.name})`}
-                />
-              </div>
-            </div>
-          </Card>
+          <BadgeConfigurator packageName={project.name} />
         </TabsContent>
       </Tabs>
       <SignInToSubscribeDialog open={isLoginDialogOpen} onClose={() => setLoginDialogOpen(false)} />
