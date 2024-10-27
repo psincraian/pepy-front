@@ -2,10 +2,11 @@
 
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Crown } from "lucide-react";
 import { HelpCircle } from "lucide-react";
+import { BarChart2 } from "lucide-react";
+import { Table2 } from "lucide-react";
 import { VersionDropdown } from "@/app/projects/[project]/components/version-dropdown";
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { DisplayStyle } from "@/app/projects/[project]/model";
@@ -17,6 +18,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
+import { ToggleGroup } from "@/components/ui/toggle-group";
+import { ToggleGroupItem } from "@/components/ui/toggle-group";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -72,25 +75,6 @@ export function StatsControls({
     <Card className="p-6 h-[600px] overflow-auto">
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label>Time Range</Label>
-          <Select value={Range[timeRange]} onValueChange={(v) => handleTimeRangeChange(Range[v as keyof typeof Range])}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={Range[Range.FOUR_MONTHS]}>4 months</SelectItem>
-              <SelectItem value={Range[Range.ONE_YEAR]}>
-                <div className="flex flex-row items-center">
-                  <span>12 months</span>
-                  <Crown className="ml-2 h-4 w-4 text-yellow-500" />
-                </div>
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-
-        <div className="space-y-2">
           <Label>Category</Label>
           <Select value={category} onValueChange={handleCategoryChange}>
             <SelectTrigger>
@@ -110,16 +94,34 @@ export function StatsControls({
 
         <div className="space-y-2">
           <Label>View Type</Label>
-          <RadioGroup value={viewType} onValueChange={(value: "chart" | "table") => setViewType(value)}>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="chart" id="chart" />
-              <Label htmlFor="chart">Chart</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="table" id="table" />
-              <Label htmlFor="table">Table</Label>
-            </div>
-          </RadioGroup>
+          <ToggleGroup type="single" value={viewType} onValueChange={setViewType} className="justify-start">
+            <ToggleGroupItem value="chart" aria-label="Chart view">
+              <BarChart2 className="h-4 w-4 mr-2" />
+              Chart
+            </ToggleGroupItem>
+            <ToggleGroupItem value="table" aria-label="Table view">
+              <Table2 className="h-4 w-4 mr-2" />
+              Table
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+
+        <div className="space-y-2">
+          <Label>Time Range</Label>
+          <Select value={Range[timeRange]} onValueChange={(v) => handleTimeRangeChange(Range[v as keyof typeof Range])}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={Range[Range.FOUR_MONTHS]}>4 months</SelectItem>
+              <SelectItem value={Range[Range.ONE_YEAR]}>
+                <div className="flex flex-row items-center">
+                  <span>12 months</span>
+                  <Crown className="ml-2 h-4 w-4 text-yellow-500" />
+                </div>
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="space-y-2">
