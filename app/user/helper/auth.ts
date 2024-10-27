@@ -35,9 +35,9 @@ export const userPool = new CognitoUserPool({
 });
 
 export interface User {
-  username: string | undefined;
+  username: string;
   accessToken: string | undefined;
-  email: string | undefined;
+  email: string;
   isPro: boolean;
 }
 
