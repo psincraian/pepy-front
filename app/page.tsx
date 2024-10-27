@@ -1,7 +1,7 @@
 import { PopularPackages } from "@/components/popular-packages";
 import { SearchBar } from "@/components/search-bar";
 import React from "react";
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 
 
 export const runtime = "edge";

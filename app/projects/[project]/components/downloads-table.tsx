@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { DownloadsResponse } from "@/app/projects/[project]/helper/compute_downloads";
 import { TableHeader } from "@/components/ui/table";
 import { Table } from "@/components/ui/table";
@@ -13,8 +13,6 @@ interface DownloadsChartProps {
 }
 
 const DownloadsTable: React.FC<DownloadsChartProps> = (props) => {
-  const [showMore, setShowMore] = useState(false);
-
   const data = [...props.data];
   const downloads = data.reverse();
 

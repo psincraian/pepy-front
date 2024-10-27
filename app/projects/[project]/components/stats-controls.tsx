@@ -11,7 +11,7 @@ import { VersionDropdown } from "@/app/projects/[project]/components/version-dro
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { DisplayStyle } from "@/app/projects/[project]/model";
 import { Range } from "@/app/projects/[project]/model";
-import { ProDialog } from "@/components/ProDialog";
+import { ProDialog } from "@/components/pro-dialog";
 import { useState } from "react";
 import React from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";

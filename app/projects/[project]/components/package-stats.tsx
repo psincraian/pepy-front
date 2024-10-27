@@ -17,10 +17,10 @@ import { Range } from "@/app/projects/[project]/model";
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { computeTotalDownloadsByVersion } from "@/app/projects/[project]/helper/compute_downloads";
 import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downloads";
-import DownloadsChart from "@/app/projects/[project]/components/downloads_chart";
+import DownloadsChart from "@/app/projects/[project]/components/downloads-chart";
 import { notFound } from "next/navigation";
 import { useUser } from "@/app/user/UserContext";
-import DownloadsTable from "@/app/projects/[project]/components/downloads_table";
+import DownloadsTable from "@/app/projects/[project]/components/downloads-table";
 import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -28,8 +28,8 @@ import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipContent } from "@/components/ui/tooltip";
 import CountryDownloadsComponent from "@/app/projects/[project]/components/country-downloads";
 import { BadgeConfigurator } from "@/app/projects/[project]/components/badge-configurator";
-import { PyPiInfo } from "@/app/projects/[project]/components/PackageInfo";
-import { PackageInfo } from "@/app/projects/[project]/components/PackageInfo";
+import { PyPiInfo } from "@/app/projects/[project]/components/package-info";
+import { PackageInfo } from "@/app/projects/[project]/components/package-info";
 import { SubscribeButton } from "@/components/subscribe-button";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
