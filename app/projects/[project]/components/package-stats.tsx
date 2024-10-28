@@ -208,8 +208,7 @@ export function PackageStats({ project }: { project: Project }) {
         </TabsList>
 
         <TabsContent value="downloads">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6"
-               style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <StatsControls
               viewType={viewType}
               setViewType={setViewType}
