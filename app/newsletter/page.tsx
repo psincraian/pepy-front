@@ -2,8 +2,8 @@ import React from "react";
 import { Mail } from "lucide-react";
 import { BarChart2 } from "lucide-react";
 import { PieChart } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { TrendingUp } from "@mui/icons-material";
 import { SubscribeForm } from "@/components/subscribe-form";
 
 const Newsletter = () => {

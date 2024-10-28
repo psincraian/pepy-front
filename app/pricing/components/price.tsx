@@ -1,58 +1,124 @@
-"use client";
+import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
-import { Grid } from "@mui/material";
-import { Card } from "@mui/material";
-import { CardHeader } from "@mui/material";
-import { CardContent } from "@mui/material";
-import { CardActions } from "@mui/material";
-import { Button } from "@mui/material";
-import Emoji from "@/components/emoji";
-import { useRouter } from "next/navigation";
-import styles from "./price.module.css";
-
-
-export function PriceComponent() {
-  const router = useRouter();
-
+export default function Pricing() {
   return (
-    <Grid container spacing={4} marginY={2} justifyContent="center">
-      <Grid item xs={12} md={5}>
-        <Card variant="outlined">
-          <CardHeader title="Monthly" subheader="5$/month" />
-          <CardContent sx={{height: 140}}>
-            This includes:
-            <ul className={styles.list}>
-              <li><Emoji symbol={"✔"}/> 100 API Calls/Min: Unleash fast data access!</li>
-              <li><Emoji symbol={"✔"}/> 1-Year Data: for deep insights.</li>
-              <li><Emoji symbol={"🆕"}/> Download stats per country: check your users history</li>
-              <li><Emoji symbol={"✔"}/> Name in README: Be a part of our Hall of Fame!</li>
-              <li><Emoji symbol={"✔"}/> Support Us: Keep pepy.tech up and running.</li>
-            </ul>
-          </CardContent>
-          <CardActions>
-            <Button size="small" onClick={(e) => router.push("/user/signup")}>Sign up</Button>
-          </CardActions>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={5}>
-        <Card variant="outlined">
-          <CardHeader title="Yearly" subheader="50$/year" />
-          <CardContent sx={{height: 140}}>
-            This includes:
-            <ul className={styles.list}>
-              <li><Emoji symbol={"✔"} /> 100 API Calls/Min: Unleash fast data access!</li>
-              <li><Emoji symbol={"✔"}/> 1-Year Data: for deep insights.</li>
-              <li><Emoji symbol={"🆕"} /> Download stats per country: check your users history</li>
-              <li><Emoji symbol={"✔"} /> Name in README: Be a part of our Hall of Fame!</li>
-              <li><Emoji symbol={"✔"} /> Support Us: Keep pepy.tech up and running.</li>
-              <li><Emoji symbol={"➕"} /> 2 months for free</li>
-            </ul>
-          </CardContent>
-          <CardActions>
-            <Button size="small" onClick={(e) => router.push("/user/signup")}>Sign up</Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    </Grid>);
+    <div className="container mx-auto px-4 py-12">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
+        <p className="text-xl text-muted-foreground">
+          Choose the plan that best fits your needs
+        </p>
+      </div>
 
+      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {/* Free Plan */}
+        <Card className="p-6 flex flex-col">
+          <div className="flex-1">
+            <h3 className="text-2xl font-bold mb-2">Free</h3>
+            <p className="text-muted-foreground mb-4">Perfect for getting started</p>
+            <div className="mb-6">
+              <span className="text-4xl font-bold">$0</span>
+              <span className="text-muted-foreground">/month</span>
+            </div>
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                Basic package statistics
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                API access (10 req/min)
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                30-day historical data
+              </li>
+              <li className="flex items-center text-muted-foreground">
+                <Check className="h-5 w-5 mr-2 opacity-50" />
+                Supported by ads
+              </li>
+            </ul>
+          </div>
+          <Button className="w-full mt-auto" variant="outline">
+            <Link href="/user/signup">
+              Get Started
+            </Link>
+          </Button>
+        </Card>
+
+        {/* Pro Plan */}
+        <Card className="p-6 border-blue-600 border-2 relative flex flex-col">
+          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+            <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
+              Popular
+            </span>
+          </div>
+          <div className="flex-1">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h3 className="text-2xl font-bold">Pro</h3>
+                <p className="text-muted-foreground">For serious developers</p>
+              </div>
+              <div className="text-right">
+                <div className="flex items-center justify-end">
+                  <span className="text-4xl font-bold">$5</span>
+                  <span className="text-muted-foreground">/month</span>
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  or $50/year (2 months free)
+                </div>
+              </div>
+            </div>
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                Everything in Free
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                No advertisements
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                1 year of historical data
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                Downloads per country
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                API access (100 req/min)
+              </li>
+              <li className="flex items-center">
+                <Check className="h-5 w-5 text-green-500 mr-2" />
+                CI downloads filtering (coming soon)
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-3 mt-auto">
+            <Button className="w-full bg-blue-600 hover:bg-blue-700">
+              <Link href="/user/signup">
+                Subscribe Monthly
+              </Link>
+            </Button>
+            <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
+              <Link href="/user/signup">
+                Subscribe Yearly (Save 17%)
+              </Link>
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      <div className="mt-12 text-center text-sm text-muted-foreground">
+        <p>All prices are in USD. Subscriptions are automatically renewed unless canceled.</p>
+        <p className="mt-1">Need custom solutions? <a href="/contact" className="text-blue-600 hover:underline">Contact
+          us</a></p>
+      </div>
+    </div>
+  );
 }

@@ -2,8 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
-import { PriceComponent } from "@/app/pricing/components/price";
+import PublicPriceComponent from "@/app/pricing/components/price";
 import { useUser } from "@/app/user/UserContext";
 
 declare global {
@@ -50,13 +49,12 @@ export default function Home() {
     </>
   );
 
-  const pricingTable = user === null ? (<PriceComponent />) : stripePricingTable;
+  const pricingTable = user === null ? (<PublicPriceComponent />) : stripePricingTable;
 
   return (
     <>
       <Script src="https://js.stripe.com/v3/pricing-table.js" async={true} />
       <main>
-        <Typography variant="h2">Pricing</Typography>
         {pricingTable}
       </main>
     </>
