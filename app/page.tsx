@@ -2,9 +2,14 @@ import { PopularPackages } from "@/components/popular-packages";
 import { SearchBar } from "@/components/search-bar";
 import React from "react";
 import Logo from "@/components/logo";
-
+import { Metadata } from "next";
 
 export const runtime = "edge";
+
+export const metadata: Metadata = {
+  title: "Python Package Statistics",
+  description: "View download statistics for Python packages"
+};
 
 export default function Home() {
   return (
