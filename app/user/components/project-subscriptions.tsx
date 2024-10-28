@@ -75,12 +75,12 @@ export function ProjectSubscriptions() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Project Subscriptions</h2>
-        <div className="flex items-center space-x-2">
+      <div className="flex sm:flex-col items-center justify-between">
+        <h2 className="text-xl self-start font-semibold">Project Subscriptions</h2>
+        <div className="flex-1 items-center space-x-2">
           <Input
             placeholder="Search projects..."
-            className="w-64"
+            className="w-64 sm:w-full"
           />
         </div>
       </div>

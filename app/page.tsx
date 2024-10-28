@@ -36,12 +36,12 @@ export default function Home() {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">300K+</h2>
+            <h2 className="text-2xl font-bold mb-2">700K+</h2>
             <p className="text-muted-foreground">Python packages tracked</p>
           </div>
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">1B+</h2>
-            <p className="text-muted-foreground">Monthly downloads analyzed</p>
+            <p className="text-muted-foreground">Daily downloads analyzed</p>
           </div>
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">50K+</h2>
