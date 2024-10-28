@@ -78,7 +78,7 @@ export function login(
           callbacks.onSuccess({
             username: cognitoUser.getUsername(),
             accessToken: session.getAccessToken().getJwtToken(),
-            email,
+            email: email!,
             isPro: isPro
           });
           return;
@@ -205,7 +205,7 @@ function convertSessionToUser(session: CognitoUserSession, withDetails: boolean,
     resolve({
       username: cognitoUser.getUsername(),
       accessToken: session.getAccessToken().getJwtToken(),
-      email,
+      email: email!,
       isPro: isPro
     });
     return;
