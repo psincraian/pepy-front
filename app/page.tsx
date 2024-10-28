@@ -28,8 +28,10 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-8">
             Track downloads, analyze trends, and gain insights into the Python ecosystem
           </p>
-          <SearchBar className="mb-8" />
-          <PopularPackages />
+          <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl shadow-lg border mb-8">
+            <SearchBar className="mb-4" />
+            <PopularPackages />
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
