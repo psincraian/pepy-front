@@ -17,7 +17,7 @@ interface SearchAppBarProps {
   withSearch?: boolean;
 }
 
-const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
+const Header: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
   function renderDesktopView() {
     return <nav className="hidden lg:flex items-center space-x-6">
       <Link href="/newsletter" passHref>
@@ -95,4 +95,4 @@ const AppBar: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
   );
 };
 
-export default AppBar;
+export default Header;

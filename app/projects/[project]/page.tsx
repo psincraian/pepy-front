@@ -60,8 +60,6 @@ export default async function Page({
   const project = await getData(params.project);
 
   return (
-    <main>
       <PackageStats project={project} />
-    </main>
   );
 }

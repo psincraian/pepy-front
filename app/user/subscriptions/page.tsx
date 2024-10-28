@@ -38,7 +38,6 @@ export default function Home() {
 
   return (
     <div>
-      <main>
         <h1>
           Subscriptions
         </h1>
@@ -51,7 +50,6 @@ export default function Home() {
             );
           })}
         </Grid>
-      </main>
     </div>
   )
     ;

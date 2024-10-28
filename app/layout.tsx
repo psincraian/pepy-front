@@ -3,7 +3,7 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import { UserProvider } from "@/app/user/UserContext";
 import { Inter } from "next/font/google";
-import AppBar from "@/components/app_bar";
+import Header from "@/components/header";
 
 export const runtime = "edge";
 
@@ -13,15 +13,15 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
   return (
     <html lang="en">
     <body className={inter.className}>
-    <div className="min-h-screen flex flex-col">
-      <UserProvider>
-        <AppBar withSearch={true} />
-        <main>
+    <UserProvider>
+      <div className="flex flex-col min-h-screen">
+        <Header withSearch={true} />
+        <main className="flex-1">
           {children}
         </main>
         <Footer />
-      </UserProvider>
-    </div>
+      </div>
+    </UserProvider>
     </body>
     </html>
   );

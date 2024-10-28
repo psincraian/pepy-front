@@ -5,7 +5,7 @@ export const runtime = "edge";
 export default async function Loading() {
   return (
     <>
-      <main>Loading...</main>
+      Loading...
     </>
   );
 }

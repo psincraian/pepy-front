@@ -169,7 +169,7 @@ export function PackageStats({ project }: { project: Project }) {
 
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-64px)]">
       <div className="mb-8">
         <div className="flex items-start justify-between mb-4">
           <div>
@@ -208,7 +208,8 @@ export function PackageStats({ project }: { project: Project }) {
         </TabsList>
 
         <TabsContent value="downloads">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[600px]">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6"
+               style={{ height: "calc(100vh - 400px)", minHeight: "500px" }}>
             <StatsControls
               viewType={viewType}
               setViewType={setViewType}
@@ -223,10 +224,8 @@ export function PackageStats({ project }: { project: Project }) {
               setCategory={setCategory}
               isUserPro={user?.isPro ?? false} />
             <div className="lg:col-span-3 h-full">
-              <Card className="p-6 h-[600px] ">
+              <Card className="p-6 h-full">
                 {
-
-
                   category == "country" ?
                     <CountryDownloadsComponent view={viewType} project={project.name} /> :
                     viewType == "table" ?

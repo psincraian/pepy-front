@@ -29,8 +29,8 @@ async function getCustomerSecret() {
 }
 
 export default function Home() {
-  const {user, error} = useUser();
-  const [customerSecret, setCustomerSecret] = useState<null|String>(null);
+  const { user, error } = useUser();
+  const [customerSecret, setCustomerSecret] = useState<null | String>(null);
 
   useEffect(() => {
     if (user !== null) {
@@ -38,7 +38,7 @@ export default function Home() {
     }
   }, [user]);
 
-  console.log("Customer Secret", customerSecret)
+  console.log("Customer Secret", customerSecret);
   const stripePricingTable = (
     <>
       <stripe-pricing-table
@@ -54,9 +54,7 @@ export default function Home() {
   return (
     <>
       <Script src="https://js.stripe.com/v3/pricing-table.js" async={true} />
-      <main>
-        {pricingTable}
-      </main>
+      {pricingTable}
     </>
   );
 }
