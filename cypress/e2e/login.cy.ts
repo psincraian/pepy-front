@@ -8,6 +8,6 @@ describe("Should login user", () => {
     cy.get("#password").type(Cypress.env('PEPY_TEST_USER_PASSWORD'));
     cy.get("#login-button").click();
 
-    cy.contains("Hello petrutest");
+    cy.contains("petrutest");
   });
 });

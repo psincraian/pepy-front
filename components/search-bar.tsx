@@ -31,6 +31,7 @@ export function SearchBar({ className }: SearchBarProps) {
           className="pl-10 h-12"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          id="search-bar-input"
         />
       </div>
     </form>

@@ -81,6 +81,7 @@ export default function LoginPage() {
               value={email}
               disabled={isLoading}
               onChange={(e) => setEmail(e.target.value)}
+              id="email"
             />
           </div>
           <div className="space-y-2">
@@ -90,6 +91,7 @@ export default function LoginPage() {
               value={password}
               disabled={isLoading}
               onChange={(e) => setPassword(e.target.value)}
+              id="password"
             />
           </div>
           <div className="flex items-center justify-between">
@@ -97,7 +99,7 @@ export default function LoginPage() {
               Forgot password?
             </Link>
           </div>
-          <Button disabled={isLoading} type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+          <Button id="login-button" disabled={isLoading} type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
             {isLoading ? "Signing in..." : "Sign in"}
           </Button>
         </form>
