@@ -21,7 +21,7 @@ const Header: React.FC<SearchAppBarProps> = ({ withSearch = true }) => {
   function renderDesktopView() {
     return <nav className="hidden lg:flex items-center space-x-6">
       <Link href="/newsletter" passHref>
-        <Button variant="ghost" className="flex items-center space-x-2">
+        <Button variant="ghost" className="flex items-center ml-4 space-x-2">
           <Mail className="h-5 w-5" />
           <span>Newsletter</span>
         </Button>
