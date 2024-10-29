@@ -46,15 +46,6 @@ const Footer: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <a
-                href="https://github.com/sponsors/psincraian/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-pink-600 hover:text-pink-700 text-sm font-medium"
-              >
-                ❤️ Support Us
-              </a>
-
               <div className="h-4 w-px bg-border"></div>
 
               <div className="flex items-center gap-2">
