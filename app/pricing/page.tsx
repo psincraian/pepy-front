@@ -1,10 +1,8 @@
 "use client";
 
 import Script from "next/script";
-import AppBar from "@/app/components/app_bar";
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
-import { PriceComponent } from "@/app/pricing/components/price";
+import PublicPriceComponent from "@/app/pricing/components/price";
 import { useUser } from "@/app/user/UserContext";
 
 declare global {
@@ -31,8 +29,8 @@ async function getCustomerSecret() {
 }
 
 export default function Home() {
-  const {user, error} = useUser();
-  const [customerSecret, setCustomerSecret] = useState<null|String>(null);
+  const { user, error } = useUser();
+  const [customerSecret, setCustomerSecret] = useState<null | String>(null);
 
   useEffect(() => {
     if (user !== null) {
@@ -40,7 +38,7 @@ export default function Home() {
     }
   }, [user]);
 
-  console.log("Customer Secret", customerSecret)
+  console.log("Customer Secret", customerSecret);
   const stripePricingTable = (
     <>
       <stripe-pricing-table
@@ -51,16 +49,12 @@ export default function Home() {
     </>
   );
 
-  const pricingTable = user === null ? (<PriceComponent />) : stripePricingTable;
+  const pricingTable = user === null ? (<PublicPriceComponent />) : stripePricingTable;
 
   return (
     <>
       <Script src="https://js.stripe.com/v3/pricing-table.js" async={true} />
-      <AppBar withSearch={true} />
-      <main>
-        <Typography variant="h2">Pricing</Typography>
-        {pricingTable}
-      </main>
+      {pricingTable}
     </>
   );
 }

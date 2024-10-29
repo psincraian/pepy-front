@@ -1,25 +1,27 @@
 "use client";
 import "./globals.css";
-import Footer from "@/app/components/footer";
+import Footer from "@/components/footer";
 import { UserProvider } from "@/app/user/UserContext";
-
+import { Inter } from "next/font/google";
+import Header from "@/components/header";
 
 export const runtime = "edge";
 
-type ReactNode = {
-  children: React.ReactNode;
-};
+const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({ children }: ReactNode) {
-
-
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
   return (
     <html lang="en">
-    <body>
+    <body className={inter.className}>
     <UserProvider>
-      {children}
+      <div className="flex flex-col min-h-screen">
+        <Header withSearch={true} />
+        <main className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </div>
     </UserProvider>
-    <Footer />
     </body>
     </html>
   );

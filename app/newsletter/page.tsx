@@ -1,93 +1,64 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
-import AppBar from "@/app/components/app_bar";
-import { SubscribeForm } from "@/app/components/subscribe_form";
-import Emoji from "@/app/components/emoji";
-import styles from "./page.module.css";
-import Image from "next/image";
+import { Mail } from "lucide-react";
+import { BarChart2 } from "lucide-react";
+import { PieChart } from "lucide-react";
+import { TrendingUp } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { SubscribeForm } from "@/components/subscribe-form";
 
 const Newsletter = () => {
   return (
-    <>
-      <AppBar />
-      <main>
-        <Grid container justifyContent="center" rowSpacing={6}>
-          <Grid item xs={12}>
-            <Typography variant="h2">Monthly report</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              Get a useful downloads report directly to your inbox.
-              <Emoji symbol="📊" />
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <SubscribeForm />
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Grid container alignItems="center">
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6">Compare to previous month</Typography>
-                <Typography>
-                  You will get two months of data, to compare how the project is
-                  performing this month and the previous one.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Image
-                  width={500}
-                  height={500}
-                  className={styles.img}
-                  alt="Example of monthly download stats"
-                  src="/newsletter/monthly_downloads.png"
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Grid container alignItems="center">
-              <Grid item xs={12} sm={6} order={{ xs: 2, sm: 1 }}>
-                <Image
-                  width={540}
-                  height={178}
-                  className={styles.img}
-                  alt="Example of advanced stats"
-                  src="/newsletter/advanced_stats.png"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} order={{ xs: 1, sm: 2 }}>
-                <Typography variant="h6">Advanced stats</Typography>
-                <Typography>
-                  Check how your project compares to other PyPI projects, what
-                  are the growing versions, and the most popular ones.
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Grid container alignItems="center">
-              <Grid item xs={12} sm={6}>
-                <Typography variant="h6">More charts</Typography>
-                <Typography>
-                  You will have a deeper view of how your project versions are
-                  distributed and how is the evolution of this versions. The
-                  more you know the better.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Image
-                  width={500}
-                  height={500}
-                  className={styles.img}
-                  alt="Example of different graph"
-                  src="/newsletter/downloads_per_version.png"
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </main>
-    </>
+    <div className="container mx-auto px-4 py-12">
+      <div className="max-w-4xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <Mail className="h-12 w-12 mx-auto mb-6 text-blue-600" />
+          <h1 className="text-4xl font-bold mb-4">Stay Updated</h1>
+          <p className="text-xl text-muted-foreground">
+            Get weekly insights about the most popular Python packages and trends in the ecosystem.
+          </p>
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <Card className="p-6 text-center">
+            <div
+              className="bg-blue-50 dark:bg-blue-950 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <TrendingUp className="h-8 w-8 text-blue-600" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Monthly Comparisons</h3>
+            <p className="text-muted-foreground">
+              Track download trends and compare package performance month over month.
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <div
+              className="bg-blue-50 dark:bg-blue-950 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <BarChart2 className="h-8 w-8 text-blue-600" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Advanced Statistics</h3>
+            <p className="text-muted-foreground">
+              Deep dive into package usage patterns and adoption rates across versions.
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <div
+              className="bg-blue-50 dark:bg-blue-950 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <PieChart className="h-8 w-8 text-blue-600" />
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Detailed Charts</h3>
+            <p className="text-muted-foreground">
+              Visualize package statistics with interactive and detailed charts.
+            </p>
+          </Card>
+        </div>
+
+        {/* Subscription Card */}
+        <SubscribeForm />
+      </div>
+    </div>
   );
 };
 

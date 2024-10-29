@@ -1,85 +1,51 @@
 "use client";
 
-import AppBar from "@/app/components/app_bar";
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { signout } from "@/app/user/helper/auth";
-import ApiKeyTable from "@/app/user/components/api_keys_table";
-import React from "react";
-import ManageSubscriptionButton from "@/app/user/components/CustomerSubscriptionPortal";
-import { Grid } from "@mui/material";
-import { Card } from "@mui/material";
-import { CardHeader } from "@mui/material";
-import { CardContent } from "@mui/material";
+import { ApiKeys } from "@/app/user/components/api-keys";
+import { Subscriptions } from "@/app/user/components/subscriptions";
+import { ProjectSubscriptions } from "@/app/user/components/project-subscriptions";
+import { ProfileHeader } from "@/app/user/components/profile-header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
 import { useUser } from "@/app/user/UserContext";
 
-export default function Home() {
-  const router = useRouter();
-  const {user, error} = useUser();
+export default function ProfilePage() {
+  const { user } = useUser();
 
-  function signoutUser() {
-    signout();
+  if (user === null) {
+    return <>Loading...</>;
   }
 
   return (
-    <div>
-      <header>
-        <AppBar />
-      </header>
-      <main>
-        <h1>
-          Hello {user !== null ? user.username : "pythonista"}
-        </h1>
-        {user === null ? (
-          <>
-            <Button
-              sx={{ m: "8px" }}
-              variant="contained"
-              onClick={(e) => router.push("/user/login")}
-            >
-              Login
-            </Button>
-            <Button
-              variant="contained"
-              onClick={(e) => router.push("/user/signup")}
-            >
-              Signup
-            </Button>
-          </>
-        ) : (
-          <Grid container spacing={4}>
-            <Grid item xs={12} lg={8}>
-              <ApiKeyTable />
-            </Grid>
-            <Grid item xs={12} lg={4}>
-              <Card variant="outlined">
-                <CardHeader title="Profile"/>
-                <CardContent>
-                  <ManageSubscriptionButton />
-                  <br />
-                  <Button
-                    sx={{ marginTop: "8px" }}
-                    variant="contained"
-                    fullWidth
-                    onClick={(e) => router.push("/user/subscriptions")}
-                  >
-                    Newsletter subscriptions
-                  </Button>
-                  <br />
-                  <Button
-                    sx={{ marginTop: "8px" }}
-                    variant="contained"
-                    fullWidth
-                    onClick={(e) => signoutUser()}
-                  >
-                    Sign out
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        )}
-      </main>
+    <div className="container mx-auto px-4 py-12">
+      <div className="max-w-4xl mx-auto">
+        <ProfileHeader user={user} />
+
+        <Tabs defaultValue="api-keys" className="mt-8">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="api-keys">API Keys</TabsTrigger>
+            <TabsTrigger value="subscriptions">Subscription</TabsTrigger>
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="api-keys">
+            <Card className="p-6">
+              <ApiKeys />
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="subscriptions">
+            <Card className="p-6">
+              <Subscriptions isPro={user.isPro} />
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="projects">
+            <Card className="p-6">
+              <ProjectSubscriptions />
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }

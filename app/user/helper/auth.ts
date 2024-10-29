@@ -4,7 +4,7 @@ import {
   CognitoUserAttribute,
   CognitoUserPool,
   CognitoUserSession,
-  CookieStorage,
+  CookieStorage
 } from "amazon-cognito-identity-js";
 
 export interface ILoginCallback {
@@ -35,9 +35,9 @@ export const userPool = new CognitoUserPool({
 });
 
 export interface User {
-  username: string | undefined;
+  username: string;
   accessToken: string | undefined;
-  email: string | undefined;
+  email: string;
   isPro: boolean;
 }
 
@@ -63,30 +63,34 @@ export function login(
     Password: formData.password,
   });
 
-  cognitoUser.authenticateUser(authenticationDetails, {
-    onSuccess: (session) => {
-      const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
-      console.log("Is Pro: ", isPro);
+  try {
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (session) => {
+        const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
+        console.log("Is Pro: ", isPro);
 
-      cognitoUser.getUserAttributes((err, result) => {
-          if (err) {
-            callbacks.onFailure(err.message);
+        cognitoUser.getUserAttributes((error, result) => {
+          if (error) {
+            callbacks.onFailure(error.message);
             return;
           }
           const email = result!.find((r) => r.getName() === "email")?.getValue();
           callbacks.onSuccess({
             username: cognitoUser.getUsername(),
             accessToken: session.getAccessToken().getJwtToken(),
-            email,
+            email: email!,
             isPro: isPro
           });
           return;
-          })
-    },
-    onFailure: (err) => {
-      callbacks.onFailure(err);
-    },
-  });
+        })
+      },
+      onFailure: (error) => {
+        callbacks.onFailure(error instanceof Error ? error.message : "Unknown error");
+      }
+    });
+  } catch (error) {
+    callbacks.onFailure(error instanceof Error ? error.message : "Unknown error");
+  }
 }
 
 export function forgotPassword(
@@ -201,7 +205,7 @@ function convertSessionToUser(session: CognitoUserSession, withDetails: boolean,
     resolve({
       username: cognitoUser.getUsername(),
       accessToken: session.getAccessToken().getJwtToken(),
-      email,
+      email: email!,
       isPro: isPro
     });
     return;

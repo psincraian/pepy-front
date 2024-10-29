@@ -1,11 +1,8 @@
-import {
-  DisplayStyle,
-  DownloadData,
-  VersionDownloads,
-} from "@/app/projects/[project]/model";
+import { DisplayStyle, DownloadData, VersionDownloads } from "@/app/projects/[project]/model";
 import { minimatch } from "minimatch";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
+
 dayjs.extend(isoWeek);
 
 interface BaseDownloadsResponse {
@@ -112,6 +109,23 @@ export const retrieveDownloads = (
 
   return data;
 };
+
+export function computeTotalDownloadsByVersion(downloadData: DownloadData) {
+  const totalDownloadsByVersion: VersionDownloads = {};
+
+  for (const date in downloadData) {
+    const versionDownloads = downloadData[date];
+
+    for (const version in versionDownloads) {
+      if (!totalDownloadsByVersion[version]) {
+        totalDownloadsByVersion[version] = 0;
+      }
+      totalDownloadsByVersion[version] += versionDownloads[version];
+    }
+  }
+
+  return totalDownloadsByVersion;
+}
 
 const shouldAddVersion = (
   selectedVersion: string,
