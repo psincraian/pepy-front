@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import styles from "./ads.module.css";
-import "./ads.css";
 
 const Ads: React.FC = () => {
   const renderCarbonAds = () => {
@@ -32,7 +30,7 @@ const Ads: React.FC = () => {
   };
 
   useEffect(() => {
-    if (randomInteger(1, 10) <= 2) {
+    if (randomInteger(1, 10) <= 0) {
       renderCarbonAds();
     } else {
       renderEthicalAds();
@@ -40,12 +38,12 @@ const Ads: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.adsContainer}>
+    <div>
       <div id="adselem"></div>
       <div
         className="horizontal"
         data-ea-publisher="pepytech"
-        data-ea-type="image"
+        data-ea-type="text"
       ></div>
     </div>
   );

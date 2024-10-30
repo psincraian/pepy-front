@@ -31,6 +31,7 @@ import { BadgeConfigurator } from "@/app/projects/[project]/components/badge-con
 import { PyPiInfo } from "@/app/projects/[project]/components/package-info";
 import { PackageInfo } from "@/app/projects/[project]/components/package-info";
 import { SubscribeButton } from "@/components/subscribe-button";
+import Ads from "@/app/projects/[project]/components/ads";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -170,33 +171,43 @@ export function PackageStats({ project }: { project: Project }) {
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-64px)]">
-      <div className="mb-8">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">{project.name}</h1>
-            <p className="text-muted-foreground mb-4">
-              {pypiInfo.summary}
-            </p>
-            <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="text-sm">
-                {pypiInfo.lastRelease}
-              </Badge>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger type="button" className="ml-2">
-                    <Badge variant="secondary" className="text-sm">
-                      <Download className="h-4 w-4 mr-1 inline" />
-                      {formatDownloads(project.totalDownloads)}
-                    </Badge>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    <p>{project.name} has been downloaded {project.totalDownloads} times!</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
+      <div className="flex flex-col sm:flex-row items-start justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold mb-2">{project.name}</h1>
+          <p className="text-muted-foreground mb-4">
+            {pypiInfo.summary}
+          </p>
+          <div className="flex items-center space-x-4">
+            <Badge variant="secondary" className="text-sm">
+              {pypiInfo.lastRelease}
+            </Badge>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger type="button" className="ml-2">
+                  <Badge variant="secondary" className="text-sm">
+                    <Download className="h-4 w-4 mr-1 inline" />
+                    {formatDownloads(project.totalDownloads)}
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <p>{project.name} has been downloaded {project.totalDownloads} times!</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
-          <SubscribeButton project={project.name} className="bg-blue-600 hover:bg-blue-700" />
+        </div>
+
+        <div className="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
+          {!user?.isPro && (
+            <Card className="w-full md:w-[440px] h-[130px] bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
+              <Ads />
+            </Card>
+          )}
+
+          <SubscribeButton
+            project={project.name}
+            className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700"
+          />
         </div>
       </div>
 
