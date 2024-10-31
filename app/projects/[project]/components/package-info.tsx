@@ -85,7 +85,7 @@ export function PackageInfo({
             <User className="h-5 w-5 text-blue-600 mt-0.5" />
             <div>
               <h3 className="font-medium">Author</h3>
-              <p className="text-sm text-muted-foreground">{author}</p>
+              <p className="text-sm text-muted-foreground">{author ?? "N/A"}</p>
             </div>
           </div>
         </div>

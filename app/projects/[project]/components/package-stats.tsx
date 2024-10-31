@@ -102,12 +102,12 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
   const response = await res.json();
   return {
     packageName: project,
-    summary: response["info"]["summary"],
-    lastRelease: response["info"]["version"],
+    summary: response.info.summary,
+    lastRelease: response.info.version,
     releaseDate: getLatestReleaseDateForVersion(response)!,
-    homepageUrl: response["info"]["home_page"],
-    sourceUrl: response["info"]["project_urls"]["Source"],
-    author: response["info"]["author"]
+    homepageUrl: response.info.home_page ?? null,
+    sourceUrl: response.info.project_urls?.Source ?? null,
+    author: response.info.author ?? response.info.maintainer ?? response.info.author_email ?? null
   };
 }
 
