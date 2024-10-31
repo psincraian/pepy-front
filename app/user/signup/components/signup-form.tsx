@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { signup } from "@/app/user/helper/auth";
+import { signup } from "@/lib/auth";
 
 interface SignupFormProps {
   onSignupSuccess: (username: string) => void;

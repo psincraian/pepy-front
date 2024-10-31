@@ -8,7 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { LucideMailOpen } from "lucide-react";
 import Link from "next/link";
-import { confirmPassword } from "@/app/user/helper/auth";
+import { confirmPassword } from "@/lib/auth";
 
 interface SignupFormProps {
   email: string;

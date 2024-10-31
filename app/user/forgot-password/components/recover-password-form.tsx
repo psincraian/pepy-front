@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { forgotPassword } from "@/app/user/helper/auth";
+import { forgotPassword } from "@/lib/auth";
 import { Card } from "@/components/ui/card";
 import { Alert } from "@/components/ui/alert";
 import { AlertDescription } from "@/components/ui/alert";

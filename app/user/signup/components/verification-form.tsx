@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { confirmSignUp } from "@/app/user/helper/auth";
+import { confirmSignUp } from "@/lib/auth";
 
 interface VerificationFormProps {
   username: string;

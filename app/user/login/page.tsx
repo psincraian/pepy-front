@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { login } from "@/app/user/helper/auth";
+import { login } from "@/lib/auth";
 import { UserAction } from "@/app/user/UserContext";
 import { useUserDispatch } from "@/app/user/UserContext";
 import { useRouter } from "next/navigation";
