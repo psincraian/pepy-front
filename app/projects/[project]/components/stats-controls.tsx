@@ -14,13 +14,10 @@ import { Range } from "@/app/projects/[project]/model";
 import { ProDialog } from "@/components/pro-dialog";
 import { useState } from "react";
 import React from "react";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Tooltip } from "@/components/ui/tooltip";
-import { TooltipTrigger } from "@/components/ui/tooltip";
-import { TooltipContent } from "@/components/ui/tooltip";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "@/components/ui/separator";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -153,17 +150,14 @@ export function StatsControls({
             <div className="space-y-2">
               <div className="flex flex-row items-center">
                 <Label>Package Version</Label>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger type="button" className="ml-2">
-                      <HelpCircle className="h-4 w-4 text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent side="top">
-                      <p>Type exact version or use patterns (e.g., 2.* or 1.2.*)</p>
-                      <p>Press Enter to add</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <InteractiveTooltip content={
+                  <>
+                    <p>Type exact version or use patterns (e.g., 2.* or 1.2.*)</p>
+                    <p>Press Enter to add</p>
+                  </>
+                }>
+                  <HelpCircle className="ml-2 h-4 w-4 text-muted-foreground" />
+                </InteractiveTooltip>
               </div>
               <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
                                onSelectVersions={setSelectedVersions} />
