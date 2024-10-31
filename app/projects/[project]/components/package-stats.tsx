@@ -22,16 +22,13 @@ import { notFound } from "next/navigation";
 import { useUser } from "@/app/user/UserContext";
 import DownloadsTable from "@/app/projects/[project]/components/downloads-table";
 import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Tooltip } from "@/components/ui/tooltip";
-import { TooltipTrigger } from "@/components/ui/tooltip";
-import { TooltipContent } from "@/components/ui/tooltip";
 import CountryDownloadsComponent from "@/app/projects/[project]/components/country-downloads";
 import { BadgeConfigurator } from "@/app/projects/[project]/components/badge-configurator";
 import { PyPiInfo } from "@/app/projects/[project]/components/package-info";
 import { PackageInfo } from "@/app/projects/[project]/components/package-info";
 import { SubscribeButton } from "@/components/subscribe-button";
 import Ads from "@/app/projects/[project]/components/ads";
+import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -181,19 +178,14 @@ export function PackageStats({ project }: { project: Project }) {
             <Badge variant="secondary" className="text-sm">
               {pypiInfo.lastRelease}
             </Badge>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger type="button" className="ml-2">
-                  <Badge variant="secondary" className="text-sm">
-                    <Download className="h-4 w-4 mr-1 inline" />
-                    {formatDownloads(project.totalDownloads)}
-                  </Badge>
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  <p>{project.name} has been downloaded {project.totalDownloads} times!</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <InteractiveTooltip content={
+              <p>{project.name} has been downloaded {project.totalDownloads.toLocaleString()} times!</p>
+            }>
+              <Badge variant="secondary" className="text-sm">
+                <Download className="h-4 w-4 mr-1 inline" />
+                {formatDownloads(project.totalDownloads)}
+              </Badge>
+            </InteractiveTooltip>
           </div>
         </div>
 
