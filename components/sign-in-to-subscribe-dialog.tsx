@@ -4,16 +4,13 @@ import { DialogHeader } from "@/components/ui/dialog";
 import { DialogTitle } from "@/components/ui/dialog";
 import { DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 export function SignInToSubscribeDialog(props: {
   open: boolean
   onClose: () => void
 }) {
-
-  const router = useRouter();
-  router.prefetch("/user/login");
 
   return (
     <Dialog open={props.open} onOpenChange={props.onClose}>
@@ -28,9 +25,11 @@ export function SignInToSubscribeDialog(props: {
           <Button variant="outline" onClick={props.onClose}>
             Cancel
           </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => router.push("/user/login")}>
+          <Link href="/user/login">
+            <Button className="bg-blue-600 hover:bg-blue-700">
             Sign In
           </Button>
+          </Link>
         </div>
       </DialogContent>
     </Dialog>
