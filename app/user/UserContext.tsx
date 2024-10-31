@@ -1,12 +1,12 @@
 import { createContext } from "react";
-import { User } from "@/app/user/helper/auth";
 import { useContext } from "react";
 import { useReducer } from "react";
 import { useEffect } from "react";
-import { getCurrentUser } from "@/app/user/helper/auth";
 import React from "react";
+import { User } from "@/app/user/helper/auth";
+import { getCurrentUser } from "@/app/user/helper/auth";
 
-const initialUser: State = { user: null, error: null };
+const initialUser: State = { user: null, error: null, loading: true };
 export const UserContext = createContext(initialUser);
 const UserDispatchContext = createContext<React.Dispatch<UserActionPayload>>(
   () => {},
@@ -28,6 +28,7 @@ export function UserProvider({ children }) {
   );
 
   useEffect(() => {
+    dispatch({ type: UserAction.LOADING });
     getCurrentUser(true)
       .then((user) => {
         if (user !== null) {
@@ -56,6 +57,7 @@ export enum UserAction {
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   LOGOUT,
+  LOADING
 }
 
 type UserActionPayload = {
@@ -66,23 +68,27 @@ type UserActionPayload = {
   error: string
 } | {
   type: UserAction.LOGOUT,
+} | {
+  type: UserAction.LOADING
 };
 
 type State = {
   user: User | null,
-  error: null | string
+  error: null | string,
+  loading: boolean
 }
 
 
 function userReducer(state: State, action: UserActionPayload): State {
   switch (action.type) {
     case UserAction.LOGIN_SUCCESS:
-      console.log("Test")
-      return { user: action.user, error: null };
+      return { user: action.user, error: null, loading: false };
     case UserAction.LOGIN_FAILED:
-      return { user: null, error: action.error };
+      return { user: null, error: action.error, loading: false };
     case UserAction.LOGOUT:
-      return { user: null, error: null };
+      return { user: null, error: null, loading: false };
+    case UserAction.LOADING:
+      return { user: null, error: null, loading: true };
     default:
       throw new Error("Invalid action: " + action);
   }

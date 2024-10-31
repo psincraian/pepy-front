@@ -113,7 +113,7 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 
 
 export function PackageStats({ project }: { project: Project }) {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const [viewType, setViewType] = useState<"chart" | "table">("chart");
   const [timeRange, setTimeRange] = useState(Range.FOUR_MONTHS);
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
@@ -198,7 +198,7 @@ export function PackageStats({ project }: { project: Project }) {
         </div>
 
         <div className="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
-          {!user?.isPro && (
+          {!loading && !user?.isPro && (
             <Card className="w-full md:w-[440px] h-[130px] bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
               <Ads />
             </Card>
