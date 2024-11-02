@@ -27,8 +27,8 @@ export interface IConfirmPasswordCallback {
   onFailure: (err: string) => void;
 }
 
-const USER_POOL_ID = process.env.NEXT_PUBLIC_AWS_USERPOOL_ID!;
-const CLIENT_ID = process.env.NEXT_PUBLIC_AWS_APPCLIENT_ID!;
+const USER_POOL_ID = process.env.NEXT_PUBLIC_AWS_USERPOOL_ID ?? "us-east-1_YFNT7b4nQ";
+const CLIENT_ID = process.env.NEXT_PUBLIC_AWS_APPCLIENT_ID ?? "5s3qsuck8dcfrb4u1l4mm15mos";
 export const userPool = new CognitoUserPool({
   UserPoolId: USER_POOL_ID,
   ClientId: CLIENT_ID,
