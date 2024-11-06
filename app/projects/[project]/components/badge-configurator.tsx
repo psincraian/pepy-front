@@ -34,7 +34,7 @@ export function BadgeConfigurator({ packageName }: BadgeConfiguratorProps) {
   };
 
   const getRich = () => {
-    return `<a href="https://pepy.tech/project/${packageName}"><img src="${getBadgeUrl()}" alt="PyPI Downloads"></a>`;
+    return `<a href="https://pepy.tech/projects/${packageName}"><img src="${getBadgeUrl()}" alt="PyPI Downloads"></a>`;
   };
 
   const getBadgeCode = () => {

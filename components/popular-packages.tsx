@@ -7,7 +7,7 @@ export function PopularPackages() {
   const router = useRouter();
 
   const navigateToPackage = (packageName: string) => {
-    router.push(`/project/${packageName}`);
+    router.push(`/projects/${packageName}`);
   };
 
   return (

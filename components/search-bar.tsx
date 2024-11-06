@@ -18,7 +18,7 @@ export function SearchBar({ className }: SearchBarProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      router.push(`/project/${query.trim()}`);
+      router.push(`/projects/${query.trim()}`);
     }
   };
 
