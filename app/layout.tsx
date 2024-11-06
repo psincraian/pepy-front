@@ -5,6 +5,7 @@ import { UserProvider } from "@/app/user/UserContext";
 import { Inter } from "next/font/google";
 import Header from "@/components/header";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export const runtime = "edge";
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
       </div>
     </UserProvider>
     <Analytics />
+    <SpeedInsights />
     </body>
     </html>
   );
