@@ -54,7 +54,7 @@ module.exports = withSentryConfig(module.exports, {
   // This can increase your server load as well as your hosting bill.
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
-  tunnelRoute: "/monitoring",
+  tunnelRoute: null,
 
   // Hides source maps from generated client bundles
   hideSourceMaps: true,
