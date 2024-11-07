@@ -5,6 +5,7 @@ import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
 import { Metadata } from "next";
 import { PackageStats } from "@/app/projects/[project]/components/package-stats";
+import { validatePackageName } from "@/lib/validators";
 
 export const runtime = "edge";
 
@@ -20,6 +21,11 @@ export async function generateMetadata(
 
 async function getData(project: string): Promise<Project> {
   console.log("Fetching data for", project);
+  const validationResult = validatePackageName(project);
+  if (!validationResult.isValid) {
+    notFound();
+  }
+
   const res = await fetch(PEPY_HOST + `/api/v2/projects/${project}`, {
     headers: {
       "X-Api-Key": process.env.PEPY_API_KEY!
