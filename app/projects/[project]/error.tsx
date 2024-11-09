@@ -45,6 +45,7 @@ export default function Error({ error, reset }: ErrorProps) {
           <div className="p-6 bg-muted/50 rounded-lg text-sm text-muted-foreground max-w-xl mx-auto">
             <p className="font-medium mb-3">What you can try:</p>
             <ol className="list-decimal list-inside space-y-2 text-left">
+              <li>Update your browser</li>
               <li>Refresh the page to try again</li>
               <li>Clear your browser cache and cookies</li>
               <li>Check your internet connection</li>
