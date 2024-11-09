@@ -48,6 +48,7 @@ export function SearchBar({ className }: SearchBarProps) {
           <Tooltip open={!!error}>
             <TooltipTrigger asChild>
               <Input
+                id="search-bar-input"
                 ref={inputRef}
                 name="query"
                 placeholder="Search Python packages (e.g., requests, pandas)..."
