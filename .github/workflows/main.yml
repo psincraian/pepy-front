@@ -44,6 +44,8 @@ jobs:
         run: npm install
       - name: Build site
         run: npx @cloudflare/next-on-pages@1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
