@@ -52,11 +52,3 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c26be9b36a513ce4fc9074e8071346dd
           command: pages deploy .vercel/output/static --project-name=pepy
-      - name: Sentry Release
-        uses: getsentry/action-release@v1.7.0
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_CUSTOM_INTEGRATION }}
-          SENTRY_ORG: pepy-5g
-          SENTRY_PROJECT: pepy-front
-        with:
-          environment: production
