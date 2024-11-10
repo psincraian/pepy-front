@@ -8,9 +8,6 @@ import { useState } from "react";
 async function getRedirectUrl() {
   const res = await fetch(`/api/v3/user/subscription-portal/session`, {
     method: "POST",
-    headers: {
-      "X-Api-Key": process.env.PEPY_API_KEY!
-    }
   });
 
   const body = await res.json();
