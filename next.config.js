@@ -34,7 +34,7 @@ module.exports = withSentryConfig(module.exports, {
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
   org: "pepy-5g",
-  project: "javascript-nextjs",
+  project: "pepy-front",
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
