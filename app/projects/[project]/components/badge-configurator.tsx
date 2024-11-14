@@ -75,7 +75,7 @@ export function BadgeConfigurator({ packageName }: BadgeConfiguratorProps) {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="weekly">Daily</SelectItem>
+                  <SelectItem value="weekly">Weekly</SelectItem>
                   <SelectItem value="monthly">Monthly</SelectItem>
                   <SelectItem value="total">Total</SelectItem>
                 </SelectContent>
