@@ -19,7 +19,6 @@ async function subscribe(project: string): Promise<"error" | "success"> {
       "project": project
     }),
     headers: {
-      "X-Api-Key": process.env.PEPY_API_KEY!,
       "Content-Type": "application/json"
     }
   });
@@ -34,9 +33,6 @@ async function getIsSubscribed(project: string): Promise<boolean> {
   console.log("Fetching data for", project);
   const res = await fetch(`/api/v3/subscriptions/`, {
     method: "GET",
-    headers: {
-      "X-Api-Key": process.env.PEPY_API_KEY!
-    }
   });
   if (res.status !== 200) {
     return false;

@@ -33,9 +33,6 @@ import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
   console.log("Fetching data for", project);
   const res = await fetch(`/api/v3/pro/projects/${project}/downloads`, {
-    headers: {
-      "X-Api-Key": process.env.PEPY_API_KEY!
-    },
     next: { revalidate: 3600 }
   });
   if (res.status === 404) {
