@@ -62,7 +62,7 @@ export function SignupForm({ onSignupSuccess }: SignupFormProps) {
         </div>
         <div className="space-y-2">
           <Input
-            type="username"
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
