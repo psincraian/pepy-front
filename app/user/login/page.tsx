@@ -83,7 +83,7 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               autoComplete="email"
-              dataFormType="email"
+              data-form-type="email"
             />
           </div>
           <div className="space-y-2">
@@ -95,7 +95,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               id="password"
               autoComplete="current-password"
-              dataFormType="password"
+              data-form-type="password"
             />
           </div>
           <div className="flex items-center justify-between">
