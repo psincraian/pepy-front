@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
+  dataFormType?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -16,6 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className
         )}
         ref={ref}
+        data-form-type={props.dataFormType}
         {...props}
       />
     );
