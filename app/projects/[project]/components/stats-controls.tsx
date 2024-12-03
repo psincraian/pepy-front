@@ -133,7 +133,7 @@ export function StatsControls({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={Range[Range.FOUR_MONTHS]}>4 months</SelectItem>
+                  <SelectItem value={Range[Range.THREE_MONTHS]}>3 months</SelectItem>
                   <SelectItem value={Range[Range.ONE_YEAR]}>
                     <div className="flex flex-row items-center">
                       <span>12 months</span>

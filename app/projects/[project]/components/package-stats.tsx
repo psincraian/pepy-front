@@ -110,7 +110,7 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 export function PackageStats({ project }: { project: Project }) {
   const { user, loading } = useUser();
   const [viewType, setViewType] = useState<"chart" | "table">("chart");
-  const [timeRange, setTimeRange] = useState(Range.FOUR_MONTHS);
+  const [timeRange, setTimeRange] = useState(Range.THREE_MONTHS);
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
   const [category, setCategory] = useState<"version" | "country">("version");
   const [includeCIDownloads, setIncludeCIDownloads] = useState(true);

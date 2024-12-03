@@ -34,6 +34,6 @@ export enum DisplayStyle {
 }
 
 export enum Range {
-  FOUR_MONTHS,
+  THREE_MONTHS,
   ONE_YEAR,
 }
