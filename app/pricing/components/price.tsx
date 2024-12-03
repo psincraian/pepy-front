@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
@@ -159,7 +160,7 @@ export default function Pricing() {
               </li>
               <li className="flex items-center">
                 <Check className="h-5 w-5 text-green-500 mr-2" />
-                CI downloads filtering (coming soon)
+                CI downloads filtering (<Sparkles className="h-4 w-4 text-yellow-500 mr-1" /> new)
               </li>
             </ul>
           </div>
