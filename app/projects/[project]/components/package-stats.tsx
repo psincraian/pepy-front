@@ -30,9 +30,10 @@ import { SubscribeButton } from "@/components/subscribe-button";
 import Ads from "@/app/projects/[project]/components/ads";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 
-async function getOneYearDownloadsData(project: string): Promise<DownloadData> {
+async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
   console.log("Fetching data for", project);
-  const res = await fetch(`/api/v3/pro/projects/${project}/downloads`, {
+  const rangeValue = range == Range.ONE_YEAR ? "ONE_YEAR" : "FOUR_MONTHS";
+  const res = await fetch(`/api/v3/pro/projects/${project}/downloads?timeRange=${rangeValue}&includeCIDownloads=${includeCIDownloads}`, {
     next: { revalidate: 3600 }
   });
   if (res.status === 404) {
@@ -112,6 +113,7 @@ export function PackageStats({ project }: { project: Project }) {
   const [timeRange, setTimeRange] = useState(Range.FOUR_MONTHS);
   const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
   const [category, setCategory] = useState<"version" | "country">("version");
+  const [includeCIDownloads, setIncludeCIDownloads] = useState(true);
   const [downloadsData, setDownloadsData] = useState(project.downloads);
   const [pypiInfo, setPypiInfo] = useState<PyPiInfo>({
     packageName: project.name,
@@ -140,16 +142,18 @@ export function PackageStats({ project }: { project: Project }) {
 
   function handleRangeChange(range: Range) {
     setTimeRange(range);
-    if (range !== Range.ONE_YEAR) {
-      setDownloadsData(project.downloads);
-      return;
-    }
-
-    if (granularity == DisplayStyle.DAILY) {
+    if (range == Range.ONE_YEAR && granularity == DisplayStyle.DAILY) {
       setGranularity(DisplayStyle.WEEKLY);
     }
 
-    getOneYearDownloadsData(project.name).then(data => {
+    getProDownloadsData(project.name, range, includeCIDownloads).then(data => {
+      setDownloadsData(data);
+    });
+  }
+
+  function handleIncludeCIDownloadsChange(includeCIDownloads: boolean) {
+    setIncludeCIDownloads(includeCIDownloads);
+    getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
       setDownloadsData(data);
     });
   }
@@ -194,7 +198,8 @@ export function PackageStats({ project }: { project: Project }) {
 
         <div className="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
           {!loading && !user?.isPro && (
-            <Card className="w-full md:w-[400px]  bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
+            <Card
+              className="w-full md:min-h-[100px] md:w-[400px] bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
               <Ads />
             </Card>
           )}
@@ -222,6 +227,8 @@ export function PackageStats({ project }: { project: Project }) {
               setGranularity={setGranularity}
               category={category}
               setCategory={setCategory}
+              includeCIDownloads={includeCIDownloads}
+              setIncludeCIDownloads={handleIncludeCIDownloadsChange}
               isUserPro={user?.isPro ?? false} />
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-full">

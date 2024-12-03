@@ -18,6 +18,7 @@ import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "@/components/ui/separator";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
+import { Switch } from "@/components/ui/switch";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -31,6 +32,8 @@ interface StatsControlsProps {
   setGranularity: (value: DisplayStyle) => void;
   category: "version" | "country";
   setCategory: (value: "version" | "country") => void;
+  includeCIDownloads: boolean;
+  setIncludeCIDownloads: (value: boolean) => void;
   isUserPro: boolean,
 }
 
@@ -46,6 +49,8 @@ export function StatsControls({
                                 setGranularity,
                                 category,
                                 setCategory,
+                                includeCIDownloads,
+                                setIncludeCIDownloads,
                                 isUserPro
                               }: StatsControlsProps) {
 
@@ -69,8 +74,17 @@ export function StatsControls({
     setCategory(category);
   }
 
+  function handleCIDownloadsFilterChange(value: boolean) {
+    if (!isUserPro) {
+      setProDialogOpen(true);
+      return;
+    }
+
+    setIncludeCIDownloads(value);
+  }
+
   return (
-    <Card className="p-6 h-[600px] overflow-auto">
+    <Card className="p-6 overflow-auto">
       <div className="space-y-4">
         <div className="space-y-2">
           <Label>Category</Label>
@@ -145,6 +159,14 @@ export function StatsControls({
                   <SelectItem value={DisplayStyle[DisplayStyle.MONTHLY]}>Monthly</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex flex-row">
+                <Label>Include CI Downloads</Label>
+                <Crown className="ml-2 h-4 w-4 text-yellow-500" />
+              </div>
+              <Switch checked={includeCIDownloads} onCheckedChange={handleCIDownloadsFilterChange} />
             </div>
 
             <div className="space-y-2">
