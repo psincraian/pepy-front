@@ -39,7 +39,7 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@sentry/nextjs": "^8.38.0",
-    "@stripe/stripe-js": "^4.10.0",
+    "@stripe/stripe-js": "^5.2.0",
     "@tanstack/react-virtual": "^3.10.9",
     "@types/node": "20.14.9",
     "@types/react": "18.3.12",
