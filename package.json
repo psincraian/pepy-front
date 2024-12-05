@@ -52,7 +52,7 @@
     "dayjs": "^1.11.13",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.4",
-    "lucide-react": "^0.456.0",
+    "lucide-react": "^0.465.0",
     "minimatch": "^10.0.1",
     "next": "^14.2.4",
     "react": "18.3.1",
