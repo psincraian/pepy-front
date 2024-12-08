@@ -7,6 +7,6 @@ export const NEWS = {
       text: "Learn more",
       url: "https://x.com/psincraian/status/1864028393856999621"
     },
-    expiryDate: "2024-12-15"
+    expiryDate: "2024-12-11"
   }
 } as const;
