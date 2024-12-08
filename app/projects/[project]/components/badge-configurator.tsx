@@ -26,14 +26,10 @@ export function BadgeConfigurator({ packageName }: BadgeConfiguratorProps) {
   };
 
   const getMarkdown = () => {
-    return `![PyPI Downloads](${getBadgeUrl()})`;
+    return `[![PyPI Downloads](${getBadgeUrl()})](https://pepy.tech/projects/${packageName})`;
   };
 
   const getHtml = () => {
-    return `<img src="${getBadgeUrl()}" alt="PyPI Downloads">`;
-  };
-
-  const getRich = () => {
     return `<a href="https://pepy.tech/projects/${packageName}"><img src="${getBadgeUrl()}" alt="PyPI Downloads"></a>`;
   };
 
@@ -43,8 +39,6 @@ export function BadgeConfigurator({ packageName }: BadgeConfiguratorProps) {
         return getMarkdown();
       case "html":
         return getHtml();
-      case "rich":
-        return getRich();
       case "url":
         return getBadgeUrl();
       default:
@@ -88,7 +82,6 @@ export function BadgeConfigurator({ packageName }: BadgeConfiguratorProps) {
                 <TabsList className="grid w-full grid-cols-4">
                   <TabsTrigger value="markdown">Markdown</TabsTrigger>
                   <TabsTrigger value="html">HTML</TabsTrigger>
-                  <TabsTrigger value="rich">Rich HTML</TabsTrigger>
                   <TabsTrigger value="url">URL</TabsTrigger>
                 </TabsList>
               </Tabs>
