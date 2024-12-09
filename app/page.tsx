@@ -7,8 +7,32 @@ import { Metadata } from "next";
 export const runtime = "edge";
 
 export const metadata: Metadata = {
-  title: "Python Package Statistics",
-  description: "View download statistics for Python packages"
+  title: "pepy.tech - PyPI Stats | Python Package Download Analytics & Insights",
+  description: "Track PyPI package downloads, analyze trends, and gain insights into the Python ecosystem. Get real-time statistics for any Python package.",
+  keywords: [
+    "pypi stats", "python package statistics", "pypi downloads", "python analytics",
+    "package download stats", "python package insights", "pypi usage", "python library stats"
+  ],
+  openGraph: {
+    title: "pepy.tech - PyPI Stats | Python Package Download Analytics & Insights",
+    description: "Track PyPI package downloads, analyze trends, and gain insights into the Python ecosystem.",
+    type: "website",
+    url: "https://pepy.tech",
+    images: [
+      {
+        url: "https://pepy.tech/logo-500.png",
+        width: 500,
+        height: 500,
+        alt: "pepy.tech - PyPI Stats Dashboard"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "pepy.tech - PyPI Stats | Python Package Download Analytics & Insights",
+    description: "Track PyPI package downloads and analytics",
+    creator: "@psincraian"
+  }
 };
 
 export default function Home() {
@@ -23,7 +47,7 @@ export default function Home() {
           </div>
           <h1
             className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-            Python Package Analytics
+            PyPI Package Statistics & Analytics
           </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Track downloads, analyze trends, and gain insights into the Python ecosystem
