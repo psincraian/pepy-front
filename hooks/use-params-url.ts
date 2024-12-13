@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IParamValue } from "@/app/projects/[project]/model";
 
-export function useStatsUrl() {
+export function useParamsUrl() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -44,13 +44,14 @@ export function useStatsUrl() {
 
     const queryString = params.toString();
     const newUrl = queryString ? `?${queryString}` : "";
-    router.push(newUrl, { scroll: false });
+    window.history.replaceState(null, "", newUrl);
   }, [router, searchParams]);
 
   return {
     getParam,
     getParamValue,
     getListParam,
-    updateUrl
+    updateUrl,
+    searchParams
   };
 }

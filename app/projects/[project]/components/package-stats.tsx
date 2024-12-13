@@ -29,7 +29,7 @@ import { PackageInfo } from "@/app/projects/[project]/components/package-info";
 import { SubscribeButton } from "@/components/subscribe-button";
 import Ads from "@/app/projects/[project]/components/ads";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
-import { useStatsUrl } from "@/hooks/use-stats-url";
+import { useParamsUrl } from "@/hooks/use-params-url";
 
 async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -110,7 +110,7 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 
 export function PackageStats({ project }: { project: Project }) {
   const { user, loading } = useUser();
-  const { getParam, getParamValue, getListParam, updateUrl } = useStatsUrl();
+  const { getParam, getParamValue, getListParam } = useParamsUrl();
   const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
   const [timeRange, setTimeRange] = useState(getParamValue("range", Range, Range.THREE_MONTHS));
   const [granularity, setGranularity] = useState<DisplayStyle>(getParamValue("granularity", DisplayStyle, DisplayStyle.DAILY));
@@ -126,6 +126,15 @@ export function PackageStats({ project }: { project: Project }) {
     sourceUrl: null,
     author: ""
   });
+
+  useEffect(() => {
+    const timeRangeParam = user?.isPro ? getParamValue("timeRange", Range, Range.THREE_MONTHS) : Range.THREE_MONTHS;
+    setTimeRange(timeRangeParam);
+    const categoryParam = user?.isPro ? getParam("category", "version") as "country" | "version" : "version";
+    setCategory(categoryParam);
+    const includeCiDownloadsParam = user?.isPro ? getParam("includeCIDownloads", "true").toLowerCase() === "true" : true;
+    setIncludeCIDownloads(includeCiDownloadsParam);
+  }, [getParam, getParamValue, user]);
 
   useEffect(() => {
     getPypiInfo(project.name).then(data => {

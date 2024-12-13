@@ -19,7 +19,7 @@ import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "@/components/ui/separator";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Switch } from "@/components/ui/switch";
-import { useStatsUrl } from "@/hooks/use-stats-url";
+import { useParamsUrl } from "@/hooks/use-params-url";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -56,7 +56,7 @@ export function StatsControls({
                               }: StatsControlsProps) {
 
   const [isProDialogOpen, setProDialogOpen] = useState(false);
-  const { updateUrl } = useStatsUrl();
+  const { updateUrl } = useParamsUrl();
 
   function handleTimeRangeChange(range: Range) {
     if (range === Range.ONE_YEAR && !isUserPro) {
@@ -64,7 +64,7 @@ export function StatsControls({
       return;
     }
 
-    updateUrl({ range: range.key });
+    updateUrl({ timeRange: range.key });
     setTimeRange(range);
   }
 
