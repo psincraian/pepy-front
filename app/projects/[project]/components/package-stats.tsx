@@ -29,6 +29,7 @@ import { PackageInfo } from "@/app/projects/[project]/components/package-info";
 import { SubscribeButton } from "@/components/subscribe-button";
 import Ads from "@/app/projects/[project]/components/ads";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
+import { useStatsUrl } from "@/hooks/use-stats-url";
 
 async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -109,11 +110,12 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 
 export function PackageStats({ project }: { project: Project }) {
   const { user, loading } = useUser();
-  const [viewType, setViewType] = useState<"chart" | "table">("chart");
-  const [timeRange, setTimeRange] = useState(Range.THREE_MONTHS);
-  const [granularity, setGranularity] = useState<DisplayStyle>(DisplayStyle.DAILY);
-  const [category, setCategory] = useState<"version" | "country">("version");
-  const [includeCIDownloads, setIncludeCIDownloads] = useState(true);
+  const { getParam, getParamValue, getListParam, updateUrl } = useStatsUrl();
+  const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
+  const [timeRange, setTimeRange] = useState(getParamValue("range", Range, Range.THREE_MONTHS));
+  const [granularity, setGranularity] = useState<DisplayStyle>(getParamValue("granularity", DisplayStyle, DisplayStyle.DAILY));
+  const [category, setCategory] = useState<"version" | "country">(getParam("category", "version") as "country" | "version");
+  const [includeCIDownloads, setIncludeCIDownloads] = useState(getParam("includeCIDownloads", "true").toLowerCase() === "true");
   const [downloadsData, setDownloadsData] = useState(project.downloads);
   const [pypiInfo, setPypiInfo] = useState<PyPiInfo>({
     packageName: project.name,
@@ -129,7 +131,13 @@ export function PackageStats({ project }: { project: Project }) {
     getPypiInfo(project.name).then(data => {
       setPypiInfo(data);
     });
-  }, [project.name]);
+
+    if (timeRange === Range.ONE_YEAR || !includeCIDownloads) {
+      getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
+        setDownloadsData(data);
+      });
+    }
+  }, [includeCIDownloads, loading, project.name, timeRange, user]);
 
   const versionDownloadsCache = useMemo(() => {
     return computeTotalDownloadsByVersion(downloadsData);
@@ -138,7 +146,9 @@ export function PackageStats({ project }: { project: Project }) {
   const versions = project.versions
     .toReversed()
     .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
-  const [selectedVersions, setSelectedVersions] = useState<Version[]>(versions.slice(0, 3));
+  const versionsFromUrl = getListParam("versions", [])
+    .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
+  const [selectedVersions, setSelectedVersions] = useState<Version[]>(versionsFromUrl.length > 0 ? versionsFromUrl : versions.slice(0, 3));
 
   function handleRangeChange(range: Range) {
     setTimeRange(range);

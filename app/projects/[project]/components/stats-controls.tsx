@@ -19,6 +19,7 @@ import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "@/components/ui/separator";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Switch } from "@/components/ui/switch";
+import { useStatsUrl } from "@/hooks/use-stats-url";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -55,6 +56,7 @@ export function StatsControls({
                               }: StatsControlsProps) {
 
   const [isProDialogOpen, setProDialogOpen] = useState(false);
+  const { updateUrl } = useStatsUrl();
 
   function handleTimeRangeChange(range: Range) {
     if (range === Range.ONE_YEAR && !isUserPro) {
@@ -62,6 +64,7 @@ export function StatsControls({
       return;
     }
 
+    updateUrl({ range: range.key });
     setTimeRange(range);
   }
 
@@ -71,6 +74,7 @@ export function StatsControls({
       return;
     }
 
+    updateUrl({ category: category });
     setCategory(category);
   }
 
@@ -80,7 +84,23 @@ export function StatsControls({
       return;
     }
 
+    updateUrl({ includeCIDownloads: value });
     setIncludeCIDownloads(value);
+  }
+
+  function handleGranularity(granularity: DisplayStyle) {
+    updateUrl({ granularity: granularity.key });
+    setGranularity(granularity);
+  }
+
+  function handleVersionChange(versions: Version[]) {
+    updateUrl({ versions: versions.map(v => v.version) });
+    setSelectedVersions(versions);
+  }
+
+  function handleViewType(viewType: "chart" | "table") {
+    updateUrl({ viewType: viewType });
+    setViewType(viewType);
   }
 
   return (
@@ -106,7 +126,7 @@ export function StatsControls({
 
         <div className="space-y-2">
           <Label>View Type</Label>
-          <ToggleGroup type="single" value={viewType} onValueChange={setViewType} className="justify-start">
+          <ToggleGroup type="single" value={viewType} onValueChange={handleViewType} className="justify-start">
             <ToggleGroupItem value="chart" aria-label="Chart view">
               <BarChart2 className="h-4 w-4 mr-2" />
               Chart
@@ -127,14 +147,14 @@ export function StatsControls({
 
             <div className="space-y-2">
               <Label>Time Range</Label>
-              <Select value={Range[timeRange]}
-                      onValueChange={(v) => handleTimeRangeChange(Range[v as keyof typeof Range])}>
+              <Select value={timeRange.key}
+                      onValueChange={(v) => handleTimeRangeChange(Range.fromKey(v))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={Range[Range.THREE_MONTHS]}>3 months</SelectItem>
-                  <SelectItem value={Range[Range.ONE_YEAR]}>
+                  <SelectItem value={Range.THREE_MONTHS.key}>3 months</SelectItem>
+                  <SelectItem value={Range.ONE_YEAR.key}>
                     <div className="flex flex-row items-center">
                       <span>12 months</span>
                       <Crown className="ml-2 h-4 w-4 text-yellow-500" />
@@ -146,17 +166,16 @@ export function StatsControls({
 
             <div className="space-y-2">
               <Label>Time Granularity</Label>
-              <Select value={DisplayStyle[granularity]} onValueChange={(v: string) => {
-                const granularity: DisplayStyle = DisplayStyle[v as keyof typeof DisplayStyle];
-                setGranularity(granularity);
+              <Select value={granularity.key} onValueChange={(v: string) => {
+                handleGranularity(DisplayStyle.fromKey(v));
               }}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={DisplayStyle[DisplayStyle.DAILY]}>Daily</SelectItem>
-                  <SelectItem value={DisplayStyle[DisplayStyle.WEEKLY]}>Weekly</SelectItem>
-                  <SelectItem value={DisplayStyle[DisplayStyle.MONTHLY]}>Monthly</SelectItem>
+                  <SelectItem value={DisplayStyle.DAILY.key}>Daily</SelectItem>
+                  <SelectItem value={DisplayStyle.WEEKLY.key}>Weekly</SelectItem>
+                  <SelectItem value={DisplayStyle.MONTHLY.key}>Monthly</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -182,7 +201,7 @@ export function StatsControls({
                 </InteractiveTooltip>
               </div>
               <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
-                               onSelectVersions={setSelectedVersions} />
+                               onSelectVersions={handleVersionChange} />
             </div>
           </div>)}
 
