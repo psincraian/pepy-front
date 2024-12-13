@@ -82,7 +82,13 @@ export function VersionDropdown({
                                 }: VersionDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [selections, setSelections] = useState<Selection[]>(initialVersions);
+  const [selections, setSelections] = useState<Selection[]>(initialVersions.map(v => {
+    if (v.version.includes("*")) {
+      return { pattern: v.version, type: "pattern" } as VersionPattern;
+    } else {
+      return v;
+    }
+  }));
 
   const selectedVersions = useMemo(() => {
     const directVersions = selections.filter((s): s is Version => !isVersionPattern(s));
