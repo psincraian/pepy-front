@@ -112,7 +112,7 @@ export function PackageStats({ project }: { project: Project }) {
   const { user, loading } = useUser();
   const { getParam, getParamValue, getListParam } = useParamsUrl();
   const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
-  const [timeRange, setTimeRange] = useState(getParamValue("range", Range, Range.THREE_MONTHS));
+  const [timeRange, setTimeRange] = useState(getParamValue("timeRange", Range, Range.THREE_MONTHS));
   const [granularity, setGranularity] = useState<DisplayStyle>(getParamValue("granularity", DisplayStyle, DisplayStyle.DAILY));
   const [category, setCategory] = useState<"version" | "country">(getParam("category", "version") as "country" | "version");
   const [includeCIDownloads, setIncludeCIDownloads] = useState(getParam("includeCIDownloads", "true").toLowerCase() === "true");

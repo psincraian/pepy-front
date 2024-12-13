@@ -4,16 +4,19 @@ import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IParamValue } from "@/app/projects/[project]/model";
 
+type ParamKeys = "timeRange" | "category" | "viewType" | "includeCIDownloads" | "granularity" | "versions";
+
+
 export function useParamsUrl() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const getParam = useCallback((key: string, defaultValue: string) => {
+  const getParam = useCallback((key: ParamKeys, defaultValue: string) => {
     return searchParams.get(key) || defaultValue;
   }, [searchParams]);
 
   const getParamValue = useCallback(<T extends IParamValue>(
-    key: string,
+    key: ParamKeys,
     paramClass: { fromKey(key: string): T },
     defaultValue: T
   ): T => {
@@ -23,24 +26,22 @@ export function useParamsUrl() {
       : defaultValue;
   }, [searchParams]);
 
-  const getListParam = useCallback((key: string, defaultValue: string[]) => {
+  const getListParam = useCallback((key: ParamKeys, defaultValue: string[]) => {
     return searchParams.get(key)?.split(",") || defaultValue;
   }, [searchParams]);
 
-  const updateUrl = useCallback((updates: Record<string, string | boolean | string[]>) => {
+  const updateUrl = useCallback((key: ParamKeys, value: string | string[] | boolean) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    Object.entries(updates).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        if (value.length > 0) {
-          params.set(key, value.join(","));
-        } else {
-          params.delete(key);
-        }
+    if (Array.isArray(value)) {
+      if (value.length > 0) {
+        params.set(key, value.join(","));
       } else {
-        params.set(key, String(value));
+        params.delete(key);
       }
-    });
+    } else {
+      params.set(key, String(value));
+    }
 
     const queryString = params.toString();
     const newUrl = queryString ? `?${queryString}` : "";

@@ -64,7 +64,7 @@ export function StatsControls({
       return;
     }
 
-    updateUrl({ timeRange: range.key });
+    updateUrl("timeRange", range.key);
     setTimeRange(range);
   }
 
@@ -74,7 +74,7 @@ export function StatsControls({
       return;
     }
 
-    updateUrl({ category: category });
+    updateUrl("category", category);
     setCategory(category);
   }
 
@@ -84,22 +84,22 @@ export function StatsControls({
       return;
     }
 
-    updateUrl({ includeCIDownloads: value });
+    updateUrl("includeCIDownloads", value);
     setIncludeCIDownloads(value);
   }
 
   function handleGranularity(granularity: DisplayStyle) {
-    updateUrl({ granularity: granularity.key });
+    updateUrl("granularity", granularity.key);
     setGranularity(granularity);
   }
 
   function handleVersionChange(versions: Version[]) {
-    updateUrl({ versions: versions.map(v => v.version) });
+    updateUrl("versions", versions.map(v => v.version));
     setSelectedVersions(versions);
   }
 
   function handleViewType(viewType: "chart" | "table") {
-    updateUrl({ viewType: viewType });
+    updateUrl("viewType", viewType);
     setViewType(viewType);
   }
 
