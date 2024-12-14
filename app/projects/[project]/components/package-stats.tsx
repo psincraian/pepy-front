@@ -30,6 +30,7 @@ import { SubscribeButton } from "@/components/subscribe-button";
 import Ads from "@/app/projects/[project]/components/ads";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { useParamsUrl } from "@/hooks/use-params-url";
+import { ProDialogLinkSharing } from "@/app/projects/[project]/components/pro-dialog-link-sharing";
 
 async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -112,11 +113,20 @@ export function PackageStats({ project }: { project: Project }) {
   const { user, loading } = useUser();
   const { getParam, getParamValue, getListParam } = useParamsUrl();
   const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
-  const [timeRange, setTimeRange] = useState(getParamValue("timeRange", Range, Range.THREE_MONTHS));
+  const timeRangeQueryParam = getParamValue("timeRange", Range, Range.THREE_MONTHS);
+  const [timeRange, setTimeRange] = useState(timeRangeQueryParam);
   const [granularity, setGranularity] = useState<DisplayStyle>(getParamValue("granularity", DisplayStyle, DisplayStyle.DAILY));
-  const [category, setCategory] = useState<"version" | "country">(getParam("category", "version") as "country" | "version");
-  const [includeCIDownloads, setIncludeCIDownloads] = useState(getParam("includeCIDownloads", "true").toLowerCase() === "true");
+  const categoryQueryParam = getParam("category", "version") as "country" | "version";
+  const [category, setCategory] = useState<"version" | "country">(categoryQueryParam);
+  const includeCiDownloadsQueryParam = getParam("includeCIDownloads", "true").toLowerCase() === "true";
+  const [includeCIDownloads, setIncludeCIDownloads] = useState(includeCiDownloadsQueryParam);
   const [downloadsData, setDownloadsData] = useState(project.downloads);
+  const [isProDialogOpen, setProDialogOpen] = useState(false);
+  const hasProFeaturesSelectedValue = timeRangeQueryParam === Range.ONE_YEAR ||
+    categoryQueryParam === "country" ||
+    !includeCiDownloadsQueryParam;
+  const [hasProFeaturesSelected, _] = useState(hasProFeaturesSelectedValue);
+
   const [pypiInfo, setPypiInfo] = useState<PyPiInfo>({
     packageName: project.name,
     summary: "",
@@ -128,13 +138,25 @@ export function PackageStats({ project }: { project: Project }) {
   });
 
   useEffect(() => {
-    const timeRangeParam = user?.isPro ? getParamValue("timeRange", Range, Range.THREE_MONTHS) : Range.THREE_MONTHS;
+    if (loading) {
+      return;
+    }
+
+    const timeRangeParam = user?.isPro ? timeRangeQueryParam : Range.THREE_MONTHS;
     setTimeRange(timeRangeParam);
-    const categoryParam = user?.isPro ? getParam("category", "version") as "country" | "version" : "version";
+    const categoryParam = user?.isPro ? categoryQueryParam : "version";
     setCategory(categoryParam);
-    const includeCiDownloadsParam = user?.isPro ? getParam("includeCIDownloads", "true").toLowerCase() === "true" : true;
+    const includeCiDownloadsParam = user?.isPro ? includeCiDownloadsQueryParam : true;
     setIncludeCIDownloads(includeCiDownloadsParam);
-  }, [getParam, getParamValue, user]);
+
+
+    console.log("Has pro features", hasProFeaturesSelected);
+
+    if (hasProFeaturesSelected && !loading && !user?.isPro) {
+      setProDialogOpen(true);
+    }
+
+  }, [categoryQueryParam, hasProFeaturesSelected, includeCiDownloadsQueryParam, timeRangeQueryParam, loading, user]);
 
   useEffect(() => {
     getPypiInfo(project.name).then(data => {
@@ -142,6 +164,10 @@ export function PackageStats({ project }: { project: Project }) {
     });
 
     if (timeRange === Range.ONE_YEAR || !includeCIDownloads) {
+      if (loading || !user?.isPro) {
+        return;
+      }
+
       getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
         setDownloadsData(data);
       });
@@ -252,7 +278,7 @@ export function PackageStats({ project }: { project: Project }) {
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-full">
                 {
-                  category == "country" ?
+                  category == "country" && user?.isPro ?
                     <CountryDownloadsComponent view={viewType} project={project.name} /> :
                     viewType == "table" ?
                       <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
@@ -276,6 +302,7 @@ export function PackageStats({ project }: { project: Project }) {
           <BadgeConfigurator packageName={project.name} />
         </TabsContent>
       </Tabs>
+      <ProDialogLinkSharing isOpen={isProDialogOpen} setIsOpen={setProDialogOpen} />
     </div>
   );
 }

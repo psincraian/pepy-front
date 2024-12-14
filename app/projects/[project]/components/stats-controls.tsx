@@ -11,9 +11,10 @@ import { VersionDropdown } from "@/app/projects/[project]/components/version-dro
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { DisplayStyle } from "@/app/projects/[project]/model";
 import { Range } from "@/app/projects/[project]/model";
-import { ProDialog } from "@/components/pro-dialog";
+import { ProDialog } from "@/app/projects/[project]/components/pro-dialog";
 import { useState } from "react";
 import React from "react";
+import { useEffect } from "react";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "@/components/ui/separator";
@@ -56,7 +57,18 @@ export function StatsControls({
                               }: StatsControlsProps) {
 
   const [isProDialogOpen, setProDialogOpen] = useState(false);
-  const { updateUrl } = useParamsUrl();
+  const { updateParam, updateMultipleParams } = useParamsUrl();
+
+  useEffect(() => {
+    updateMultipleParams({
+      timeRange: timeRange.key,
+      category,
+      includeCIDownloads,
+      granularity: granularity.key,
+      viewType,
+      versions: selectedVersions.map(v => v.version)
+    });
+  }, [viewType, selectedVersions, timeRange, granularity, category, includeCIDownloads, updateMultipleParams]);
 
   function handleTimeRangeChange(range: Range) {
     if (range === Range.ONE_YEAR && !isUserPro) {
@@ -64,7 +76,6 @@ export function StatsControls({
       return;
     }
 
-    updateUrl("timeRange", range.key);
     setTimeRange(range);
   }
 
@@ -74,7 +85,6 @@ export function StatsControls({
       return;
     }
 
-    updateUrl("category", category);
     setCategory(category);
   }
 
@@ -84,22 +94,18 @@ export function StatsControls({
       return;
     }
 
-    updateUrl("includeCIDownloads", value);
     setIncludeCIDownloads(value);
   }
 
   function handleGranularity(granularity: DisplayStyle) {
-    updateUrl("granularity", granularity.key);
     setGranularity(granularity);
   }
 
   function handleVersionChange(versions: Version[]) {
-    updateUrl("versions", versions.map(v => v.version));
     setSelectedVersions(versions);
   }
 
   function handleViewType(viewType: "chart" | "table") {
-    updateUrl("viewType", viewType);
     setViewType(viewType);
   }
 
