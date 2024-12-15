@@ -11,14 +11,16 @@ import { VersionDropdown } from "@/app/projects/[project]/components/version-dro
 import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { DisplayStyle } from "@/app/projects/[project]/model";
 import { Range } from "@/app/projects/[project]/model";
-import { ProDialog } from "@/components/pro-dialog";
+import { ProDialog } from "@/app/projects/[project]/components/pro-dialog";
 import { useState } from "react";
 import React from "react";
+import { useEffect } from "react";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "@/components/ui/separator";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { Switch } from "@/components/ui/switch";
+import { useParamsUrl } from "@/hooks/use-params-url";
 
 interface StatsControlsProps {
   viewType: "chart" | "table";
@@ -55,6 +57,18 @@ export function StatsControls({
                               }: StatsControlsProps) {
 
   const [isProDialogOpen, setProDialogOpen] = useState(false);
+  const { updateParam, updateMultipleParams } = useParamsUrl();
+
+  useEffect(() => {
+    updateMultipleParams({
+      timeRange: timeRange.key,
+      category,
+      includeCIDownloads,
+      granularity: granularity.key,
+      viewType,
+      versions: selectedVersions.map(v => v.version)
+    });
+  }, [viewType, selectedVersions, timeRange, granularity, category, includeCIDownloads, updateMultipleParams]);
 
   function handleTimeRangeChange(range: Range) {
     if (range === Range.ONE_YEAR && !isUserPro) {
@@ -83,6 +97,18 @@ export function StatsControls({
     setIncludeCIDownloads(value);
   }
 
+  function handleGranularity(granularity: DisplayStyle) {
+    setGranularity(granularity);
+  }
+
+  function handleVersionChange(versions: Version[]) {
+    setSelectedVersions(versions);
+  }
+
+  function handleViewType(viewType: "chart" | "table") {
+    setViewType(viewType);
+  }
+
   return (
     <Card className="p-6 overflow-auto">
       <div className="space-y-4">
@@ -106,7 +132,7 @@ export function StatsControls({
 
         <div className="space-y-2">
           <Label>View Type</Label>
-          <ToggleGroup type="single" value={viewType} onValueChange={setViewType} className="justify-start">
+          <ToggleGroup type="single" value={viewType} onValueChange={handleViewType} className="justify-start">
             <ToggleGroupItem value="chart" aria-label="Chart view">
               <BarChart2 className="h-4 w-4 mr-2" />
               Chart
@@ -127,14 +153,14 @@ export function StatsControls({
 
             <div className="space-y-2">
               <Label>Time Range</Label>
-              <Select value={Range[timeRange]}
-                      onValueChange={(v) => handleTimeRangeChange(Range[v as keyof typeof Range])}>
+              <Select value={timeRange.key}
+                      onValueChange={(v) => handleTimeRangeChange(Range.fromKey(v))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={Range[Range.THREE_MONTHS]}>3 months</SelectItem>
-                  <SelectItem value={Range[Range.ONE_YEAR]}>
+                  <SelectItem value={Range.THREE_MONTHS.key}>3 months</SelectItem>
+                  <SelectItem value={Range.ONE_YEAR.key}>
                     <div className="flex flex-row items-center">
                       <span>12 months</span>
                       <Crown className="ml-2 h-4 w-4 text-yellow-500" />
@@ -146,17 +172,16 @@ export function StatsControls({
 
             <div className="space-y-2">
               <Label>Time Granularity</Label>
-              <Select value={DisplayStyle[granularity]} onValueChange={(v: string) => {
-                const granularity: DisplayStyle = DisplayStyle[v as keyof typeof DisplayStyle];
-                setGranularity(granularity);
+              <Select value={granularity.key} onValueChange={(v: string) => {
+                handleGranularity(DisplayStyle.fromKey(v));
               }}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={DisplayStyle[DisplayStyle.DAILY]}>Daily</SelectItem>
-                  <SelectItem value={DisplayStyle[DisplayStyle.WEEKLY]}>Weekly</SelectItem>
-                  <SelectItem value={DisplayStyle[DisplayStyle.MONTHLY]}>Monthly</SelectItem>
+                  <SelectItem value={DisplayStyle.DAILY.key}>Daily</SelectItem>
+                  <SelectItem value={DisplayStyle.WEEKLY.key}>Weekly</SelectItem>
+                  <SelectItem value={DisplayStyle.MONTHLY.key}>Monthly</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -182,7 +207,7 @@ export function StatsControls({
                 </InteractiveTooltip>
               </div>
               <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
-                               onSelectVersions={setSelectedVersions} />
+                               onSelectVersions={handleVersionChange} />
             </div>
           </div>)}
 
