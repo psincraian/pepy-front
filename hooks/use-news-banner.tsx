@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { NEWS } from "@/lib/constants/news";
 
-const STORAGE_KEY = "news-banner-closed";
-
 export function useNewsBanner() {
   const [isVisible, setIsVisible] = useState(false);
   const news = NEWS.CHRISTMAS_GIVEWAY_2024;
@@ -14,20 +12,22 @@ export function useNewsBanner() {
 
     const now = new Date().getTime();
     const expiryDate = new Date(news.expiryDate).getTime();
-    const isClosed = localStorage.getItem(STORAGE_KEY) === "true";
+    const storageKey = `news-banner-closed-${news.id}`; // Unique key for each news
+    const isClosed = localStorage.getItem(storageKey) === "true";
     const isExpired = now > expiryDate;
 
     setIsVisible(!isClosed && !isExpired);
-  }, [news.expiryDate]);
+  }, [news.expiryDate, news.id]);
 
   const closeBanner = () => {
-    localStorage.setItem(STORAGE_KEY, "true");
+    const storageKey = `news-banner-closed-${news.id}`; // Use the same unique key
+    localStorage.setItem(storageKey, "true");
     setIsVisible(false);
   };
 
   return {
     isVisible,
     closeBanner,
-    news
+    news,
   };
 }
