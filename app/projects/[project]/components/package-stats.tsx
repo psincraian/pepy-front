@@ -181,9 +181,10 @@ export function PackageStats({ project }: { project: Project }) {
   const versions = project.versions
     .toReversed()
     .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
+  const initialVerions = versions.filter(v => !v.version.includes("a") && !v.version.includes("b")).slice(0, 3);
   const versionsFromUrl = getListParam("versions", [])
     .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
-  const [selectedVersions, setSelectedVersions] = useState<Version[]>(versionsFromUrl.length > 0 ? versionsFromUrl : versions.slice(0, 3));
+  const [selectedVersions, setSelectedVersions] = useState<Version[]>(versionsFromUrl.length > 0 ? versionsFromUrl : initialVerions);
 
   function handleRangeChange(range: Range) {
     setTimeRange(range);
