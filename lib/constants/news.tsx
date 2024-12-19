@@ -16,6 +16,7 @@ export const NEWS = {
   CHRISTMAS_GIVEWAY_2024: {
     id: "christmas-giveway-2024",
     title: <>🎄🎁 Win one month FREE subscription! Follow the rules on this post on <Link className={LINK_CSS} href="https://x.com/psincraian/status/1869821027934490672">X</Link> or <Link className={LINK_CSS} href="https://www.threads.net/@petrurares/post/DDxWCnBofGY?xmt=AQGzXKuhgcpi97TF5xkquRM_qElnjlp2bN-oZVzThIgc_g">Threads</Link></>,
+    link: null,
     expiryDate: "2024-12-26"
   }
 } as const;
