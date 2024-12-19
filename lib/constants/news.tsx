@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const LINK_CSS = "underline hover:bg-accent hover:text-accent-foreground p-2 rounded-sm";
+const LINK_CSS = "underline hover:bg-accent hover:text-accent-foreground p-0.5 rounded-sm";
 
 export const NEWS = {
   NEW_FEATURE_CI_DOWNLOADS_FILTER: {
