@@ -7,7 +7,7 @@ const STORAGE_KEY = "news-banner-closed";
 
 export function useNewsBanner() {
   const [isVisible, setIsVisible] = useState(false);
-  const news = NEWS.NEW_FEATURE_CI_DOWNLOADS_FILTER;
+  const news = NEWS.CHRISTMAS_GIVEWAY_2024;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
