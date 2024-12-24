@@ -55,26 +55,26 @@ export const EndpointSection = ({
 
     <div className="mb-6">
       <h3 className="text-lg font-medium mb-2">Endpoint</h3>
-      <div className="bg-muted p-4 rounded-md font-mono">{endpoint}</div>
+      <div className="bg-muted p-4 rounded-md font-mono text-wrap">{endpoint}</div>
     </div>
 
     {pathParameters && (
-      <div className="mb-6">
+      <div className="mb-6 overflow-auto">
         <h3 className="text-lg font-medium mb-2">Path Parameters</h3>
         <table className="w-full">
           <thead>
           <tr className="border-b">
             <th className="text-left py-2 font-medium">Parameter</th>
-            <th className="text-left py-2 font-medium">Type</th>
-            <th className="text-left py-2 font-medium">Description</th>
+            <th className="text-left py-2 pl-2 font-medium">Type</th>
+            <th className="text-left py-2 pl-2 font-medium">Description</th>
           </tr>
           </thead>
           <tbody>
           {pathParameters.map(param => (
             <tr key={param.name}>
               <td className="py-2 font-mono">{param.name}</td>
-              <td className="py-2">{param.type}</td>
-              <td className="py-2 text-muted-foreground">{param.description}</td>
+              <td className="py-2 pl-2">{param.type}</td>
+              <td className="py-2 pl-2 text-muted-foreground">{param.description}</td>
             </tr>
           ))}
           </tbody>
@@ -83,22 +83,22 @@ export const EndpointSection = ({
     )}
 
     {queryParameters && (
-      <div className="mb-6">
+      <div className="mb-6 overflow-auto">
         <h3 className="text-lg font-medium mb-2">Query Parameters</h3>
         <table className="w-full">
           <thead>
           <tr className="border-b">
             <th className="text-left py-2 font-medium">Parameter</th>
-            <th className="text-left py-2 font-medium">Type</th>
-            <th className="text-left py-2 font-medium">Description</th>
+            <th className="text-left py-2 pl-2 font-medium">Type</th>
+            <th className="text-left py-2 pl-2 font-medium">Description</th>
           </tr>
           </thead>
           <tbody>
           {queryParameters.map(param => (
             <tr key={param.name}>
               <td className="py-2 font-mono">{param.name}</td>
-              <td className="py-2">{param.type}</td>
-              <td className="py-2 text-muted-foreground">{param.description}</td>
+              <td className="py-2 pl-2">{param.type}</td>
+              <td className="py-2 pl-2  text-muted-foreground">{param.description}</td>
             </tr>
           ))}
           </tbody>
