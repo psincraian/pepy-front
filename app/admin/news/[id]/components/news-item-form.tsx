@@ -32,9 +32,9 @@ export function NewsItemForm({ item, onUpdate, onRemove }: NewsItemFormProps) {
               Content
             </label>
             <Textarea
-              value={item.description}
-              onChange={(e) => onUpdate("description", e.target.value)}
-              placeholder="News description"
+              value={item.content}
+              onChange={(e) => onUpdate("content", e.target.value)}
+              placeholder="News content"
               rows={3}
             />
           </div>

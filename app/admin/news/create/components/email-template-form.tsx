@@ -11,7 +11,7 @@ import { NewsItemForm } from "@/app/admin/news/create/components/new-item-form";
 interface NewsItem {
   id: string;
   title: string;
-  description: string;
+  content: string;
 }
 
 interface EmailTemplateFormProps {
@@ -32,19 +32,19 @@ export function EmailTemplateForm({ onSave }: EmailTemplateFormProps) {
   const [title, setTitle] = useState("📊 {{project}} - {{month}} Stats");
   const [introduction, setIntroduction] = useState("This month has been really amazing with plenty of new cool news ✨");
   const [news, setNews] = useState<NewsItem[]>([
-    { id: "1", title: "New Feature Release", description: "We've added exciting new capabilities!" }
+    { id: "1", title: "New Feature Release", content: "We've added exciting new capabilities!" }
   ]);
 
   const addNewsItem = () => {
     const newId = (news.length + 1).toString();
-    setNews([...news, { id: newId, title: "", description: "" }]);
+    setNews([...news, { id: newId, title: "", content: "" }]);
   };
 
   const removeNewsItem = (id: string) => {
     setNews(news.filter(item => item.id !== id));
   };
 
-  const updateNewsItem = (id: string, field: "title" | "description", value: string) => {
+  const updateNewsItem = (id: string, field: "title" | "content", value: string) => {
     setNews(news.map(item =>
       item.id === id ? { ...item, [field]: value } : item
     ));

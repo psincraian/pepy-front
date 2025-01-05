@@ -2,7 +2,7 @@
 
 export interface NewsItem {
   title: string;
-  description: string;
+  content: string;
 }
 
 export interface CreateMonthlyNewsBody {

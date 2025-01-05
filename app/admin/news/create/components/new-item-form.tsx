@@ -6,12 +6,12 @@ import { Trash2 } from "lucide-react";
 interface NewsItem {
   id: string;
   title: string;
-  description: string;
+  content: string;
 }
 
 interface NewsItemFormProps {
   item: NewsItem;
-  onUpdate: (id: string, field: "title" | "description", value: string) => void;
+  onUpdate: (id: string, field: "title" | "content", value: string) => void;
   onRemove: (id: string) => void;
 }
 
@@ -32,12 +32,12 @@ export function NewsItemForm({ item, onUpdate, onRemove }: NewsItemFormProps) {
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">
-              Description
+              Content
             </label>
             <Textarea
-              value={item.description}
-              onChange={(e) => onUpdate(item.id, "description", e.target.value)}
-              placeholder="News description"
+              value={item.content}
+              onChange={(e) => onUpdate(item.id, "content", e.target.value)}
+              placeholder="News content"
               rows={3}
             />
           </div>

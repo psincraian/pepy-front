@@ -23,7 +23,7 @@ export function MonthlyNewsForm({ onSubmit, initialData }: MonthlyNewsFormProps)
   const { toast } = useToast();
 
   const addNewsItem = () => {
-    setNews([...news, { title: "", description: "" }]);
+    setNews([...news, { title: "", content: "" }]);
   };
 
   const removeNewsItem = (index: number) => {
