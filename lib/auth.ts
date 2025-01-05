@@ -39,6 +39,7 @@ export interface User {
   accessToken: string | undefined;
   email: string;
   isPro: boolean;
+  isAdmin: boolean;
 }
 
 export const cookieStorage = new CookieStorage();
@@ -67,7 +68,7 @@ export function login(
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (session) => {
         const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
-        console.log("Is Pro: ", isPro);
+        const isAdmin = session.getAccessToken().payload["cognito:groups"]?.includes("Admin");
 
         cognitoUser.getUserAttributes((error, result) => {
           if (error) {
@@ -79,7 +80,8 @@ export function login(
             username: cognitoUser.getUsername(),
             accessToken: session.getAccessToken().getJwtToken(),
             email: email!,
-            isPro: isPro
+            isPro: isPro,
+            isAdmin: isAdmin
           });
           return;
         })
@@ -186,7 +188,7 @@ export function confirmSignUp(
 function convertSessionToUser(session: CognitoUserSession, withDetails: boolean, resolve: (value: (User)) => void, cognitoUser: CognitoUser, reject: (reason?: any) => void) {
   // Check if user is a Pro user, for that inside the cognito:groups it should contain the Pro element
   const isPro = session.getAccessToken().payload["cognito:groups"]?.includes("Pro");
-  console.log("Is Pro: ", isPro);
+  const isAdmin = session.getAccessToken().payload["cognito:groups"]?.includes("Admin");
   if (!withDetails) {
     resolve({
       username: cognitoUser.getUsername(),
@@ -206,7 +208,8 @@ function convertSessionToUser(session: CognitoUserSession, withDetails: boolean,
       username: cognitoUser.getUsername(),
       accessToken: session.getAccessToken().getJwtToken(),
       email: email!,
-      isPro: isPro
+      isPro: isPro,
+      isAdmin: isAdmin
     });
     return;
   });
