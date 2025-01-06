@@ -40,7 +40,7 @@ export function MonthlyNewsForm({ onSubmit, initialData }: MonthlyNewsFormProps)
     setIsLoading(true);
     try {
       const data: MonthlyNews = {
-        reportDate,
+        reportDate: reportDate + "-01",
         introduction,
         news
       };
@@ -78,7 +78,7 @@ export function MonthlyNewsForm({ onSubmit, initialData }: MonthlyNewsFormProps)
               Report Date
             </label>
             <Input
-              type="date"
+              type="month"
               value={reportDate}
               onChange={(e) => setReportDate(e.target.value)}
               className="max-w-xs"
