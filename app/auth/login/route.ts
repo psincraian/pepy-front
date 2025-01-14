@@ -1,8 +1,8 @@
-import { clientConfig, getClientConfig, getSession } from "@/lib/authv2";
+import { clientConfig, getAuthSession, getClientConfig } from "@/lib/authv2";
 import * as client from "openid-client";
 
 export async function GET() {
-  const session = await getSession();
+  const authSession = await getAuthSession();
   let code_verifier = client.randomPKCECodeVerifier();
   let code_challenge = await client.calculatePKCECodeChallenge(code_verifier);
   const openIdClientConfig = await getClientConfig();
@@ -18,8 +18,8 @@ export async function GET() {
     parameters.state = state;
   }
   let redirectTo = client.buildAuthorizationUrl(openIdClientConfig, parameters);
-  session.code_verifier = code_verifier;
-  session.state = state;
-  await session.save();
+  authSession.code_verifier = code_verifier;
+  authSession.state = state;
+  await authSession.save();
   return Response.redirect(redirectTo.href);
 }

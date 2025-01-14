@@ -1,8 +1,8 @@
-import { getSession } from "@/lib/authv2";
 import Login from "@/app/auth-test/Login";
+import { getAuthSession } from "@/lib/authv2";
 
 export default async function Home() {
-  const session = await getSession();
+  const session = await getAuthSession();
   return (
     <main className="flex min-h-[100dvh] items-center justify-center bg-gray-100 px-4 dark:bg-gray-900">
       <div className="w-full max-w-md space-y-4 text-center">

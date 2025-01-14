@@ -15,54 +15,72 @@ export const clientConfig = {
   code_challenge_method: "S256"
 };
 
-export interface SessionData {
+export interface AuthSessionData {
   isLoggedIn: boolean;
   access_token?: string;
   access_token_expires_at?: number;
-  refresh_token?: string;
   code_verifier?: string;
   state?: string;
   userInfo?: {
-    email: string
-    username: string
-    groups: string[]
+    email: string;
+    username: string;
+    groups: string[];
   };
 }
 
-export const defaultSession: SessionData = {
+export const defaultAuthSession: AuthSessionData = {
   isLoggedIn: false,
   access_token: undefined,
   access_token_expires_at: undefined,
-  refresh_token: undefined,
   code_verifier: undefined,
   state: undefined,
   userInfo: undefined
 };
 
-export const sessionOptions: SessionOptions = {
+export interface RefreshTokenSessionData {
+  refresh_token?: string;
+}
+
+export const defaultRefreshTokenSession: RefreshTokenSessionData = {
+  refresh_token: undefined
+};
+
+export const authSessionOptions: SessionOptions = {
   password: "complex_password_at_least_32_characters_long",
-  cookieName: "session",
+  cookieName: "auth_session",
   cookieOptions: {
-    // secure only works in `https` environments
-    // if your localhost is not on `https`, then use: `secure: process.env.NODE_ENV === "production"`
     secure: process.env.NODE_ENV === "production"
   },
   ttl: 60 * 60 * 24 * 365 // 1 year
 };
 
-export async function getSession(): Promise<IronSession<SessionData>> {
+export const refreshTokenSessionOptions: SessionOptions = {
+  password: "complex_password_at_least_32_characters_long",
+  cookieName: "refresh_token_session",
+  cookieOptions: {
+    secure: process.env.NODE_ENV === "production"
+  },
+  ttl: 60 * 60 * 24 * 365 // 30 days
+};
+
+export async function getAuthSession(): Promise<IronSession<AuthSessionData>> {
   const cookiesList = await cookies();
-  let session = await getIronSession<SessionData>(cookiesList, sessionOptions);
+  let session = await getIronSession<SessionData>(cookiesList, authSessionOptions);
   if (!session.isLoggedIn) {
-    session.access_token = defaultSession.access_token;
-    session.userInfo = defaultSession.userInfo;
+    session.access_token = defaultAuthSession.access_token;
+    session.userInfo = defaultAuthSession.userInfo;
   } else {
     await checkAndRefreshToken(session);
   }
   return session;
 }
 
-export async function checkAndRefreshToken(session: IronSession<SessionData>) {
+export async function getRefreshTokenSession(): Promise<IronSession<RefreshTokenSessionData>> {
+  const cookiesList = await cookies();
+  return await getIronSession<AuthSessionData>(cookiesList, refreshTokenSessionOptions);
+}
+
+export async function checkAndRefreshToken(session: IronSession<AuthSessionData>) {
   if (!session.access_token || !session.access_token_expires_at) return;
 
   const currentTime = Date.now();
@@ -75,14 +93,23 @@ export async function checkAndRefreshToken(session: IronSession<SessionData>) {
   }
 }
 
-export async function refreshAccessToken(session: IronSession<SessionData>) {
+export async function refreshAccessToken(authSession: IronSession<AuthSessionData>) {
+  const refreshTokenSession = await getRefreshTokenSession();
   const openIdClientConfig = await getClientConfig();
-  const tokenSet = await client.refreshTokenGrant(openIdClientConfig, session.refresh_token!);
-  session.access_token = tokenSet.access_token;
-  session.refresh_token = tokenSet.refresh_token;
-  session.access_token_expires_at = Date.now() + tokenSet.expires_in! * 1000;
-  await session.save();
-  return tokenSet;
+
+  if (!refreshTokenSession.refresh_token) {
+    throw new Error("No refresh token available");
+  }
+
+  const tokenSet = await client.refreshTokenGrant(openIdClientConfig, refreshTokenSession.refresh_token);
+
+  const { access_token, refresh_token, expires_in } = tokenSet;
+  authSession.access_token = access_token;
+  authSession.access_token_expires_at = Date.now() + expires_in! * 1000;
+  refreshTokenSession.refresh_token = refresh_token;
+
+  await authSession.save();
+  await refreshTokenSession.save();
 }
 
 export async function getClientConfig() {
