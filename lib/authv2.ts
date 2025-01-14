@@ -46,7 +46,7 @@ export const defaultRefreshTokenSession: RefreshTokenSessionData = {
 };
 
 export const authSessionOptions: SessionOptions = {
-  password: "complex_password_at_least_32_characters_long",
+  password: process.env.IRON_SESSION_SECRET!,
   cookieName: "auth_session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production"
@@ -55,7 +55,7 @@ export const authSessionOptions: SessionOptions = {
 };
 
 export const refreshTokenSessionOptions: SessionOptions = {
-  password: "complex_password_at_least_32_characters_long",
+  password: process.env.IRON_SESSION_SECRET!,
   cookieName: "refresh_token_session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production"
@@ -65,7 +65,7 @@ export const refreshTokenSessionOptions: SessionOptions = {
 
 export async function getAuthSession(): Promise<IronSession<AuthSessionData>> {
   const cookiesList = await cookies();
-  let session = await getIronSession<SessionData>(cookiesList, authSessionOptions);
+  let session = await getIronSession<AuthSessionData>(cookiesList, authSessionOptions);
   if (!session.isLoggedIn) {
     session.access_token = defaultAuthSession.access_token;
     session.userInfo = defaultAuthSession.userInfo;
