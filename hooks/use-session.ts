@@ -1,4 +1,3 @@
-import { AuthSessionData } from "@/lib/authv2";
 import { PublicAuthSessionData } from "@/lib/authv2";
 import { useEffect, useState } from "react";
 import { AuthSession } from "@/lib/auth-session";
@@ -11,7 +10,7 @@ export default function useSession() {
       try {
         const response = await fetch("/auth/session");
         if (response.ok) {
-          const session = (await response.json()) as AuthSessionData;
+          const session = (await response.json()) as PublicAuthSessionData;
           setSession(new AuthSession(session));
         }
       } finally {
