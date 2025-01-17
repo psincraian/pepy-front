@@ -3,14 +3,14 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import useSession from "@/hooks/use-session";
+import useSessionContext from "@/hooks/session-context";
 
 interface RequireAdminProps {
   children: React.ReactNode;
 }
 
 export function RequireAdmin({ children }: RequireAdminProps) {
-  const { session, loading } = useSession();
+  const { session, loading } = useSessionContext();
   const router = useRouter();
 
   useEffect(() => {

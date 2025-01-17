@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { withRetry } from "@/lib/retry";
 import Link from "next/link";
-import useSession from "@/hooks/use-session";
+import useSessionContext from "@/hooks/session-context";
 
 const RETRY_CONFIG = {
   maxAttempts: 5,
@@ -21,7 +21,7 @@ export default function PaymentSuccessPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(true);
-  const { session, refreshSession } = useSession();
+  const { session, refreshSession } = useSessionContext();
 
   useEffect(() => {
     async function verifyProStatus() {

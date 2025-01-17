@@ -25,7 +25,7 @@ export function SignInToSubscribeDialog(props: {
           <Button variant="outline" onClick={props.onClose}>
             Cancel
           </Button>
-          <Link href="/user/login">
+          <Link href="/auth/login">
             <Button className="bg-blue-600 hover:bg-blue-700">
             Sign In
           </Button>

@@ -30,7 +30,7 @@ import Ads from "@/app/projects/[project]/components/ads";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { useParamsUrl } from "@/hooks/use-params-url";
 import { ProDialogLinkSharing } from "@/app/projects/[project]/components/pro-dialog-link-sharing";
-import useSession from "@/hooks/use-session";
+import useSessionContext from "@/hooks/session-context";
 
 async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -110,7 +110,7 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 
 
 export function PackageStats({ project }: { project: Project }) {
-  const { session, loading } = useSession();
+  const { session, loading } = useSessionContext();
   const { getParam, getParamValue, getListParam } = useParamsUrl();
   const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
   const timeRangeQueryParam = getParamValue("timeRange", Range, Range.THREE_MONTHS);

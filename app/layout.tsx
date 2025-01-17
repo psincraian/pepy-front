@@ -6,6 +6,7 @@ import { NewsBanner } from "@/components/news-banner/news-banner";
 import { Toaster } from "@/components/ui/toaster";
 import React from "react";
 import { ToastProvider } from "@/components/ui/toast";
+import { SessionProvider } from "@/hooks/session-context";
 
 export const runtime = "edge";
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
   return (
     <html lang="en">
     <body className={inter.className}>
+    <SessionProvider>
       <ToastProvider>
         <div className="flex flex-col min-h-screen">
           <Header withSearch={true} />
@@ -26,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
           <Footer />
         </div>
       </ToastProvider>
+    </SessionProvider>
     </body>
     </html>
   );

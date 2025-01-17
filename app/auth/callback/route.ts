@@ -20,14 +20,12 @@ export async function GET(request: NextRequest) {
   delete authSession.code_verifier;
   delete authSession.state;
 
-  console.log("tokenSet", tokenSet);
   const { access_token, refresh_token, expires_in } = tokenSet;
   authSession.isLoggedIn = true;
   authSession.access_token = access_token;
   authSession.access_token_expires_at = Date.now() + expires_in! * 1000;
   refreshTokenSession.refresh_token = refresh_token;
   let claims = tokenSet.claims()!;
-  console.log("claims", claims);
   const { sub, email } = claims;
   authSession.sub = sub;
   // store userinfo in session

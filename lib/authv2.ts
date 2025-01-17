@@ -100,7 +100,6 @@ export async function refreshAuthSession(authSession: IronSession<AuthSessionDat
   authSession.access_token = access_token;
   authSession.access_token_expires_at = Date.now() + expires_in! * 1000;
   let claims = tokenSet.claims()!;
-  console.log("claims", claims);
   const { sub, email } = claims;
   authSession.sub = sub;
   // store userinfo in session
