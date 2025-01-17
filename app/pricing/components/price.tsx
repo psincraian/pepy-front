@@ -11,6 +11,10 @@ export default async function Pricing() {
   const session = await getAuthSession();
 
   async function getSubscriptionLink(planFrequency: PlanFrequency) {
+    if (!session.isLoggedIn) {
+      return "/auth/login";
+    }
+
     const subscriptionType = planFrequency === PlanFrequency.MONTHLY ? "MONTHLY" : "YEARLY";
     const url = `${process.env.PEPY_HOST}/api/v3/checkout/session/${subscriptionType}`;
     const response = await fetch(url, {

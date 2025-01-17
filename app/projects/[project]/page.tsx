@@ -19,7 +19,6 @@ export async function generateMetadata(
 }
 
 async function getData(project: string): Promise<Project> {
-  console.log("Fetching data for", project);
   const validationResult = validatePackageName(project);
   if (!validationResult.isValid) {
     notFound();

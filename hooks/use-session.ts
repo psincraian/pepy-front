@@ -26,9 +26,13 @@ export default function useSession() {
       if (response.ok) {
         const newSessionData = (await response.json()) as PublicAuthSessionData;
         setSession(new AuthSession(newSessionData));
+        return new AuthSession(newSessionData);
       }
+
+      throw new Error("Failed to refresh session");
     } catch (e) {
       console.error("Error refreshing session:", e);
+      throw e;
     }
   };
 

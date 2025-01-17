@@ -31,8 +31,8 @@ export default function PaymentSuccessPage() {
       try {
         // Verify pro status with retries
         await withRetry(async () => {
-          await refreshSession();
-          if (!session.isPro()) {
+          const newSession = await refreshSession();
+          if (!newSession.isPro()) {
             console.log("User data or Pro status not reflected:", session);
             throw new Error("Pro status not yet reflected");
           }
