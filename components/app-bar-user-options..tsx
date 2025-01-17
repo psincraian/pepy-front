@@ -1,23 +1,25 @@
 import Link from "next/link";
-import { useUser } from "@/app/user/UserContext";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import { User } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { getAuthSession } from "@/lib/authv2";
+import { AuthSession } from "@/lib/auth-session";
 
 export interface AppBarUserOptionsProps {
   isMobileView: boolean;
 }
 
-export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
-  const { user } = useUser();
+export const AppBarUserOptions = async ({ isMobileView }: AppBarUserOptionsProps) => {
+  var sessionData = await getAuthSession();
+  const session = new AuthSession(sessionData);
 
-  const isPro = !!user?.isPro;
+  const isPro = session.isPro();
 
   function renderMobileView() {
-    return user ? (
+    return session.isLoggedIn ? (
       <Link href="/user" passHref>
         <DropdownMenuItem className="flex items-center">
           <User className="h-4 w-4 mr-2" />
@@ -31,13 +33,13 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
       </Link>
     ) : (
       <>
-        <Link href="/user/login" passHref>
+        <Link href="/auth/login" passHref>
           <DropdownMenuItem className="flex items-center">
             <LogIn className="h-4 w-4 mr-2" />
             Login
           </DropdownMenuItem>
         </Link>
-        <Link href="/user/signup" passHref>
+        <Link href="/auth/login" passHref>
           <DropdownMenuItem className="font-medium text-blue-600">
             <UserPlus className="h-4 w-4 mr-2" />
             Sign up
@@ -48,7 +50,7 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
   }
 
   function renderDesktopView() {
-    return user ? (
+    return session.isLoggedIn ? (
       <Link href="/user" passHref>
         <Button variant="ghost" className="flex items-center space-x-2">
           <User className="h-5 w-5" />
@@ -62,13 +64,13 @@ export const AppBarUserOptions = ({ isMobileView }: AppBarUserOptionsProps) => {
       </Link>
     ) : (
       <>
-        <Link href="/user/login" passHref>
+        <Link href="/auth/login" passHref>
           <Button variant="ghost">
             <LogIn className="h-5 w-5 mr-2" />
             Login
           </Button>
         </Link>
-        <Link href="/user/signup" passHref>
+        <Link href="/auth/login" passHref>
           <Button className="bg-blue-600 hover:bg-blue-700">
             <UserPlus className="h-5 w-5 mr-2" />
             Sign up

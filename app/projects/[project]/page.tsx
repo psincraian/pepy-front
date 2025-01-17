@@ -1,7 +1,6 @@
 import { DownloadData, Project, VersionDownloads } from "@/app/projects/[project]/model";
 import React from "react";
 import { notFound } from "next/navigation";
-import { PEPY_HOST } from "@/app/constants";
 import { ResolvingMetadata } from "next";
 import { Metadata } from "next";
 import { PackageStats } from "@/app/projects/[project]/components/package-stats";
@@ -26,7 +25,7 @@ async function getData(project: string): Promise<Project> {
     notFound();
   }
 
-  const res = await fetch(PEPY_HOST + `/api/v2/projects/${project}`, {
+  const res = await fetch(process.env.PEPY_HOST + `/api/v2/projects/${project}`, {
     headers: {
       "X-Api-Key": process.env.PEPY_API_KEY!
     },

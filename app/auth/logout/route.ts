@@ -18,6 +18,7 @@ export async function GET() {
   authSession.isLoggedIn = defaultAuthSession.isLoggedIn;
   authSession.access_token = defaultAuthSession.access_token;
   refreshTokenSession.refresh_token = defaultRefreshTokenSession.refresh_token;
+  authSession.sub = defaultAuthSession.sub;
   authSession.access_token_expires_at = defaultAuthSession.access_token_expires_at;
   authSession.userInfo = defaultAuthSession.userInfo;
   authSession.code_verifier = defaultAuthSession.code_verifier;

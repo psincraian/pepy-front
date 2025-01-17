@@ -1,17 +1,18 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getAuthSession } from "@/lib/authv2";
 
 export const config = {
     matcher: ['/api/:path*', '/subscriptions']
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     try {
         const requestHeaders = new Headers(request.headers)
-        const accessToken = request.cookies.getAll().filter(cookie => cookie.name.includes('accessToken'));
+        const session = await getAuthSession();
         requestHeaders.delete("cookie");
-        if (accessToken.length === 1) {
-            requestHeaders.set('Authorization', 'Bearer ' + accessToken[0].value);
+        if (session.isLoggedIn) {
+            requestHeaders.set("Authorization", "Bearer " + session.access_token);
         }
         requestHeaders.set('X-Api-Key', process.env.PEPY_API_KEY!);
 

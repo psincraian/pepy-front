@@ -1,5 +1,3 @@
-const PEPY_HOST = "https://api.pepy.tech";
-//const PEPY_HOST = "http://localhost:8081"
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
@@ -16,7 +14,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: PEPY_HOST + "/api/:path*"
+        destination: process.env.PEPY_HOST + "/api/:path*"
       },
     ];
   },

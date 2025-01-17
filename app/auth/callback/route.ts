@@ -29,6 +29,7 @@ export async function GET(request: NextRequest) {
   let claims = tokenSet.claims()!;
   console.log("claims", claims);
   const { sub, email } = claims;
+  authSession.sub = sub;
   // store userinfo in session
   authSession.userInfo = {
     username: claims["cognito:username"] as string,

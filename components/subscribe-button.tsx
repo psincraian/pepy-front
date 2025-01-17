@@ -7,8 +7,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { CheckCircle, Loader2, XCircle } from "lucide-react";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { useUser } from "@/app/user/UserContext";
 import { SignInToSubscribeDialog } from "@/components/sign-in-to-subscribe-dialog";
+import useSession from "@/hooks/use-session";
 
 
 async function subscribe(project: string): Promise<"error" | "success"> {
@@ -60,20 +60,20 @@ export function SubscribeButton({ project, className }: SubscribeButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
-  const { user } = useUser();
+  const { session, loading } = useSession();
 
   useEffect(() => {
-    if (user == null) {
+    if (loading || !session.isLoggedIn) {
       return;
     }
 
     getIsSubscribed(project).then(response => {
       setIsSubscribed(response);
     }).catch(err => setError("Failed to check subscription status"));
-  }, [project, user]);
+  }, [project, session]);
 
   const handleSubscribe = async () => {
-    if (!user) {
+    if (!session.isLoggedIn) {
       setLoginDialogOpen(true);
       return;
     }

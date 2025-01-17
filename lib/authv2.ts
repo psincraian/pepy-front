@@ -3,10 +3,10 @@ import { cookies } from "next/headers";
 import * as client from "openid-client";
 
 export const clientConfig = {
-  url: process.env.NEXT_PUBLIC_API_URL,
-  audience: process.env.NEXT_PUBLIC_API_URL,
-  client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-  scope: process.env.NEXT_PUBLIC_SCOPE,
+  url: process.env.COGNITO_URL,
+  audience: process.env.COGNITO_URL,
+  client_id: process.env.COGNITO_CLIENT_ID,
+  scope: "email openid phone",
   redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
   post_logout_redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}`,
   response_type: "code",
@@ -17,8 +17,20 @@ export const clientConfig = {
 
 export interface AuthSessionData {
   isLoggedIn: boolean;
+  sub?: string;
   access_token?: string;
   access_token_expires_at?: number;
+  code_verifier?: string;
+  state?: string;
+  userInfo?: {
+    email: string;
+    username: string;
+    groups: string[];
+  };
+}
+
+export interface PublicAuthSessionData {
+  isLoggedIn: boolean;
   code_verifier?: string;
   state?: string;
   userInfo?: {
@@ -69,9 +81,8 @@ export async function getAuthSession(): Promise<IronSession<AuthSessionData>> {
   if (!session.isLoggedIn) {
     session.access_token = defaultAuthSession.access_token;
     session.userInfo = defaultAuthSession.userInfo;
-  } else {
-    await checkAndRefreshToken(session);
   }
+
   return session;
 }
 
@@ -80,37 +91,6 @@ export async function getRefreshTokenSession(): Promise<IronSession<RefreshToken
   return await getIronSession<AuthSessionData>(cookiesList, refreshTokenSessionOptions);
 }
 
-export async function checkAndRefreshToken(session: IronSession<AuthSessionData>) {
-  if (!session.access_token || !session.access_token_expires_at) return;
-
-  const currentTime = Date.now();
-  const expirationTime = session.access_token_expires_at;
-
-  // Refresh the token if it is about to expire in the next minute
-  if (expirationTime - currentTime < 60 * 1000) {
-    console.log("Refreshing token");
-    await refreshAccessToken(session);
-  }
-}
-
-export async function refreshAccessToken(authSession: IronSession<AuthSessionData>) {
-  const refreshTokenSession = await getRefreshTokenSession();
-  const openIdClientConfig = await getClientConfig();
-
-  if (!refreshTokenSession.refresh_token) {
-    throw new Error("No refresh token available");
-  }
-
-  const tokenSet = await client.refreshTokenGrant(openIdClientConfig, refreshTokenSession.refresh_token);
-
-  const { access_token, refresh_token, expires_in } = tokenSet;
-  authSession.access_token = access_token;
-  authSession.access_token_expires_at = Date.now() + expires_in! * 1000;
-  refreshTokenSession.refresh_token = refresh_token;
-
-  await authSession.save();
-  await refreshTokenSession.save();
-}
 
 export async function getClientConfig() {
   return await client.discovery(new URL(clientConfig.url!), clientConfig.client_id!);
