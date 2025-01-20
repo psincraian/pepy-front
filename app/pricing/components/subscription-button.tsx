@@ -1,10 +1,10 @@
-import { getAuthSession } from "@/lib/authv2";
-import { AuthSession } from "@/lib/auth-session";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getUserSession } from "@/lib/authv2";
+import { AuthSession } from "@/lib/auth-session";
 
-export async function SubscriptionButtonsServer(monthlyLink: string, yearlyLink: string) {
-  const sessionData = await getAuthSession();
+export async function SubscriptionButtons() {
+  const sessionData = await getUserSession();
   const session = new AuthSession(sessionData);
 
   if (session.isPro()) {
@@ -20,13 +20,12 @@ export async function SubscriptionButtonsServer(monthlyLink: string, yearlyLink:
 
   return <>
     <Button className="w-full bg-blue-600 hover:bg-blue-700">
-      <Link href={monthlyLink}>
+      <Link href="/payment/start?planFrequency=MONTHLY">
         Subscribe Monthly
       </Link>
     </Button>
     <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
-      <Link
-        href={yearlyLink}>
+      <Link href="/payment/start?planFrequency=YEARLY">
         Subscribe Yearly (Save 17%)
       </Link>
     </Button>

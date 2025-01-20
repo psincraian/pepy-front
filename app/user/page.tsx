@@ -4,10 +4,10 @@ import { ProjectSubscriptions } from "@/app/user/components/project-subscription
 import { ProfileHeader } from "@/app/user/components/profile-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { getAuthSession } from "@/lib/authv2";
+import { getUserSession } from "@/lib/authv2";
 
 export default async function ProfilePage() {
-  const session = await getAuthSession();
+  const session = await getUserSession();
 
   return (
     <div className="container mx-auto px-4 py-12">

@@ -18,7 +18,6 @@ export const clientConfig = {
 export interface AuthSessionData {
   isLoggedIn: boolean;
   sub?: string;
-  access_token?: string;
   access_token_expires_at?: number;
   code_verifier?: string;
   state?: string;
@@ -42,19 +41,10 @@ export interface PublicAuthSessionData {
 
 export const defaultAuthSession: AuthSessionData = {
   isLoggedIn: false,
-  access_token: undefined,
   access_token_expires_at: undefined,
   code_verifier: undefined,
   state: undefined,
   userInfo: undefined
-};
-
-export interface RefreshTokenSessionData {
-  refresh_token?: string;
-}
-
-export const defaultRefreshTokenSession: RefreshTokenSessionData = {
-  refresh_token: undefined
 };
 
 export const authSessionOptions: SessionOptions = {
@@ -63,7 +53,7 @@ export const authSessionOptions: SessionOptions = {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production"
   },
-  ttl: 60 * 60 * 24 * 365 // 1 year
+  ttl: 60 * 60 * 24 * 365 // 365 days
 };
 
 export const refreshTokenSessionOptions: SessionOptions = {
@@ -72,32 +62,32 @@ export const refreshTokenSessionOptions: SessionOptions = {
   cookieOptions: {
     secure: process.env.NODE_ENV === "production"
   },
-  ttl: 60 * 60 * 24 * 365 // 30 days
+  ttl: 60 * 60 * 24 * 365 // 365 days
 };
 
-export async function getAuthSession(): Promise<IronSession<AuthSessionData>> {
+export async function getUserSession(): Promise<IronSession<AuthSessionData>> {
   const cookiesList = await cookies();
   let session = await getIronSession<AuthSessionData>(cookiesList, authSessionOptions);
   if (!session.isLoggedIn) {
-    session.access_token = defaultAuthSession.access_token;
+    session.access_token_expires_at = defaultAuthSession.access_token_expires_at;
     session.userInfo = defaultAuthSession.userInfo;
   }
 
   return session;
 }
 
-export async function getRefreshTokenSession(): Promise<IronSession<RefreshTokenSessionData>> {
-  const cookiesList = await cookies();
-  return await getIronSession<AuthSessionData>(cookiesList, refreshTokenSessionOptions);
+export interface RefreshAuthSessionResponse {
+  authSession: IronSession<AuthSessionData>;
+  accessToken: string;
+  expiresIn: number;
 }
 
-export async function refreshAuthSession(authSession: IronSession<AuthSessionData>): Promise<IronSession<AuthSessionData>> {
-  const refreshTokenSession = await getRefreshTokenSession();
+export async function refreshAuthSession(refreshToken: string): Promise<RefreshAuthSessionResponse> {
+  const authSession = await getUserSession();
   const clientConfig = await getClientConfig();
-  const tokenSet = await client.refreshTokenGrant(clientConfig, refreshTokenSession.refresh_token!);
+  const tokenSet = await client.refreshTokenGrant(clientConfig, refreshToken!);
   const { access_token, expires_in } = tokenSet;
   authSession.isLoggedIn = true;
-  authSession.access_token = access_token;
   authSession.access_token_expires_at = Date.now() + expires_in! * 1000;
   let claims = tokenSet.claims()!;
   const { sub, email } = claims;
@@ -109,9 +99,8 @@ export async function refreshAuthSession(authSession: IronSession<AuthSessionDat
     groups: claims["cognito:groups"] as string[]
   };
 
-  return authSession;
+  return { authSession, accessToken: access_token, expiresIn: expires_in } as RefreshAuthSessionResponse;
 }
-
 
 export async function getClientConfig() {
   return await client.discovery(new URL(clientConfig.url!), clientConfig.client_id!);

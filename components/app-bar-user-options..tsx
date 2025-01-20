@@ -5,7 +5,7 @@ import { User } from "lucide-react";
 import { UserPlus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { getAuthSession } from "@/lib/authv2";
+import { getUserSession } from "@/lib/authv2";
 import { AuthSession } from "@/lib/auth-session";
 
 export interface AppBarUserOptionsProps {
@@ -13,7 +13,7 @@ export interface AppBarUserOptionsProps {
 }
 
 export const AppBarUserOptions = async ({ isMobileView }: AppBarUserOptionsProps) => {
-  var sessionData = await getAuthSession();
+  var sessionData = await getUserSession();
   const session = new AuthSession(sessionData);
 
   const isPro = session.isPro();

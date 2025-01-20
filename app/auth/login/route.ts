@@ -1,8 +1,8 @@
-import { clientConfig, getAuthSession, getClientConfig } from "@/lib/authv2";
+import { clientConfig, getClientConfig, getUserSession } from "@/lib/authv2";
 import * as client from "openid-client";
 
 export async function GET() {
-  const authSession = await getAuthSession();
+  const authSession = await getUserSession();
   let code_verifier = client.randomPKCECodeVerifier();
   let code_challenge = await client.calculatePKCECodeChallenge(code_verifier);
   const openIdClientConfig = await getClientConfig();

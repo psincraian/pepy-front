@@ -1,29 +1,22 @@
-import {
-  clientConfig,
-  defaultAuthSession,
-  getAuthSession,
-  getClientConfig,
-  getRefreshTokenSession
-} from "@/lib/authv2";
-import { defaultRefreshTokenSession } from "@/lib/authv2";
+import { clientConfig, defaultAuthSession, getClientConfig, getUserSession } from "@/lib/authv2";
 import * as client from "openid-client";
+import { cookies } from "next/headers";
 
 export async function GET() {
-  const authSession = await getAuthSession();
-  const refreshTokenSession = await getRefreshTokenSession();
+  const userSession = await getUserSession();
   const openIdClientConfig = await getClientConfig();
   const endSessionUrl = client.buildEndSessionUrl(openIdClientConfig, {
     logout_uri: clientConfig.post_logout_redirect_uri
   });
-  authSession.isLoggedIn = defaultAuthSession.isLoggedIn;
-  authSession.access_token = defaultAuthSession.access_token;
-  refreshTokenSession.refresh_token = defaultRefreshTokenSession.refresh_token;
-  authSession.sub = defaultAuthSession.sub;
-  authSession.access_token_expires_at = defaultAuthSession.access_token_expires_at;
-  authSession.userInfo = defaultAuthSession.userInfo;
-  authSession.code_verifier = defaultAuthSession.code_verifier;
-  authSession.state = defaultAuthSession.state;
-  await authSession.save();
-  await refreshTokenSession.save();
+  userSession.isLoggedIn = defaultAuthSession.isLoggedIn;
+  userSession.sub = defaultAuthSession.sub;
+  userSession.access_token_expires_at = defaultAuthSession.access_token_expires_at;
+  userSession.userInfo = defaultAuthSession.userInfo;
+  userSession.code_verifier = defaultAuthSession.code_verifier;
+  userSession.state = defaultAuthSession.state;
+  await userSession.save();
+  const cookiesStore = await cookies();
+  cookiesStore.delete("access_token");
+  cookiesStore.delete("refresh_token");
   return Response.redirect(endSessionUrl.href);
 }

@@ -3,40 +3,9 @@ import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { SubscriptionButtonsServer } from "@/app/pricing/components/subscription-button";
-import { PlanFrequency } from "@/app/pricing/components/plan-frequency";
-import { getAuthSession } from "@/lib/authv2";
+import { SubscriptionButtons } from "@/app/pricing/components/subscription-button";
 
-export default async function Pricing() {
-  const session = await getAuthSession();
-
-  async function getSubscriptionLink(planFrequency: PlanFrequency) {
-    if (!session.isLoggedIn) {
-      return "/auth/login";
-    }
-
-    const subscriptionType = planFrequency === PlanFrequency.MONTHLY ? "MONTHLY" : "YEARLY";
-    const url = `${process.env.PEPY_HOST}/api/v3/checkout/session/${subscriptionType}`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "X-Api-Key": process.env.PEPY_API_KEY!,
-        "Authorization": `Bearer ${session.access_token}`
-      }
-    });
-
-    if (!response.ok) {
-      console.log("Error getting data", response.status);
-      throw new Error("Failed to fetch session URL from the server.");
-    }
-
-    const data = await response.json();
-    return data.sessionUrl;
-  }
-
-  const monthlyLink = await getSubscriptionLink(PlanFrequency.MONTHLY);
-  const yearlyLink = await getSubscriptionLink(PlanFrequency.YEARLY);
-  console.log(monthlyLink, yearlyLink);
+export default function Pricing() {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="text-center mb-12">
@@ -76,7 +45,7 @@ export default async function Pricing() {
             </ul>
           </div>
           <Button className="w-full mt-auto" variant="outline">
-            <Link href={session.isLoggedIn ? "/" : "/user/signup"}>
+            <Link href="/">
               Get Started
             </Link>
           </Button>
@@ -133,7 +102,7 @@ export default async function Pricing() {
             </ul>
           </div>
           <div className="space-y-3 mt-auto">
-            {SubscriptionButtonsServer(monthlyLink, yearlyLink)}
+            <SubscriptionButtons />
           </div>
         </Card>
       </div>

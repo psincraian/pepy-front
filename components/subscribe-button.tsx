@@ -32,7 +32,7 @@ async function subscribe(project: string): Promise<"error" | "success"> {
 async function getIsSubscribed(project: string): Promise<boolean> {
   console.log("Fetching data for", project);
   const res = await fetch(`/api/v3/subscriptions/`, {
-    method: "GET",
+    method: "GET"
   });
   if (res.status !== 200) {
     return false;
