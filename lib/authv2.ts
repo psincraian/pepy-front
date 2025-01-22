@@ -2,6 +2,7 @@ import { getIronSession, IronSession, SessionOptions } from "iron-session";
 import { cookies } from "next/headers";
 import * as client from "openid-client";
 
+console.log("Public APP URL: ", process.env.NEXT_PUBLIC_APP_URL);
 export const clientConfig = {
   url: process.env.COGNITO_URL,
   audience: process.env.COGNITO_URL,
