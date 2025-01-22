@@ -17,7 +17,7 @@ export async function POST() {
   cookiesStore.set("access_token", accessToken, {
     secure: true,
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: expiresIn!
   });
   return Response.json({

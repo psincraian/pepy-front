@@ -38,13 +38,13 @@ export async function GET(request: NextRequest) {
   cookieSet.set("access_token", access_token, {
     secure: true,
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: expires_in!
   });
   cookieSet.set("refresh_token", refresh_token!, {
     secure: true,
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 365 * 24 * 60 * 60
   });
   return Response.redirect(clientConfig.post_login_route);

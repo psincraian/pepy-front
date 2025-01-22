@@ -19,7 +19,7 @@ export async function GET() {
       cookiesStore.set("access_token", accessToken, {
         secure: true,
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "lax",
         maxAge: expiresIn!
       });
       await authSession.save();
