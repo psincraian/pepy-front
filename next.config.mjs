@@ -1,3 +1,6 @@
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
+import { withSentryConfig } from "@sentry/nextjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
@@ -22,12 +25,12 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production"
   },
 };
-// Injected content via Sentry wizard below
-module.exports = nextConfig;
 
-const { withSentryConfig } = require("@sentry/nextjs");
+if (process.env.NODE_ENV === "development") {
+  await setupDevPlatform();
+}
 
-module.exports = withSentryConfig(module.exports, {
+export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
