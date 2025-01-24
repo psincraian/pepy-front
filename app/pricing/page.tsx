@@ -1,5 +1,3 @@
-"use client";
-
 import PublicPriceComponent from "@/app/pricing/components/price";
 
 

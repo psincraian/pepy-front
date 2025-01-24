@@ -20,6 +20,9 @@ jobs:
           PEPY_API_KEY: ${{secrets.PEPY_API_KEY}}
           CYPRESS_PEPY_TEST_USER_EMAIL: ${{secrets.PEPY_TEST_USER_EMAIL}}
           CYPRESS_PEPY_TEST_USER_PASSWORD: ${{secrets.PEPY_TEST_USER_PASSWORD}}
+          COGNITO_URL: ${{secrets.COGNITO_URL}}
+          COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
+          NODE_ENV: test
         with:
           build: npm run build
           start: npm run start

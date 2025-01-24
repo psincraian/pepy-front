@@ -3,27 +3,27 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
-import { useUser } from "@/app/user/UserContext";
+import useSessionContext from "@/hooks/session-context";
 
 interface RequireAdminProps {
   children: React.ReactNode;
 }
 
 export function RequireAdmin({ children }: RequireAdminProps) {
-  const { user, loading } = useUser();
+  const { session, loading } = useSessionContext();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && (!user || !user.isAdmin)) {
+    if (!loading && (!session.isLoggedIn || !session.isAdmin())) {
       router.replace("/user/login");
     }
-  }, [user, loading, router]);
+  }, [session, loading, router]);
 
   if (loading) {
     return <LoadingSpinner />;
   }
 
-  if (!user || !user.isAdmin) {
+  if (!session.isLoggedIn || !session.isAdmin()) {
     return null;
   }
 
