@@ -18,10 +18,10 @@ export class AuthSession {
   }
 
   isPro(): boolean {
-    return this.userInfo?.groups.includes("Pro") ?? false;
+    return this.userInfo?.groups?.includes("Pro") ?? false;
   }
 
   isAdmin(): boolean {
-    return this.userInfo?.groups.includes("Admin") ?? false;
+    return this.userInfo?.groups?.includes("Admin") ?? false;
   }
 }

@@ -6,7 +6,7 @@ export default defineConfig({
   e2e: {
     baseUrl: "http://localhost:3000",
     setupNodeEvents(on, config) {
-      const envFile = ".env.local";
+      const envFile = ".env.cypress.local";
       if (fs.existsSync(envFile)) {
         return dotenv(config, { path: envFile });
       }

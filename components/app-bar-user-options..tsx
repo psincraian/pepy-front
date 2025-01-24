@@ -33,7 +33,7 @@ export const AppBarUserOptions = async ({ isMobileView }: AppBarUserOptionsProps
       </Link>
     ) : (
       <>
-        <Link href="/auth/login" passHref>
+        <Link href="/auth/login" data-cy="login-mobile" passHref>
           <DropdownMenuItem className="flex items-center">
             <LogIn className="h-4 w-4 mr-2" />
             Login
@@ -64,7 +64,7 @@ export const AppBarUserOptions = async ({ isMobileView }: AppBarUserOptionsProps
       </Link>
     ) : (
       <>
-        <Link href="/auth/login" passHref>
+        <Link href="/auth/login" data-cy="login" passHref>
           <Button variant="ghost">
             <LogIn className="h-5 w-5 mr-2" />
             Login
