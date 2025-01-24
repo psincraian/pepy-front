@@ -58,7 +58,7 @@ const loginToCognito = (username: string, password: string) => {
       }
     },
     ({ username, password }) => {
-      Cypress.on("uncaught:exception", (err) => {
+      cy.on("uncaught:exception", (err) => {
         return false;
       });
       cy.contains("Sign in");
@@ -77,7 +77,7 @@ const loginToCognito = (username: string, password: string) => {
   );
 
   // give a few seconds for redirect to settle
-  cy.wait(5000);
+  cy.wait(3000);
 };
 
 // right now our custom command is light. More on this later!
