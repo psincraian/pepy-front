@@ -48,6 +48,7 @@ jobs:
           build: npm run build
           start: npm run start
           browser: chrome
+          record: true
   publish:
     runs-on: ubuntu-latest
     environment: Preview
