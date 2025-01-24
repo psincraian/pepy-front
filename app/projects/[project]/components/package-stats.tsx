@@ -193,17 +193,6 @@ export function PackageStats({ project }: { project: Project }) {
     if (range == Range.ONE_YEAR && granularity == DisplayStyle.DAILY) {
       setGranularity(DisplayStyle.WEEKLY);
     }
-
-    getProDownloadsData(project.name, range, includeCIDownloads).then(data => {
-      setDownloadsData(data);
-    });
-  }
-
-  function handleIncludeCIDownloadsChange(includeCIDownloads: boolean) {
-    setIncludeCIDownloads(includeCIDownloads);
-    getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
-      setDownloadsData(data);
-    });
   }
 
   const downloadsCache = useMemo(() => {
@@ -213,7 +202,6 @@ export function PackageStats({ project }: { project: Project }) {
       granularity
     );
   }, [downloadsData, selectedVersions, granularity]);
-
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-64px)]">
@@ -276,7 +264,7 @@ export function PackageStats({ project }: { project: Project }) {
               category={category}
               setCategory={setCategory}
               includeCIDownloads={includeCIDownloads}
-              setIncludeCIDownloads={handleIncludeCIDownloadsChange}
+              setIncludeCIDownloads={setIncludeCIDownloads}
               isUserPro={session.isPro() ?? false} />
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-full">
