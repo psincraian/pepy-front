@@ -162,7 +162,9 @@ export function PackageStats({ project }: { project: Project }) {
     getPypiInfo(project.name).then(data => {
       setPypiInfo(data);
     });
+  }, [project.name]);
 
+  useEffect(() => {
     if (timeRange === Range.ONE_YEAR || !includeCIDownloads) {
       if (loading || !session.isPro()) {
         return;
