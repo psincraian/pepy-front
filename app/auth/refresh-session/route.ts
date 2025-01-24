@@ -22,6 +22,7 @@ export async function POST() {
   });
   return Response.json({
     isLoggedIn: authSession.isLoggedIn,
+    accessTokenExpiresAt: authSession.accessTokenExpiresAt,
     userInfo: authSession.userInfo
   } as PublicAuthSessionData);
 }

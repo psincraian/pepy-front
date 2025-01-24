@@ -24,6 +24,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ child
         const newSessionData = (await response.json()) as PublicAuthSessionData;
         setSession(new AuthSession(newSessionData));
         setLoading(false);
+        scheduleSessionRefresh(newSessionData.accessTokenExpiresAt);
         return new AuthSession(newSessionData);
       }
 
@@ -32,6 +33,16 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setLoading(false);
       console.error("Error refreshing session:", e);
       throw e;
+    }
+  };
+
+  const scheduleSessionRefresh = (expiresAt: number) => {
+    const now = Date.now();
+    const delta = 1000 * 60 * 5; // 5 minutes
+    const timeUntilExpiration = expiresAt - now - delta;
+    console.log("Scheduling session refresh in", timeUntilExpiration, "ms");
+    if (timeUntilExpiration > 0) {
+      setTimeout(refreshSession, timeUntilExpiration);
     }
   };
 

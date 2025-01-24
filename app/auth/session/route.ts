@@ -12,7 +12,7 @@ export async function GET() {
 
     // check and refresh if needed
     const now = Date.now();
-    if (authSession.access_token_expires_at! - now < 1000 * 60 * 5) {
+    if (authSession.accessTokenExpiresAt! - now < 1000 * 60 * 5) {
       const cookiesStore = await cookies();
       const requestCookie = cookiesStore.get("refresh_token")!;
       const { authSession, expiresIn, accessToken } = await refreshAuthSession(requestCookie.value);
@@ -27,6 +27,7 @@ export async function GET() {
 
     return Response.json({
       isLoggedIn: authSession.isLoggedIn,
+      accessTokenExpiresAt: authSession.accessTokenExpiresAt,
       userInfo: authSession.userInfo
     } as PublicAuthSessionData)
   } catch (e) {

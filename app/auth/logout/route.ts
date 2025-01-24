@@ -10,7 +10,7 @@ export async function GET() {
   });
   userSession.isLoggedIn = defaultAuthSession.isLoggedIn;
   userSession.sub = defaultAuthSession.sub;
-  userSession.access_token_expires_at = defaultAuthSession.access_token_expires_at;
+  userSession.accessTokenExpiresAt = defaultAuthSession.accessTokenExpiresAt;
   userSession.userInfo = defaultAuthSession.userInfo;
   userSession.code_verifier = defaultAuthSession.code_verifier;
   userSession.state = defaultAuthSession.state;

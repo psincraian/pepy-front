@@ -19,7 +19,7 @@ export const clientConfig = {
 export interface AuthSessionData {
   isLoggedIn: boolean;
   sub?: string;
-  access_token_expires_at?: number;
+  accessTokenExpiresAt?: number;
   code_verifier?: string;
   state?: string;
   userInfo?: {
@@ -33,6 +33,7 @@ export interface PublicAuthSessionData {
   isLoggedIn: boolean;
   code_verifier?: string;
   state?: string;
+  accessTokenExpiresAt?: number;
   userInfo?: {
     email: string;
     username: string;
@@ -42,7 +43,7 @@ export interface PublicAuthSessionData {
 
 export const defaultAuthSession: AuthSessionData = {
   isLoggedIn: false,
-  access_token_expires_at: undefined,
+  accessTokenExpiresAt: undefined,
   code_verifier: undefined,
   state: undefined,
   userInfo: undefined
@@ -70,7 +71,7 @@ export async function getUserSession(): Promise<IronSession<AuthSessionData>> {
   const cookiesList = await cookies();
   let session = await getIronSession<AuthSessionData>(cookiesList, authSessionOptions);
   if (!session.isLoggedIn) {
-    session.access_token_expires_at = defaultAuthSession.access_token_expires_at;
+    session.accessTokenExpiresAt = defaultAuthSession.accessTokenExpiresAt;
     session.userInfo = defaultAuthSession.userInfo;
   }
 
@@ -89,7 +90,7 @@ export async function refreshAuthSession(refreshToken: string): Promise<RefreshA
   const tokenSet = await client.refreshTokenGrant(clientConfig, refreshToken!);
   const { access_token, expires_in } = tokenSet;
   authSession.isLoggedIn = true;
-  authSession.access_token_expires_at = Date.now() + expires_in! * 1000;
+  authSession.accessTokenExpiresAt = Date.now() + expires_in! * 1000;
   let claims = tokenSet.claims()!;
   const { sub, email } = claims;
   authSession.sub = sub;

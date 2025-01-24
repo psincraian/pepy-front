@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
   let claims = tokenSet.claims()!;
   const { sub, email } = claims;
   userSession.sub = sub;
-  userSession.access_token_expires_at = Date.now() + expires_in! * 1000;
+  userSession.accessTokenExpiresAt = Date.now() + expires_in! * 1000;
   // store userinfo in session
   userSession.userInfo = {
     username: claims["cognito:username"] as string,
