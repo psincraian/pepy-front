@@ -42,6 +42,7 @@ jobs:
           CYPRESS_PEPY_TEST_USER_PASSWORD: ${{secrets.PEPY_TEST_USER_PASSWORD}}
           COGNITO_URL: ${{secrets.COGNITO_URL}}
           COGNITO_CLIENT_ID: ${{secrets.COGNITO_CLIENT_ID}}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NODE_ENV: test
         with:
           build: npm run build
