@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
   const headerList = await headers();
   const host = headerList.get("x-forwarded-host") || headerList.get("host") || "localhost";
   const protocol = headerList.get("x-forwarded-proto") || "https";
+  console.log("Callback request", request);
   const currentUrl = new URL(
     `${protocol}://${host}${request.nextUrl.pathname}${request.nextUrl.search}`
   );
