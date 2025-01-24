@@ -24,7 +24,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ child
         const newSessionData = (await response.json()) as PublicAuthSessionData;
         setSession(new AuthSession(newSessionData));
         setLoading(false);
-        scheduleSessionRefresh(newSessionData.accessTokenExpiresAt);
+        scheduleSessionRefresh(newSessionData.accessTokenExpiresAt!);
         return new AuthSession(newSessionData);
       }
 
