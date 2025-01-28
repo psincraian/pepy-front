@@ -45,8 +45,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NODE_ENV: test
         with:
-          build: npm run build
-          start: npm run start
+          start: npm run dev
           browser: chrome
           record: true
   publish:
