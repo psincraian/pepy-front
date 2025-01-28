@@ -1,5 +1,6 @@
-const PEPY_HOST = "https://api.pepy.tech";
-//const PEPY_HOST = "http://localhost:8081"
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
+import { withSentryConfig } from "@sentry/nextjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
@@ -16,7 +17,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: PEPY_HOST + "/api/:path*"
+        destination: process.env.PEPY_HOST + "/api/:path*"
       },
     ];
   },
@@ -24,12 +25,12 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production"
   },
 };
-// Injected content via Sentry wizard below
-module.exports = nextConfig;
 
-const { withSentryConfig } = require("@sentry/nextjs");
+if (process.env.NODE_ENV === "development") {
+  await setupDevPlatform();
+}
 
-module.exports = withSentryConfig(module.exports, {
+export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 

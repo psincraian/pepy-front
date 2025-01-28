@@ -15,9 +15,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog";
-import { signout } from "@/lib/auth";
-import { UserAction } from "@/app/user/UserContext";
-import { useUserDispatch } from "@/app/user/UserContext";
 
 interface ProfileHeaderProps {
   user: {
@@ -30,12 +27,9 @@ interface ProfileHeaderProps {
 export function ProfileHeader({ user }: ProfileHeaderProps) {
   const [showSignOutDialog, setShowSignOutDialog] = useState(false);
   const router = useRouter();
-  const dispatch = useUserDispatch();
 
   const handleSignOut = () => {
-    signout();
-    dispatch({ type: UserAction.LOGOUT });
-    router.push("/user/login");
+    router.push("/auth/logout");
   };
 
   return (

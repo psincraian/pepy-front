@@ -19,7 +19,6 @@ import { computeTotalDownloadsByVersion } from "@/app/projects/[project]/helper/
 import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downloads";
 import DownloadsChart from "@/app/projects/[project]/components/downloads-chart";
 import { notFound } from "next/navigation";
-import { useUser } from "@/app/user/UserContext";
 import DownloadsTable from "@/app/projects/[project]/components/downloads-table";
 import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
 import CountryDownloadsComponent from "@/app/projects/[project]/components/country-downloads";
@@ -31,6 +30,7 @@ import Ads from "@/app/projects/[project]/components/ads";
 import { InteractiveTooltip } from "@/components/ui/interactive-tooltip";
 import { useParamsUrl } from "@/hooks/use-params-url";
 import { ProDialogLinkSharing } from "@/app/projects/[project]/components/pro-dialog-link-sharing";
+import useSessionContext from "@/hooks/session-context";
 
 async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
   console.log("Fetching data for", project);
@@ -110,7 +110,7 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 
 
 export function PackageStats({ project }: { project: Project }) {
-  const { user, loading } = useUser();
+  const { session, loading } = useSessionContext();
   const { getParam, getParamValue, getListParam } = useParamsUrl();
   const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
   const timeRangeQueryParam = getParamValue("timeRange", Range, Range.THREE_MONTHS);
@@ -142,29 +142,31 @@ export function PackageStats({ project }: { project: Project }) {
       return;
     }
 
-    const timeRangeParam = user?.isPro ? timeRangeQueryParam : Range.THREE_MONTHS;
+    const timeRangeParam = session.isPro() ? timeRangeQueryParam : Range.THREE_MONTHS;
     setTimeRange(timeRangeParam);
-    const categoryParam = user?.isPro ? categoryQueryParam : "version";
+    const categoryParam = session.isPro() ? categoryQueryParam : "version";
     setCategory(categoryParam);
-    const includeCiDownloadsParam = user?.isPro ? includeCiDownloadsQueryParam : true;
+    const includeCiDownloadsParam = session.isPro() ? includeCiDownloadsQueryParam : true;
     setIncludeCIDownloads(includeCiDownloadsParam);
 
 
     console.log("Has pro features", hasProFeaturesSelected);
 
-    if (hasProFeaturesSelected && !loading && !user?.isPro) {
+    if (hasProFeaturesSelected && !loading && !session.isPro()) {
       setProDialogOpen(true);
     }
 
-  }, [categoryQueryParam, hasProFeaturesSelected, includeCiDownloadsQueryParam, timeRangeQueryParam, loading, user]);
+  }, [categoryQueryParam, hasProFeaturesSelected, includeCiDownloadsQueryParam, timeRangeQueryParam, loading, session]);
 
   useEffect(() => {
     getPypiInfo(project.name).then(data => {
       setPypiInfo(data);
     });
+  }, [project.name]);
 
+  useEffect(() => {
     if (timeRange === Range.ONE_YEAR || !includeCIDownloads) {
-      if (loading || !user?.isPro) {
+      if (loading || !session.isPro()) {
         return;
       }
 
@@ -172,7 +174,7 @@ export function PackageStats({ project }: { project: Project }) {
         setDownloadsData(data);
       });
     }
-  }, [includeCIDownloads, loading, project.name, timeRange, user]);
+  }, [includeCIDownloads, loading, project.name, timeRange, session]);
 
   const versionDownloadsCache = useMemo(() => {
     return computeTotalDownloadsByVersion(downloadsData);
@@ -191,17 +193,6 @@ export function PackageStats({ project }: { project: Project }) {
     if (range == Range.ONE_YEAR && granularity == DisplayStyle.DAILY) {
       setGranularity(DisplayStyle.WEEKLY);
     }
-
-    getProDownloadsData(project.name, range, includeCIDownloads).then(data => {
-      setDownloadsData(data);
-    });
-  }
-
-  function handleIncludeCIDownloadsChange(includeCIDownloads: boolean) {
-    setIncludeCIDownloads(includeCIDownloads);
-    getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
-      setDownloadsData(data);
-    });
   }
 
   const downloadsCache = useMemo(() => {
@@ -211,7 +202,6 @@ export function PackageStats({ project }: { project: Project }) {
       granularity
     );
   }, [downloadsData, selectedVersions, granularity]);
-
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-64px)]">
@@ -243,7 +233,7 @@ export function PackageStats({ project }: { project: Project }) {
         </div>
 
         <div className="flex flex-col md:flex-row items-end gap-4 w-full md:w-auto">
-          {!loading && !user?.isPro && (
+          {!loading && !session.isPro() && (
             <Card
               className="w-full md:min-h-[100px] md:w-[400px] bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
               <Ads />
@@ -274,12 +264,12 @@ export function PackageStats({ project }: { project: Project }) {
               category={category}
               setCategory={setCategory}
               includeCIDownloads={includeCIDownloads}
-              setIncludeCIDownloads={handleIncludeCIDownloadsChange}
-              isUserPro={user?.isPro ?? false} />
+              setIncludeCIDownloads={setIncludeCIDownloads}
+              isUserPro={session.isPro() ?? false} />
             <div className="lg:col-span-3 h-full">
               <Card className="p-6 h-full">
                 {
-                  category == "country" && user?.isPro ?
+                  category == "country" && session.isPro() ?
                     <CountryDownloadsComponent view={viewType} project={project.name} /> :
                     viewType == "table" ?
                       <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}

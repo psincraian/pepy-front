@@ -5,14 +5,14 @@ export const config = {
     matcher: ['/api/:path*', '/subscriptions']
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     try {
         const requestHeaders = new Headers(request.headers)
-        const accessToken = request.cookies.getAll().filter(cookie => cookie.name.includes('accessToken'));
-        requestHeaders.delete("cookie");
-        if (accessToken.length === 1) {
-            requestHeaders.set('Authorization', 'Bearer ' + accessToken[0].value);
+        if (request.cookies.has("access_token")) {
+            let accessToken = request.cookies.get("access_token");
+            requestHeaders.set("Authorization", "Bearer " + accessToken!.value);
         }
+        requestHeaders.delete("cookie");
         requestHeaders.set('X-Api-Key', process.env.PEPY_API_KEY!);
 
         return NextResponse.next({

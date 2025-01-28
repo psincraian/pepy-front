@@ -7,10 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { withRetry } from "@/lib/retry";
-import { getCurrentUser } from "@/lib/auth";
-import { useUserDispatch } from "@/app/user/UserContext";
-import { UserAction } from "@/app/user/UserContext";
 import Link from "next/link";
+import useSessionContext from "@/hooks/session-context";
 
 const RETRY_CONFIG = {
   maxAttempts: 5,
@@ -21,9 +19,9 @@ const RETRY_CONFIG = {
 
 export default function PaymentSuccessPage() {
   const router = useRouter();
-  const dispatch = useUserDispatch();
   const [error, setError] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState(true);
+  const { session, refreshSession } = useSessionContext();
 
   useEffect(() => {
     async function verifyProStatus() {
@@ -33,14 +31,11 @@ export default function PaymentSuccessPage() {
       try {
         // Verify pro status with retries
         await withRetry(async () => {
-          // Refresh user each retry to get the latest data
-          const user = await getCurrentUser(true, true);
-          // After refreshing, check if the user is Pro
-          if (!user || !user.isPro) {
-            console.log("User data or Pro status not reflected:", user);
+          const newSession = await refreshSession();
+          if (!newSession.isPro()) {
+            console.log("User data or Pro status not reflected:", session);
             throw new Error("Pro status not yet reflected");
           }
-          dispatch({ type: UserAction.LOGIN_SUCCESS, user });
         }, RETRY_CONFIG);
 
         setIsVerifying(false);

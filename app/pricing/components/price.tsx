@@ -1,74 +1,11 @@
-"use client";
-
 import { Check } from "lucide-react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { useUser } from "@/app/user/UserContext";
-import { User } from "@/lib/auth";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-
-function SubscriptionButtons(user: User | null, loading: boolean, subscriptionClick: (planFrequency: PlanFrequency) => void) {
-  const isSubscribed = user !== null && user.isPro;
-
-  if (isSubscribed) {
-    return <>
-      <p className="text-green-500 text-center">You are already subscribed!</p>
-      <Button className="w-full bg-blue-600 hover:bg-blue-700">
-        <Link href="/user">
-          View Your Profile
-        </Link>
-      </Button>
-    </>;
-  }
-
-  return <>
-    <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={() => subscriptionClick(PlanFrequency.MONTHLY)}>
-      {loading ? "Loading..." : "Subscribe Monthly"}
-    </Button>
-    <Button className="w-full bg-indigo-600 hover:bg-indigo-700"
-            onClick={() => subscriptionClick(PlanFrequency.YEARLY)}>
-      {loading ? "Loading..." : "Subscribe Yearly (Save 17%)"}
-    </Button>
-  </>;
-}
-
-enum PlanFrequency {
-  MONTHLY,
-  YEARLY
-}
+import { SubscriptionButtons } from "@/app/pricing/components/subscription-button";
 
 export default function Pricing() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { user } = useUser();
-  const router = useRouter();
-
-  function handleSubscriptionClick(planFrequency: PlanFrequency) {
-    if (user === null) {
-      console.log(user);
-      router.push("/user/login");
-      return;
-    }
-
-    setLoading(true);
-    const subscriptionType = planFrequency === PlanFrequency.MONTHLY ? "MONTHLY" : "YEARLY";
-    const url = `/api/v3/checkout/session/${subscriptionType}`;
-    fetch(url, { method: "POST" })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.sessionUrl) {
-          setLoading(false);
-          router.push(data.sessionUrl);
-        } else {
-          setLoading(false);
-          console.error("No session URL received from the server.");
-        }
-      });
-  }
-
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="text-center mb-12">
@@ -108,7 +45,7 @@ export default function Pricing() {
             </ul>
           </div>
           <Button className="w-full mt-auto" variant="outline">
-            <Link href="/user/signup">
+            <Link href="/">
               Get Started
             </Link>
           </Button>
@@ -165,7 +102,7 @@ export default function Pricing() {
             </ul>
           </div>
           <div className="space-y-3 mt-auto">
-            {SubscriptionButtons(user, loading, handleSubscriptionClick)}
+            <SubscriptionButtons />
           </div>
         </Card>
       </div>
