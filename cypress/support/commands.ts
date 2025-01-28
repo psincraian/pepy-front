@@ -84,33 +84,3 @@ const loginToCognito = (username: string, password: string) => {
 Cypress.Commands.add("loginByCognito", (username, password) => {
   return loginToCognito(username, password);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
