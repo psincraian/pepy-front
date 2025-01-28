@@ -54,7 +54,7 @@
     "dayjs": "^1.11.13",
     "env-cmd": "^10.1.0",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.23",
+    "eslint-config-next": "15.1.6",
     "iron-session": "^8.0.4",
     "lucide-react": "^0.465.0",
     "minimatch": "^10.0.1",
