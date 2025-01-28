@@ -37,6 +37,11 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const scheduleSessionRefresh = (expiresAt: number) => {
+    if (!session.isLoggedIn) {
+      console.log("Not scheduling session refresh because user is not logged in");
+      return;
+    }
+
     const now = Date.now();
     const delta = 1000 * 60 * 5; // 5 minutes
     const timeUntilExpiration = expiresAt - now - delta;
