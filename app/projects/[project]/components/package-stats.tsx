@@ -165,15 +165,13 @@ export function PackageStats({ project }: { project: Project }) {
   }, [project.name]);
 
   useEffect(() => {
-    if (timeRange === Range.ONE_YEAR || !includeCIDownloads) {
-      if (loading || !session.isPro()) {
+    if (!session.isPro() || loading) {
         return;
-      }
-
-      getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
-        setDownloadsData(data);
-      });
     }
+
+    getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
+      setDownloadsData(data);
+    });
   }, [includeCIDownloads, loading, project.name, timeRange, session]);
 
   const versionDownloadsCache = useMemo(() => {
