@@ -15,7 +15,7 @@ export async function POST() {
 
   await newAuthSession.save();
   cookiesStore.set("access_token", accessToken, {
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     httpOnly: true,
     sameSite: "lax",
     maxAge: expiresIn!

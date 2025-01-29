@@ -36,13 +36,13 @@ export async function GET(request: NextRequest) {
   await userSession.save();
   var cookieSet = await cookies();
   cookieSet.set("access_token", access_token, {
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     httpOnly: true,
     sameSite: "lax",
     maxAge: expires_in!
   });
   cookieSet.set("refresh_token", refresh_token!, {
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     httpOnly: true,
     sameSite: "lax",
     maxAge: 365 * 24 * 60 * 60,

@@ -6,7 +6,6 @@ export async function GET() {
   let code_verifier = client.randomPKCECodeVerifier();
   let code_challenge = await client.calculatePKCECodeChallenge(code_verifier);
   const openIdClientConfig = await getClientConfig();
-  console.log("Public APP URL (login): ", process.env.NEXT_PUBLIC_APP_URL);
   let parameters: Record<string, string> = {
     redirect_uri: clientConfig.redirect_uri,
     scope: clientConfig.scope!,
