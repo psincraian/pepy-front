@@ -1,5 +1,3 @@
-import { Version } from "./components/version-dropdown";
-
 export interface VersionDownloads {
   [version: string]: number;
 }

@@ -130,7 +130,7 @@ export function VersionDropdown({
       onSelectVersions(newVersions);
       return newSelections;
     });
-  }, [versions, maxSelections, onSelectVersions]);
+  }, [maxSelections, onSelectVersions]);
 
   const removeSelection = useCallback((selection: Selection) => {
     setSelections(prev => {
@@ -150,7 +150,7 @@ export function VersionDropdown({
       onSelectVersions(newVersions);
       return newSelections;
     });
-  }, [versions, onSelectVersions]);
+  }, [onSelectVersions]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && search.trim()) {
