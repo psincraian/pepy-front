@@ -13,7 +13,6 @@ interface CountryDownloadsProps {
 }
 
 async function getCountryDownloadsData(project: string): Promise<CountryDownloadsData> {
-  console.log("Fetching data for", project);
   const res = await fetch(`/api/v3/pro/projects/${project}/country-downloads`, {
     headers: {
       "X-Api-Key": process.env.PEPY_API_KEY!

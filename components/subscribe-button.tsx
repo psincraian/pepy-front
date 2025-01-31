@@ -12,7 +12,6 @@ import useSessionContext from "@/hooks/session-context";
 
 
 async function subscribe(project: string): Promise<"error" | "success"> {
-  console.log("Fetching data for", project);
   const res = await fetch(`/api/v3/subscriptions`, {
     method: "POST",
     body: JSON.stringify({
@@ -30,7 +29,6 @@ async function subscribe(project: string): Promise<"error" | "success"> {
 }
 
 async function getIsSubscribed(project: string): Promise<boolean> {
-  console.log("Fetching data for", project);
   const res = await fetch(`/api/v3/subscriptions`, {
     method: "GET"
   });
