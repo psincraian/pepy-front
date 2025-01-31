@@ -9,12 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StatsControls } from "@/app/projects/[project]/components/stats-controls";
-import { Project } from "@/app/projects/[project]/model";
+import { DashboardState, Project, Version } from "@/app/projects/[project]/model";
 import { DisplayStyle } from "@/app/projects/[project]/model";
 import { DownloadData } from "@/app/projects/[project]/model";
 import { VersionDownloads } from "@/app/projects/[project]/model";
 import { Range } from "@/app/projects/[project]/model";
-import { Version } from "@/app/projects/[project]/components/version-dropdown";
 import { computeTotalDownloadsByVersion } from "@/app/projects/[project]/helper/compute_downloads";
 import { retrieveDownloads } from "@/app/projects/[project]/helper/compute_downloads";
 import DownloadsChart from "@/app/projects/[project]/components/downloads-chart";
@@ -33,7 +32,6 @@ import { ProDialogLinkSharing } from "@/app/projects/[project]/components/pro-di
 import useSessionContext from "@/hooks/session-context";
 
 async function getProDownloadsData(project: string, range: Range, includeCIDownloads: boolean): Promise<DownloadData> {
-  console.log("Fetching data for", project);
   const rangeValue = range == Range.ONE_YEAR ? "ONE_YEAR" : "FOUR_MONTHS";
   const res = await fetch(`/api/v3/pro/projects/${project}/downloads?timeRange=${rangeValue}&includeCIDownloads=${includeCIDownloads}`, {
     next: { revalidate: 3600 }
@@ -80,7 +78,6 @@ function getLatestReleaseDateForVersion(data: any): string | null {
 }
 
 async function getPypiInfo(project: string): Promise<PyPiInfo> {
-  console.log("Fetching data for", project);
   const res = await fetch(`https://pypi.org/pypi/${project}/json`, {
     next: { revalidate: 24 * 60 * 60 }
   });
@@ -111,22 +108,45 @@ async function getPypiInfo(project: string): Promise<PyPiInfo> {
 
 export function PackageStats({ project }: { project: Project }) {
   const { session, loading } = useSessionContext();
-  const { getParam, getParamValue, getListParam } = useParamsUrl();
-  const [viewType, setViewType] = useState<"chart" | "table">(getParam("viewType", "chart") as "chart" | "table");
-  const timeRangeQueryParam = getParamValue("timeRange", Range, Range.THREE_MONTHS);
-  const [timeRange, setTimeRange] = useState(timeRangeQueryParam);
-  const [granularity, setGranularity] = useState<DisplayStyle>(getParamValue("granularity", DisplayStyle, DisplayStyle.DAILY));
-  const categoryQueryParam = getParam("category", "version") as "country" | "version";
-  const [category, setCategory] = useState<"version" | "country">(categoryQueryParam);
-  const includeCiDownloadsQueryParam = getParam("includeCIDownloads", "true").toLowerCase() === "true";
-  const [includeCIDownloads, setIncludeCIDownloads] = useState(includeCiDownloadsQueryParam);
+  const { getParam, getParamValue, getListParam, updateMultipleParams } = useParamsUrl();
   const [downloadsData, setDownloadsData] = useState(project.downloads);
-  const [isProDialogOpen, setProDialogOpen] = useState(false);
-  const hasProFeaturesSelectedValue = timeRangeQueryParam === Range.ONE_YEAR ||
-    categoryQueryParam === "country" ||
-    !includeCiDownloadsQueryParam;
-  const [hasProFeaturesSelected, _] = useState(hasProFeaturesSelectedValue);
 
+
+  // Initialize versions
+  const versionDownloads = computeTotalDownloadsByVersion(downloadsData);
+    const allVersions: Version[] = project.versions
+      .toReversed()
+      .map(value => ({ 
+        version: value, 
+        downloads: versionDownloads[value] 
+      }));
+
+    const versionsFromUrl: Version[] = getListParam("versions", [])
+      .map(value => ({ 
+        version: value, 
+        downloads: versionDownloads[value] 
+      }));
+
+    const initialVersions = versionsFromUrl.length > 0 
+      ? versionsFromUrl
+      : allVersions
+          .filter(v => !v.version.includes("a") && !v.version.includes("b"))
+          .slice(0, 3);
+
+
+  // Initialize dashboard state with URL params
+  const [dashboardState, setDashboardState] = useState<DashboardState>({
+    packages: [project.name],
+    viewType: getParam("viewType", "chart") as "chart" | "table",
+    timeRange: getParamValue("timeRange", Range, Range.THREE_MONTHS),
+    granularity: getParamValue("granularity", DisplayStyle, DisplayStyle.DAILY),
+    category: getParam("category", "version") as "country" | "version",
+    includeCIDownloads: getParam("includeCIDownloads", "true").toLowerCase() === "true",
+    selectedVersions: initialVersions,
+    versions: allVersions
+  });
+
+  const [isProDialogOpen, setProDialogOpen] = useState(false);
   const [pypiInfo, setPypiInfo] = useState<PyPiInfo>({
     packageName: project.name,
     summary: "",
@@ -137,69 +157,82 @@ export function PackageStats({ project }: { project: Project }) {
     author: ""
   });
 
+  // Check pro features on initial load
   useEffect(() => {
-    if (loading) {
-      return;
-    }
+    if (loading) return;
 
-    const timeRangeParam = session.isPro() ? timeRangeQueryParam : Range.THREE_MONTHS;
-    setTimeRange(timeRangeParam);
-    const categoryParam = session.isPro() ? categoryQueryParam : "version";
-    setCategory(categoryParam);
-    const includeCiDownloadsParam = session.isPro() ? includeCiDownloadsQueryParam : true;
-    setIncludeCIDownloads(includeCiDownloadsParam);
+    const hasProFeatures =
+      dashboardState.timeRange === Range.ONE_YEAR ||
+      dashboardState.category === "country" ||
+      !dashboardState.includeCIDownloads;
 
-
-    console.log("Has pro features", hasProFeaturesSelected);
-
-    if (hasProFeaturesSelected && !loading && !session.isPro()) {
+    if (hasProFeatures && !session.isPro()) {
       setProDialogOpen(true);
+      setDashboardState(prev => ({
+        ...prev,
+        timeRange: Range.THREE_MONTHS,
+        category: "version",
+        includeCIDownloads: true
+      }));
     }
+  }, [loading, session]);
 
-  }, [categoryQueryParam, hasProFeaturesSelected, includeCiDownloadsQueryParam, timeRangeQueryParam, loading, session]);
-
+  // Load PyPI info
   useEffect(() => {
-    getPypiInfo(project.name).then(data => {
-      setPypiInfo(data);
-    });
+    getPypiInfo(project.name).then(setPypiInfo);
   }, [project.name]);
 
+  // Load pro downloads data
   useEffect(() => {
-    if (!session.isPro() || loading) {
-        return;
-    }
+    if (!session.isPro() || loading) return;
 
-    getProDownloadsData(project.name, timeRange, includeCIDownloads).then(data => {
-      setDownloadsData(data);
-    });
-  }, [includeCIDownloads, loading, project.name, timeRange, session]);
+    getProDownloadsData(
+      project.name,
+      dashboardState.timeRange,
+      dashboardState.includeCIDownloads
+    ).then(setDownloadsData);
+  }, [
+    project.name,
+    dashboardState.timeRange,
+    dashboardState.includeCIDownloads,
+    session,
+    loading
+  ]);
 
-  const versionDownloadsCache = useMemo(() => {
-    return computeTotalDownloadsByVersion(downloadsData);
-  }, [downloadsData]);
-
-  const versions = project.versions
-    .toReversed()
-    .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
-  const initialVerions = versions.filter(v => !v.version.includes("a") && !v.version.includes("b")).slice(0, 3);
-  const versionsFromUrl = getListParam("versions", [])
-    .map(value => ({ version: value, downloads: versionDownloadsCache[value] }));
-  const [selectedVersions, setSelectedVersions] = useState<Version[]>(versionsFromUrl.length > 0 ? versionsFromUrl : initialVerions);
-
-  function handleRangeChange(range: Range) {
-    setTimeRange(range);
-    if (range == Range.ONE_YEAR && granularity == DisplayStyle.DAILY) {
-      setGranularity(DisplayStyle.WEEKLY);
-    }
-  }
+  
+    useEffect(() => {
+      updateMultipleParams({
+        timeRange: dashboardState.timeRange.key,
+        category: dashboardState.category,
+        includeCIDownloads: dashboardState.includeCIDownloads,
+        granularity: dashboardState.granularity.key,
+        viewType: dashboardState.viewType,
+        versions: dashboardState.selectedVersions.map(v => v.version)
+      });
+    }, [dashboardState, updateMultipleParams]);
 
   const downloadsCache = useMemo(() => {
     return retrieveDownloads(
       downloadsData,
-      selectedVersions.map((value) => value.version),
-      granularity
+      dashboardState.selectedVersions.map(v => v.version),
+      dashboardState.granularity
     );
-  }, [downloadsData, selectedVersions, granularity]);
+  }, [downloadsData, dashboardState.selectedVersions, dashboardState.granularity]);
+
+  const handleDashboardStateChange = (newState: Partial<DashboardState>) => {
+    setDashboardState(prev => {
+      const updated = { ...prev, ...newState };
+      
+      // Additional logic for timeRange changes
+      if (newState.timeRange === Range.ONE_YEAR && prev.granularity === DisplayStyle.DAILY) {
+        updated.granularity = DisplayStyle.WEEKLY;
+      }
+
+      return updated;
+    });
+  };
+
+  console.log("Selected versions (parent)", dashboardState.selectedVersions);
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-64px)]">
@@ -248,43 +281,40 @@ export function PackageStats({ project }: { project: Project }) {
         </TabsList>
 
         <TabsContent value="downloads">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <StatsControls
-              viewType={viewType}
-              setViewType={setViewType}
-              versions={versions}
-              selectedVersions={selectedVersions}
-              setSelectedVersions={setSelectedVersions}
-              timeRange={timeRange}
-              setTimeRange={handleRangeChange}
-              granularity={granularity}
-              setGranularity={setGranularity}
-              category={category}
-              setCategory={setCategory}
-              includeCIDownloads={includeCIDownloads}
-              setIncludeCIDownloads={setIncludeCIDownloads}
-              isUserPro={session.isPro() ?? false} />
-            <div className="lg:col-span-3 h-full">
-              <Card className="p-6 h-full">
-                {
-                  category == "country" && session.isPro() ?
-                    <CountryDownloadsComponent view={viewType} project={project.name} /> :
-                    viewType == "table" ?
-                      <DownloadsTable selectedVersions={selectedVersions.map(value => value.version)}
-                                      data={downloadsCache} /> :
-                      <DownloadsChart selectedVersions={selectedVersions.map(value => value.version)}
-                                      data={downloadsCache} />
-                }
-              </Card>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <StatsControls
+            state={dashboardState}
+            onStateChange={handleDashboardStateChange}
+            isUserPro={session.isPro() ?? false}
+          />
+          <div className="lg:col-span-3 h-full">
+            <Card className="p-6 h-full">
+              {dashboardState.category === "country" && session.isPro() ? (
+                <CountryDownloadsComponent 
+                  view={dashboardState.viewType} 
+                  project={project.name} 
+                />
+              ) : dashboardState.viewType === "table" ? (
+                <DownloadsTable 
+                  selectedVersions={dashboardState.selectedVersions.map(v => v.version)}
+                  data={downloadsCache} 
+                />
+              ) : (
+                <DownloadsChart
+                  selectedVersions={dashboardState.selectedVersions.map(v => v.version)}
+                  data={downloadsCache}
+                />
+              )}
+            </Card>
           </div>
-        </TabsContent>
+        </div>
+      </TabsContent>
 
         <TabsContent value="info">
           <PackageInfo packageName={project.name} summary={pypiInfo.summary} author={pypiInfo.author}
-                       homepageUrl={pypiInfo.homepageUrl}
-                       lastRelease={pypiInfo.lastRelease} releaseDate={pypiInfo.releaseDate}
-                       sourceUrl={pypiInfo.sourceUrl} />
+            homepageUrl={pypiInfo.homepageUrl}
+            lastRelease={pypiInfo.lastRelease} releaseDate={pypiInfo.releaseDate}
+            sourceUrl={pypiInfo.sourceUrl} />
         </TabsContent>
 
         <TabsContent value="badge">

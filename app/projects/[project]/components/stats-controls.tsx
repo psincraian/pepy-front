@@ -8,8 +8,7 @@ import { HelpCircle } from "lucide-react";
 import { BarChart2 } from "lucide-react";
 import { Table2 } from "lucide-react";
 import { VersionDropdown } from "@/app/projects/[project]/components/version-dropdown";
-import { Version } from "@/app/projects/[project]/components/version-dropdown";
-import { DisplayStyle } from "@/app/projects/[project]/model";
+import { DashboardState, DisplayStyle, Version } from "@/app/projects/[project]/model";
 import { Range } from "@/app/projects/[project]/model";
 import { ProDialog } from "@/app/projects/[project]/components/pro-dialog";
 import { useState } from "react";
@@ -23,61 +22,26 @@ import { Switch } from "@/components/ui/switch";
 import { useParamsUrl } from "@/hooks/use-params-url";
 
 interface StatsControlsProps {
-  viewType: "chart" | "table";
-  setViewType: (value: "chart" | "table") => void;
-  versions: Version[];
-  selectedVersions: Version[];
-  setSelectedVersions: (value: Version[]) => void;
-  timeRange: Range;
-  setTimeRange: (value: Range) => void;
-  granularity: DisplayStyle;
-  setGranularity: (value: DisplayStyle) => void;
-  category: "version" | "country";
-  setCategory: (value: "version" | "country") => void;
-  includeCIDownloads: boolean;
-  setIncludeCIDownloads: (value: boolean) => void;
-  isUserPro: boolean,
+  state: DashboardState;
+  onStateChange: (newState: Partial<DashboardState>) => void;
+  isUserPro: boolean;
 }
 
 export function StatsControls({
-                                viewType,
-                                setViewType,
-                                versions,
-                                selectedVersions,
-                                setSelectedVersions,
-                                timeRange,
-                                setTimeRange,
-                                granularity,
-                                setGranularity,
-                                category,
-                                setCategory,
-                                includeCIDownloads,
-                                setIncludeCIDownloads,
-                                isUserPro
-                              }: StatsControlsProps) {
+  state,
+  onStateChange,
+  isUserPro
+}: StatsControlsProps) {
 
   const [isProDialogOpen, setProDialogOpen] = useState(false);
-  const { updateParam, updateMultipleParams } = useParamsUrl();
 
-  useEffect(() => {
-    updateMultipleParams({
-      timeRange: timeRange.key,
-      category,
-      includeCIDownloads,
-      granularity: granularity.key,
-      viewType,
-      versions: selectedVersions.map(v => v.version)
-    });
-  }, [viewType, selectedVersions, timeRange, granularity, category, includeCIDownloads, updateMultipleParams]);
-
-  function handleTimeRangeChange(range: Range) {
+  const handleTimeRangeChange = (range: Range) => {
     if (range === Range.ONE_YEAR && !isUserPro) {
       setProDialogOpen(true);
       return;
     }
-
-    setTimeRange(range);
-  }
+    onStateChange({ timeRange: range });
+  };
 
   function handleCategoryChange(category: "version" | "country") {
     if (category === "country" && !isUserPro) {
@@ -85,7 +49,7 @@ export function StatsControls({
       return;
     }
 
-    setCategory(category);
+    onStateChange({ category: category });
   }
 
   function handleCIDownloadsFilterChange(value: boolean) {
@@ -94,19 +58,19 @@ export function StatsControls({
       return;
     }
 
-    setIncludeCIDownloads(value);
+    onStateChange({ includeCIDownloads: value });
   }
 
   function handleGranularity(granularity: DisplayStyle) {
-    setGranularity(granularity);
+    onStateChange({ granularity });
   }
 
   function handleVersionChange(versions: Version[]) {
-    setSelectedVersions(versions);
+    onStateChange({ selectedVersions: versions });
   }
 
   function handleViewType(viewType: "chart" | "table") {
-    setViewType(viewType);
+    onStateChange({ viewType });
   }
 
   return (
@@ -114,7 +78,7 @@ export function StatsControls({
       <div className="space-y-4">
         <div className="space-y-2">
           <Label>Category</Label>
-          <Select value={category} onValueChange={handleCategoryChange}>
+          <Select value={state.category} onValueChange={handleCategoryChange}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -132,7 +96,7 @@ export function StatsControls({
 
         <div className="space-y-2">
           <Label>View Type</Label>
-          <ToggleGroup type="single" value={viewType} onValueChange={handleViewType} className="justify-start">
+          <ToggleGroup type="single" value={state.viewType} onValueChange={handleViewType} className="justify-start">
             <ToggleGroupItem value="chart" aria-label="Chart view">
               <BarChart2 className="h-4 w-4 mr-2" />
               Chart
@@ -148,13 +112,13 @@ export function StatsControls({
         <Separator className="my-4" />
 
 
-        {category === "version" && (
+        {state.category === "version" && (
           <div className="space-y-6">
 
             <div className="space-y-2">
               <Label>Time Range</Label>
-              <Select value={timeRange.key}
-                      onValueChange={(v) => handleTimeRangeChange(Range.fromKey(v))}>
+              <Select value={state.timeRange.key}
+                onValueChange={(v) => handleTimeRangeChange(Range.fromKey(v))}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -172,7 +136,7 @@ export function StatsControls({
 
             <div className="space-y-2">
               <Label>Time Granularity</Label>
-              <Select value={granularity.key} onValueChange={(v: string) => {
+              <Select value={state.granularity.key} onValueChange={(v: string) => {
                 handleGranularity(DisplayStyle.fromKey(v));
               }}>
                 <SelectTrigger>
@@ -191,7 +155,7 @@ export function StatsControls({
                 <Label>Include CI Downloads</Label>
                 <Crown className="ml-2 h-4 w-4 text-yellow-500" />
               </div>
-              <Switch checked={includeCIDownloads} onCheckedChange={handleCIDownloadsFilterChange} />
+              <Switch checked={state.includeCIDownloads} onCheckedChange={handleCIDownloadsFilterChange} />
             </div>
 
             <div className="space-y-2">
@@ -206,8 +170,8 @@ export function StatsControls({
                   <HelpCircle className="ml-2 h-4 w-4 text-muted-foreground" />
                 </InteractiveTooltip>
               </div>
-              <VersionDropdown versions={versions} maxSelections={5} initialVersions={selectedVersions}
-                               onSelectVersions={handleVersionChange} />
+              <VersionDropdown versions={state.versions} maxSelections={5} initialVersions={state.selectedVersions}
+                onSelectVersions={handleVersionChange} />
             </div>
           </div>)}
 

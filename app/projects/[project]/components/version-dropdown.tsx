@@ -9,16 +9,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formatDownloads } from "@/app/projects/[project]/helper/number_format";
 import { getDownloadColor } from "@/app/projects/[project]/helper/downloads-color";
-
-export interface Version {
-  version: string;
-  downloads: number;
-}
-
-interface VersionPattern {
-  pattern: string;
-  type: "pattern";
-}
+import { Version, VersionPattern, Selection } from "../model";
 
 interface VersionDropdownProps {
   versions: Version[];
@@ -27,7 +18,6 @@ interface VersionDropdownProps {
   onSelectVersions: (versions: Version[]) => void;
 }
 
-type Selection = Version | VersionPattern;
 
 function matchesPattern(version: string, pattern: string): boolean {
   if (!pattern.includes("*")) return version === pattern;

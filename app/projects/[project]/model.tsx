@@ -1,3 +1,5 @@
+import { Version } from "./components/version-dropdown";
+
 export interface VersionDownloads {
   [version: string]: number;
 }
@@ -95,31 +97,26 @@ export class DisplayStyle extends BaseParamValue {
   }
 }
 
-// Utility for managing parameter values
-export class ParamValueManager<T extends IParamValue> {
-  private values: T[];
+export interface Version {
+  version: string;
+  downloads: number;
+}
 
-  constructor(values: T[]) {
-    this.values = values;
-  }
+export interface VersionPattern {
+  pattern: string;
+  type: "pattern";
+}
 
-  get(key: string): T {
-    const found = this.values.find(v => v.key === key);
-    if (!found) {
-      throw new Error(`Invalid key: ${key}`);
-    }
-    return found;
-  }
+export type Selection = Version | VersionPattern;
 
-  getOrDefault(key: string, defaultValue: T): T {
-    try {
-      return this.get(key);
-    } catch {
-      return defaultValue;
-    }
-  }
 
-  getAll(): T[] {
-    return this.values;
-  }
+export type DashboardState = {
+  packages: string[];
+  category: "version" | "country";
+  viewType: "chart" | "table";
+  timeRange: Range;
+  granularity: DisplayStyle;
+  includeCIDownloads: boolean;
+  versions: Version[];
+  selectedVersions: Version[];
 }
